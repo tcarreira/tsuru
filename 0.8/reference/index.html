@@ -1,0 +1,548 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Reference &mdash; tsuru 0.8.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuring tsuru" href="config.html" />
+    <link rel="prev" title="Building your service" href="../services/build.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.8.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Configuring tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsuru-admin.html">tsuru-admin usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsuru-client.html">Client usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="reference">
+<span id="id1"></span><h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuring tsuru</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config.html#notation">Notation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#tsuru-configuration">tsuru configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="config.html#http-server">HTTP server</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="config.html#listen">listen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#use-tls">use-tls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#tls-cert-file">tls:cert-file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#tls-key-file">tls:key-file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#database-access">Database access</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="config.html#database-url">database:url</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#database-name">database:name</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#email-configuration">Email configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="config.html#smtp-server">smtp:server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#smtp-user">smtp:user</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#smtp-password">smtp:password</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#git-configuration">Git configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="config.html#git-unit-repo">git:unit-repo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#git-api-server">git:api-server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#git-rw-host">git:rw-host</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#git-ro-host">git:ro-host</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#authentication-configuration">Authentication configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="config.html#auth-scheme">auth:scheme</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#auth-user-registration">auth:user-registration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#auth-hash-cost">auth:hash-cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#auth-token-expire-days">auth:token-expire-days</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#auth-max-simultaneous-sessions">auth:max-simultaneous-sessions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#auth-oauth">auth:oauth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#auth-oauth-client-id">auth:oauth:client-id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#auth-oauth-client-secret">auth:oauth:client-secret</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#auth-oauth-scope">auth:oauth:scope</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#auth-oauth-auth-url">auth:oauth:auth-url</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#auth-oauth-token-url">auth:oauth:token-url</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#auth-oauth-info-url">auth:oauth:info-url</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#auth-oauth-collection">auth:oauth:collection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#auth-oauth-callback-port">auth:oauth:callback-port</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#queue-configuration">queue configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="config.html#queue">queue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#redis-queue-host">redis-queue:host</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#redis-queue-port">redis-queue:port</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#redis-queue-password">redis-queue:password</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#redis-queue-db">redis-queue:db</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#admin-users">Admin users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="config.html#admin-team">admin-team</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#quota-management">Quota management</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="config.html#quota-units-per-app">quota:units-per-app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#quota-apps-per-user">quota:apps-per-user</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#log">Log</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="config.html#debug">debug</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#log-file">log:file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#hipache">Hipache</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="config.html#hipache-redis-server">hipache:redis-server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#hipache-domain">hipache:domain</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#defining-the-provisioner">Defining the provisioner</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="config.html#provisioner">provisioner</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#docker-provisioner-configuration">Docker provisioner configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-collection">docker:collection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-registry">docker:registry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-repository-namespace">docker:repository-namespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-router">docker:router</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-deploy-cmd">docker:deploy-cmd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-segregate">docker:segregate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-scheduler-total-memory-metadata">docker:scheduler:total-memory-metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-scheduler-max-used-memory">docker:scheduler:max-used-memory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-cluster-storage">docker:cluster:storage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-cluster-mongo-url">docker:cluster:mongo-url</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-cluster-mongo-database">docker:cluster:mongo-database</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-run-cmd-bin">docker:run-cmd:bin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-run-cmd-port">docker:run-cmd:port</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-ssh-add-key-cmd">docker:ssh:add-key-cmd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-ssh-public-key">docker:ssh:public-key</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-ssh-user">docker:ssh:user</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-healing-heal-nodes">docker:healing:heal-nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-healing-active-monitoring-interval">docker:healing:active-monitoring-interval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-healing-disabled-time">docker:healing:disabled-time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-healing-max-failures">docker:healing:max-failures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-healing-wait-new-time">docker:healing:wait-new-time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-healing-heal-containers-timeout">docker:healing:heal-containers-timeout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-healing-events-collection">docker:healing:events_collection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#docker-healthcheck-max-time">docker:healthcheck:max-time</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#iaas-configuration">IaaS configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="config.html#general-settings">General settings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="config.html#iaas-default">iaas:default</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#iaas-node-protocol">iaas:node-protocol</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#iaas-node-port">iaas:node-port</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#iaas-collection">iaas:collection</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#ec2-iaas">EC2 IaaS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="config.html#iaas-ec2-key-id">iaas:ec2:key-id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#iaas-ec2-secret-key">iaas:ec2:secret-key</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#cloudstack-iaas">CloudStack IaaS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="config.html#iaas-cloudstack-api-key">iaas:cloudstack:api-key</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#iaas-cloudstack-secret-key">iaas:cloudstack:secret-key</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#iaas-cloudstack-url">iaas:cloudstack:url</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#iaas-cloudstack-user-data">iaas:cloudstack:user-data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="config.html#custom-iaas">Custom IaaS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="config.html#iaas-custom-name-provider">iaas:custom:&lt;name&gt;:provider</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html#iaas-custom-name-any-other-option">iaas:custom:&lt;name&gt;:&lt;any_other_option&gt;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#sample-file">Sample file</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#endpoints">1. Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#apps">1.1 Apps</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#list-apps">List apps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#info-about-an-app">Info about an app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#remove-an-app">Remove an app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#create-an-app">Create an app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#restart-an-app">Restart an app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#get-app-environment-variables">Get app environment variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#set-an-app-environment">Set an app environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#delete-an-app-environment">Delete an app environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#swapping-two-apps">Swapping two apps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#get-app-log">Get app log</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#services">1.2 Services</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#list-services">List services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#create-a-new-service">Create a new service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#remove-a-service">Remove a service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#update-a-service">Update a service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#get-info-about-a-service">Get info about a service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#get-service-documentation">Get service documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#update-service-documentation">Update service documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#grant-access-to-a-service">Grant access to a service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#revoke-access-from-a-service">Revoke access from a service</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#service-instances">1.3 Service instances</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#add-a-new-service-instance">Add a new service instance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#remove-a-service-instance">Remove a service instance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#bind-a-service-instance-with-an-app">Bind a service instance with an app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#unbind-a-service-instance-with-an-app">Unbind a service instance with an app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#list-all-services-and-your-instances">List all services and your instances</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#get-an-info-about-a-service-instance">Get an info about a service instance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#service-instance-status">service instance status</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#quotas">1.4 Quotas</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#get-quota-info-of-an-user">Get quota info of an user</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#healers">1.5 Healers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#list-healers">List healers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#execute-healer">Execute healer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#platforms">1.6 Platforms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#list-platforms">List platforms</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#users">1.7 Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#create-an-user">Create an user</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#reset-password">Reset password</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#login">Login</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#logout">Logout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#change-password">Change password</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#remove-an-user">Remove an user</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#add-public-key-to-user">Add public key to user</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#remove-public-key-from-user">Remove public key from user</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#teams">1.8 Teams</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#list-teams">List teams</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#info-about-a-team">Info about a team</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#add-a-team">Add a team</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#remove-a-team">Remove a team</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#add-user-to-team">Add user to team</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#remove-user-from-team">Remove user from team</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#tokens">1.9 Tokens</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#generate-app-token">Generate app token</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#deploy">1.10 Deploy</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#deploy-list">Deploy list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#get-info-about-a-deploy">Get info about a deploy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tsuru-admin.html">tsuru-admin usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tsuru-admin.html#setting-a-target">Setting a target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsuru-admin.html#commands">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-admin.html#container-move">container-move</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-admin.html#containers-move">containers-move</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-admin.html#containers-rebalance">containers-rebalance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-admin.html#docker-node-add">docker-node-add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-admin.html#docker-node-list">docker-node-list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-admin.html#docker-node-remove">docker-node-remove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-admin.html#platform-add">platform-add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-admin.html#platform-update">platform-update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-admin.html#machines-list">machines-list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-admin.html#machine-destroy">machine-destroy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-admin.html#ssh">ssh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-admin.html#docker-healing-list">docker-healing-list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-admin.html#plan-create">plan-create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-admin.html#plan-remove">plan-remove</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tsuru-client.html">Client usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tsuru-client.html#setting-a-target">Setting a target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsuru-client.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsuru-client.html#apps">Apps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-client.html#associating-your-user-to-a-team">Associating your user to a team</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-client.html#creating-an-app">Creating an app</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-client.html#listing-your-apps">Listing your apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tsuru-client.html#showing-app-info">Showing app info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tsuru-client.html#public-keys">Public Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsuru-client.html#running-commands">Running commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsuru-client.html#further-instructions">Further instructions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="config.html" class="btn btn-neutral float-right" title="Configuring tsuru" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../services/build.html" class="btn btn-neutral" title="Building your service" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.8.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.8.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

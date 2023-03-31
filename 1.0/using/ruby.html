@@ -1,0 +1,651 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Deploying Ruby applications in tsuru &mdash; tsuru 1.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Deploying Go applications in tsuru" href="go.html" />
+    <link rel="prev" title="Deploying Python applications in tsuru" href="python.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Using</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="install-client.html">Installing tsuru clients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html">Deploying Python applications in tsuru</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Deploying Ruby applications in tsuru</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-the-app-within-tsuru">Creating the app within tsuru</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#application-code">Application code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#git-deployment">Git deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#listing-dependencies">Listing dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-application">Running the application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deployment-hooks">Deployment hooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#going-further">Going further</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="go.html">Deploying Go applications in tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="java.html">Deploying Java applications on tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="php.html">Deploying PHP applications in tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildpacks.html">Using Buildpacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services.html">Using services with your app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery.html">Recovering an application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="procfile.html">Procfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsuru.yaml.html">tsuru.yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-states.html">Unit states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/plugins.html">tsuru client plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">Application Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application-pool.html">Choose a pool to deploy your app</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/index.html">Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Using</a> &raquo;</li>
+        
+      <li>Deploying Ruby applications in tsuru</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/using/ruby.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="deploying-ruby-applications-in-tsuru">
+<h1>Deploying Ruby applications in tsuru<a class="headerlink" href="#deploying-ruby-applications-in-tsuru" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This document is a hands-on guide to deploying a simple Ruby application in
+tsuru. The example application will be a very simple Rails project associated
+to a MySQL service.</p>
+</div>
+<div class="section" id="creating-the-app-within-tsuru">
+<h2>Creating the app within tsuru<a class="headerlink" href="#creating-the-app-within-tsuru" title="Permalink to this headline">¶</a></h2>
+<p>To create an app, you use the command <cite>app-create</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-create &lt;app-name&gt; &lt;app-platform&gt;
+</pre></div>
+</div>
+<p>For Ruby, the app platform is <code class="docutils literal notranslate"><span class="pre">ruby</span></code>! Let’s be over creative and develop a
+never-developed tutorial-app: a blog, and its name will also be very creative,
+let’s call it “blog”:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-create blog ruby
+</pre></div>
+</div>
+<p>To list all available platforms, use the command <cite>platform-list</cite>.</p>
+<p>You can see all your applications using the command <cite>app-list</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-list
++-------------+-------------------------+-------------+
+<span class="p">|</span> Application <span class="p">|</span> Units State Summary     <span class="p">|</span> Address     <span class="p">|</span>
++-------------+-------------------------+-------------+
+<span class="p">|</span> blog        <span class="p">|</span> <span class="m">0</span> of <span class="m">0</span> units in-service <span class="p">|</span>             <span class="p">|</span>
++-------------+-------------------------+-------------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="application-code">
+<h2>Application code<a class="headerlink" href="#application-code" title="Permalink to this headline">¶</a></h2>
+<p>This document will not focus on how to write a blog with Rails, you can clone
+the entire source direct from GitHub:
+<a class="reference external" href="https://github.com/tsuru/tsuru-ruby-sample">https://github.com/tsuru/tsuru-ruby-sample</a>. Here is what we did for the
+project:</p>
+<ol class="arabic simple">
+<li>Create the project (<code class="docutils literal notranslate"><span class="pre">rails</span> <span class="pre">new</span> <span class="pre">blog</span></code>)</li>
+<li>Generate the scaffold for Post (<code class="docutils literal notranslate"><span class="pre">rails</span> <span class="pre">generate</span> <span class="pre">scaffold</span> <span class="pre">Post</span> <span class="pre">title:string</span> <span class="pre">body:text</span></code>)</li>
+</ol>
+</div>
+<div class="section" id="git-deployment">
+<h2>Git deployment<a class="headerlink" href="#git-deployment" title="Permalink to this headline">¶</a></h2>
+<p>When you create a new app, tsuru will display the Git remote that you should
+use. You can always get it using the command <cite>app-info</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-info --app blog
+Application: blog
+Repository: git@192.168.50.4.nip.io:blog.git
+Platform: ruby
+Teams: admin
+Address: blog.192.168.50.4.nip.io
+Owner: admin@example.com
+Team owner: admin
+Deploys: <span class="m">0</span>
+Pool: theonepool
+
+App Plan:
++---------------+--------+------+-----------+--------+---------+
+<span class="p">|</span> Name          <span class="p">|</span> Memory <span class="p">|</span> Swap <span class="p">|</span> Cpu Share <span class="p">|</span> Router <span class="p">|</span> Default <span class="p">|</span>
++---------------+--------+------+-----------+--------+---------+
+<span class="p">|</span> autogenerated <span class="p">|</span> <span class="m">0</span> MB   <span class="p">|</span> <span class="m">0</span> MB <span class="p">|</span> <span class="m">100</span>       <span class="p">|</span>        <span class="p">|</span> <span class="nb">false</span>   <span class="p">|</span>
++---------------+--------+------+-----------+--------+---------+
+</pre></div>
+</div>
+<p>The Git remote will be used to deploy your application using Git. You can just
+push to tsuru remote and your project will be deployed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git push git@192.168.50.4.nip.io:blog.git master
+Counting objects: <span class="m">86</span>, <span class="k">done</span>.
+Delta compression using up to <span class="m">4</span> threads.
+Compressing objects: <span class="m">100</span>% <span class="o">(</span><span class="m">75</span>/75<span class="o">)</span>, <span class="k">done</span>.
+Writing objects: <span class="m">100</span>% <span class="o">(</span><span class="m">86</span>/86<span class="o">)</span>, <span class="m">29</span>.75 KiB, <span class="k">done</span>.
+Total <span class="m">86</span> <span class="o">(</span>delta <span class="m">2</span><span class="o">)</span>, reused <span class="m">0</span> <span class="o">(</span>delta <span class="m">0</span><span class="o">)</span>
+remote: Cloning into <span class="s1">&#39;/home/application/current&#39;</span>...
+remote: requirements.apt not found.
+remote: Skipping...
+remote: /home/application/current /
+remote: Fetching gem metadata from https://rubygems.org/.........
+remote: Fetching gem metadata from https://rubygems.org/..
+<span class="c1">#####################################</span>
+<span class="c1">#          OMIT (see below)         #</span>
+<span class="c1">#####################################</span>
+remote:  ---&gt; App will be restarted, please check its log <span class="k">for</span> more details...
+remote:
+To git@192.168.50.4.nip.io:blog.git
+ * <span class="o">[</span>new branch<span class="o">]</span>      master -&gt; master
+</pre></div>
+</div>
+<p>If you get a “Permission denied (publickey).”, make sure you’re member of a
+team and have a public key added to tsuru. To add a key, use the command <cite>key-add</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru key-add mykey ~/.ssh/id_rsa.pub
+</pre></div>
+</div>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">add</span></code> to avoid typing the entire remote url every time
+you want to push:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git remote add tsuru git@192.168.50.4.nip.io:blog.git
+</pre></div>
+</div>
+<p>Then you can run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git push tsuru master
+Everything up-to-date
+</pre></div>
+</div>
+<p>And you will be also able to omit the <code class="docutils literal notranslate"><span class="pre">--app</span></code> flag from now on:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-info
+Application: blog
+Repository: git@192.168.50.4.nip.io:blog.git
+Platform: ruby
+Teams: admin
+Address: blog.192.168.50.4.nip.io
+Owner: admin@example.com
+Team owner: admin
+Deploys: <span class="m">0</span>
+Pool: theonepool
+Units: <span class="m">1</span>
++------------+---------+
+<span class="p">|</span> Unit       <span class="p">|</span> State   <span class="p">|</span>
++------------+---------+
+<span class="p">|</span> eab5151eff <span class="p">|</span> started <span class="p">|</span>
++------------+---------+
+
+App Plan:
++---------------+--------+------+-----------+--------+---------+
+<span class="p">|</span> Name          <span class="p">|</span> Memory <span class="p">|</span> Swap <span class="p">|</span> Cpu Share <span class="p">|</span> Router <span class="p">|</span> Default <span class="p">|</span>
++---------------+--------+------+-----------+--------+---------+
+<span class="p">|</span> autogenerated <span class="p">|</span> <span class="m">0</span> MB   <span class="p">|</span> <span class="m">0</span> MB <span class="p">|</span> <span class="m">100</span>       <span class="p">|</span>        <span class="p">|</span> <span class="nb">false</span>   <span class="p">|</span>
++---------------+--------+------+-----------+--------+---------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="listing-dependencies">
+<h2>Listing dependencies<a class="headerlink" href="#listing-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>In the last section we omitted the dependencies step of deploy. In tsuru, an
+application can have two kinds of dependencies:</p>
+<ul class="simple">
+<li><strong>Operating system dependencies</strong>, represented by packages in the package manager
+of the underlying operating system (e.g.: <code class="docutils literal notranslate"><span class="pre">yum</span></code> and <code class="docutils literal notranslate"><span class="pre">apt-get</span></code>);</li>
+<li><strong>Platform dependencies</strong>, represented by packages in the package manager of the
+platform/language (in Ruby, <code class="docutils literal notranslate"><span class="pre">bundler</span></code>).</li>
+</ul>
+<p>All <code class="docutils literal notranslate"><span class="pre">apt-get</span></code> dependencies must be specified in a <code class="docutils literal notranslate"><span class="pre">requirements.apt</span></code> file,
+located in the root of your application, and ruby dependencies must be located
+in a file called <code class="docutils literal notranslate"><span class="pre">Gemfile</span></code>, also in the root of the application.  Since we
+will use MySQL with Rails, we need to install <code class="docutils literal notranslate"><span class="pre">mysql</span></code> package using <code class="docutils literal notranslate"><span class="pre">gem</span></code>,
+and this package depends on an <code class="docutils literal notranslate"><span class="pre">apt-get</span></code> package: <code class="docutils literal notranslate"><span class="pre">libmysqlclient-dev</span></code>, so
+here is how <code class="docutils literal notranslate"><span class="pre">requirements.apt</span></code> looks like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>libmysqlclient-dev
+</pre></div>
+</div>
+<p>And here is <code class="docutils literal notranslate"><span class="pre">Gemfile</span></code>:</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="s1">&#39;https://rubygems.org&#39;</span>
+
+<span class="n">gem</span> <span class="s1">&#39;rails&#39;</span><span class="p">,</span> <span class="s1">&#39;3.2.13&#39;</span>
+<span class="n">gem</span> <span class="s1">&#39;mysql&#39;</span>
+<span class="n">gem</span> <span class="s1">&#39;sass-rails&#39;</span><span class="p">,</span>   <span class="s1">&#39;~&gt; 3.2.3&#39;</span>
+<span class="n">gem</span> <span class="s1">&#39;coffee-rails&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 3.2.1&#39;</span>
+<span class="n">gem</span> <span class="s1">&#39;therubyracer&#39;</span><span class="p">,</span> <span class="ss">platforms</span><span class="p">:</span> <span class="s1">&#39;ruby&#39;</span>
+<span class="n">gem</span> <span class="s1">&#39;uglifier&#39;</span><span class="p">,</span> <span class="s1">&#39;&gt;= 1.0.3&#39;</span>
+<span class="n">gem</span> <span class="s1">&#39;jquery-rails&#39;</span>
+</pre></div>
+</div>
+<p>You can see the complete output of installing these dependencies below:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git push tsuru master
+<span class="c1">#####################################</span>
+<span class="c1">#                OMIT               #</span>
+<span class="c1">#####################################</span>
+remote: Reading package lists...
+remote: Building dependency tree...
+remote: Reading state information...
+remote: The following extra packages will be installed:
+remote:   libmysqlclient18 mysql-common
+remote: The following NEW packages will be installed:
+remote:   libmysqlclient-dev libmysqlclient18 mysql-common
+remote: <span class="m">0</span> upgraded, <span class="m">3</span> newly installed, <span class="m">0</span> to remove and <span class="m">0</span> not upgraded.
+remote: Need to get <span class="m">2360</span> kB of archives.
+remote: After this operation, <span class="m">9289</span> kB of additional disk space will be used.
+remote: Get:1 http://archive.ubuntu.com/ubuntu/ quantal/main mysql-common all <span class="m">5</span>.5.27-0ubuntu2 <span class="o">[</span><span class="m">13</span>.7 kB<span class="o">]</span>
+remote: Get:2 http://archive.ubuntu.com/ubuntu/ quantal/main libmysqlclient18 amd64 <span class="m">5</span>.5.27-0ubuntu2 <span class="o">[</span><span class="m">949</span> kB<span class="o">]</span>
+remote: Get:3 http://archive.ubuntu.com/ubuntu/ quantal/main libmysqlclient-dev amd64 <span class="m">5</span>.5.27-0ubuntu2 <span class="o">[</span><span class="m">1398</span> kB<span class="o">]</span>
+remote: Fetched <span class="m">2360</span> kB in 2s <span class="o">(</span><span class="m">1112</span> kB/s<span class="o">)</span>
+remote: Selecting previously unselected package mysql-common.
+remote: <span class="o">(</span>Reading database ... <span class="m">41063</span> files and directories currently installed.<span class="o">)</span>
+remote: Unpacking mysql-common <span class="o">(</span>from .../mysql-common_5.5.27-0ubuntu2_all.deb<span class="o">)</span> ...
+remote: Selecting previously unselected package libmysqlclient18:amd64.
+remote: Unpacking libmysqlclient18:amd64 <span class="o">(</span>from .../libmysqlclient18_5.5.27-0ubuntu2_amd64.deb<span class="o">)</span> ...
+remote: Selecting previously unselected package libmysqlclient-dev.
+remote: Unpacking libmysqlclient-dev <span class="o">(</span>from .../libmysqlclient-dev_5.5.27-0ubuntu2_amd64.deb<span class="o">)</span> ...
+remote: Setting up mysql-common <span class="o">(</span><span class="m">5</span>.5.27-0ubuntu2<span class="o">)</span> ...
+remote: Setting up libmysqlclient18:amd64 <span class="o">(</span><span class="m">5</span>.5.27-0ubuntu2<span class="o">)</span> ...
+remote: Setting up libmysqlclient-dev <span class="o">(</span><span class="m">5</span>.5.27-0ubuntu2<span class="o">)</span> ...
+remote: Processing triggers <span class="k">for</span> libc-bin ...
+remote: ldconfig deferred processing now taking place
+remote: /home/application/current /
+remote: Fetching gem metadata from https://rubygems.org/..........
+remote: Fetching gem metadata from https://rubygems.org/..
+remote: Using rake <span class="o">(</span><span class="m">10</span>.1.0<span class="o">)</span>
+remote: Using i18n <span class="o">(</span><span class="m">0</span>.6.1<span class="o">)</span>
+remote: Using multi_json <span class="o">(</span><span class="m">1</span>.7.8<span class="o">)</span>
+remote: Using activesupport <span class="o">(</span><span class="m">3</span>.2.13<span class="o">)</span>
+remote: Using builder <span class="o">(</span><span class="m">3</span>.0.4<span class="o">)</span>
+remote: Using activemodel <span class="o">(</span><span class="m">3</span>.2.13<span class="o">)</span>
+remote: Using erubis <span class="o">(</span><span class="m">2</span>.7.0<span class="o">)</span>
+remote: Using journey <span class="o">(</span><span class="m">1</span>.0.4<span class="o">)</span>
+remote: Using rack <span class="o">(</span><span class="m">1</span>.4.5<span class="o">)</span>
+remote: Using rack-cache <span class="o">(</span><span class="m">1</span>.2<span class="o">)</span>
+remote: Using rack-test <span class="o">(</span><span class="m">0</span>.6.2<span class="o">)</span>
+remote: Using hike <span class="o">(</span><span class="m">1</span>.2.3<span class="o">)</span>
+remote: Using tilt <span class="o">(</span><span class="m">1</span>.4.1<span class="o">)</span>
+remote: Using sprockets <span class="o">(</span><span class="m">2</span>.2.2<span class="o">)</span>
+remote: Using actionpack <span class="o">(</span><span class="m">3</span>.2.13<span class="o">)</span>
+remote: Using mime-types <span class="o">(</span><span class="m">1</span>.23<span class="o">)</span>
+remote: Using polyglot <span class="o">(</span><span class="m">0</span>.3.3<span class="o">)</span>
+remote: Using treetop <span class="o">(</span><span class="m">1</span>.4.14<span class="o">)</span>
+remote: Using mail <span class="o">(</span><span class="m">2</span>.5.4<span class="o">)</span>
+remote: Using actionmailer <span class="o">(</span><span class="m">3</span>.2.13<span class="o">)</span>
+remote: Using arel <span class="o">(</span><span class="m">3</span>.0.2<span class="o">)</span>
+remote: Using tzinfo <span class="o">(</span><span class="m">0</span>.3.37<span class="o">)</span>
+remote: Using activerecord <span class="o">(</span><span class="m">3</span>.2.13<span class="o">)</span>
+remote: Using activeresource <span class="o">(</span><span class="m">3</span>.2.13<span class="o">)</span>
+remote: Using coffee-script-source <span class="o">(</span><span class="m">1</span>.6.3<span class="o">)</span>
+remote: Using execjs <span class="o">(</span><span class="m">1</span>.4.0<span class="o">)</span>
+remote: Using coffee-script <span class="o">(</span><span class="m">2</span>.2.0<span class="o">)</span>
+remote: Using rack-ssl <span class="o">(</span><span class="m">1</span>.3.3<span class="o">)</span>
+remote: Using json <span class="o">(</span><span class="m">1</span>.8.0<span class="o">)</span>
+remote: Using rdoc <span class="o">(</span><span class="m">3</span>.12.2<span class="o">)</span>
+remote: Using thor <span class="o">(</span><span class="m">0</span>.18.1<span class="o">)</span>
+remote: Using railties <span class="o">(</span><span class="m">3</span>.2.13<span class="o">)</span>
+remote: Using coffee-rails <span class="o">(</span><span class="m">3</span>.2.2<span class="o">)</span>
+remote: Using jquery-rails <span class="o">(</span><span class="m">3</span>.0.4<span class="o">)</span>
+remote: Installing libv8 <span class="o">(</span><span class="m">3</span>.11.8.17<span class="o">)</span>
+remote: Installing mysql <span class="o">(</span><span class="m">2</span>.9.1<span class="o">)</span>
+remote: Using bundler <span class="o">(</span><span class="m">1</span>.3.5<span class="o">)</span>
+remote: Using rails <span class="o">(</span><span class="m">3</span>.2.13<span class="o">)</span>
+remote: Installing ref <span class="o">(</span><span class="m">1</span>.0.5<span class="o">)</span>
+remote: Using sass <span class="o">(</span><span class="m">3</span>.2.10<span class="o">)</span>
+remote: Using sass-rails <span class="o">(</span><span class="m">3</span>.2.6<span class="o">)</span>
+remote: Installing therubyracer <span class="o">(</span><span class="m">0</span>.11.4<span class="o">)</span>
+remote: Installing uglifier <span class="o">(</span><span class="m">2</span>.1.2<span class="o">)</span>
+remote: Your bundle is complete!
+remote: Gems in the groups <span class="nb">test</span> and development were not installed.
+remote: It was installed into ./vendor/bundle
+<span class="c1">#####################################</span>
+<span class="c1">#                OMIT               #</span>
+<span class="c1">#####################################</span>
+To git@192.168.50.4.nip.io:blog.git
+   <span class="m">9515685</span>..d67c3cd  master -&gt; master
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-the-application">
+<h2>Running the application<a class="headerlink" href="#running-the-application" title="Permalink to this headline">¶</a></h2>
+<p>As you can see, in the deploy output there is a step described as “Restarting
+your app”. In this step, tsuru will restart your app if it’s running, or start
+it if it’s not. But how does tsuru start an application? That’s very simple, it
+uses a Procfile (a concept stolen from Foreman). In this Procfile, you describe
+how your application should be started. Here is how the Procfile should look like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>web: bundle <span class="nb">exec</span> rails server -p <span class="nv">$PORT</span> -e production
+</pre></div>
+</div>
+<p>Now we commit the file and push the changes to tsuru Git server, running
+another deploy:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git add Procfile
+$ git commit -m <span class="s2">&quot;Procfile: added file&quot;</span>
+$ git push tsuru master
+<span class="c1">#####################################</span>
+<span class="c1">#                OMIT               #</span>
+<span class="c1">#####################################</span>
+remote:  ---&gt; App will be restarted, please check its log <span class="k">for</span> more details...
+remote:
+To git@192.168.50.4.nip.io:blog.git
+   d67c3cd..f2a5d2d  master -&gt; master
+</pre></div>
+</div>
+<p>Now that the app is deployed, you can access it from your browser, getting the
+IP or host listed in <code class="docutils literal notranslate"><span class="pre">app-list</span></code> and opening it. For example,
+in the list below:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-list
++-------------+-------------------------+---------------------+
+<span class="p">|</span> Application <span class="p">|</span> Units State Summary     <span class="p">|</span> Address             <span class="p">|</span>
++-------------+-------------------------+---------------------+
+<span class="p">|</span> blog        <span class="p">|</span> <span class="m">1</span> of <span class="m">1</span> units in-service <span class="p">|</span> blog.cloud.tsuru.io <span class="p">|</span>
++-------------+-------------------------+---------------------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="deployment-hooks">
+<h2>Deployment hooks<a class="headerlink" href="#deployment-hooks" title="Permalink to this headline">¶</a></h2>
+<p>It would be boring to manually run <code class="docutils literal notranslate"><span class="pre">rake</span> <span class="pre">db:migrate</span></code> after every deployment.
+So we can configure an automatic hook to always run before or after
+the app restarts.</p>
+<p>tsuru parses a file called <code class="docutils literal notranslate"><span class="pre">tsuru.yaml</span></code> and runs restart hooks. As the
+extension suggests, this is a YAML file, that contains a list of commands that
+should run before and after the restart. Here is our example of tsuru.yaml:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">hooks</span><span class="p">:</span>
+  <span class="nt">restart</span><span class="p">:</span>
+    <span class="nt">before</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">RAILS_ENV=production bundle exec rake db:migrate</span>
+</pre></div>
+</div>
+<p>For more details, check the <a class="reference internal" href="tsuru.yaml.html#yaml-deployment-hooks"><span class="std std-ref">hooks documentation</span></a>.</p>
+<p>tsuru will look for the file in the root of the project. Let’s commit and
+deploy it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git add tsuru.yaml
+$ git commit -m <span class="s2">&quot;tsuru.yaml: added file&quot;</span>
+$ git push tsuru master
+<span class="c1">#####################################</span>
+<span class="c1">#                OMIT               #</span>
+<span class="c1">#####################################</span>
+To git@192.168.50.4.nip.io:blog.git
+   a780de9..1b675b8  master -&gt; master
+</pre></div>
+</div>
+<p>It is necessary to compile de assets before the app restart. To do it we can
+use the <code class="docutils literal notranslate"><span class="pre">rake</span> <span class="pre">assets:precompile</span></code> command. Then let’s add the command to
+compile the assets in tsuru.yaml:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">hooks</span><span class="p">:</span>
+  <span class="nt">build</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">RAILS_ENV=production bundle exec rake assets:precompile</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git add tsuru.yaml
+$ git commit -m <span class="s2">&quot;tsuru.yaml: added file&quot;</span>
+$ git push tsuru master
+<span class="c1">#####################################</span>
+<span class="c1">#                OMIT               #</span>
+<span class="c1">#####################################</span>
+To git@192.168.50.4.nip.io:blog.git
+   a780de9..1b675b8  master -&gt; master
+</pre></div>
+</div>
+<p>It’s done! Now we have a Rails project deployed on tsuru.</p>
+<p>Now we can access your <cite>blog app</cite> in the URL returned in <cite>app-info</cite>.</p>
+</div>
+<div class="section" id="going-further">
+<h2>Going further<a class="headerlink" href="#going-further" title="Permalink to this headline">¶</a></h2>
+<p>For more information, you can dig into the <a class="reference external" href="http://docs.tsuru.io">tsuru docs</a>, or
+read the <a class="reference external" href="https://tsuru-client.readthedocs.org">complete instructions on how to use the tsuru command</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="go.html" class="btn btn-neutral float-right" title="Deploying Go applications in tsuru" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="python.html" class="btn btn-neutral" title="Deploying Python applications in tsuru" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.0.1
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

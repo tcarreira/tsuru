@@ -1,0 +1,881 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configuring tsuru &mdash; tsuru 0.2.12 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="contribute" href="contribute.html" />
+    <link rel="prev" title="community" href="community.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.12
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Build your own PaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">community</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuring tsuru</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#notation">Notation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tsuru-configuration">Tsuru configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#http-server">HTTP server</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#listen">listen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#use-tls">use-tls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tls-cert-file">tls:cert-file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tls-key-file">tls:key-file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#database-access">Database access</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#database-url">database:url</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#database-name">database:name</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#collector">Collector</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#collector-ticker-time">collector:ticker-time</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#email-configuration">Email configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#smtp-server">smtp:server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smtp-user">smtp:user</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smtp-password">smtp:password</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#git-configuration">Git configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#git-unit-repo">git:unit-repo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#git-api-server">git:api-server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#git-rw-host">git:rw-host</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#git-ro-host">git:ro-host</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#authentication-configuration">Authentication configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#auth-user-registration">auth:user-registration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth-hash-cost">auth:hash-cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth-token-expire-days">auth:token-expire-days</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth-max-simultaneous-sessions">auth:max-simultaneous-sessions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#amazon-web-services-aws-configuration">Amazon Web Services (AWS) configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bucket-support">bucket-support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aws-access-key-id">aws:access-key-id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aws-secret-access-key">aws:secret-access-key</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aws-ec2-endpoint">aws:ec2:endpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aws-iam-endpoint">aws:iam:endpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aws-s3-region-name">aws:s3:region-name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aws-s3-endpoint">aws:s3:endpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aws-s3-location-constraint">aws:s3:location-constraint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aws-s3-lowercase-bucket">aws:s3:lowercase-bucket</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#queue-configuration">queue configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#queue">queue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#queue-server">queue-server</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#admin-users">Admin users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#admin-team">admin-team</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#quota-management">Quota management</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#quota-units-per-app">quota:units-per-app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#quota-apps-per-user">quota:apps-per-user</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#log-level">Log level</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#debug">debug</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#defining-the-provisioner">Defining the provisioner</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#provisioner">provisioner</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#juju-provisioner-configuration">Juju provisioner configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#charms-path">Charms path</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#juju-charms-path">juju:charms-path</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#storing-units-in-the-database">Storing units in the database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#juju-units-collection">juju:units-collection</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#elastic-load-balancing-support">Elastic Load Balancing support</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#juju-use-elb">juju:use-elb</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#juju-elb-endpoint">juju:elb-endpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#juju-elb-collection">juju:elb-collection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#juju-elb-use-vpc">juju:elb-use-vpc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#juju-elb-vpc-subnets">juju:elb-vpc-subnets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#juju-elb-vpc-secgroups">juju:elb-vpc-secgroups</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#juju-elb-avail-zones">juju:elb-avail-zones</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sample-file">Sample file</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Build your own PaaS with tsuru and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-centos.html">Build your own PaaS with tsuru and Docker on Centos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Tsuru Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Tsuru Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="why.html">Why Tsuru?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/deploy-hooks.html">Deployment hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/deployment.html">Application Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/coding-style.html">Coding style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/setting-up-your-tsuru-development-environment.html">Setting up you tsuru development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install/client.html">Installing tsuru clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/dns-forwarders.html">Howto install a dns forwarder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server/backup.html">Backing up tsuru database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server/install.html">Server installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/api.html">api workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/build.html">Building your service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/mysql-example.html">HOWTO Install a MySQL service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/usage.html">Crane usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/client/services.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/client/usage.html">Client usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/php.html">Deploying PHP applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/python.html">Deploying Python applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/ruby.html">Deploying Ruby applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioners/docker/architecture.html">Docker Provisioner Architecture</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Configuring tsuru</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/config.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configuring-tsuru">
+<h1>Configuring tsuru<a class="headerlink" href="#configuring-tsuru" title="Permalink to this headline">¶</a></h1>
+<p>Tsuru uses a configuration file in <a class="reference external" href="http://www.yaml.org/">YAML</a> format. This
+document describes what each option means, and how it should look like.</p>
+<div class="section" id="notation">
+<h2>Notation<a class="headerlink" href="#notation" title="Permalink to this headline">¶</a></h2>
+<p>Tsuru uses a colon to represent nesting in YAML. So, whenever this document say
+something like <code class="docutils literal notranslate"><span class="pre">key1:key2</span></code>, it refers to the value of the <code class="docutils literal notranslate"><span class="pre">key2</span></code> that is
+nested in the block that is the value of <code class="docutils literal notranslate"><span class="pre">key1</span></code>. For example,
+<code class="docutils literal notranslate"><span class="pre">database:url</span></code> means:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">database</span><span class="p">:</span>
+  <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;value&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tsuru-configuration">
+<h2>Tsuru configuration<a class="headerlink" href="#tsuru-configuration" title="Permalink to this headline">¶</a></h2>
+<p>This section describes tsuru’s core configuration. Other sections will include
+configuration of optional components, and finally, a full sample file.</p>
+<div class="section" id="http-server">
+<h3>HTTP server<a class="headerlink" href="#http-server" title="Permalink to this headline">¶</a></h3>
+<p>Tsuru provides a REST API, that supports HTTP and HTTP/TLS (a.k.a. HTTPS). Here
+are the options that affect how tsuru’s API behaves:</p>
+<div class="section" id="listen">
+<h4>listen<a class="headerlink" href="#listen" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">listen</span></code> defines in which address tsuru webserver will listen. It has the
+form &lt;host&gt;:&lt;port&gt;. You may omit the host (example: <code class="docutils literal notranslate"><span class="pre">:8080</span></code>). This setting
+has no default value.</p>
+</div>
+<div class="section" id="use-tls">
+<h4>use-tls<a class="headerlink" href="#use-tls" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">use-tls</span></code> indicates whether tsuru should use TLS or not. This setting is
+optional, and defaults to “false”.</p>
+</div>
+<div class="section" id="tls-cert-file">
+<h4>tls:cert-file<a class="headerlink" href="#tls-cert-file" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">tls:cert-file</span></code> is the path to the X.509 certificate file configured to serve
+the domain.  This setting is optional, unless <code class="docutils literal notranslate"><span class="pre">use-tls</span></code> is true.</p>
+</div>
+<div class="section" id="tls-key-file">
+<h4>tls:key-file<a class="headerlink" href="#tls-key-file" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">tls:key-file</span></code> is the path to private key file configured to serve the
+domain. This setting is optional, unless <code class="docutils literal notranslate"><span class="pre">use-tls</span></code> is true.</p>
+</div>
+</div>
+<div class="section" id="database-access">
+<h3>Database access<a class="headerlink" href="#database-access" title="Permalink to this headline">¶</a></h3>
+<p>Tsuru uses MongoDB as database manager, to store information about users, VM’s,
+and its components. Regarding database control, you’re able to define to which
+database server tsuru will connect (providing a <a class="reference external" href="http://docs.mongodb.org/manual/reference/connection-string/">MongoDB connection string</a>). The database
+related options are listed below:</p>
+<div class="section" id="database-url">
+<h4>database:url<a class="headerlink" href="#database-url" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">database:url</span></code> is the database connection string. It is a mandatory setting
+and has no default value. Examples of strings include the basic “127.0.0.1” and
+the more advanced “mongodb://user&#64;password:127.0.0.1:27017/database”. Please
+refer to <a class="reference external" href="http://docs.mongodb.org/manual/reference/connection-string/">MongoDB documentation</a> for more
+details and examples of connection strings.</p>
+</div>
+<div class="section" id="database-name">
+<h4>database:name<a class="headerlink" href="#database-name" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">database:name</span></code> is the name of the database that tsuru uses. It is a
+mandatory setting and has no default value. An example of value is “tsuru”.</p>
+</div>
+</div>
+<div class="section" id="collector">
+<h3>Collector<a class="headerlink" href="#collector" title="Permalink to this headline">¶</a></h3>
+<p>Collector is a tsuru agent responsible for collecting information about app units,
+interacting with the provisioner. This agent runs a loop in configurable interval.</p>
+<div class="section" id="collector-ticker-time">
+<h4>collector:ticker-time<a class="headerlink" href="#collector-ticker-time" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">collector:ticker-time</span></code> is interval for running the loop, specified in seconds.
+Default value: 60 seconds.</p>
+</div>
+</div>
+<div class="section" id="email-configuration">
+<h3>Email configuration<a class="headerlink" href="#email-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Tsuru sends email to users when they request password recovery. In order to
+send those emails, Tsuru needs to be configured with some SMTP settings.
+Omiting these settings won’t break Tsuru, but users would not be able to reset
+their password automattically.</p>
+<div class="section" id="smtp-server">
+<h4>smtp:server<a class="headerlink" href="#smtp-server" title="Permalink to this headline">¶</a></h4>
+<p>The SMTP server to connect to. It must be in the form &lt;host&gt;:&lt;port&gt;. Example:
+“smtp.gmail.com:587”.</p>
+</div>
+<div class="section" id="smtp-user">
+<h4>smtp:user<a class="headerlink" href="#smtp-user" title="Permalink to this headline">¶</a></h4>
+<p>The user to authenticate with the SMTP sever. Currently, Tsuru requires
+authenticated sessions.</p>
+</div>
+<div class="section" id="smtp-password">
+<h4>smtp:password<a class="headerlink" href="#smtp-password" title="Permalink to this headline">¶</a></h4>
+<p>The password for authentication within the SMTP server.</p>
+</div>
+</div>
+<div class="section" id="git-configuration">
+<h3>Git configuration<a class="headerlink" href="#git-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Tsuru uses <a class="reference external" href="https://github.com/globocom/gandalf">Gandalf</a> to manage git
+repositories. Gandalf exposes a REST API for repositories management, and tsuru
+uses it. So tsuru requires information about the Gandalf HTTP server, and also
+its git-daemon and SSH service.</p>
+<p>Tsuru also needs to know where the git repository will be cloned and stored in
+units storage. Here are all options related to git repositories:</p>
+<div class="section" id="git-unit-repo">
+<h4>git:unit-repo<a class="headerlink" href="#git-unit-repo" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">git:unit-repo</span></code> is the path where tsuru will clone and manage the git
+repository in all units of an application. This is where the code of the
+applications will be stored in their units. Example of value:
+<code class="docutils literal notranslate"><span class="pre">/home/application/current</span></code>.</p>
+</div>
+<div class="section" id="git-api-server">
+<h4>git:api-server<a class="headerlink" href="#git-api-server" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">git:api-server</span></code> is the address of the Gandalf API. It should define the
+entire address, including protocol and port. Examples of value:
+<code class="docutils literal notranslate"><span class="pre">http://localhost:9090</span></code> and <code class="docutils literal notranslate"><span class="pre">https://gandalf.tsuru.io:9595</span></code>.</p>
+</div>
+<div class="section" id="git-rw-host">
+<h4>git:rw-host<a class="headerlink" href="#git-rw-host" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">git:rw-host</span></code> is the host that will be used to build the push URL. For
+example, when the value is “tsuruhost.com”, the push URL will be something like
+<a class="reference external" href="mailto:git&#37;&#52;&#48;tsuruhost&#46;com">git<span>&#64;</span>tsuruhost<span>&#46;</span>com</a>:&lt;app-name&gt;.git.</p>
+</div>
+<div class="section" id="git-ro-host">
+<h4>git:ro-host<a class="headerlink" href="#git-ro-host" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">git:ro-host</span></code> is the host that units will use to clone code from users
+applications. It’s used to build the read only URL of the repository. For
+example, when the value is “tsuruhost.com”, the read-only URL will be something
+like git://tsuruhost.com/&lt;app-name&gt;.git.</p>
+</div>
+</div>
+<div class="section" id="authentication-configuration">
+<h3>Authentication configuration<a class="headerlink" href="#authentication-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Tsuru has its own authentication mechanism, that hashes passwords brcypt.
+Tokens are generated during authentication, and are hashed using SHA512.</p>
+<p>This mechanism requires two settings to operate: <code class="docutils literal notranslate"><span class="pre">auth:hash-cost</span></code> and
+<code class="docutils literal notranslate"><span class="pre">auth:token-expire-days</span></code>. Each setting is described below.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">auth</span></code> section also controls whether user registation is on or off. When
+user registration is off, the user creation URL is not registered in the
+server.</p>
+<div class="section" id="auth-user-registration">
+<h4>auth:user-registration<a class="headerlink" href="#auth-user-registration" title="Permalink to this headline">¶</a></h4>
+<p>This flag indicates whether user registration is enabled. This setting is
+optional, and defaults to false.</p>
+</div>
+<div class="section" id="auth-hash-cost">
+<h4>auth:hash-cost<a class="headerlink" href="#auth-hash-cost" title="Permalink to this headline">¶</a></h4>
+<p>This number indicates how many CPU time you’re willing to give to hashing
+calculation. It is an absolute number, between 4 and 31, where 4 is faster and
+less secure, while 31 is very secure and <em>very</em> slow.</p>
+</div>
+<div class="section" id="auth-token-expire-days">
+<h4>auth:token-expire-days<a class="headerlink" href="#auth-token-expire-days" title="Permalink to this headline">¶</a></h4>
+<p>Whenever a user logs in, tsuru generates a token for him/her, and the user may
+store the token. <code class="docutils literal notranslate"><span class="pre">auth:token-expire-days</span></code> setting defines the amount of days
+that the token will be valid. This setting is optional, and defaults to “7”.</p>
+</div>
+<div class="section" id="auth-max-simultaneous-sessions">
+<h4>auth:max-simultaneous-sessions<a class="headerlink" href="#auth-max-simultaneous-sessions" title="Permalink to this headline">¶</a></h4>
+<p>Tsuru can limit the number of simultaneous sessions per user. This setting is
+optional, and defaults to “unlimited”.</p>
+</div>
+</div>
+<div class="section" id="amazon-web-services-aws-configuration">
+<h3>Amazon Web Services (AWS) configuration<a class="headerlink" href="#amazon-web-services-aws-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Tsuru is able to use Amazon Web Services (AWS) Simple Storage Service (S3) to
+provide static storage for apps. Whenever <code class="docutils literal notranslate"><span class="pre">bucket-support</span></code> is true, Tsuru
+will create a S3 bucket and AWS Identity and Access Management (IAM)
+credentials to access this bucket during the app creation process. In order to
+be able to comunicate with AWS API’s, tsuru needs some settings, listed below.</p>
+<p>For more details on AWS authentication, AWS AIM and AWS S3, check AWS docs:
+<a class="reference external" href="https://aws.amazon.com/documentation/">https://aws.amazon.com/documentation/</a>.</p>
+<div class="section" id="bucket-support">
+<h4>bucket-support<a class="headerlink" href="#bucket-support" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">bucket-support</span></code> is a boolean flag, that turns on the bucket per app feature.
+This field is optional, and defaults to false.</p>
+</div>
+<div class="section" id="aws-access-key-id">
+<h4>aws:access-key-id<a class="headerlink" href="#aws-access-key-id" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">aws:access-key-id</span></code> is the access key ID used by tsuru to authenticate with
+AWS API. Given that <code class="docutils literal notranslate"><span class="pre">bucket-support</span></code> is true, this setting is required and
+has no default value.</p>
+</div>
+<div class="section" id="aws-secret-access-key">
+<h4>aws:secret-access-key<a class="headerlink" href="#aws-secret-access-key" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">aws:secret-access-key</span></code> is the secret access key used by tsuru to
+authenticate with AWS API. Given that <code class="docutils literal notranslate"><span class="pre">bucket-support</span></code> is true, this
+setting is required and has no default value.</p>
+</div>
+<div class="section" id="aws-ec2-endpoint">
+<h4>aws:ec2:endpoint<a class="headerlink" href="#aws-ec2-endpoint" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">aws:ec2:endpoint</span></code> is the EC2 endpoint that tsuru will call to communicate
+with ec2. It’s only used for <cite>juju</cite> healers.</p>
+</div>
+<div class="section" id="aws-iam-endpoint">
+<h4>aws:iam:endpoint<a class="headerlink" href="#aws-iam-endpoint" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">aws:iam:endpoint</span></code> is the IAM endpoint that tsuru will call to create
+credentials for its applications. This setting is optional, and defaults to
+<code class="docutils literal notranslate"><span class="pre">https://iam.amazonaws.com/</span></code>. You should change this setting only when using
+another service that also implements IAM’s API.</p>
+</div>
+<div class="section" id="aws-s3-region-name">
+<h4>aws:s3:region-name<a class="headerlink" href="#aws-s3-region-name" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">aws:s3:region-name</span></code> is the name of the region that tsuru will use to create
+S3 buckets. Given that <code class="docutils literal notranslate"><span class="pre">bucket-support</span></code> is true, this setting is required and
+has no default value.</p>
+</div>
+<div class="section" id="aws-s3-endpoint">
+<h4>aws:s3:endpoint<a class="headerlink" href="#aws-s3-endpoint" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">aws:s3:endpoint</span></code> is the S3 endpoint that tsuru will call to create buckets
+for its applications. Given that <code class="docutils literal notranslate"><span class="pre">bucket-support</span></code> is true, this setting is
+required and has no default value.</p>
+</div>
+<div class="section" id="aws-s3-location-constraint">
+<h4>aws:s3:location-constraint<a class="headerlink" href="#aws-s3-location-constraint" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">aws:s3:location-constraint</span></code> indicates whether buckets should be stored in
+the selected region. Given that <code class="docutils literal notranslate"><span class="pre">bucket-support</span></code> is true, this setting is
+required and has no default value.</p>
+<p>For more details, check the documentation for buckets and regions:
+<a class="reference external" href="http://docs.aws.amazon.com/AmazonS3/latest/dev/LocationSelection.html">http://docs.aws.amazon.com/AmazonS3/latest/dev/LocationSelection.html</a>.</p>
+</div>
+<div class="section" id="aws-s3-lowercase-bucket">
+<h4>aws:s3:lowercase-bucket<a class="headerlink" href="#aws-s3-lowercase-bucket" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">aws:s3:lowercase-bucket</span></code> will be true if the region requires bucket names to
+be lowercase. Given that <code class="docutils literal notranslate"><span class="pre">bucket-support</span></code> is true, this setting is required
+and has no default value.</p>
+</div>
+</div>
+<div class="section" id="queue-configuration">
+<h3>queue configuration<a class="headerlink" href="#queue-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Tsuru uses a work queue for asynchronous tasks. By default it will use
+<a class="reference external" href="http://kr.github.com/beanstalkd">beanstalkd</a>. You can customize the used
+queue, and settings related to the queue (like the address where beanstalkd is
+listening).</p>
+<p>Creating a new queue provider is as easy as implementing <a class="reference external" href="http://godoc.org/github.com/globocom/tsuru/queue#Q">an interface</a>.</p>
+<div class="section" id="queue">
+<h4>queue<a class="headerlink" href="#queue" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">queue</span></code> is the name of the queue implementation that tsuru will use. This
+setting is optional and defaults to “beanstalkd”.</p>
+</div>
+<div class="section" id="queue-server">
+<h4>queue-server<a class="headerlink" href="#queue-server" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">queue-server</span></code> is the TCP address where beanstalkd is listening. This setting
+is optional and defaults to “localhost:11300”.</p>
+</div>
+</div>
+<div class="section" id="admin-users">
+<h3>Admin users<a class="headerlink" href="#admin-users" title="Permalink to this headline">¶</a></h3>
+<p>Tsuru has a very simple way to identify admin users: an admin user is a user
+that is the member of the admin team, and the admin team is defined in the
+configuration file, using the <code class="docutils literal notranslate"><span class="pre">admin-team</span></code> setting.</p>
+<div class="section" id="admin-team">
+<h4>admin-team<a class="headerlink" href="#admin-team" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">admin-team</span></code> is the name of the administration team for the current tsuru
+installation. All members of the administration team is able to use the
+<code class="docutils literal notranslate"><span class="pre">tsuru-admin</span></code> command.</p>
+</div>
+</div>
+<div class="section" id="quota-management">
+<h3>Quota management<a class="headerlink" href="#quota-management" title="Permalink to this headline">¶</a></h3>
+<p>Tsuru can, optionally, manage quotas. Currently, there are two available
+quotas: apps per user and units per app.</p>
+<p>Tsuru administrators can control the default quota for new users and new apps
+in the configuration file, and use <code class="docutils literal notranslate"><span class="pre">tsuru-admin</span></code> command to change quotas for
+users or apps. Quota management is disabled by default, to enable it, just set
+the desired quota to a positive integer.</p>
+<div class="section" id="quota-units-per-app">
+<h4>quota:units-per-app<a class="headerlink" href="#quota-units-per-app" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">quota:units-per-app</span></code> is the default value for units per-app quota. All new
+apps will have at most the number of units specified by this setting. This
+setting is optional, and defaults to “unlimited”.</p>
+</div>
+<div class="section" id="quota-apps-per-user">
+<h4>quota:apps-per-user<a class="headerlink" href="#quota-apps-per-user" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">quota:apps-per-user</span></code> is the default value for apps per-user quota. All new
+users will have at most the number of apps specified by this setting. This
+setting is optional, and defaults to “unlimited”.</p>
+</div>
+</div>
+<div class="section" id="log-level">
+<h3>Log level<a class="headerlink" href="#log-level" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="debug">
+<h4>debug<a class="headerlink" href="#debug" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">false</span></code> is the default value, so you won’t see any
+noises on logs, to turn it on set it to true, e.g.: <code class="docutils literal notranslate"><span class="pre">debug:</span> <span class="pre">true</span></code></p>
+</div>
+</div>
+<div class="section" id="defining-the-provisioner">
+<h3>Defining the provisioner<a class="headerlink" href="#defining-the-provisioner" title="Permalink to this headline">¶</a></h3>
+<p>Tsuru supports multiple provisioners. A provisioner is a Go type that satisfies
+an interface. By default, tsuru will use <code class="docutils literal notranslate"><span class="pre">JujuProvisioner</span></code> (identified by the
+string “juju”). To use other provisioner, that has been already registered with
+tsuru, one must define the setting <code class="docutils literal notranslate"><span class="pre">provisioner</span></code>.</p>
+<div class="section" id="provisioner">
+<h4>provisioner<a class="headerlink" href="#provisioner" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">provisioner</span></code> is the string the name of the provisioner that will be used by
+tsuru. This setting is optional and defaults to “juju”.</p>
+<p>You can also configure the provisioner (check the next section for details on
+Juju configuration).</p>
+</div>
+</div>
+</div>
+<div class="section" id="juju-provisioner-configuration">
+<h2>Juju provisioner configuration<a class="headerlink" href="#juju-provisioner-configuration" title="Permalink to this headline">¶</a></h2>
+<p>“juju” is the default provisioner used by Tsuru. It’s named after the <a class="reference external" href="https://juju.ubuntu.com/">tool
+used by tsuru</a> to provision and manage instances.
+It’s a extended version of Juju, supporting Amazon’s <a class="reference external" href="https://aws.amazon.com/vpc/">Virtual Private Cloud
+(VPC)</a> and <a class="reference external" href="https://aws.amazon.com/elasticloadbalancing/">Elastic Load Balancing (ELB)</a>.</p>
+<div class="section" id="charms-path">
+<h3>Charms path<a class="headerlink" href="#charms-path" title="Permalink to this headline">¶</a></h3>
+<p>Juju describe services as <a class="reference external" href="http://jujucharms.com/">Charms</a>. Each tsuru
+platform is a Juju charm. The tsuru team provides a collection of charms with
+customized hooks: <a class="reference external" href="https://github.com/globocom/charms">https://github.com/globocom/charms</a>. In order (for more
+details, refer to <a class="reference internal" href="build.html"><span class="doc">build documentation</span></a>).</p>
+<div class="section" id="juju-charms-path">
+<h4>juju:charms-path<a class="headerlink" href="#juju-charms-path" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">charms-path</span></code> is the path where tsuru should look for charms when creating
+new apps. If you specify the value “/etc/juju/charms”, your charms tree should
+look something like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<span class="l l-Scalar l-Scalar-Plain">├── centos</span>
+<span class="l l-Scalar l-Scalar-Plain">│   ├── ...</span>
+<span class="l l-Scalar l-Scalar-Plain">└── precise</span>
+    <span class="l l-Scalar l-Scalar-Plain">├── go</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   ├── config.yaml</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   ├── hooks</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   ...</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   └── metadata.yaml</span>
+    <span class="l l-Scalar l-Scalar-Plain">├── nodejs</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   ├── config.yaml</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   ├── hooks</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   ...</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   └── metadata.yaml</span>
+    <span class="l l-Scalar l-Scalar-Plain">├── python</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   ├── config.yaml</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   ├── hooks</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   ...</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   ├── metadata.yaml</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   └── utils</span>
+    <span class="l l-Scalar l-Scalar-Plain">│       ├── circus.ini</span>
+    <span class="l l-Scalar l-Scalar-Plain">│       └── nginx.conf</span>
+    <span class="l l-Scalar l-Scalar-Plain">├── rack</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   ├── config.yaml</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   ├── hooks</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   ...</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   ├── metadata.yaml</span>
+    <span class="l l-Scalar l-Scalar-Plain">├── ruby</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   ├── config.yaml</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   ├── hooks</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   ...</span>
+    <span class="l l-Scalar l-Scalar-Plain">│   └── metadata.yaml</span>
+    <span class="l l-Scalar l-Scalar-Plain">└── static</span>
+        <span class="l l-Scalar l-Scalar-Plain">├── config.yaml</span>
+        <span class="l l-Scalar l-Scalar-Plain">├── hooks</span>
+        <span class="l l-Scalar l-Scalar-Plain">...</span>
+        <span class="l l-Scalar l-Scalar-Plain">└── metadata.yaml</span>
+</pre></div>
+</div>
+<p>Given that you’re using juju, this setting is mandatory and has no default
+value.</p>
+</div>
+</div>
+<div class="section" id="storing-units-in-the-database">
+<h3>Storing units in the database<a class="headerlink" href="#storing-units-in-the-database" title="Permalink to this headline">¶</a></h3>
+<p>Juju provisioner uses the database to store information about units. It uses a
+MongoDB collection that will be located in the same database used by tsuru. One
+can set the name of this collection using the setting described below:</p>
+<div class="section" id="juju-units-collection">
+<h4>juju:units-collection<a class="headerlink" href="#juju-units-collection" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">juju:units-collection</span></code> defines the name of the collection that Juju
+provisioner should use to store information about units. This setting is
+required by the provisioner and has no default value.</p>
+</div>
+</div>
+<div class="section" id="elastic-load-balancing-support">
+<h3>Elastic Load Balancing support<a class="headerlink" href="#elastic-load-balancing-support" title="Permalink to this headline">¶</a></h3>
+<p>Juju provisioner can manage load balancers per app using Elastic Load Balancing
+(ELB) API, provided by Amazon. In order to enable Elastic Load Balancing
+support, one must set <code class="docutils literal notranslate"><span class="pre">juju:use-elb</span></code> to true and define other settings
+described below:</p>
+<div class="section" id="juju-use-elb">
+<h4>juju:use-elb<a class="headerlink" href="#juju-use-elb" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">juju:use-elb</span></code> is a boolean flag that indicates whether Juju provisioner will
+use ELB. When enabled, it will create a load balancer per app, registering and
+deregistering units as they come and go, and deleting the load balancer when
+the app is removed. This setting is optional and defaults to false.</p>
+<p>Whenever <code class="docutils literal notranslate"><span class="pre">juju:use-elb</span></code> is defined to be true, other settings related to load
+balancing become mandatory: <code class="docutils literal notranslate"><span class="pre">juju:elb-endpoint</span></code>, <code class="docutils literal notranslate"><span class="pre">juju:elb-collection</span></code>,
+<code class="docutils literal notranslate"><span class="pre">juju:elb-avail-zones</span></code> (or <code class="docutils literal notranslate"><span class="pre">juju:elb-vpc-subnets</span></code> and
+<code class="docutils literal notranslate"><span class="pre">juju:elb-vpc-secgroups</span></code>, see <code class="docutils literal notranslate"><span class="pre">juju:elb-use-vpc</span></code> for more details).</p>
+</div>
+<div class="section" id="juju-elb-endpoint">
+<h4>juju:elb-endpoint<a class="headerlink" href="#juju-elb-endpoint" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">juju:elb-endpoint</span></code> is the ELB endpoint that tsuru will use to manage load
+balancers. This setting has no default value, and is mandatory once
+<code class="docutils literal notranslate"><span class="pre">juju:use-elb</span></code> is true. When <code class="docutils literal notranslate"><span class="pre">juju:use-elb</span></code> is false, the value of this
+setting is irrelevant.</p>
+</div>
+<div class="section" id="juju-elb-collection">
+<h4>juju:elb-collection<a class="headerlink" href="#juju-elb-collection" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">juju:elb-collection</span></code> is the name of the collection that Juju provisioner
+will use to store information about load balancers.</p>
+<p>This setting has no default value, and is mandatory once <code class="docutils literal notranslate"><span class="pre">juju:use-elb</span></code> is
+true. When <code class="docutils literal notranslate"><span class="pre">juju:use-elb</span></code> is false, the value of this setting is irrelevant.</p>
+</div>
+<div class="section" id="juju-elb-use-vpc">
+<h4>juju:elb-use-vpc<a class="headerlink" href="#juju-elb-use-vpc" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">juju:elb-use-vpc</span></code> is another boolean flag. It indicates whether load
+balancers should be created using an Amazon Virtual Private Cloud. When this
+setting is true, one must also define <code class="docutils literal notranslate"><span class="pre">juju:elb-vpc-subnets</span></code> and
+<code class="docutils literal notranslate"><span class="pre">juju:elb-vpc-secgroups</span></code>.</p>
+<p>This setting is optional, defaults to false and has no effect when
+<code class="docutils literal notranslate"><span class="pre">juju:use-elb</span></code> is false.</p>
+</div>
+<div class="section" id="juju-elb-vpc-subnets">
+<h4>juju:elb-vpc-subnets<a class="headerlink" href="#juju-elb-vpc-subnets" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">juju:elb-vpc-subnets</span></code> contains a list of subnets that will be attached to
+the load balancer. This setting must be defined whenever <code class="docutils literal notranslate"><span class="pre">juju:elb-use-vpc</span></code>
+is true. It has no default value.</p>
+</div>
+<div class="section" id="juju-elb-vpc-secgroups">
+<h4>juju:elb-vpc-secgroups<a class="headerlink" href="#juju-elb-vpc-secgroups" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">juju:elb-vpc-secgroups</span></code> contains a list of security groups from which the
+load balancer will inherit rules. This setting must be defined whenever
+<code class="docutils literal notranslate"><span class="pre">juju:elb-use-vpc</span></code> is true. It has no default value.</p>
+</div>
+<div class="section" id="juju-elb-avail-zones">
+<h4>juju:elb-avail-zones<a class="headerlink" href="#juju-elb-avail-zones" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">juju:elb-avail-zones</span></code> contains a list of availability zones that the load
+balancer will communicate with. This setting has no effect when
+<code class="docutils literal notranslate"><span class="pre">juju:elb-use-vpc</span></code> is true, has no default value and must be defined whenever
+<code class="docutils literal notranslate"><span class="pre">juju:elb-use-vpc</span></code> is false.</p>
+</div>
+</div>
+</div>
+<div class="section" id="sample-file">
+<h2>Sample file<a class="headerlink" href="#sample-file" title="Permalink to this headline">¶</a></h2>
+<p>Here is a complete example, with S3, VPC, HTTP/TLS and load balacing enabled:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">listen</span><span class="p">:</span> <span class="s">&quot;:8080&quot;</span>
+<span class="nt">use-tls</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">tls</span><span class="p">:</span>
+  <span class="nt">cert-file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/etc/tsuru/tls/cert.pem</span>
+  <span class="nt">key-file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/etc/tsuru/tls/key.pem</span>
+<span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http://10.19.2.238:8080</span>
+<span class="nt">database</span><span class="p">:</span>
+  <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">127.0.0.1:27017</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tsuru</span>
+<span class="nt">git</span><span class="p">:</span>
+  <span class="nt">unit-repo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/home/application/current</span>
+  <span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gandalf.tsuru.io</span>
+  <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8000</span>
+  <span class="nt">protocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http</span>
+<span class="nt">auth</span><span class="p">:</span>
+  <span class="nt">token-expire-days</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">14</span>
+<span class="nt">bucket-support</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">aws</span><span class="p">:</span>
+  <span class="nt">access-key-id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">access-key</span>
+  <span class="nt">secret-access-key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">s3cr3t</span>
+  <span class="nt">iam</span><span class="p">:</span>
+    <span class="nt">endpoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://iam.amazonaws.com/</span>
+  <span class="nt">s3</span><span class="p">:</span>
+    <span class="nt">region-name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sa-east-1</span>
+    <span class="nt">endpoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://s3.amazonaws.com</span>
+    <span class="nt">location-constraint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="nt">lowercase-bucket</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">provisioner</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">juju</span>
+<span class="nt">queue-server</span><span class="p">:</span> <span class="s">&quot;127.0.0.1:11300&quot;</span>
+<span class="nt">admin-team</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="nt">juju</span><span class="p">:</span>
+  <span class="nt">charms-path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/etc/juju/charms</span>
+  <span class="nt">units-collection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">j_units</span>
+  <span class="nt">use-elb</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">elb-endpoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://elasticloadbalancing.amazonaws.com</span>
+  <span class="nt">elb-collection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">j_lbs</span>
+  <span class="nt">elb-use-vpc</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">elb-vpc-subnets</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">subnet-a1a1a1</span>
+  <span class="nt">elb-vpc-secgroups</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sg-a1a1a1</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="contribute.html" class="btn btn-neutral float-right" title="contribute" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="community.html" class="btn btn-neutral" title="community" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.2.12
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.2.12',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

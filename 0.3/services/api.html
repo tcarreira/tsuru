@@ -1,0 +1,484 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>api workflow &mdash; tsuru 0.3.12 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Building your service" href="build.html" />
+    <link rel="prev" title="Server installation guide" href="../server/install.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.12
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build.html">Build your own PaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../community.html">community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html">Configuring tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Build your own PaaS with tsuru and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker-centos.html">Build your own PaaS with tsuru and Docker on Centos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker-node.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker-node.html#docker">docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker-node.html#tsuru-node-agent">Tsuru node agent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Tsuru Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Tsuru Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../why.html">Why Tsuru?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/deploy-hooks.html">Deployment hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/deployment.html">Application Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/recovery.html">Recovering an application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/coding-style.html">Coding style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/setting-up-your-tsuru-development-environment.html">Setting up you tsuru development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer/vagrant.html">Building a Tsuru development environment with Vagrant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/client.html">Installing tsuru clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/dns-forwarders.html">Howto install a dns forwarder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/backup.html">Backing up tsuru database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/install.html">Server installation guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">api workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-new-instance">Creating a new instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#binding-an-app-to-a-service-instance">Binding an app to a service instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unbind-an-app-from-a-service-instance">Unbind an app from a service instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#destroying-an-instance">Destroying an instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#checking-the-status-of-an-instance">Checking the status of an instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#additional-info-about-an-instance">Additional info about an instance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Building your service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mysql-example.html">HOWTO Install a MySQL service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Crane usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/client/services.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/client/usage.html">Client usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart/go.html">Deploying Go applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart/php.html">Deploying PHP applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart/python.html">Deploying Python applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart/ruby.html">Deploying Ruby applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../provisioners/docker/architecture.html">Docker Provisioner Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../provisioners/docker/schedulers.html">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.0.html">tsr 0.3.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.1.html">tsr 0.3.1 release notes - UNDER DEVELOPMENT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.10.html">tsr 0.3.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.11.html">tsr 0.3.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.2.html">tsr 0.3.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.3.html">tsr 0.3.3 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.4.html">tsr 0.3.4 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.5.html">tsr 0.3.5 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.6.html">tsr 0.3.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.7.html">tsr 0.3.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.8.html">tsr 0.3.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.9.html">tsr 0.3.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru/0.8.10.html">tsuru 0.8.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru/0.8.11.html">tsuru 0.8.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru/0.8.6.html">tsuru 0.8.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru/0.8.7.html">tsuru 0.8.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru/0.8.8.html">tsuru 0.8.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru/0.8.9.html">tsuru 0.8.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru/0.8.9.1.html">tsuru 0.8.9.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/cli/plugins.html">Guide to create tsuru cli plugins</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>api workflow</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/services/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api-workflow">
+<h1>api workflow<a class="headerlink" href="#api-workflow" title="Permalink to this headline">¶</a></h1>
+<p>Tsuru sends requests to your service to:</p>
+<ul class="simple">
+<li>create a new instance of your service</li>
+<li>bind an app with your service</li>
+<li>unbind an app</li>
+<li>destroy an instance</li>
+</ul>
+<div class="section" id="creating-a-new-instance">
+<h2>Creating a new instance<a class="headerlink" href="#creating-a-new-instance" title="Permalink to this headline">¶</a></h2>
+<p>This process begins when a Tsuru customer creates an instance of your service
+via command line tool:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru service-add mysql mysql_instance
+</pre></div>
+</div>
+<p>Tsuru calls your service to create a new instance of your service via POST on
+<code class="docutils literal notranslate"><span class="pre">/resources</span></code> (please notice that tsuru does not include a trailing slash)
+with the “name” that represents the app name in the request body. Example of
+request:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>POST /resources HTTP/1.0
+Content-Length: 19
+
+name=mysql_instance
+</pre></div>
+</div>
+<p>Your API should return the following HTTP response code with the respective response body:</p>
+<blockquote>
+<div><ul class="simple">
+<li>201: when the instance is successfully created. You don’t need to include any content in the response body.</li>
+<li>500: in case of any failure in the creation process. Make sure you include an explanation for the failure in the response body.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="binding-an-app-to-a-service-instance">
+<h2>Binding an app to a service instance<a class="headerlink" href="#binding-an-app-to-a-service-instance" title="Permalink to this headline">¶</a></h2>
+<p>This process begins when a Tsuru customer binds an app to an instance of your service via command line tool:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru <span class="nb">bind</span> mysql_instance --app my_app
+</pre></div>
+</div>
+<p>Tsuru calls your service to bind an app with a service instance via POST on <code class="docutils literal notranslate"><span class="pre">/resources/&lt;service-name&gt;</span></code> (please notice that tsuru does not include a trailing slash) with the “hostname” that represents the app hostname in the request body. Example of request:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>POST /resources/mysql_instance HTTP/1.0
+Content-Length: 25
+
+hostname=myapp.myhost.com
+</pre></div>
+</div>
+<p>Your API should return the following HTTP response code with the respective response body:</p>
+<blockquote>
+<div><ul class="simple">
+<li>201: if the app is successfully binded to the instance. The response body must be a JSON containing the environment variables from this instance that should be exported in the app in order to connect to the instance. If your service does not export any environment variable, write <code class="docutils literal notranslate"><span class="pre">null</span></code> or <code class="docutils literal notranslate"><span class="pre">{}</span></code> in the response body. Example of response:</li>
+</ul>
+</div></blockquote>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>HTTP/1.1 201 CREATED
+Content-Type: application/json; charset=UTF-8
+
+{&quot;MYSQL_HOST&quot;:&quot;10.10.10.10&quot;,&quot;MYSQL_PORT&quot;:3306,&quot;MYSQL_USER&quot;:&quot;ROOT&quot;,&quot;MYSQL_PASSWORD&quot;:&quot;s3cr3t&quot;,&quot;MYSQL_DATABASE_NAME&quot;:&quot;myapp&quot;}
+</pre></div>
+</div>
+<p>Status codes for errors in the process:</p>
+<blockquote>
+<div><ul class="simple">
+<li>404: if the service instance does not exist. You don’t need to include any content in the response body.</li>
+<li>412: if the service instance is still being provisioned, and not ready for binding yet. You can optionally include an explanation in the response body.</li>
+<li>500: in case of any failure in the bind process. Make sure you include an explanation for the failure in the response body.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="unbind-an-app-from-a-service-instance">
+<h2>Unbind an app from a service instance<a class="headerlink" href="#unbind-an-app-from-a-service-instance" title="Permalink to this headline">¶</a></h2>
+<p>This process begins when a Tsuru customer unbinds an app from an instance of your service via command line tool:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru unbind mysql_instance --app my_app
+</pre></div>
+</div>
+<p>Tsuru calls your service to unbind an app with a service instance via DELETE on <code class="docutils literal notranslate"><span class="pre">/resources/&lt;service-name&gt;/hostname/&lt;app-hostname&gt;</span></code> (please notice that tsuru does not include a trailing slash). Example of request:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>DELETE /resources/mysql_instance/hostname/myapp.myhost.com HTTP/1.0
+Content-Length: 0
+</pre></div>
+</div>
+<p>Your API should return the following HTTP response code with the respective response body:</p>
+<blockquote>
+<div><ul class="simple">
+<li>200: if the app is successfully unbinded from the instance. You don’t need to include any content in the response body.</li>
+<li>404: if the service instance does not exist. You don’t need to include any content in the response body.</li>
+<li>500: in case of any failure in the unbind process. Make sure you include an explanation for the failure in the response body.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="destroying-an-instance">
+<h2>Destroying an instance<a class="headerlink" href="#destroying-an-instance" title="Permalink to this headline">¶</a></h2>
+<p>This process begins when a Tsuru customer removes an instance of your service via command line tool:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru service-remove mysql_instance
+</pre></div>
+</div>
+<p>Tsuru calls your service to remove an instance of your service via DELETE on <code class="docutils literal notranslate"><span class="pre">/resources/&lt;service-name&gt;</span></code> (please notice that tsuru does not include a trailing slash). Example of request:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>DELETE /resources/mysql_instance HTTP/1.0
+Content-Length: 0
+</pre></div>
+</div>
+<p>Your API should return the following HTTP response code with the respective response body:</p>
+<blockquote>
+<div><ul class="simple">
+<li>200: if the service is successfully destroyed. You don’t need to include any content in the response body.</li>
+<li>404: if the service instance does not exist. You don’t need to include any content in the response body.</li>
+<li>500: in case of any failure in the destroy process. Make sure you include an explanation for the failure in the response body.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="checking-the-status-of-an-instance">
+<h2>Checking the status of an instance<a class="headerlink" href="#checking-the-status-of-an-instance" title="Permalink to this headline">¶</a></h2>
+<p>This process begins when a Tsuru customer wants to check the status of an instance via command line tool:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru service-status mysql_instance
+</pre></div>
+</div>
+<p>Tsuru calls your service to check the status of the instance via GET on <code class="docutils literal notranslate"><span class="pre">/resources/mysql_instance/status</span></code> (please notice that tsuru does not include a trailing slash). Example of request:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GET /resources/mysql_instance/status HTTP/1.0
+</pre></div>
+</div>
+<p>Your API should return the following HTTP response code, with the respective response body:</p>
+<blockquote>
+<div><ul class="simple">
+<li>202: the instance is still being provisioned (pending). You don’t need to include any content in the response body.</li>
+<li>204: the instance is running and ready for connections (running). You don’t need to include any content in the response body.</li>
+<li>500: the instance is not running, nor ready for connections. Make sure you include the reason why the instance is not running.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="additional-info-about-an-instance">
+<h2>Additional info about an instance<a class="headerlink" href="#additional-info-about-an-instance" title="Permalink to this headline">¶</a></h2>
+<p>You can add additional info about instances of your service. To do it it’s needed to implement the resource below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GET /resources/mysql_instance HTTP/1.0
+</pre></div>
+</div>
+<p>Your API should return the following HTTP response code, with the respective body:</p>
+<blockquote>
+<div><ul class="simple">
+<li>404: when your api doesn’t have extra info about the service instance. You don’t need to include any content in the response body.</li>
+<li>200: when your app has an extra info about the service instance. The response body must be a JSON containing a list of fields. A field is composed by two key/value’s <cite>label</cite> and <cite>value</cite>:</li>
+</ul>
+</div></blockquote>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>HTTP/1.1 200 OK
+Content-Type: application/json; charset=UTF-8
+
+[{&quot;label&quot;: &quot;my label&quot;, &quot;value&quot;: &quot;my value&quot;}, {&quot;label&quot;: &quot;myLabel2.0&quot;, &quot;value&quot;: &quot;my value 2.0&quot;}]
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="build.html" class="btn btn-neutral float-right" title="Building your service" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../server/install.html" class="btn btn-neutral" title="Server installation guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.3.12
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.3.12',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

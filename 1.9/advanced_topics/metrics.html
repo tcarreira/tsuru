@@ -1,0 +1,464 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Metrics &mdash; tsuru 1.9.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Node Auto Scaling" href="node_scaling.html" />
+    <link rel="prev" title="Advanced topics" href="index.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.9.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Advanced topics</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Metrics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installing">Installing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#configuring-bs">Configuring bs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuring-logstash">Configuring Logstash</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuring-elasticsearch">Configuring Elasticsearch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuring-the-dashboard">Configuring the Dashboard</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="node_scaling.html">Node Auto Scaling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Advanced topics</a> &raquo;</li>
+        
+      <li>Metrics</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/advanced_topics/metrics.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="metrics">
+<h1>Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h1>
+<p>Every docker node created on tsuru has a tsuru agent (a.k.a node-container),
+called big-sibling, running as a container. One of it’s responsibilities is
+collecting and reporting metrics, such as cpu and memory usage, from both it’s
+host and other applications and containers running on the same host.</p>
+<div class="figure align-center" id="id1">
+<img alt="tsuru metrics architecture overview" src="../_images/metrics.svg" /><p class="caption"><span class="caption-text">Overview of all components involved on collecting, ingesting and displaying metrics.</span></p>
+</div>
+<p>Big-sibling will report metrics to a logstash component, which can be remote or local.
+This logstash must be configured to output metrics to elasticsearch, where they will be stored
+and where the tsuru dashboard fetches them to display graphics.</p>
+<p>The following section will walkthrough the installation and configuration of these components.</p>
+<div class="section" id="installing">
+<h2>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
+<p>You will need a <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/_installation.html">Elasticsearch</a>
+and a <a class="reference external" href="https://www.elastic.co/guide/en/logstash/current/getting-started-with-logstash.html#installing-logstash">Logstash</a> installed.
+Installing these components is beyond the scope of the documentation, please refer to their documentation for that.</p>
+<p>After having both components installed, we can move on to configuring each one of them.</p>
+<div class="section" id="configuring-bs">
+<h3>Configuring bs<a class="headerlink" href="#configuring-bs" title="Permalink to this headline">¶</a></h3>
+<p>We need to configure big-sibling, to send metrics to our logstash.</p>
+<p>You should use <cite>tsuru node-container-update big-sibling –env NAME=VALUE</cite>
+to define the config values.</p>
+<p>The available configs are:</p>
+<p><code class="docutils literal notranslate"><span class="pre">METRICS_INTERVAL</span></code> is the interval in seconds between metrics collecting and
+reporting from bs to the metric backend. The default value is 60 seconds.</p>
+<p><code class="docutils literal notranslate"><span class="pre">METRICS_BACKEND</span></code> is the metric backend. Only ‘logstash’ is supported right now.</p>
+<p>Logstash specific configs:</p>
+<p><code class="docutils literal notranslate"><span class="pre">METRICS_LOGSTASH_CLIENT</span></code> is the client name used to identify who is sending the
+metric. The default value is tsuru.</p>
+<p><code class="docutils literal notranslate"><span class="pre">METRICS_LOGSTASH_PORT</span></code> is the Logstash port. The default value is 1984.</p>
+<p><code class="docutils literal notranslate"><span class="pre">METRICS_LOGSTASH_HOST</span></code> is the Logstash host. The default value is localhost.</p>
+</div>
+<div class="section" id="configuring-logstash">
+<h3>Configuring Logstash<a class="headerlink" href="#configuring-logstash" title="Permalink to this headline">¶</a></h3>
+<p>tsuru sends data to Logstash using udp protocol and the message is formatted in
+json. We need to define a custom logstash configuration to be able to parse the
+metrics sent by big-sibling and send them to our elasticsearch cluster. The following
+configuration does the job, refer to the <a class="reference external" href="https://www.elastic.co/guide/en/logstash/current/configuration.html">logstash documentation</a>
+for information regarding setting this configuration.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="n">input</span> <span class="p">{</span>
+    <span class="n">udp</span> <span class="p">{</span>
+        <span class="n">port</span> <span class="o">=&gt;</span> <span class="mi">1984</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">filter</span> <span class="p">{</span>
+    <span class="n">json</span> <span class="p">{</span>
+        <span class="n">source</span> <span class="o">=&gt;</span> <span class="s2">&quot;message&quot;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="s2">&quot;_jsonparsefailure&quot;</span> <span class="k">in</span> <span class="o">[</span><span class="n">tags</span><span class="o">]</span> <span class="p">{</span>
+        <span class="n">mutate</span> <span class="p">{</span>
+            <span class="n">add_field</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="n">client</span> <span class="o">=&gt;</span> <span class="s2">&quot;error&quot;</span>
+                <span class="n">metric</span> <span class="o">=&gt;</span> <span class="s2">&quot;metric_error&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">output</span> <span class="p">{</span>
+    <span class="n">elasticsearch</span> <span class="p">{</span>
+        <span class="n">hosts</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;http://ELASTICSEARCH_HOST:ELASTICSEARCH_PORT&quot;</span><span class="o">]</span>
+        <span class="n">index</span> <span class="o">=&gt;</span> <span class="s2">&quot;.measure-%{client}-%{+YYYY.MM.dd}&quot;</span>
+        <span class="n">document_type</span> <span class="o">=&gt;</span> <span class="s2">&quot;%{metric}&quot;</span>
+        <span class="n">template</span> <span class="o">=&gt;</span> <span class="s2">&quot;/etc/logstash/template.json&quot;</span>
+        <span class="n">template_name</span> <span class="o">=&gt;</span> <span class="s2">&quot;tsuru-template&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">ELASTICSEARCH_HOST</span></code> must point to your elasticsearch host and <code class="docutils literal notranslate"><span class="pre">ELASTICSEARCH_PORT</span></code>
+must point to your elasticsearch port. Refer to the <a class="reference external" href="https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch">elasticsearch plugin configuration</a>
+for more information. The file “/etc/logstash/tsuru-template.json” should have the following contents:</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;template&quot;</span><span class="p">:</span> <span class="s2">&quot;.measure-*&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;index.refresh_interval&quot;</span><span class="p">:</span> <span class="s2">&quot;5s&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;_default_&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;dynamic_templates&quot;</span><span class="p">:</span> <span class="o">[</span>
+            <span class="p">{</span>
+              <span class="s2">&quot;string_fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;mapping&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="s2">&quot;omit_norms&quot;</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
+                  <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;multi_field&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="p">{</span>
+                      <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;not_analyzed&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;ignore_above&quot;</span><span class="p">:</span> <span class="mi">256</span><span class="p">,</span>
+                      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+                    <span class="p">},</span>
+                    <span class="s2">&quot;{name}&quot;</span><span class="p">:</span> <span class="p">{</span>
+                      <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;analyzed&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+                    <span class="p">}</span>
+                  <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;match_mapping_type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;match&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span>
+              <span class="p">}</span>
+            <span class="p">}</span>
+          <span class="o">]</span><span class="p">,</span>
+          <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;geoip&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">&quot;dynamic&quot;</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
+              <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;full&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;geo_point&quot;</span>
+                <span class="p">}</span>
+              <span class="p">},</span>
+              <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;@version&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;not_analyzed&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">}</span>
+          <span class="p">},</span>
+          <span class="s2">&quot;_all&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;enabled&quot;</span><span class="p">:</span> <span class="kp">true</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;aliases&quot;</span><span class="p">:</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuring-elasticsearch">
+<h3>Configuring Elasticsearch<a class="headerlink" href="#configuring-elasticsearch" title="Permalink to this headline">¶</a></h3>
+<p>tsuru requires an elasticsearch with groovy dynamic scripting enabled, since elasticsearch
+v1.4.3, it’s off by default and needs to be explicitly enabled on the config file.</p>
+<p>For elasticsearch 2.x, scripting can be enabled by setting the following configuration:</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="n">script</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">groovy</span><span class="o">.</span><span class="n">inline</span><span class="o">.</span><span class="n">aggs</span><span class="p">:</span> <span class="kp">true</span>
+<span class="n">script</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">groovy</span><span class="o">.</span><span class="n">inline</span><span class="o">.</span><span class="n">mapping</span><span class="p">:</span> <span class="kp">false</span>
+<span class="n">script</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">groovy</span><span class="o">.</span><span class="n">inline</span><span class="o">.</span><span class="n">search</span><span class="p">:</span> <span class="kp">false</span>
+<span class="n">script</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">groovy</span><span class="o">.</span><span class="n">inline</span><span class="o">.</span><span class="n">update</span><span class="p">:</span> <span class="kp">false</span>
+<span class="n">script</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">groovy</span><span class="o">.</span><span class="n">inline</span><span class="o">.</span><span class="n">plugin</span><span class="p">:</span> <span class="kp">false</span>
+</pre></div>
+</div>
+<p>For more information, check the <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-scripting.html">elasticsearch scripting docs</a></p>
+</div>
+<div class="section" id="configuring-the-dashboard">
+<h3>Configuring the Dashboard<a class="headerlink" href="#configuring-the-dashboard" title="Permalink to this headline">¶</a></h3>
+<p><strong>tsuru-dashboard</strong> can be used to show a graphic for each metric by
+application. This configuration can be set by using some environment
+variables on the dashboard (if you are running the dashboard as a tsuru application,
+those can be set by <cite>tsuru env-set -a tsuru-dashboard</cite>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">ELASTICSEARCH_HOST</span></code> this environment must point to your elasticsearch host.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ELASTICSEARCH_INDEX</span></code> this environment must be set to “.measure-$client”, where $client
+is the client name configured on big-sibling (defaults to tsuru).</p>
+<p>It is also possible to display metrics about other containers (not only tsuru applications),
+collected by big-sibling (including it’s own metrics). To do so, tsuru dashboard
+has an environment variable that controls what containers should have their metrics
+displayed on the <cite>Components</cite> page.</p>
+<p><code class="docutils literal notranslate"><span class="pre">METRICS_COMPONENTS</span></code> must contain a list of containers names that will have their
+metrics displayed. For example: METRICS_COMPONENTS=big-sibling, will display big-sibling
+container metrics.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="node_scaling.html" class="btn btn-neutral float-right" title="Node Auto Scaling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Advanced topics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.9.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.9.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

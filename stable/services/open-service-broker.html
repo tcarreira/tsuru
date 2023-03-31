@@ -1,0 +1,451 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Open Service Broker &mdash; tsuru 1.12.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Plugins" href="../plugins/index.html" />
+    <link rel="prev" title="TSURU_SERVICES environment variable" href="tsuru-services-env-var.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.12.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Services</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html">API workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build.html">Building your service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsuru-services-env-var.html">TSURU_SERVICES environment variable</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Open Service Broker</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#managing-service-brokers">Managing Service Brokers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Services</a> &raquo;</li>
+        
+      <li>Open Service Broker</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/services/open-service-broker.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="open-service-broker">
+<h1>Open Service Broker<a class="headerlink" href="#open-service-broker" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://www.openservicebrokerapi.org/">Open Service Broker API</a> project allows developers, ISVs, and SaaS vendors a single,
+simple, and elegant way to deliver services to applications running within cloud native platforms.</p>
+<p>Tsuru supports services provided by a service broker since version 1.7.0. Service brokers may be registered on the tsuru API to make
+their services available for applications running on the platform. Users can create instances from these services, bind and unbind those instances
+as if they were tsuru native services.</p>
+<p>The next section explains how service brokers are managed by tsuru admins. The usage of services from those brokers do not differ from regular
+tsuru services, except for the support for instance creation and binding parameters.</p>
+</div>
+<div class="section" id="managing-service-brokers">
+<h2>Managing Service Brokers<a class="headerlink" href="#managing-service-brokers" title="Permalink to this headline">¶</a></h2>
+<p>To expose services from a broker, a tsuru admin needs to add the service broker endpoint to the tsuru api. This can be done on the cli :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru service broker add &lt;name&gt; &lt;url&gt; --token &lt;token&gt;
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Refer to the command help documentation to a full list of parameters that may be set for the broker.</p>
+</div>
+<p>After adding a service broker, its services are going to be displayed just as any native tsuru service. The output below shows
+the list displayed after adding the <a class="reference external" href="https://github.com/awslabs/aws-servicebroker">AWS Service Broker</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru service list
++-----------------------+-----------+
+<span class="p">|</span> Services              <span class="p">|</span> Instances <span class="p">|</span>
++-----------------------+-----------+
+<span class="p">|</span> aws::dh-athena        <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> aws::dh-dynamodb      <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> aws::dh-elasticache   <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> aws::dh-emr           <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> aws::dh-kinesis       <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> aws::dh-kms           <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> aws::dh-lex           <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> aws::dh-polly         <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> aws::dh-rdsmariadb    <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> aws::dh-rdsmysql      <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> aws::dh-rdspostgresql <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> aws::dh-redshift      <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> aws::dh-rekognition   <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> aws::dh-route53       <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> aws::dh-s3            <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> aws::dh-sns           <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> aws::dh-sqs           <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> aws::dh-translate     <span class="p">|</span>           <span class="p">|</span>
++-----------------------+-----------+
+</pre></div>
+</div>
+<p>The name of each service is prefixed with the name of the broker that provides the service (“aws” in this case).
+tsuru will cache the service catalog returned by the service broker for a few minutes (configurable by broker).</p>
+<p>OSB services support creation and binding parameters. Available parameters are displayed using the <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">service</span> <span class="pre">info</span></code> command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru service info aws::dh-route53
+Info <span class="k">for</span> <span class="s2">&quot;aws::dh-route53&quot;</span>
+
+Plans
++------------+-----------------------------+----------------------------------------------------------------------------------------------------------------------------------------+----------------+
+<span class="p">|</span> Name       <span class="p">|</span> Description                 <span class="p">|</span> Instance Params                                                                                                                        <span class="p">|</span> Binding Params <span class="p">|</span>
++------------+-----------------------------+----------------------------------------------------------------------------------------------------------------------------------------+----------------+
+<span class="p">|</span> hostedzone <span class="p">|</span> Managed Route53 hosted zone <span class="p">|</span> NewHostedZoneName:                                                                                                                     <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: Name of the hosted zone                                                                                                 <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> SBArtifactS3Bucket:                                                                                                                    <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: Name of the S3 bucket containing the AWS Service Broker Assets                                                          <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   default: awsservicebroker                                                                                                            <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   required: <span class="nb">true</span>                                                                                                                       <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> SBArtifactS3KeyPrefix:                                                                                                                 <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: Name of the S3 key prefix containing the AWS Service Broker Assets, leave empty <span class="k">if</span> assets are in the root of the bucket <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   default:                                                                                                                             <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> aws_access_key:                                                                                                                        <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: AWS Access Key to authenticate to AWS with.                                                                             <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   required: <span class="nb">true</span>                                                                                                                       <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> aws_cloudformation_role_arn:                                                                                                           <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: IAM role ARN <span class="k">for</span> use as Cloudformation Stack Role.                                                                      <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   required: <span class="nb">true</span>                                                                                                                       <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> aws_secret_key:                                                                                                                        <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: AWS Secret Key to authenticate to AWS with.                                                                             <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   required: <span class="nb">true</span>                                                                                                                       <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> region:                                                                                                                                <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: AWS Region to create RDS instance in.                                                                                   <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   default: us-west-2                                                                                                                   <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>                                                                                                                                        <span class="p">|</span>                <span class="p">|</span>
++------------+-----------------------------+----------------------------------------------------------------------------------------------------------------------------------------+----------------+
+<span class="p">|</span> recordset  <span class="p">|</span> Route <span class="m">53</span> Record Set         <span class="p">|</span> AliasTarget:                                                                                                                           <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: Alias resource record sets only: Information about the domain to which you are redirecting traffic.                     <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> HostedZoneId:                                                                                                                          <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: Id of the hosted zone which the records are to be created in                                                            <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> HostedZoneName:                                                                                                                        <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: Name of the hosted zone which the records are to be created in                                                          <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> RecordName:                                                                                                                            <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: Name of the record                                                                                                      <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> ResourceRecord:                                                                                                                        <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: Value of the record                                                                                                     <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> SBArtifactS3Bucket:                                                                                                                    <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: Name of the S3 bucket containing the AWS Service Broker Assets                                                          <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   default: awsservicebroker                                                                                                            <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   required: <span class="nb">true</span>                                                                                                                       <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> SBArtifactS3KeyPrefix:                                                                                                                 <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: Name of the S3 key prefix containing the AWS Service Broker Assets, leave empty <span class="k">if</span> assets are in the root of the bucket <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   default:                                                                                                                             <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> TimeToLive:                                                                                                                            <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: How long the resolved record should be cached by resolvers                                                              <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   default: <span class="m">360</span>                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   required: <span class="nb">true</span>                                                                                                                       <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> Type:                                                                                                                                  <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: Type of record                                                                                                          <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   default: A                                                                                                                           <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   required: <span class="nb">true</span>                                                                                                                       <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> aws_access_key:                                                                                                                        <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: AWS Access Key to authenticate to AWS with.                                                                             <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   required: <span class="nb">true</span>                                                                                                                       <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> aws_cloudformation_role_arn:                                                                                                           <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: IAM role ARN <span class="k">for</span> use as Cloudformation Stack Role.                                                                      <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   required: <span class="nb">true</span>                                                                                                                       <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> aws_secret_key:                                                                                                                        <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: AWS Secret Key to authenticate to AWS with.                                                                             <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   required: <span class="nb">true</span>                                                                                                                       <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span> region:                                                                                                                                <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   description: AWS Region to create RDS instance in.                                                                                   <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   type: string                                                                                                                         <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>   default: us-west-2                                                                                                                   <span class="p">|</span>                <span class="p">|</span>
+<span class="p">|</span>            <span class="p">|</span>                             <span class="p">|</span>                                                                                                                                        <span class="p">|</span>                <span class="p">|</span>
++------------+-----------------------------+----------------------------------------------------------------------------------------------------------------------------------------+----------------+
+Documentation:
+AWS Service Broker - Amazon Route <span class="m">53</span>
+</pre></div>
+</div>
+<p>An instance of this service may be created using the cli:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru service instance add aws::dh-route53 recordset --plan-param <span class="nv">region</span><span class="o">=</span>us-west-1 --plan-param <span class="nv">aws_secret_key</span><span class="o">=</span>XPTO
+</pre></div>
+</div>
+<p>Binding, unbinding and removing the instance follows the same pattern and works just as other native services. Environment variables
+returned by the service are going to also be injected into the application.</p>
+<p>Removing a service broker may also be done by the cli:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru service broker delete &lt;name&gt;
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../plugins/index.html" class="btn btn-neutral float-right" title="Plugins" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tsuru-services-env-var.html" class="btn btn-neutral" title="TSURU_SERVICES environment variable" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.12.3
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.12.3',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

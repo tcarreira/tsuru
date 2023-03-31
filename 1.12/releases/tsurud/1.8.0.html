@@ -1,0 +1,414 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tsurud 1.8.0 release notes &mdash; tsuru 1.12.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="tsurud 1.7.0 release notes" href="1.7.0.html" />
+    <link rel="prev" title="tsurud 1.8.1 release notes" href="1.8.1.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.12.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../managing/index.html">Managing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugins/index.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Release notes</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#tsurud-tsuru-server-daemon">tsurud (tsuru server daemon)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="1.10.0.html">tsurud 1.10.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.8.1.html">tsurud 1.8.1 release notes</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">tsurud 1.8.0 release notes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#new-features">New features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#other-improvements">Other improvements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bug-fixes">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="1.7.0.html">tsurud 1.7.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.6.0.html">tsurud 1.6.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.5.0.html">tsurud 1.5.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.4.0.html">tsurud 1.4.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.3.0.html">tsurud 1.3.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.2.2.html">tsurud 1.2.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.2.1.html">tsurud 1.2.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.2.0.html">tsurud 1.2.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.1.2.html">tsurud 1.1.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.1.1.html">tsurud 1.1.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.1.0.html">tsurud 1.1.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.0.1.html">tsurud 1.0.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.0.0.html">tsurud 1.0.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.13.1.html">tsurud 0.13.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.13.0.html">tsurud 0.13.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.12.4.html">tsurud 0.12.4 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.12.3.html">tsurud 0.12.3 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.12.2.html">tsurud 0.12.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.12.1.html">tsurud 0.12.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.12.0.html">tsurud 0.12.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.11.3.html">tsr 0.11.3 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.11.2.html">tsr 0.11.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.11.1.html">tsr 0.11.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.11.0.html">tsr 0.11.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.10.2.html">tsr 0.10.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.10.1.html">tsr 0.10.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.10.0.html">tsr 0.10.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.9.1.html">tsr 0.9.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.9.0.html">tsr 0.9.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.8.2.html">tsr 0.8.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.8.1.html">tsr 0.8.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.8.0.html">tsr 0.8.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.7.2.html">tsr 0.7.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.7.1.html">tsr 0.7.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.7.0.html">tsr 0.7.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.6.2.html">tsr 0.6.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.6.1.html">tsr 0.6.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.6.0.html">tsr 0.6.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.5.3.html">tsr 0.5.3 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.5.2.html">tsr 0.5.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.5.1.html">tsr 0.5.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.5.0.html">tsr 0.5.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.4.0.html">tsr 0.4.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.12.html">tsr 0.3.12 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.11.html">tsr 0.3.11 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.10.html">tsr 0.3.10 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.9.html">tsr 0.3.9 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.8.html">tsr 0.3.8 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.7.html">tsr 0.3.7 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.6.html">tsr 0.3.6 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.5.html">tsr 0.3.5 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.4.html">tsr 0.3.4 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.3.html">tsr 0.3.3 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.2.html">tsr 0.3.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.1.html">tsr 0.3.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.0.html">tsr 0.3.0 release notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tsuru">tsuru</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Release notes</a> &raquo;</li>
+        
+      <li>tsurud 1.8.0 release notes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/releases/tsurud/1.8.0.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tsurud-1-8-0-release-notes">
+<h1>tsurud 1.8.0 release notes<a class="headerlink" href="#tsurud-1-8-0-release-notes" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to tsurud 1.8.0!</p>
+<p>These release notes cover the <a class="reference internal" href="#new-1-8-0"><span class="std std-ref">new features</span></a>, <a class="reference internal" href="#bug-1-8-0"><span class="std std-ref">bug fixes</span></a>. For a complete list of changes, <a class="reference external" href="https://github.com/tsuru/tsuru/issues?utf8=%E2%9C%93&amp;q=milestone%3A1.8+">check our 1.8.0 github milestone</a>.</p>
+<div class="section" id="new-features">
+<span id="new-1-8-0"></span><h2>New features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="add-support-for-multiple-versions-in-kubernetes-provisioner-2392">
+<h3>Add support for multiple versions in kubernetes provisioner (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2392">#2392</a>)<a class="headerlink" href="#add-support-for-multiple-versions-in-kubernetes-provisioner-2392" title="Permalink to this headline">¶</a></h3>
+<p>In this release we added support for running multiple versions of the same app at the same time, this allows developers to roll out their apps using a canary strategy.</p>
+</div>
+<div class="section" id="use-versions-to-manage-images-and-its-metadata-2390">
+<h3>Use versions to manage images and its metadata (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2390">#2390</a>)<a class="headerlink" href="#use-versions-to-manage-images-and-its-metadata-2390" title="Permalink to this headline">¶</a></h3>
+<p>Tsuru introduced a new concept called app versions, this concept allows us to simplify lot how we handle images and how we add metadata to images generated during a deploy. This is the first step in supporting running multiple versions of the same app simultaneously.</p>
+</div>
+<div class="section" id="improve-container-image-garbage-collector-add-metrics-locks-and-creates-a-tsuru-event-2400">
+<h3>Improve container image garbage collector: add metrics, locks and creates a tsuru event (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2400">#2400</a>)<a class="headerlink" href="#improve-container-image-garbage-collector-add-metrics-locks-and-creates-a-tsuru-event-2400" title="Permalink to this headline">¶</a></h3>
+<p>Now the Garbage collector of images uses a tsuru event to register all changes made from it.</p>
+</div>
+<div class="section" id="stream-logs-directly-from-kubernetes-api-server-2408">
+<h3>Stream logs directly from kubernetes api-server (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2408">#2408</a>)<a class="headerlink" href="#stream-logs-directly-from-kubernetes-api-server-2408" title="Permalink to this headline">¶</a></h3>
+<p>We did an important architectural change using kubernetes provisioner, we intend to maintain Tsuru as a global control-plane application, we are assigning the responsibility to store logs to kubelet engine, thus allowing Tsuru to maintain many k8s clusters without any bottleneck.</p>
+</div>
+<div class="section" id="support-dynamically-loading-router-definitions-from-database-2413">
+<h3>Support dynamically loading router definitions from database (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2413">#2413</a>)<a class="headerlink" href="#support-dynamically-loading-router-definitions-from-database-2413" title="Permalink to this headline">¶</a></h3>
+<p>Tsuru now has support to create and update routers without changing the config file.</p>
+</div>
+</div>
+<div class="section" id="other-improvements">
+<h2>Other improvements<a class="headerlink" href="#other-improvements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>provision/docker: add pids limit config option (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2384">#2384</a>)</li>
+<li>provision/kubernetes: Configurable max surge and unavailable in deploys (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2385">#2385</a>)</li>
+<li>provision/kubernetes: Improved errors and cancellation for image deploys (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2388">#2388</a>)</li>
+<li>provision/kubernetes: Remove ‘-base’ suffix for base deployments (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2395">#2395</a>)</li>
+<li>auth/oauth: Make types private and always read urls from config (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2396">#2396</a>)</li>
+<li>Return all cluster information for admin users (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2402">#2402</a>)</li>
+<li>Add WSL2 oauth support (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2404">#2404</a>)</li>
+<li>Add a flag to suppress sensitive environment variables at the event API (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2405">#2405</a>)</li>
+<li>feat(api/service): support updating and showing plan parameters for service instances (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2409">#2409</a>)</li>
+<li>fix(api/service): support for force removal of service instances (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2410">#2410</a>)</li>
+<li>provision/kubernetes: add option to use entire cluster as a single pool (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2411">#2411</a>)</li>
+<li>provision/cluster: add metrics for cluster info (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2417">#2417</a>)</li>
+<li>provision: Propagate app tags as labels or annotations (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2418">#2418</a>)</li>
+<li>Allow overriding plan memory and cpu for a single app (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2420">#2420</a>)</li>
+<li>provision/kubernetes: drop usage of deprecated rollback subresource (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2423">#2423</a>)</li>
+</ul>
+</div>
+<div class="section" id="bug-fixes">
+<span id="bug-1-8-0"></span><h2>Bug fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Ensure image versions are never reused and always incremented (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2382">#2382</a>)</li>
+<li>provision/kubernetes: Reset deployment timeout when progress happens (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2386">#2386</a>)</li>
+<li>provision/docker: Ignore errors during bind unit when adding units (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2393">#2393</a>)</li>
+<li>router/rebuild: Only save rebuild event on error (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2394">#2394</a>)</li>
+<li>router/galebv2: Use unambiguous prefix for galeb pool and rule names (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2397">#2397</a>)</li>
+<li>provision/kubernetes: Use labels in pod template to find version (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2399">#2399</a>)</li>
+<li>Fix pool list for users on multiple teams (<a class="reference external" href="https://github.com/tsuru/tsuru/pull/2415">#2415</a>)</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="1.7.0.html" class="btn btn-neutral float-right" title="tsurud 1.7.0 release notes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="1.8.1.html" class="btn btn-neutral" title="tsurud 1.8.1 release notes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.12.3
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.3',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

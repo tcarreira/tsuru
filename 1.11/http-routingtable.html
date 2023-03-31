@@ -1,0 +1,1026 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>HTTP Routing Table &mdash; tsuru 1.11.6 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_tabs/tabs.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+ 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+    <script type="text/javascript">
+      DOCUMENTATION_OPTIONS.COLLAPSE_INDEX = true;
+    </script>
+
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.11.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managing/index.html">Managing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/index.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>HTTP Routing Table</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+
+   <h1>HTTP Routing Table</h1>
+
+   <div class="modindex-jumpbox">
+   <a href="#cap-/1,0"><strong>/1,0</strong></a> | 
+   <a href="#cap-/1.0"><strong>/1.0</strong></a> | 
+   <a href="#cap-/1.1"><strong>/1.1</strong></a> | 
+   <a href="#cap-/1.2"><strong>/1.2</strong></a> | 
+   <a href="#cap-/1.3"><strong>/1.3</strong></a> | 
+   <a href="#cap-/1.4"><strong>/1.4</strong></a> | 
+   <a href="#cap-/1.5"><strong>/1.5</strong></a> | 
+   <a href="#cap-/1.6"><strong>/1.6</strong></a> | 
+   <a href="#cap-/1.7"><strong>/1.7</strong></a> | 
+   <a href="#cap-/1.8"><strong>/1.8</strong></a> | 
+   <a href="#cap-/1.9"><strong>/1.9</strong></a> | 
+   <a href="#cap-/pools"><strong>/pools</strong></a>
+   </div>
+
+   <table class="indextable modindextable">
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/1,0"><td></td><td>
+       <strong>/1,0</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1,0-roles-role_name-user"><code class="xref">POST /1,0/roles/{role_name}/user</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/1.0"><td></td><td>
+       <strong>/1.0</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-apps"><code class="xref">GET /1.0/apps</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-apps-app"><code class="xref">GET /1.0/apps/{app}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-apps-app-env"><code class="xref">GET /1.0/apps/{app}/env</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-apps-app-quota"><code class="xref">GET /1.0/apps/{app}/quota</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-plans"><code class="xref">GET /1.0/plans</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-platforms"><code class="xref">GET /1.0/platforms</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-pools"><code class="xref">GET /1.0/pools</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-services"><code class="xref">GET /1.0/services</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-services-instances"><code class="xref">GET /1.0/services/instances</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-services-name"><code class="xref">GET /1.0/services/{name}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-services-name-doc"><code class="xref">GET /1.0/services/{name}/doc</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-services-name-plans"><code class="xref">GET /1.0/services/{name}/plans</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-services-service-instances-instance"><code class="xref">GET /1.0/services/{service}/instances/{instance}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-services-service-instances-instance-status"><code class="xref">GET /1.0/services/{service}/instances/{instance}/status</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-teams"><code class="xref">GET /1.0/teams</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-users"><code class="xref">GET /1.0/users</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-users-api-key"><code class="xref">GET /1.0/users/api-key</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-users-info"><code class="xref">GET /1.0/users/info</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-users-keys"><code class="xref">GET /1.0/users/keys</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.0-users-email-quota"><code class="xref">GET /1.0/users/{email}/quota</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-apps"><code class="xref">POST /1.0/apps</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-apps-app-cname"><code class="xref">POST /1.0/apps/{app}/cname</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-apps-app-deploy"><code class="xref">POST /1.0/apps/{app}/deploy</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-apps-app-env"><code class="xref">POST /1.0/apps/{app}/env</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-apps-app-restart"><code class="xref">POST /1.0/apps/{app}/restart</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-apps-app-run"><code class="xref">POST /1.0/apps/{app}/run</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-apps-app-start"><code class="xref">POST /1.0/apps/{app}/start</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-apps-app-stop"><code class="xref">POST /1.0/apps/{app}/stop</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-plans"><code class="xref">POST /1.0/plans</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-platforms"><code class="xref">POST /1.0/platforms</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-pools"><code class="xref">POST /1.0/pools</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-role-default"><code class="xref">POST /1.0/role/default</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-roles"><code class="xref">POST /1.0/roles</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-roles-role_name-permissions"><code class="xref">POST /1.0/roles/{role_name}/permissions</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-services"><code class="xref">POST /1.0/services</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-services-service-instances"><code class="xref">POST /1.0/services/{service}/instances</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-teams"><code class="xref">POST /1.0/teams</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-users"><code class="xref">POST /1.0/users</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-users-api-key"><code class="xref">POST /1.0/users/api-key</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-users-keys"><code class="xref">POST /1.0/users/keys</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.0-users-email-password"><code class="xref">POST /1.0/users/{email}/password</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.0-apps-app"><code class="xref">PUT /1.0/apps/{app}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.0-apps-app-certificate"><code class="xref">PUT /1.0/apps/{app}/certificate</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.0-apps-app-quota"><code class="xref">PUT /1.0/apps/{app}/quota</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.0-apps-app-teams-team"><code class="xref">PUT /1.0/apps/{app}/teams/{team}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.0-apps-app-units"><code class="xref">PUT /1.0/apps/{app}/units</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.0-platforms-platform"><code class="xref">PUT /1.0/platforms/{platform}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.0-roles"><code class="xref">PUT /1.0/roles</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.0-services-name"><code class="xref">PUT /1.0/services/{name}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.0-services-name-doc"><code class="xref">PUT /1.0/services/{name}/doc</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.0-services-service-instances-permission-instance-team"><code class="xref">PUT /1.0/services/{service}/instances/permission/{instance}/{team}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.0-services-service-instances-instance"><code class="xref">PUT /1.0/services/{service}/instances/{instance}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.0-services-service-instances-instance-app"><code class="xref">PUT /1.0/services/{service}/instances/{instance}/{app}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.0-services-service-team-team"><code class="xref">PUT /1.0/services/{service}/team/{team}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.0-users-password"><code class="xref">PUT /1.0/users/password</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.0-users-email-quota"><code class="xref">PUT /1.0/users/{email}/quota</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-apps-app"><code class="xref">DELETE /1.0/apps/{app}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-apps-app-certificate"><code class="xref">DELETE /1.0/apps/{app}/certificate</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-apps-app-cname"><code class="xref">DELETE /1.0/apps/{app}/cname</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-apps-app-env"><code class="xref">DELETE /1.0/apps/{app}/env</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-apps-app-teams-team"><code class="xref">DELETE /1.0/apps/{app}/teams/{team}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-apps-app-units"><code class="xref">DELETE /1.0/apps/{app}/units</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-plans-plan"><code class="xref">DELETE /1.0/plans/{plan}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-platforms-platform"><code class="xref">DELETE /1.0/platforms/{platform}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-role-default"><code class="xref">DELETE /1.0/role/default</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-roles-role_name"><code class="xref">DELETE /1.0/roles/{role_name}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-roles-role_name-user-email"><code class="xref">DELETE /1.0/roles/{role_name}/user/{email}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-rolesrole_name-permissions-permission"><code class="xref">DELETE /1.0/roles{role_name}/permissions/{permission}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-services-name"><code class="xref">DELETE /1.0/services/{name}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-services-service-instances-permission-instance-team"><code class="xref">DELETE /1.0/services/{service}/instances/permission/{instance}/{team}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-services-service-instances-instance"><code class="xref">DELETE /1.0/services/{service}/instances/{instance}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-services-service-instances-instance-app"><code class="xref">DELETE /1.0/services/{service}/instances/{instance}/{app}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-services-service-team-team"><code class="xref">DELETE /1.0/services/{service}/team/{team}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-teams-team"><code class="xref">DELETE /1.0/teams/{team}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-users"><code class="xref">DELETE /1.0/users</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-users-keys-key"><code class="xref">DELETE /1.0/users/keys/{key}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.0-users-tokens"><code class="xref">DELETE /1.0/users/tokens</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/1.1"><td></td><td>
+       <strong>/1.1</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.1-events-eventid-cancel"><code class="xref">POST /1.1/events/{eventid}/cancel</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/1.2"><td></td><td>
+       <strong>/1.2</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.2-node"><code class="xref">GET /1.2/node</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.2-node-address"><code class="xref">GET /1.2/node/{address}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.2-node"><code class="xref">POST /1.2/node</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.2-nodecontainers"><code class="xref">POST /1.2/nodecontainers</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.2-node"><code class="xref">PUT /1.2/node</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.2-node-address"><code class="xref">DELETE /1.2/node/{address}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/1.3"><td></td><td>
+       <strong>/1.3</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.3-constraints"><code class="xref">GET /1.3/constraints</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.3-provisioner-clusters"><code class="xref">GET /1.3/provisioner/clusters</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.3-routers"><code class="xref">GET /1.3/routers</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.3-provisioner-clusters"><code class="xref">POST /1.3/provisioner/clusters</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.3-constraints"><code class="xref">PUT /1.3/constraints</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.3-provisioner-clusters-cluster_name"><code class="xref">DELETE /1.3/provisioner/clusters/{cluster_name}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/1.4"><td></td><td>
+       <strong>/1.4</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.4-teams-team"><code class="xref">GET /1.4/teams/{team}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.4-volumeplans"><code class="xref">GET /1.4/volumeplans</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.4-volumes"><code class="xref">GET /1.4/volumes</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.4-volumes-volume"><code class="xref">GET /1.4/volumes/{volume}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.4-provisioner-clusters-cluster_name"><code class="xref">POST /1.4/provisioner/clusters/{cluster_name}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.4-volumes"><code class="xref">POST /1.4/volumes</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.4-volumes-volume-bind"><code class="xref">POST /1.4/volumes/{volume}/bind</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.4-volumes-volume"><code class="xref">PUT /1.4/volumes/{volume}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.4-volumes-volume"><code class="xref">DELETE /1.4/volumes/{volume}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.4-volumes-volume-bind"><code class="xref">DELETE /1.4/volumes/{volume}/bind</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/1.5"><td></td><td>
+       <strong>/1.5</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.5-apps-app-routers"><code class="xref">GET /1.5/apps/{app}/routers</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.5-apps-app-routers"><code class="xref">POST /1.5/apps/{app}/routers</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.5-apps-app-routers-router"><code class="xref">PUT /1.5/apps/{app}/routers/{router}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.5-apps-app-routers-router"><code class="xref">DELETE /1.5/apps/{app}/routers/{router}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/1.6"><td></td><td>
+       <strong>/1.6</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.6-events-webhooks"><code class="xref">GET /1.6/events/webhooks</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.6-events-webhooks-name"><code class="xref">GET /1.6/events/webhooks/{name}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.6-platforms-platform"><code class="xref">GET /1.6/platforms/{platform}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.6-tokens"><code class="xref">GET /1.6/tokens</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.6-events-webhooks"><code class="xref">POST /1.6/events/webhooks</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.6-platforms-platform-rollback"><code class="xref">POST /1.6/platforms/{platform}/rollback</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.6-roles-role_name-token"><code class="xref">POST /1.6/roles/{role_name}/token</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.6-tokens"><code class="xref">POST /1.6/tokens</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.6-events-webhooks-name"><code class="xref">PUT /1.6/events/webhooks/{name}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.6-teams-team"><code class="xref">PUT /1.6/teams/{team}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.6-tokens-token_id"><code class="xref">PUT /1.6/tokens/{token_id}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.6-events-webhooks-name"><code class="xref">DELETE /1.6/events/webhooks/{name}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.6-roles-role_name-group-group_name"><code class="xref">DELETE /1.6/roles/{role_name}/group/{group_name}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.6-roles-role_name-token-token_id"><code class="xref">DELETE /1.6/roles/{role_name}/token/{token_id}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.6-tokens-token_id"><code class="xref">DELETE /1.6/tokens/{token_id}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/1.7"><td></td><td>
+       <strong>/1.7</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.7-brokers"><code class="xref">GET /1.7/brokers</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.7-provisioner"><code class="xref">GET /1.7/provisioner</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.7-tokens-token_id"><code class="xref">GET /1.7/tokens/{token_id}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.7-brokers"><code class="xref">POST /1.7/brokers</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.7-brokers-name"><code class="xref">PUT /1.7/brokers/{name}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.7-brokers-name"><code class="xref">DELETE /1.7/brokers/{name}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/1.8"><td></td><td>
+       <strong>/1.8</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.8-provisioner-clusters-cluster_name"><code class="xref">GET /1.8/provisioner/clusters/{cluster_name}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.8-apps-app-routable"><code class="xref">POST /1.8/apps/{app}/routable</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.8-routers"><code class="xref">POST /1.8/routers</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--1.8-routers-name"><code class="xref">PUT /1.8/routers/{name}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.8-routers-name"><code class="xref">DELETE /1.8/routers/{name}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/1.9"><td></td><td>
+       <strong>/1.9</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--1.9-apps-app-units-autoscale"><code class="xref">GET /1.9/apps/{app}/units/autoscale</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.9-apps-app-units-autoscale"><code class="xref">POST /1.9/apps/{app}/units/autoscale</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#post--1.9-roles-role_name-group"><code class="xref">POST /1.9/roles/{role_name}/group</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--1.9-apps-app-units-autoscale"><code class="xref">DELETE /1.9/apps/{app}/units/autoscale</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/pools"><td></td><td>
+       <strong>/pools</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#get--pools-pool"><code class="xref">GET /pools/{pool}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#put--pools-pool"><code class="xref">PUT /pools/{pool}</code></a></td><td>
+       <em>null</em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="reference/api.html#delete--pools-pool"><code class="xref">DELETE /pools/{pool}</code></a></td><td>
+       <em>null</em></td></tr>
+   </table>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.11.6
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.11.6',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.js"></script>
+      <script type="text/javascript" src="_static/sphinx_tabs/tabs.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

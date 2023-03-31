@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tsr 0.7.0 release notes &mdash; tsuru 0.11.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="tsr 0.6.2 release notes" href="0.6.2.html" />
+    <link rel="prev" title="tsr 0.7.1 release notes" href="0.7.1.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.11.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../managing/index.html">Managing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/index.html">Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Release notes</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#tsr-tsuru-server-daemon">tsr (tsuru server daemon)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="0.11.3.html">tsr 0.11.3 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.11.2.html">tsr 0.11.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.11.1.html">tsr 0.11.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.11.0.html">tsr 0.11.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.10.2.html">tsr 0.10.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.10.1.html">tsr 0.10.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.10.0.html">tsr 0.10.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.9.1.html">tsr 0.9.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.9.0.html">tsr 0.9.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.8.2.html">tsr 0.8.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.8.1.html">tsr 0.8.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.8.0.html">tsr 0.8.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.7.2.html">tsr 0.7.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.7.1.html">tsr 0.7.1 release notes</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">tsr 0.7.0 release notes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#what-s-new-in-tsr-0-7-0">What’s new in tsr 0.7.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bug-fixes">Bug fixes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#other-improvements-in-tsr-0-7-0">Other improvements in tsr 0.7.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#backward-incompatible-changes">Backward incompatible changes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="0.6.2.html">tsr 0.6.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.6.1.html">tsr 0.6.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.6.0.html">tsr 0.6.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.5.3.html">tsr 0.5.3 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.5.2.html">tsr 0.5.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.5.1.html">tsr 0.5.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.5.0.html">tsr 0.5.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.4.0.html">tsr 0.4.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.3.12.html">tsr 0.3.12 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.3.11.html">tsr 0.3.11 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.3.10.html">tsr 0.3.10 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.3.9.html">tsr 0.3.9 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.3.8.html">tsr 0.3.8 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.3.7.html">tsr 0.3.7 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.3.6.html">tsr 0.3.6 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.3.5.html">tsr 0.3.5 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.3.4.html">tsr 0.3.4 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.3.3.html">tsr 0.3.3 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.3.2.html">tsr 0.3.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.3.1.html">tsr 0.3.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.3.0.html">tsr 0.3.0 release notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tsuru">tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tsuru-admin">tsuru-admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#crane">crane</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Release notes</a> &raquo;</li>
+        
+      <li>tsr 0.7.0 release notes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/releases/tsr/0.7.0.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tsr-0-7-0-release-notes">
+<h1>tsr 0.7.0 release notes<a class="headerlink" href="#tsr-0-7-0-release-notes" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to tsr 0.7.0!</p>
+<p>These release notes cover the <a class="reference internal" href="#what-s-new-in-tsr-0-7-0">new features</a>, <a class="reference internal" href="#bug-fixes">bug fixes</a>, <a class="reference internal" href="#backward-incompatible-changes">backward
+incompatible changes</a> and <a class="reference internal" href="#other-improvements-in-tsr-0-7-0">general improvements</a> you’ll want to be aware of
+when upgrading from tsr 0.6.0 or older versions.</p>
+<div class="section" id="what-s-new-in-tsr-0-7-0">
+<h2>What’s new in tsr 0.7.0<a class="headerlink" href="#what-s-new-in-tsr-0-7-0" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>quota management via API is back: now tsuru administrators are able to view
+and change the quota of a user of an application. It can be done from the
+remote API or using tsuru-admin (issue <a class="reference external" href="https://github.com/tsuru/tsuru/issues/869">#869</a>)</li>
+<li>deploy via upload: now it’s possible to upload a tar archive to the API. In
+this case, users are able to just drop the file in the tsuru server, without
+using git. This feature enables the deployment of binaries, WAR files, and
+other things that may need local processing (issue <a class="reference external" href="https://github.com/tsuru/tsuru/issues/874">#874</a>). The tsuru client also
+includes a <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">deploy</span></code> command</li>
+<li>removing platforms via API: now tsuru administrators are able to remove
+platforms from tsuru. It can be done from the remote API or using tsuru-admin
+(issue <a class="reference external" href="https://github.com/tsuru/tsuru/issues/779">#779</a>)</li>
+<li>new apps now get a new environment variable: <code class="docutils literal notranslate"><span class="pre">TSURU_APPDIR</span></code>. This
+environment variable represents the path where the application was deployed,
+the root directory of the application (issue <a class="reference external" href="https://github.com/tsuru/tsuru/issues/783">#783</a>)</li>
+<li>now tsuru server will reload configuration on SIGHUP. Users running the API
+under upstart or other services like that are now able to call the <code class="docutils literal notranslate"><span class="pre">reload</span></code>
+command and get the expected behaviour (issue <a class="reference external" href="https://github.com/tsuru/tsuru/issues/898">#898</a>)</li>
+<li>multiple cnames: now it’s possible to app have multiple cnames. The <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">set-</span>
+<span class="pre">cname</span></code> and <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">unset-cname</span></code> commands changed to <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">add-cname</span></code> and
+<code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">remove-cname</span></code> respectively (issue <a class="reference external" href="https://github.com/tsuru/tsuru/issues/677">#677</a>).</li>
+<li>tsuru is now able to heal failing nodes and containers automatically, this is
+disabled by default. Instructions can be found in the <a class="reference internal" href="../../reference/config.html#config-healing"><span class="std std-ref">config reference</span></a></li>
+<li>set app’s owner team: now it’s possible to user to change app’s owner team.
+App’s new owner team should be one of user’s team. Admin user can change app’s
+owner team to any team. (issue <a class="reference external" href="https://github.com/tsuru/tsuru/issues/894">#894</a>).</li>
+<li>Now it’s possible to configure a health check request path to be called during
+the deployment process of an application. tsuru will make sure the health check
+is passing before switching the router to the newly created units. See
+<a class="reference internal" href="../../using/tsuru.yaml.html#yaml-healthcheck"><span class="std std-ref">health check docs</span></a> for more details.</li>
+</ul>
+</div>
+<div class="section" id="bug-fixes">
+<h2>Bug fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>API: fix the endpoint for creating new services so it returns 409 Conflict
+instead of 500 when there’s already a service registered with the provided
+name</li>
+<li>PlatformAdd: returns better error when an platform is added but theres no node
+to build the platform image (issue <a class="reference external" href="https://github.com/tsuru/tsuru/issues/906">#906</a>).</li>
+</ul>
+</div>
+<div class="section" id="other-improvements-in-tsr-0-7-0">
+<h2>Other improvements in tsr 0.7.0<a class="headerlink" href="#other-improvements-in-tsr-0-7-0" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>API: improve the App swap endpoint, so it will refuse to swap incompatible
+apps. Two apps are incompatible if they don’t use the same platform or don’t
+have the same amount of units. Users can force the swap of incompatible apps
+by providing the force parameter (issue <a class="reference external" href="https://github.com/tsuru/tsuru/issues/582">#582</a>)</li>
+<li>API: admin users now see all service instances in the service instances list
+endpoint (issue <a class="reference external" href="https://github.com/tsuru/tsuru/issues/614">#614</a>)</li>
+<li>API: Handler that returns information about the deploy has implemented. Its
+included the diff attribute that returns the difference between the last
+commit and the preceding it.</li>
+</ul>
+</div>
+<div class="section" id="backward-incompatible-changes">
+<h2>Backward incompatible changes<a class="headerlink" href="#backward-incompatible-changes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">tsr</span> <span class="pre">ssh-agent</span></code> has been totally removed, it’s no longe possible to use it
+with tsuru server</li>
+<li>tsuru no longer accepts teams with space in the name (issue <a class="reference external" href="https://github.com/tsuru/tsuru/issues/674">#674</a>)</li>
+<li>tsuru no longer supports <code class="docutils literal notranslate"><span class="pre">docker:cluster:storage</span></code> set to <code class="docutils literal notranslate"><span class="pre">redis</span></code>, the only
+storage available is now <code class="docutils literal notranslate"><span class="pre">mongodb</span></code>. See <a class="reference internal" href="../../reference/config.html#config-cluster-storage"><span class="std std-ref">config reference</span></a> for more details. Also, there’s a <a class="reference external" href="https://gist.github.com/cezarsa/d2c8b8db611af9a2d67d">python script</a> that can be used to
+migrate from <code class="docutils literal notranslate"><span class="pre">redis</span></code> to <code class="docutils literal notranslate"><span class="pre">mongodb</span></code>.</li>
+<li>Hooks semantic has changed, <code class="docutils literal notranslate"><span class="pre">restart:before-each</span></code> and <code class="docutils literal notranslate"><span class="pre">restart:after-each</span></code>
+no longer exist and now <code class="docutils literal notranslate"><span class="pre">restart:before</span></code> and <code class="docutils literal notranslate"><span class="pre">restart:afer</span></code> run on every
+unit. Also existing <code class="docutils literal notranslate"><span class="pre">app.yaml</span></code> file should be renamed to <code class="docutils literal notranslate"><span class="pre">tsuru.yaml</span></code>. See
+<a class="reference internal" href="../../using/tsuru.yaml.html#yaml-deployment-hooks"><span class="std std-ref">hooks</span></a> for more details.</li>
+<li>Existing platform images should be updated due to changes in tsuru-circus and
+tsuru-unit-agent. Old platforms still work, but support will be dropped on the
+next version.</li>
+<li>router cnames should be migrate from string to list in redis. There is a <a class="reference external" href="https://gist.github.com/tarsisazevedo/c31c0e6ba62bee002784">script</a> that can be used to migrate it.</li>
+<li>app should be migrate from string to list in mongo too. You can execute this code to do it:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>db.apps.find().forEach(function(item) {
+    cname = item.cname;
+    item.cname !== &quot;&quot; ? item.cname = [cname]:item.cname = [];
+    db.apps.save(item);
+})
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="0.6.2.html" class="btn btn-neutral float-right" title="tsr 0.6.2 release notes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="0.7.1.html" class="btn btn-neutral" title="tsr 0.7.1 release notes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.11.3
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.11.3',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

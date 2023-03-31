@@ -1,0 +1,543 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Why tsuru? &mdash; tsuru 0.5.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Deployment hooks" href="apps/deploy-hooks.html" />
+    <link rel="prev" title="tsuru Overview" href="overview.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.5.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="add-a-platform.html">Creating a platform to tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">tsuru architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuring tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Install tsuru and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-centos.html">Build your own PaaS with tsuru and Docker on Centos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-node.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-node.html#docker">docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-node.html#tsuru-node-agent">tsuru node agent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">tsuru Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">tsuru Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Why tsuru?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#easy-server-installation">Easy Server Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#platforms-extensibility">Platforms Extensibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#services-creation-and-extension">Services Creation and Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iaas-s-and-provisioners">IaaS’s and Provisioners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#routers">Routers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#comparing-tsuru-with-other-paas-s">Comparing tsuru With Other PaaS’s</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="apps/deploy-hooks.html">Deployment hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/deployment.html">Application Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/recovery.html">Recovering an application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/coding-style.html">Coding style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/setting-up-your-tsuru-development-environment.html">Setting up you tsuru development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/vagrant.html">Building a tsuru development environment with Vagrant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install/client.html">Installing tsuru clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/dns-forwarders.html">Howto install a dns forwarder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server/backup.html">Backing up tsuru database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server/install.html">Server installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/api.html">api workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/build.html">Building your service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/mysql-example.html">HOWTO Install a MySQL service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/usage.html">Crane usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/buildpacks.html">Using Buildpacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/procfile.html">Procfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/unit-states.html">unit states</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/client/services.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/client/usage.html">Client usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/go.html">Deploying Go applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/php.html">Deploying PHP applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/python.html">Deploying Python applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/ruby.html">Deploying Ruby applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/tsuru-admin/usage.html">tsuru-admin usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioners/docker/architecture.html">Docker Provisioner Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioners/docker/schedulers.html">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.0.html">tsr 0.3.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.1.html">tsr 0.3.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.10.html">tsr 0.3.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.11.html">tsr 0.3.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.12.html">tsr 0.3.12 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.2.html">tsr 0.3.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.3.html">tsr 0.3.3 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.4.html">tsr 0.3.4 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.5.html">tsr 0.3.5 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.6.html">tsr 0.3.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.7.html">tsr 0.3.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.8.html">tsr 0.3.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.9.html">tsr 0.3.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.4.0.html">tsr 0.4.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.5.0.html">tsr 0.5.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.5.1.html">tsr 0.5.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.5.2.html">tsr 0.5.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.5.3.html">tsr 0.5.3 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru-admin/0.3.0.html">tsuru-admin 0.3.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru-admin/0.4.0.html">tsuru-admin 0.4.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru-admin/0.4.1.html">tsuru-admin 0.4.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru-admin/0.4.2.html">tsuru-admin 0.4.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.10.0.html">tsuru 0.10.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.10.1.html">tsuru 0.10.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.10.html">tsuru 0.8.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.11.html">tsuru 0.8.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.6.html">tsuru 0.8.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.7.html">tsuru 0.8.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.8.html">tsuru 0.8.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.9.html">tsuru 0.8.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.9.1.html">tsuru 0.8.9.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.9.0.html">tsuru 0.9.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/cli/plugins.html">Guide to create tsuru cli plugins</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Why tsuru?</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/why.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="why-tsuru">
+<h1>Why tsuru?<a class="headerlink" href="#why-tsuru" title="Permalink to this headline">¶</a></h1>
+<p>This document aims to show tsuru’s most killing features. Additionally, provides a comparison of tsuru
+with others PaaS’s on the market.</p>
+<div class="section" id="easy-server-installation">
+<h2>Easy Server Installation<a class="headerlink" href="#easy-server-installation" title="Permalink to this headline">¶</a></h2>
+<p>It’s really easy to have a running PaaS with tsuru. We provide a serie of scripts,
+each one built to install and configure the required components for each tsuru
+provisioner, you can check our scripts on <a class="reference external" href="https://github.com/tsuru/tsuru/tree/master/misc">tsuru repository</a>, there are separated scripts
+to install each component, so it’s easy to create your own script to configure a
+new provisioner or to change the configuration of an existing one.</p>
+<p>But it’s okay if you want more control and do not want to use our scripts, or want
+to better understand the interaction between tsuru components, we built
+<a class="reference external" href="http://docs.tsuru.io/en/latest/docker.html">a guide</a> only for you.</p>
+</div>
+<div class="section" id="platforms-extensibility">
+<h2>Platforms Extensibility<a class="headerlink" href="#platforms-extensibility" title="Permalink to this headline">¶</a></h2>
+<p>One of tsuru main goals is to be easily extensible. The
+<a class="reference external" href="http://www.docker.io/">Docker</a> provisioner has an specific image for each
+platform, if one wants to create a new platform, just extend tsuru/base image and
+follow the directory tree structure, the scripts and Dockerfile for our existing
+platforms images can be found on our  <a class="reference external" href="https://github.com/tsuru/basebuilder">images repository</a></p>
+</div>
+<div class="section" id="services-creation-and-extension">
+<h2>Services Creation and Extension<a class="headerlink" href="#services-creation-and-extension" title="Permalink to this headline">¶</a></h2>
+<p>Most applications need a service to work properly, like a database service. tsuru
+provides an interface API to communicate with services APIs, but it doesn’t manage
+services directly, this provides more control over the service and its management.</p>
+<p>In order to create a new service you simply write an API implementing the predefined endpoints. tsuru will call when
+a user performs an action using the client, read more on the <a class="reference external" href="http://docs.tsuru.io/en/latest/services/build.html">building your service tutorial</a>.</p>
+<p>You can either create a new service or modify an existing one, if its source is open. All services APIs made by tsuru team are open and
+contributions are very welcome.
+For example, the mongoDB api shares one database installation with everyone that is using it,
+if you don’t like it and want to change it, you can do it and create a new service on tsuru with your own implementation.</p>
+</div>
+<div class="section" id="iaas-s-and-provisioners">
+<h2>IaaS’s and Provisioners<a class="headerlink" href="#iaas-s-and-provisioners" title="Permalink to this headline">¶</a></h2>
+<p>tsuru provides an easy way to change the application unit provisioning system but
+right now it supports only Docker. One can simply implement the Provision
+interface tsuru provides, configure it on your installation and start using it.</p>
+</div>
+<div class="section" id="routers">
+<h2>Routers<a class="headerlink" href="#routers" title="Permalink to this headline">¶</a></h2>
+<p>tsuru also provides an abstraction for routing control and load balancing in application units.
+It provides a routing interface, that you can combine on many ways: you can plug any router with any provisioner,
+you can also create your own routing backend and plug it with any existing provisioner, this can be done
+only changing tsuru’s configuration file.</p>
+</div>
+<div class="section" id="comparing-tsuru-with-other-paas-s">
+<h2>Comparing tsuru With Other PaaS’s<a class="headerlink" href="#comparing-tsuru-with-other-paas-s" title="Permalink to this headline">¶</a></h2>
+<p>The following table compares tsuru with OpenShift and Stackato PaaS’s.</p>
+<p>If you have anything to consider, or want to ask us to add another PaaS on the list
+contact us in #tsuru &#64; freenode.net or at our <a class="reference external" href="https://groups.google.com/d/forum/tsuru-users">mailing list</a></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="26%" />
+<col width="22%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&#160;</th>
+<th class="head">tsuru</th>
+<th class="head">OpenShift</th>
+<th class="head">Stackato</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Built-in Platforms</td>
+<td>Node.js, PHP,
+HTML, Python, Ruby,
+Go, Java</td>
+<td>Java, PHP,
+Ruby, Node.js,
+Python</td>
+<td>Java, Node.Js,
+Perl, PHP,
+Python, Ruby</td>
+</tr>
+<tr class="row-odd"><td>End-user web UI</td>
+<td>Yes (<a class="reference external" href="https://github.com/globocom/abyss">Abyss</a>)</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="row-even"><td>CLI</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="row-odd"><td>Deployment hooks</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="row-even"><td>SSH Access</td>
+<td>Yes (management-only)</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="row-odd"><td>Run Commands Remotely</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="row-even"><td>Application Monitoring</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="row-odd"><td>SQL Databases</td>
+<td>MySQL</td>
+<td>MySQL, PostgreSQL</td>
+<td>MySQL, PostgreSQL</td>
+</tr>
+<tr class="row-even"><td>NoSQL Databases</td>
+<td>MongoDB, Cassandra
+Memcached, Redis</td>
+<td>MongoDB</td>
+<td>MongoDB, Redis</td>
+</tr>
+<tr class="row-odd"><td>Log Streaming</td>
+<td>Yes</td>
+<td>Yes (not built-in)</td>
+<td>Yes</td>
+</tr>
+<tr class="row-even"><td>Metering/Billing API</td>
+<td>No (issue <a class="reference external" href="https://github.com/tsuru/tsuru/issues/466">466</a>)</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="row-odd"><td>Quota System</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="row-even"><td>Container Based Apps</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="row-odd"><td>VMs Based Apps</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="row-even"><td>Open Source</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr class="row-odd"><td>Free</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="row-even"><td>Paid/Closed Version</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="row-odd"><td>PaaS Healing</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="row-even"><td>App Healing</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="row-odd"><td>App Fault Tolerance</td>
+<td>Yes</td>
+<td>Yes (by cartridge)</td>
+<td>Yes</td>
+</tr>
+<tr class="row-even"><td>Auto Scaling</td>
+<td>No (issue <a class="reference external" href="https://github.com/tsuru/tsuru/issues/154">154</a>)</td>
+<td>Yes</td>
+<td>Yes (for some IaaS’s)</td>
+</tr>
+<tr class="row-odd"><td>Manual Scaling</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="apps/deploy-hooks.html" class="btn btn-neutral float-right" title="Deployment hooks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="overview.html" class="btn btn-neutral" title="tsuru Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.5.3
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.5.3',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Crane usage &mdash; tsuru 0.5.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Using Buildpacks" href="../using/buildpacks.html" />
+    <link rel="prev" title="HOWTO Install a MySQL service" href="mysql-example.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.5.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../add-a-platform.html">Creating a platform to tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">tsuru architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../community.html">community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html">Configuring tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Install tsuru and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker-centos.html">Build your own PaaS with tsuru and Docker on Centos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker-node.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker-node.html#docker">docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker-node.html#tsuru-node-agent">tsuru node agent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">tsuru Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">tsuru Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../why.html">Why tsuru?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/deploy-hooks.html">Deployment hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/deployment.html">Application Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/recovery.html">Recovering an application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/coding-style.html">Coding style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/setting-up-your-tsuru-development-environment.html">Setting up you tsuru development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer/vagrant.html">Building a tsuru development environment with Vagrant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/client.html">Installing tsuru clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/dns-forwarders.html">Howto install a dns forwarder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/backup.html">Backing up tsuru database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/install.html">Server installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">api workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Building your service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mysql-example.html">HOWTO Install a MySQL service</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Crane usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#further-instructions">Further instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../using/buildpacks.html">Using Buildpacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/procfile.html">Procfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/unit-states.html">unit states</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/client/services.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/client/usage.html">Client usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart/go.html">Deploying Go applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart/php.html">Deploying PHP applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart/python.html">Deploying Python applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart/ruby.html">Deploying Ruby applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/tsuru-admin/usage.html">tsuru-admin usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../provisioners/docker/architecture.html">Docker Provisioner Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../provisioners/docker/schedulers.html">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.0.html">tsr 0.3.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.1.html">tsr 0.3.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.10.html">tsr 0.3.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.11.html">tsr 0.3.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.12.html">tsr 0.3.12 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.2.html">tsr 0.3.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.3.html">tsr 0.3.3 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.4.html">tsr 0.3.4 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.5.html">tsr 0.3.5 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.6.html">tsr 0.3.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.7.html">tsr 0.3.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.8.html">tsr 0.3.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.3.9.html">tsr 0.3.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.4.0.html">tsr 0.4.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.5.0.html">tsr 0.5.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.5.1.html">tsr 0.5.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.5.2.html">tsr 0.5.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsr/0.5.3.html">tsr 0.5.3 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru-admin/0.3.0.html">tsuru-admin 0.3.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru-admin/0.4.0.html">tsuru-admin 0.4.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru-admin/0.4.1.html">tsuru-admin 0.4.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru-admin/0.4.2.html">tsuru-admin 0.4.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru/0.10.0.html">tsuru 0.10.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru/0.10.1.html">tsuru 0.10.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru/0.8.10.html">tsuru 0.8.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru/0.8.11.html">tsuru 0.8.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru/0.8.6.html">tsuru 0.8.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru/0.8.7.html">tsuru 0.8.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru/0.8.8.html">tsuru 0.8.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru/0.8.9.html">tsuru 0.8.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru/0.8.9.1.html">tsuru 0.8.9.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/tsuru/0.9.0.html">tsuru 0.9.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/cli/plugins.html">Guide to create tsuru cli plugins</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Crane usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/services/usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="crane-usage">
+<h1>Crane usage<a class="headerlink" href="#crane-usage" title="Permalink to this headline">¶</a></h1>
+<p>First, you must set the target with your server url, like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ crane target tsuru.myhost.com
+</pre></div>
+</div>
+<p>After that, all you need is to create a user and authenticate:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ crane user-create youremail@gmail.com
+$ crane login youremail@gmail.com
+</pre></div>
+</div>
+<p>To generate a service template:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ crane template
+</pre></div>
+</div>
+<p>This will create a manifest.yaml in your current path with this content:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">servicename</span>
+<span class="nt">endpoint</span><span class="p">:</span>
+  <span class="nt">production</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">production-endpoint.com</span>
+    <span class="l l-Scalar l-Scalar-Plain">test</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">test-endpoint.com:8080</span>
+</pre></div>
+</div>
+<p>The manifest.yaml is used by crane to define an id and an endpoint to your service.</p>
+<p>To submit your new service, you can run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ crane create path/to/your/manifest.yaml
+</pre></div>
+</div>
+<p>To list your services:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ crane list
+</pre></div>
+</div>
+<p>This will return something like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>+----------+-----------+
+<span class="p">|</span> Services <span class="p">|</span> Instances <span class="p">|</span>
++----------+-----------+
+<span class="p">|</span> mysql    <span class="p">|</span> my_db     <span class="p">|</span>
++----------+-----------+
+</pre></div>
+</div>
+<p>To update a service manifest:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ crane create path/to/your/manifest.yaml
+</pre></div>
+</div>
+<p>To remove a service:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ crane remove service_name
+</pre></div>
+</div>
+<p>It would be nice if your service had some documentation. To add a documentation to you service you can use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ crane doc-add service_name path/to/your/docfile
+</pre></div>
+</div>
+<p>Crane will read the content of the file and save it.</p>
+<p>To show the current documentation of your service:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ crane doc-get service_name
+</pre></div>
+</div>
+<div class="section" id="further-instructions">
+<h2>Further instructions<a class="headerlink" href="#further-instructions" title="Permalink to this headline">¶</a></h2>
+<p>For a complete reference, check the documentation for crane command:
+<a class="reference external" href="http://godoc.org/github.com/tsuru/crane">http://godoc.org/github.com/tsuru/crane</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../using/buildpacks.html" class="btn btn-neutral float-right" title="Using Buildpacks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mysql-example.html" class="btn btn-neutral" title="HOWTO Install a MySQL service" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.5.3
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.5.3',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

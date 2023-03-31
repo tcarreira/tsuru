@@ -1,0 +1,439 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Howto install a dns forwarder &mdash; tsuru 0.2.12 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Backing up tsuru database" href="../server/backup.html" />
+    <link rel="prev" title="Installing tsuru clients" href="../install/client.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.12
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build.html">Build your own PaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../community.html">community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html">Configuring tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Build your own PaaS with tsuru and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker-centos.html">Build your own PaaS with tsuru and Docker on Centos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Tsuru Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Tsuru Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../why.html">Why Tsuru?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/deploy-hooks.html">Deployment hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/deployment.html">Application Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/coding-style.html">Coding style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/setting-up-your-tsuru-development-environment.html">Setting up you tsuru development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/client.html">Installing tsuru clients</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Howto install a dns forwarder</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-bind">Installing Bind</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ubuntu">Ubuntu</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#centos">Centos</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuring-bind">Configuring Bind</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#forwarder">Forwarder</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Ubuntu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Centos</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#dns-zone">DNS Zone</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Ubuntu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">Centos</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../server/backup.html">Backing up tsuru database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/install.html">Server installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/api.html">api workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/build.html">Building your service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/mysql-example.html">HOWTO Install a MySQL service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/usage.html">Crane usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/client/services.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/client/usage.html">Client usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart/php.html">Deploying PHP applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart/python.html">Deploying Python applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart/ruby.html">Deploying Ruby applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../provisioners/docker/architecture.html">Docker Provisioner Architecture</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Howto install a dns forwarder</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/misc/dns-forwarders.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="howto-install-a-dns-forwarder">
+<h1>Howto install a dns forwarder<a class="headerlink" href="#howto-install-a-dns-forwarder" title="Permalink to this headline">¶</a></h1>
+<p>This document describes how to create a dns forwarder and set a base domain for tsuru.</p>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>The recommended way to use tsuru is integrated with a DNS server.
+The easiest way to do that is configuring it as a cache forwarder,
+and configuring a DNS zone to be used for tsuru as required.</p>
+</div>
+<div class="section" id="installing-bind">
+<h2>Installing Bind<a class="headerlink" href="#installing-bind" title="Permalink to this headline">¶</a></h2>
+<p>Here you will see how easy is to install a DNS server. Bellow you will see a howto for Ubuntu and Centos</p>
+<div class="section" id="ubuntu">
+<h3>Ubuntu<a class="headerlink" href="#ubuntu" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ apt-get install bind9 bind9utils -y
+</pre></div>
+</div>
+</div>
+<div class="section" id="centos">
+<h3>Centos<a class="headerlink" href="#centos" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ yum install <span class="nb">bind</span> bind-utils -y
+$ chkconfig named on
+$ service named start
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="configuring-bind">
+<h2>Configuring Bind<a class="headerlink" href="#configuring-bind" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="forwarder">
+<h3>Forwarder<a class="headerlink" href="#forwarder" title="Permalink to this headline">¶</a></h3>
+<p>First we will show how to configure your DNS as a forwarder.
+Into the config file,  insert the forwarders directive inside the “options” main directive.
+You can use the google’s public DNS(8.8.8.8/8.8.4.4) as forwarder or your company’s DNS. It should look like that:</p>
+<div class="section" id="id1">
+<h4>Ubuntu<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ egrep -v <span class="s1">&#39;//|^$&#39;</span> /etc/bind/named.conf.options
+options <span class="o">{</span>
+        directory <span class="s2">&quot;/var/cache/bind&quot;</span><span class="p">;</span>
+        forwarders <span class="o">{</span>
+                <span class="m">8</span>.8.8.8<span class="p">;</span>
+                <span class="m">8</span>.8.4.4<span class="p">;</span>
+        <span class="o">}</span><span class="p">;</span>
+        dnssec-validation auto<span class="p">;</span>
+        auth-nxdomain no<span class="p">;</span>    <span class="c1"># conform to RFC1035</span>
+        listen-on-v6 <span class="o">{</span> any<span class="p">;</span> <span class="o">}</span><span class="p">;</span>
+<span class="o">}</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h4>Centos<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$   egrep -v <span class="s1">&#39;//|^$&#39;</span> /etc/named.conf <span class="p">|</span>head
+options <span class="o">{</span>
+    forwarders <span class="o">{</span> <span class="m">8</span>.8.8.8<span class="p">;</span> <span class="m">8</span>.8.4.4<span class="p">;</span> <span class="o">}</span><span class="p">;</span>
+    listen-on port <span class="m">53</span> <span class="o">{</span> any<span class="p">;</span> <span class="o">}</span><span class="p">;</span>
+    listen-on-v6 port <span class="m">53</span> <span class="o">{</span> ::1<span class="p">;</span> <span class="o">}</span><span class="p">;</span>
+    directory           <span class="s2">&quot;/var/named&quot;</span><span class="p">;</span>
+    dump-file           <span class="s2">&quot;/var/named/data/cache_dump.db&quot;</span><span class="p">;</span>
+    statistics-file     <span class="s2">&quot;/var/named/data/named_stats.txt&quot;</span><span class="p">;</span>
+    memstatistics-file  <span class="s2">&quot;/var/named/data/named_mem_stats.txt&quot;</span><span class="p">;</span>
+    allow-query         <span class="o">{</span> any<span class="p">;</span> <span class="o">}</span><span class="s2">&quot;;</span>
+<span class="s2">    recursion yes;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="dns-zone">
+<h3>DNS Zone<a class="headerlink" href="#dns-zone" title="Permalink to this headline">¶</a></h3>
+<p>Now we will set a DNS Zone to be used by tsuru. In this example we are using the domain cloud.company.com.
+Create a entrance for that into /etc/bind/named.conf.local(for ubuntu) or /etc/named.conf(for centos)  as following:</p>
+<div class="section" id="id3">
+<h4>Ubuntu<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>zone <span class="s2">&quot;cloud.company.com&quot;</span> <span class="o">{</span>
+        <span class="nb">type</span> master<span class="p">;</span>
+        file <span class="s2">&quot;/etc/bind/db.cloud.company.com&quot;</span><span class="p">;</span>
+<span class="o">}</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h4>Centos<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>zone <span class="s2">&quot;cloud.company.com&quot;</span> <span class="o">{</span>
+        <span class="nb">type</span> master<span class="p">;</span>
+        file <span class="s2">&quot;db.cloud.company.com&quot;</span><span class="p">;</span>
+<span class="o">}</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>And create a db.cloud.company.com file(considering the your external IP for tsuru, hipache and git is 192.168.123.131) the way below:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$  cat db.cloud.company.com
+<span class="p">;</span>
+<span class="nv">$TTL</span>    <span class="m">604800</span>
+@       IN      SOA     cloud.company.com. tsuru.cloud.company.com. <span class="o">(</span>
+                              <span class="m">3</span>         <span class="p">;</span> Serial
+                         <span class="m">604800</span>         <span class="p">;</span> Refresh
+                          <span class="m">86400</span>         <span class="p">;</span> Retry
+                        <span class="m">2419200</span>         <span class="p">;</span> Expire
+                         <span class="m">604800</span> <span class="o">)</span>       <span class="p">;</span> Negative Cache TTL
+<span class="p">;</span>
+@       IN      NS      cloud.company.com.
+@       IN      A       <span class="m">192</span>.168.123.131
+git     IN      A       <span class="m">192</span>.168.123.131 <span class="p">;</span> here we can <span class="nb">set</span> a better exhibition <span class="k">for</span> the git remote provided by tsuru
+*       IN      A       <span class="m">192</span>.168.123.131
+</pre></div>
+</div>
+<p>Ps: If you have problems, it could be related with the date of your machine. We recommend you to install a ntpd service.</p>
+<p>Now just reload your DNS server, point it to your resolv.conf, and use Tsuru!
+To test, just execute the command below, and see if all responses resolv to 192.168.123.131:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ping cloud.company.com
+$ ping git.cloud.company.com
+$ ping zzzzz.cloud.company.com
+$ ping anydomain.cloud.company.com
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../server/backup.html" class="btn btn-neutral float-right" title="Backing up tsuru database" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../install/client.html" class="btn btn-neutral" title="Installing tsuru clients" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.2.12
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.2.12',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,470 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Client usage &mdash; tsuru 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Deploying Go applications in tsuru" href="../quickstart/go.html" />
+    <link rel="prev" title="Services" href="services.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../architecture.html">tsuru architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../build.html">Build your own PaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../community.html">community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../config.html">Configuring tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Build your own PaaS with tsuru and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker-centos.html">Build your own PaaS with tsuru and Docker on Centos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker-node.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker-node.html#docker">docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker-node.html#tsuru-node-agent">tsuru node agent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">tsuru Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">tsuru Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../why.html">Why tsuru?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-hooks.html">Deployment hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment.html">Application Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../recovery.html">Recovering an application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/coding-style.html">Coding style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/setting-up-your-tsuru-development-environment.html">Setting up you tsuru development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer/vagrant.html">Building a tsuru development environment with Vagrant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/client.html">Installing tsuru clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../misc/dns-forwarders.html">Howto install a dns forwarder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../server/backup.html">Backing up tsuru database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../server/install.html">Server installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../services/api.html">api workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../services/build.html">Building your service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../services/mysql-example.html">HOWTO Install a MySQL service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../services/usage.html">Crane usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using/procfile.html">Procfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using/unit-states.html">unit states</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services.html">Services</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Client usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setting-a-target">Setting a target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#apps">Apps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#associating-your-user-to-a-team">Associating your user to a team</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-an-app">Creating an app</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#listing-your-apps">Listing your apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#showing-app-info">Showing app info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#public-keys">Public Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-commands">Running commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-instructions">Further instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/go.html">Deploying Go applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/php.html">Deploying PHP applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/python.html">Deploying Python applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/ruby.html">Deploying Ruby applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuru-admin/usage.html">tsuru-admin usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../provisioners/docker/architecture.html">Docker Provisioner Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../provisioners/docker/schedulers.html">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.0.html">tsr 0.3.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.1.html">tsr 0.3.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.10.html">tsr 0.3.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.11.html">tsr 0.3.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.12.html">tsr 0.3.12 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.2.html">tsr 0.3.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.3.html">tsr 0.3.3 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.4.html">tsr 0.3.4 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.5.html">tsr 0.3.5 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.6.html">tsr 0.3.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.7.html">tsr 0.3.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.8.html">tsr 0.3.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.9.html">tsr 0.3.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.4.0.html">tsr 0.4.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsuru-admin/0.3.0.html">tsuru-admin 0.3.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsuru/0.8.10.html">tsuru 0.8.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsuru/0.8.11.html">tsuru 0.8.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsuru/0.8.6.html">tsuru 0.8.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsuru/0.8.7.html">tsuru 0.8.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsuru/0.8.8.html">tsuru 0.8.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsuru/0.8.9.html">tsuru 0.8.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsuru/0.8.9.1.html">tsuru 0.8.9.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsuru/0.9.0.html">tsuru 0.9.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using/cli/plugins.html">Guide to create tsuru cli plugins</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Client usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/apps/client/usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="client-usage">
+<h1>Client usage<a class="headerlink" href="#client-usage" title="Permalink to this headline">¶</a></h1>
+<p>After installing the server, build the cmd/main.go file with the name you wish,
+and add it to your $PATH. Here we’ll call it <cite>tsuru</cite>.  Then you must set the
+target with your server url, like:</p>
+<div class="section" id="setting-a-target">
+<h2>Setting a target<a class="headerlink" href="#setting-a-target" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru target-add default tsuru.myhost.com:8080
+$ tsuru target-set default
+</pre></div>
+</div>
+</div>
+<div class="section" id="authentication">
+<h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
+<p>After that, all you need is to create a user and authenticate to start creating
+apps and pushing code to them. Use <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-Create_a_user">create-user</a> and
+<a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-Authenticate_within_remote_tsuru_server">login</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru user-create youremail@gmail.com
+$ tsuru login youremail@gmail.com
+</pre></div>
+</div>
+</div>
+<div class="section" id="apps">
+<h2>Apps<a class="headerlink" href="#apps" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="associating-your-user-to-a-team">
+<h3>Associating your user to a team<a class="headerlink" href="#associating-your-user-to-a-team" title="Permalink to this headline">¶</a></h3>
+<p>You need to be member of a team to create an app. To create a new team, use
+<a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-Create_a_new_team_for_the_user">create-team</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru team-create teamname
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-an-app">
+<h3>Creating an app<a class="headerlink" href="#creating-an-app" title="Permalink to this headline">¶</a></h3>
+<p>To create an app, use <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-Create_an_app">app-create</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-create myblog &lt;platform&gt;
+</pre></div>
+</div>
+<p>This will return your app’s remote url, you should add it to your git
+repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git remote add tsuru git@tsuru.myhost.com:myblog.git
+</pre></div>
+</div>
+</div>
+<div class="section" id="listing-your-apps">
+<h3>Listing your apps<a class="headerlink" href="#listing-your-apps" title="Permalink to this headline">¶</a></h3>
+<p>When your app is ready, you can push to it. To check whether it is ready or
+not, you can use <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-List_apps_that_you_have_access_to">app-list</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-list
+</pre></div>
+</div>
+<p>This will return something like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>+-------------+-------------------------+-------------------------------------------+
+<span class="p">|</span> Application <span class="p">|</span> Units State Summary     <span class="p">|</span> Ip                                        <span class="p">|</span>
++-------------+-------------------------+-------------------------------------------+
+<span class="p">|</span> myblog      <span class="p">|</span> <span class="m">1</span> of <span class="m">1</span> units in-service <span class="p">|</span> myblog-838381.us-east-1-elb.amazonaws.com <span class="p">|</span>
++-------------+-------------------------+-------------------------------------------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="showing-app-info">
+<h3>Showing app info<a class="headerlink" href="#showing-app-info" title="Permalink to this headline">¶</a></h3>
+<p>You can also use the <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-Display_information_about_an_app">app-info</a>
+command to view information of an app. Including the status of the app:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-info
+</pre></div>
+</div>
+<p>This will return something like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Application: myblog
+Platform: gunicorn
+Repository: git@githost.com:myblog.git
+Teams: team1, team2
+Units:
++----------+---------+
+<span class="p">|</span> Unit     <span class="p">|</span> State   <span class="p">|</span>
++----------+---------+
+<span class="p">|</span> myblog/0 <span class="p">|</span> started <span class="p">|</span>
+<span class="p">|</span> myblog/1 <span class="p">|</span> started <span class="p">|</span>
++----------+---------+
+</pre></div>
+</div>
+<p>tsuru uses information from git configuration to guess the name of the app, for
+more details, see <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-Guessing_app_names">“Guessing app names”</a>
+section of tsuru command documentation.</p>
+</div>
+</div>
+<div class="section" id="public-keys">
+<h2>Public Keys<a class="headerlink" href="#public-keys" title="Permalink to this headline">¶</a></h2>
+<p>You can try to push now, but you’ll get a permission error, because you haven’t
+pushed your key yet.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru key-add
+</pre></div>
+</div>
+<p>This will search for a <cite>id_rsa.pub</cite> file in ~/.ssh/, if you don’t have a
+generated key yet, you should generate one before running this command.</p>
+<p>If you have a public key in other format (for example, DSA), you can also give
+the public key file to <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-Add_SSH_public_key_to_tsuru_s_git_server">key-add</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru key-add <span class="nv">$HOME</span>/.ssh/id_dsa.pub
+</pre></div>
+</div>
+<p>After your key is added, you can push your application to your cloud:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git push tsuru master
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-commands">
+<h2>Running commands<a class="headerlink" href="#running-commands" title="Permalink to this headline">¶</a></h2>
+<p>After that, you can check your app’s url in the browser and see your app there.
+You’ll probably need to run migrations or other deploy related commands. To run
+a single command, you should use the command <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-Run_an_arbitrary_command_in_the_app_machine">run</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru run <span class="s2">&quot;python manage.py syncdb &amp;&amp; python manage.py migrate&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="further-instructions">
+<h2>Further instructions<a class="headerlink" href="#further-instructions" title="Permalink to this headline">¶</a></h2>
+<p>For a complete reference, check the documentation for tsuru command:
+<a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru">http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../quickstart/go.html" class="btn btn-neutral float-right" title="Deploying Go applications in tsuru" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="services.html" class="btn btn-neutral" title="Services" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.4.0
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.4.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

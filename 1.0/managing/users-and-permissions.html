@@ -1,0 +1,490 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Managing users and permissions &mdash; tsuru 1.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Managing Application Logs" href="logs.html" />
+    <link rel="prev" title="Managing Git repositories and SSH keys" href="repositories.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Managing</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="add-platform.html">Installing platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-platform.html">Creating a platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using-pools.html">Using Pools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="segregate-scheduler.html">Segregate Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrading-docker.html">Upgrading Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="repositories.html">Managing Git repositories and SSH keys</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Managing users and permissions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#concepts">Concepts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#permissions">Permissions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#contexts">Contexts</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#roles">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#default-roles">Default roles</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#migrating">Migrating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bootstrapping">Bootstrapping</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html">Managing Application Logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-and-troubleshooting.html">Debugging and Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/index.html">Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Managing</a> &raquo;</li>
+        
+      <li>Managing users and permissions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/managing/users-and-permissions.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="managing-users-and-permissions">
+<h1>Managing users and permissions<a class="headerlink" href="#managing-users-and-permissions" title="Permalink to this headline">¶</a></h1>
+<p>Starting with tsuru 0.13.0 a new mechanism for managing users and permissions
+was introduced. This new mechanism allows for fine-grained control on which
+actions are available for each user. While at the same time trying to allow
+broad permissions avoiding the need for interaction every time a new permission
+is available.</p>
+<p>To achieve this goal some concepts will be explained below.</p>
+<div class="section" id="concepts">
+<h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="permissions">
+<h3>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline">¶</a></h3>
+<p>tsuru includes a fixed number of permissions that may change on each release.
+To list all available permissions the command <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">permission-list</span></code> should
+be used.</p>
+<p>Permissions in tsuru work in a hierarchical fashion and are typically
+represented using a dot notation. Granting access to a top-level permission
+imply access to all permissions below it.</p>
+<p>As an example, consider the following permissions:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">app.update.env.set</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">app.update.env.unset</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">app.deploy</span></code></li>
+</ul>
+<p>If a user have access only to <code class="docutils literal notranslate"><span class="pre">app.update.env.set</span></code> only this specific action
+is available to them. However, it’s also possible to grant access to the broader
+<code class="docutils literal notranslate"><span class="pre">app.update</span></code> permission which will allow users to both set and unset
+environment variables, but not deploy the applications. If we want to allow a
+user to execute all actions related to an application, the even broader
+permission <code class="docutils literal notranslate"><span class="pre">app</span></code> can be used.</p>
+</div>
+<div class="section" id="contexts">
+<h3>Contexts<a class="headerlink" href="#contexts" title="Permalink to this headline">¶</a></h3>
+<p>When applying permissions to a user one do so in regard to a context. Each
+permission declares which contexts can be used and it’s possible see the
+available contexts using the command <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">permission-list</span></code>. When a
+permission is assigned to a user it needs a context and a value for the chosen
+context. Examples of available contexts are:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">team</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">app</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">global</span></code></li>
+</ul>
+<p>If a user have the <code class="docutils literal notranslate"><span class="pre">app.deploy</span></code> permission for the <code class="docutils literal notranslate"><span class="pre">team</span></code> named <code class="docutils literal notranslate"><span class="pre">myteam</span></code>
+it means that they can only deploy applications which <code class="docutils literal notranslate"><span class="pre">myteam</span></code> has access. The
+same way, it’s possible to assign the same <code class="docutils literal notranslate"><span class="pre">app.deploy</span></code> permission to a user
+with the context <code class="docutils literal notranslate"><span class="pre">app</span></code> for one application named <code class="docutils literal notranslate"><span class="pre">myappname</span></code>. This means the
+user can now deploy this specific application called <code class="docutils literal notranslate"><span class="pre">myappname</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">global</span></code> context is a special case. It’s available to all permissions and
+means that the permission always applies. In the previous scenario, if a user
+have the <code class="docutils literal notranslate"><span class="pre">app.deploy</span></code> permission with a <code class="docutils literal notranslate"><span class="pre">global</span></code> context it means that they
+can deploy <strong>any</strong> application.</p>
+</div>
+</div>
+<div class="section" id="roles">
+<h2>Roles<a class="headerlink" href="#roles" title="Permalink to this headline">¶</a></h2>
+<p>To better manage permissions it’s not possible to directly assign permissions to
+users. First you have to create a role including wanted permissions and then
+apply this role in regard to a context value to one or more users.</p>
+<p>The following commands are available to manage roles and permissions and assign
+them to users:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">permission-list</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">role-add</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">role-remove</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">role-list</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">role-permission-add</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">role-permission-remove</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">role-assign</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">role-dissociate</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">role-info</span></code></li>
+</ul>
+<p>More details about each command can be found in the <a class="reference internal" href="../reference/tsuru-client.html"><span class="doc">client documentation</span></a>.</p>
+<p>An example of the typical scenario for adding a new role and assigning it to a
+user is the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru role-add app_reader_restarter team
+Role successfully created!
+$ tsuru role-list
++----------------------+---------+-------------+
+<span class="p">|</span> Role                 <span class="p">|</span> Context <span class="p">|</span> Permissions <span class="p">|</span>
++----------------------+---------+-------------+
+<span class="p">|</span> AllowAll             <span class="p">|</span> global  <span class="p">|</span> *           <span class="p">|</span>
++----------------------+---------+-------------+
+<span class="p">|</span> app_reader_restarter <span class="p">|</span> team    <span class="p">|</span>             <span class="p">|</span>
++----------------------+---------+-------------+
+$ tsuru role-permission-add app_reader_restarter app.read app.update.restart
+Permission successfully added!
+$ tsuru role-list
++----------------------+---------+--------------------+
+<span class="p">|</span> Role                 <span class="p">|</span> Context <span class="p">|</span> Permissions        <span class="p">|</span>
++----------------------+---------+--------------------+
+<span class="p">|</span> AllowAll             <span class="p">|</span> global  <span class="p">|</span> *                  <span class="p">|</span>
++----------------------+---------+--------------------+
+<span class="p">|</span> app_reader_restarter <span class="p">|</span> team    <span class="p">|</span> app.read           <span class="p">|</span>
+<span class="p">|</span>                      <span class="p">|</span>         <span class="p">|</span> app.update.restart <span class="p">|</span>
++----------------------+---------+--------------------+
+$ tsuru user-list
++-------------------+------------------+-------------+
+<span class="p">|</span> User              <span class="p">|</span> Roles            <span class="p">|</span> Permissions <span class="p">|</span>
++-------------------+------------------+-------------+
+<span class="p">|</span> admin@example.com <span class="p">|</span> AllowAll<span class="o">(</span>global<span class="o">)</span> <span class="p">|</span> *<span class="o">(</span>global<span class="o">)</span>   <span class="p">|</span>
++-------------------+------------------+-------------+
+<span class="p">|</span> myuser@corp.com   <span class="p">|</span>                  <span class="p">|</span>             <span class="p">|</span>
++-------------------+------------------+-------------+
+$ tsuru role-assign app_reader_restarter myuser@corp.com myteamname
+Role successfully assigned!
+$ tsuru user-list
++-------------------+---------------------------------------+-------------------------------------+
+<span class="p">|</span> User              <span class="p">|</span> Roles                                 <span class="p">|</span> Permissions                         <span class="p">|</span>
++-------------------+---------------------------------------+-------------------------------------+
+<span class="p">|</span> admin@example.com <span class="p">|</span> AllowAll<span class="o">(</span>global<span class="o">)</span>                      <span class="p">|</span> *<span class="o">(</span>global<span class="o">)</span>                           <span class="p">|</span>
++-------------------+---------------------------------------+-------------------------------------+
+<span class="p">|</span> myuser@corp.com   <span class="p">|</span> app_reader_restarter<span class="o">(</span>team myteamname<span class="o">)</span> <span class="p">|</span> app.read<span class="o">(</span>team myteamname<span class="o">)</span>           <span class="p">|</span>
+<span class="p">|</span>                   <span class="p">|</span>                                       <span class="p">|</span> app.update.restart<span class="o">(</span>team myteamname<span class="o">)</span> <span class="p">|</span>
++-------------------+---------------------------------------+-------------------------------------+
+</pre></div>
+</div>
+<p>From this moment the user named <code class="docutils literal notranslate"><span class="pre">myuser&#64;corp.com</span></code> can read and restart all
+applications belonging to the team named <code class="docutils literal notranslate"><span class="pre">myteamname</span></code>.</p>
+<div class="section" id="default-roles">
+<h3>Default roles<a class="headerlink" href="#default-roles" title="Permalink to this headline">¶</a></h3>
+<p>It’s possible to have default roles that are applied to a user when some event
+happens on tsuru. Example of such events are <code class="docutils literal notranslate"><span class="pre">user-create</span></code> and
+<code class="docutils literal notranslate"><span class="pre">team-create</span></code>. A list of all possible events can be found running the command
+<code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">role-default-list</span></code>. Commands <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">role-default-add</span></code> and <code class="docutils literal notranslate"><span class="pre">tsuru</span>
+<span class="pre">role-default-remove</span></code> should be used to include or remove new roles in an event.</p>
+<p>A common use for default roles would be replicating the behavior of tsuru on
+versions prior to 0.13.0. A new user would always be allowed to create a new
+team and would also be allowed to create new applications on the newly created
+team.</p>
+<p>To achieve this with default roles first two roles need to be created, let’s
+call them <code class="docutils literal notranslate"><span class="pre">team-creator</span></code> and <code class="docutils literal notranslate"><span class="pre">team-member</span></code>. <code class="docutils literal notranslate"><span class="pre">team-creator</span></code> would use the
+<code class="docutils literal notranslate"><span class="pre">global</span></code> context and include the <code class="docutils literal notranslate"><span class="pre">team.create</span></code> permission. <code class="docutils literal notranslate"><span class="pre">team-member</span></code>
+would use the <code class="docutils literal notranslate"><span class="pre">team</span></code> context and include the <code class="docutils literal notranslate"><span class="pre">app</span></code> permission.</p>
+<p>With these roles created we only need to add them as default on the appropriate
+event:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru role-default-add --user-create team-creator --team-create team-member
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="migrating">
+<span id="migrating-perms"></span><h2>Migrating<a class="headerlink" href="#migrating" title="Permalink to this headline">¶</a></h2>
+<p>When you already have an existing tsuru installation it will be necessary to
+create roles and assign them to all existing users, otherwise they will no
+longer be able to execute any action in tsuru.</p>
+<p>To make this process easier we created a migration to help with the transition.
+The goal of this migration is to roughly give all existing users the same set of
+permissions they already had on tsuru. To accomplish this it’ll create 3
+different roles: <code class="docutils literal notranslate"><span class="pre">admin</span></code>, <code class="docutils literal notranslate"><span class="pre">team-member</span></code> and <code class="docutils literal notranslate"><span class="pre">team-creator</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">admin</span></code> role will have a global context for the root permission and will
+be assigned to all users that are members to the <code class="docutils literal notranslate"><span class="pre">admin-team</span></code> described in
+<code class="docutils literal notranslate"><span class="pre">tsuru.conf</span></code> file. This users will be able to do anything, anywhere.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">team-member</span></code> role will have a <code class="docutils literal notranslate"><span class="pre">team</span></code> context and the following
+permissions:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">app</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">team</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">service-instance</span></code></li>
+</ul>
+<p>And will be assigned to all users for each team name the user is a member of.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">team-creator</span></code> role will only include the <code class="docutils literal notranslate"><span class="pre">team.create</span></code> permission with
+a <code class="docutils literal notranslate"><span class="pre">global</span></code> context and will also be assigned to all users.</p>
+<p>Also the role <code class="docutils literal notranslate"><span class="pre">team-creator</span></code> will be assigned as a default role when a new
+user is created. And the <code class="docutils literal notranslate"><span class="pre">team-member</span></code> role will be the default role assigned
+to a user when they create a new team.</p>
+<p>Running this migration is optional. If you choose execute it simply run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsurud <span class="o">[</span>--config &lt;path to tsuru.conf&gt;<span class="o">]</span> migrate --name migrate-roles
+</pre></div>
+</div>
+</div>
+<div class="section" id="bootstrapping">
+<h2>Bootstrapping<a class="headerlink" href="#bootstrapping" title="Permalink to this headline">¶</a></h2>
+<p>For a new tsuru installation the first user created should have a role with a
+root permission. To create this user a new command was created in the tsuru
+daemon application (<code class="docutils literal notranslate"><span class="pre">tsurud</span></code>) and should be executed right after its
+installation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsurud <span class="o">[</span>--config &lt;path to tsuru.conf&gt;<span class="o">]</span> root-user-create myemail@somewhere.com
+<span class="c1"># type a password and confirmation (only if using native auth scheme)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="logs.html" class="btn btn-neutral float-right" title="Managing Application Logs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="repositories.html" class="btn btn-neutral" title="Managing Git repositories and SSH keys" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.0.1
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

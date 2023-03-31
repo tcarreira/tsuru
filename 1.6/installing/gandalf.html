@@ -1,0 +1,405 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Gandalf &mdash; tsuru 1.6.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Managing" href="../managing/index.html" />
+    <link rel="prev" title="Dashboard" href="dashboard.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.6.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Installing</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="using-tsuru-installer.html">tsuru Installer</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="installing-tsuru-components.html">Installing tsuru components</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="api.html">API Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="planb-router.html">PlanB Router</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adding-nodes.html">Adding Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dashboard.html">Dashboard</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Gandalf (Optional)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#installing">Installing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuring-tsuru-to-use-gandalf">Configuring tsuru to use Gandalf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#token-for-authentication-with-tsuru-api">Token for authentication with tsuru API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#adding-gandalf-to-an-already-existing-tsuru-cluster">Adding Gandalf to an already existing tsuru cluster</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#managing-ssh-public-keys">Managing SSH public keys</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/index.html">Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Installing</a> &raquo;</li>
+        
+          <li><a href="installing-tsuru-components.html">Installing tsuru components</a> &raquo;</li>
+        
+      <li>Gandalf</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/installing/gandalf.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gandalf">
+<h1>Gandalf<a class="headerlink" href="#gandalf" title="Permalink to this headline">¶</a></h1>
+<p>To enable application deployment using git, tsuru uses Gandalf to manage Git repositories
+used to push applications to. It’s also responsible for setting hooks in these repositories
+which will notify the tsuru API when a new deploy is made. For more details
+check <a class="reference external" href="http://gandalf.readthedocs.org/">Gandalf Documentation</a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Gandalf is only required if you want to be able to deploy using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code>,
+without it you can still deploy applications using <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">app-deploy</span></code>.</p>
+</div>
+<p>Gandalf will store and manage all Git repositories and SSH keys, as well as
+users. When user runs a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code>, the communication happens directly between the
+user host and the Gandalf host, and Gandalf will notify tsuru the new
+deployment using a git hook.</p>
+<div class="section" id="installing">
+<h2>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
+<p>Let’s start adding the repositories for tsuru which contain the Gandalf package.</p>
+<p>deb:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ curl -s https://packagecloud.io/install/repositories/tsuru/stable/script.deb.sh <span class="p">|</span> sudo bash
+$ sudo apt-get install gandalf-server
+</pre></div>
+</div>
+<p>rpm:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ curl -s https://packagecloud.io/install/repositories/tsuru/stable/script.rpm.sh <span class="p">|</span> sudo bash
+$ sudo yum install gandalf-server
+</pre></div>
+</div>
+<p>For more details, check <a class="reference external" href="https://packagecloud.io/tsuru/stable/install#bash">packagecloud.io documentation</a>.</p>
+<p>A deploy is executed in the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code>. In order to get it working, you will
+need to add a pre-receive hook. tsuru comes with one pre-receive hook,
+but you can create your own.</p>
+<p>Then you will need to configure Gandalf, install the pre-receive hook and start Gandalf.
+.. highlight:: bash</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo mkdir -p /home/git/bare-template/hooks
+sudo curl https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive -o /home/git/bare-template/hooks/pre-receive
+sudo chmod +x /home/git/bare-template/hooks/pre-receive
+sudo chown -R git:git /home/git/bare-template
+</pre></div>
+</div>
+<p>In the <code class="docutils literal notranslate"><span class="pre">/etc/gandalf.conf</span></code> file, remove the comment from the line “template:
+/home/git/bare-template” and from the line “database”, so it looks like that:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">database</span><span class="p">:</span>
+  <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;your-mongodb-server&gt;:27017</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gandalf</span>
+
+<span class="nt">git</span><span class="p">:</span>
+  <span class="nt">bare</span><span class="p">:</span>
+    <span class="nt">location</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/var/lib/gandalf/repositories</span>
+    <span class="nt">template</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/home/git/bare-template</span>
+</pre></div>
+</div>
+<p>Then start gandalf:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo start gandalf-server
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuring-tsuru-to-use-gandalf">
+<h2>Configuring tsuru to use Gandalf<a class="headerlink" href="#configuring-tsuru-to-use-gandalf" title="Permalink to this headline">¶</a></h2>
+<p>In order to use Gandalf, you need to change tsuru.conf accordingly:</p>
+<ol class="arabic simple">
+<li>Define “repo-manager” to use “gandalf”;</li>
+<li>Define “git:api-server” to point to the API of the Gandalf server
+(example: “http://localhost:8000”);</li>
+</ol>
+<p>For more details, please refer to the <a class="reference internal" href="../reference/config.html"><span class="doc">configuration page</span></a>.</p>
+</div>
+<div class="section" id="token-for-authentication-with-tsuru-api">
+<h2>Token for authentication with tsuru API<a class="headerlink" href="#token-for-authentication-with-tsuru-api" title="Permalink to this headline">¶</a></h2>
+<p>There is one last step in configuring Gandalf. It involves generating an access
+token so that the hook we created can access the tsuru API. To do so, we need to export t
+wo extra environment variables to the git user, which will run our deploy hooks, the URL
+to our API server and a generated token.</p>
+<p>First step is to generate a token in the machine where the API server is installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsurud token
+fed1000d6c05019f6550b20dbc3c572996e2c044
+</pre></div>
+</div>
+<p>Now you have to go back to the machine you installed Gandalf, and run this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cat <span class="p">|</span> sudo tee -a /home/git/.bash_profile <span class="s">&lt;&lt;EOF</span>
+<span class="s">export TSURU_HOST=http://&lt;your-tsuru-api-addr&gt;:8080</span>
+<span class="s">export TSURU_TOKEN=fed1000d6c05019f6550b20dbc3c572996e2c044</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-gandalf-to-an-already-existing-tsuru-cluster">
+<h2>Adding Gandalf to an already existing tsuru cluster<a class="headerlink" href="#adding-gandalf-to-an-already-existing-tsuru-cluster" title="Permalink to this headline">¶</a></h2>
+<p>In the case of an old tsuru cluster running without Gandalf, users and
+applications registered in tsuru won’t be available in the newly created
+Gandalf server, or both servers may be out-of-sync.</p>
+<p>When Gandalf is enabled, administrators of the cloud can run the <code class="docutils literal notranslate"><span class="pre">tsurud</span>
+<span class="pre">gandalf-sync</span></code> command.</p>
+</div>
+<div class="section" id="managing-ssh-public-keys">
+<h2>Managing SSH public keys<a class="headerlink" href="#managing-ssh-public-keys" title="Permalink to this headline">¶</a></h2>
+<p>In order to be able to send git pushes to the Git server <a class="reference internal" href="../managing/repositories.html"><span class="doc">users need to have
+their key registered in Gandalf</span></a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../managing/index.html" class="btn btn-neutral float-right" title="Managing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dashboard.html" class="btn btn-neutral" title="Dashboard" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.6.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.6.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

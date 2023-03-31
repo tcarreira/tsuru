@@ -1,0 +1,384 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Provisioners &mdash; tsuru 1.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Clusters" href="clusters.html" />
+    <link rel="prev" title="Using Pools" href="using-pools.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Managing</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="add-platform.html">Installing platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-platform.html">Creating a platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using-pools.html">Using Pools</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Provisioners</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#docker-provisioner">docker provisioner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#swarm-provisioner">swarm provisioner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kubernetes-provisioner">kubernetes provisioner</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="clusters.html">Clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="segregate-scheduler.html">Segregate Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrading-docker.html">Upgrading Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="repositories.html">Managing Git repositories and SSH keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users-and-permissions.html">Managing users and permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html">Managing Application Logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-and-troubleshooting.html">Debugging and Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="volumes.html">Volumes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/index.html">Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Managing</a> &raquo;</li>
+        
+      <li>Provisioners</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/managing/provisioners.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="provisioners">
+<h1>Provisioners<a class="headerlink" href="#provisioners" title="Permalink to this headline">¶</a></h1>
+<p>Provisioners on tsuru are responsible for creating and scheduling units for
+applications and node-containers. Originally tsuru supported only one
+provisioner called <code class="docutils literal notranslate"><span class="pre">docker</span></code>. This begin changing with tsuru release 1.2 as
+support for <a class="reference external" href="https://docs.docker.com/engine/swarm/">docker swarm mode</a> and
+<a class="reference external" href="https://kubernetes.io/">Kubernetes</a> as provisioners was added.</p>
+<p>Provisioners are also responsible for knowing which nodes are available for the
+creation of units, registering new nodes and removing old nodes.</p>
+<p>Provisioners are associated to pools and tsuru will use pools to find out which
+provisioner is responsible for each application. A single tsuru installation
+can manage different pools with different provisioners at the same time.</p>
+<div class="section" id="docker-provisioner">
+<h2>docker provisioner<a class="headerlink" href="#docker-provisioner" title="Permalink to this headline">¶</a></h2>
+<p>This is the default and original provisioner for tsuru. It comes from a time
+where no other scheduler/orchestrator was available for Docker. Neither swarm
+nor kubernetes existed yet, so we had to create our own scheduler which uses
+the <a class="reference external" href="https://github.com/tsuru/docker-cluster">docker-cluster</a> library and is
+built-in the <code class="docutils literal notranslate"><span class="pre">docker</span></code> provisioner.</p>
+<p>The provisioner uses MongoDB to store metadata on existing nodes and containers
+on each node, and also to track images as they are created on each node. To
+accomplish this tsuru talks directly to the Docker API on each node, which must
+be allowed to received connections from the tsuru API using HTTP or HTTPS.</p>
+<p>Tsuru relies on the default <code class="docutils literal notranslate"><span class="pre">big-sibling</span></code> node-container to monitor
+containers on each node and report back containers that are unavailable or that
+had its address changed by docker restarting it. The <code class="docutils literal notranslate"><span class="pre">docker</span></code> provisioner will
+them be responsible for rescheduling such containers on new nodes.</p>
+<p>There’s no need to register a <a class="reference internal" href="clusters.html"><span class="doc">cluster</span></a> to use the
+<code class="docutils literal notranslate"><span class="pre">docker</span></code> provisioner, simply <a class="reference internal" href="../installing/adding-nodes.html"><span class="doc">adding new nodes</span></a> with Docker API running on them is enough for tsuru
+to use them.</p>
+<p>Scheduling of units on nodes prioritizes high availability of application
+containers. To accomplish this tsuru tries to create each new container on the
+node with fewer containers from such application. If there are multiple nodes
+with no containers from the application being scheduled tsuru will try to
+create new containers on nodes that have different metadata from the ones
+containers already exist.</p>
+</div>
+<div class="section" id="swarm-provisioner">
+<h2>swarm provisioner<a class="headerlink" href="#swarm-provisioner" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">swarm</span></code> provisioner uses <a class="reference external" href="https://docs.docker.com/engine/swarm/">docker swarm mode</a> available in Docker 1.12.0 onward.
+Swarm itself is responsible for maintaining available nodes and containers and
+tsuru itself doesn’t store anything in its internal storage.</p>
+<p>To use the <code class="docutils literal notranslate"><span class="pre">swarm</span></code> provisioner it’s first necessary to register a Swarm
+<a class="reference internal" href="clusters.html"><span class="doc">cluster</span></a> in tsuru which must point to a Docker API
+server that will behave as a Swarm manager, tsuru itself will do the <code class="docutils literal notranslate"><span class="pre">docker</span>
+<span class="pre">swarm</span> <span class="pre">init</span></code> API call if the cluster address is not a Swarm member yet.</p>
+<p>Because not all operations are still available through the swarm manager
+endpoint (namely commit and push operations) tsuru must still be able to
+connect to the docker endpoint of each node directly for such operations. Also,
+adding a new node to tsuru will call <code class="docutils literal notranslate"><span class="pre">swarm</span> <span class="pre">join</span></code> on such node.</p>
+<p>Scheduling and availability of containers is completely controlled by the
+Swarm, for each tsuru application/process tsuru will create a Swarm <code class="docutils literal notranslate"><span class="pre">service</span></code>
+called <code class="docutils literal notranslate"><span class="pre">&lt;application</span> <span class="pre">name&gt;-&lt;process</span> <span class="pre">name&gt;</span></code>. The process of adding and
+removing units simply updates the service.</p>
+<p>An overlay network is created for each application and every service created
+for the application is connected to this same overlay network, allowing
+intercommunication directly between containers.</p>
+<p>Node containers, e.g big-sibling, are also created as Swarm services with mode
+set to <code class="docutils literal notranslate"><span class="pre">Global</span></code>, which ensures they run every node.</p>
+</div>
+<div class="section" id="kubernetes-provisioner">
+<h2>kubernetes provisioner<a class="headerlink" href="#kubernetes-provisioner" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">kubernetes</span></code> provisioner uses <a class="reference external" href="https://kubernetes.io/">Kubernetes</a> to
+manage nodes and containers, tsuru also doesn’t store anything in its internal
+storage related to nodes and containers. It’s first necessary to register a
+Kubernetes <a class="reference internal" href="clusters.html"><span class="doc">cluster</span></a> in tsuru which must point to the
+Kubernetes API server.</p>
+<p>Scheduling is controlled exclusively by Kubernetes, for each
+application/process tsuru will create a Deployment controller. Changes to the
+application like adding and removing units are executed by updating the
+Deployment with rolling update configured using the Kubernetes API. Node
+containers are created using the DaemonSets.</p>
+<p>A Service controller is also created for every Deployment, this allows direct
+communication between services without the need to go through a tsuru router.</p>
+<p>Adding new nodes is possible using normal tsuru workflow described in
+<a class="reference internal" href="../installing/adding-nodes.html"><span class="doc">adding new nodes</span></a>. However, tsuru will only
+create a Node resource using the Kubernetes API and will assume that the new
+node already has a kubelet process running on it and that it’s accessible to
+the Kubernetes API server.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="clusters.html" class="btn btn-neutral float-right" title="Clusters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="using-pools.html" class="btn btn-neutral" title="Using Pools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.4.0
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.4.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

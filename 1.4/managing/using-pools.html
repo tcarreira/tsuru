@@ -1,0 +1,407 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using Pools &mdash; tsuru 1.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Provisioners" href="provisioners.html" />
+    <link rel="prev" title="Creating a platform" href="create-platform.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Managing</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="add-platform.html">Installing platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-platform.html">Creating a platform</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Using Pools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#adding-a-pool">Adding a pool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#adding-teams-to-a-pool">Adding teams to a pool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#listing-pools">Listing pools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#removing-a-pool">Removing a pool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#removing-teams-from-a-pool">Removing teams from a pool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#removing-services-from-a-pool">Removing services from a pool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#moving-apps-between-pools-and-teams">Moving apps between pools and teams</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="provisioners.html">Provisioners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters.html">Clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="segregate-scheduler.html">Segregate Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrading-docker.html">Upgrading Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="repositories.html">Managing Git repositories and SSH keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users-and-permissions.html">Managing users and permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html">Managing Application Logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-and-troubleshooting.html">Debugging and Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="volumes.html">Volumes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/index.html">Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Managing</a> &raquo;</li>
+        
+      <li>Using Pools</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/managing/using-pools.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-pools">
+<h1>Using Pools<a class="headerlink" href="#using-pools" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Pool is used by provisioners to group nodes and know if an application can be
+deployed in these nodes. Users can choose which pool to deploy in <cite>tsuru
+app-create</cite>.</p>
+<p>Tsuru has three types of pool: team, public and default.</p>
+<p>Team’s pool are segregated by teams, and cloud administrator should set
+teams in this pool manually. This pool are just accessible by team’s
+members.</p>
+<p>Public pools are accessible by any user.</p>
+<p>Default pool is where apps are deployed when app’s team owner don’t have a pool
+associated with it or when app’s creator don’t choose any public pool. Ideally
+this pool is for experimentation and low profile apps, like service dashboard
+and “in development” apps. You can just have one default pool. This is the old
+fallback pool, but with a explicit flag.</p>
+<div class="section" id="adding-a-pool">
+<h3>Adding a pool<a class="headerlink" href="#adding-a-pool" title="Permalink to this headline">¶</a></h3>
+<p>In order to create a pool, you should invoke <cite>tsuru pool-add</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru pool-add pool1
+</pre></div>
+</div>
+<p>If you want to create a public pool you can do:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru pool-add pool1 -p
+</pre></div>
+</div>
+<p>If you want a default pool, you can create it with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru pool-add pool1 -d
+</pre></div>
+</div>
+<p>You can overwrite default pool by setting the flag <cite>-f</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru pool-add new-default-pool -d -f
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-teams-to-a-pool">
+<h3>Adding teams to a pool<a class="headerlink" href="#adding-teams-to-a-pool" title="Permalink to this headline">¶</a></h3>
+<p>Then you can use <cite>tsuru pool-constraint-set</cite> to add teams to the pool that
+you’ve just created:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru pool-constraint-set pool1 team team1 team2 --append
+
+$ tsuru pool-constraint-set pool2 team team3 --append
+</pre></div>
+</div>
+</div>
+<div class="section" id="listing-pools">
+<h3>Listing pools<a class="headerlink" href="#listing-pools" title="Permalink to this headline">¶</a></h3>
+<p>To list pools you do:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru pool-list
++-------+-------------+
+<span class="p">|</span> Pools <span class="p">|</span> Teams       <span class="p">|</span>
++-------+-------------+
+<span class="p">|</span> pool1 <span class="p">|</span> team1 team2 <span class="p">|</span>
+<span class="p">|</span> pool2 <span class="p">|</span> team3       <span class="p">|</span>
++-------+-------------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="removing-a-pool">
+<h3>Removing a pool<a class="headerlink" href="#removing-a-pool" title="Permalink to this headline">¶</a></h3>
+<p>If you want to remove a pool, use <cite>tsuru pool-remove</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru pool-remove pool1
+</pre></div>
+</div>
+</div>
+<div class="section" id="removing-teams-from-a-pool">
+<h3>Removing teams from a pool<a class="headerlink" href="#removing-teams-from-a-pool" title="Permalink to this headline">¶</a></h3>
+<p>You can remove one or more teams from a pool using the command <cite>tsuru pool-constraint-set</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru pool-constraint-set pool1 team team1 --blacklist
+
+$ tsuru pool-constraint-set pool1 team team1 team2 team3 --blacklist
+</pre></div>
+</div>
+</div>
+<div class="section" id="removing-services-from-a-pool">
+<h3>Removing services from a pool<a class="headerlink" href="#removing-services-from-a-pool" title="Permalink to this headline">¶</a></h3>
+<p>You can remove one or more services from a pool using the command <cite>tsuru pool-constraint-set</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru pool-constraint-set &lt;pool&gt; service &lt;service1&gt; &lt;service2&gt; &lt;serviceN&gt; --blacklist
+
+$ tsuru pool-constraint-set dev_pool service mongo_prod mysql_prod --blacklist
+</pre></div>
+</div>
+</div>
+<div class="section" id="moving-apps-between-pools-and-teams">
+<h3>Moving apps between pools and teams<a class="headerlink" href="#moving-apps-between-pools-and-teams" title="Permalink to this headline">¶</a></h3>
+<p>You can move apps from poolA to poolB and from teamA to teamB even when they dont have permission to see each other’s pools, this is made by using <cite>tsuru app-update</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-update -a &lt;app&gt; -t &lt;teamB&gt; -o &lt;poolB&gt;
+</pre></div>
+</div>
+<p>By default the app will be set to both teams, so teamA can still see the app just in case that the user may have made some mistake. If you wish to remove the old teamA from the app, It’s possible using <cite>tsuru app-revoke</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-revoke teamA -a &lt;app&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="provisioners.html" class="btn btn-neutral float-right" title="Provisioners" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="create-platform.html" class="btn btn-neutral" title="Creating a platform" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.4.0
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.4.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

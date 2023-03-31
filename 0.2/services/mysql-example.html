@@ -1,0 +1,417 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>HOWTO Install a MySQL service &mdash; tsuru 0.2.12 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Crane usage" href="usage.html" />
+    <link rel="prev" title="Building your service" href="build.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.12
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build.html">Build your own PaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../community.html">community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html">Configuring tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Build your own PaaS with tsuru and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker-centos.html">Build your own PaaS with tsuru and Docker on Centos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Tsuru Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Tsuru Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../why.html">Why Tsuru?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/deploy-hooks.html">Deployment hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/deployment.html">Application Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/coding-style.html">Coding style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/setting-up-your-tsuru-development-environment.html">Setting up you tsuru development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/client.html">Installing tsuru clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/dns-forwarders.html">Howto install a dns forwarder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/backup.html">Backing up tsuru database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/install.html">Server installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">api workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Building your service</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">HOWTO Install a MySQL service</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#further-instructions">Further instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Crane usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/client/services.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/client/usage.html">Client usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart/php.html">Deploying PHP applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart/python.html">Deploying Python applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart/ruby.html">Deploying Ruby applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../provisioners/docker/architecture.html">Docker Provisioner Architecture</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>HOWTO Install a MySQL service</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/services/mysql-example.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="howto-install-a-mysql-service">
+<h1>HOWTO Install a MySQL service<a class="headerlink" href="#howto-install-a-mysql-service" title="Permalink to this headline">¶</a></h1>
+<p>First, you must have a <a class="reference external" href="https://downloads.mariadb.org/mariadb/repositories/">MariaDB server</a>, the best “mysql” server in the market. You can also use the standard mysql-server.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ubuntu 13.04</span>
+$ sudo apt-get install software-properties-common
+$ sudo gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CBCB082A1BB943DB
+$ sudo gpg -a --export CBCB082A1BB943DB <span class="p">|</span> apt-key add -
+$ sudo add-apt-repository <span class="s1">&#39;deb http://mirror.aarnet.edu.au/pub/MariaDB/repo/10.0/ubuntu raring main&#39;</span>
+$ sudo apt-get update
+$ sudo apt-get install mariadb-server
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Centos - creating the mariadb repository</span>
+$ cat &gt; /etc/yum.repos.d/MariaDB.repo <span class="s">&lt;&lt;END</span>
+<span class="s"># MariaDB 10.0 CentOS repository list - created 2013-09-13 13:25 UTC</span>
+<span class="s"># http://mariadb.org/mariadb/repositories/</span>
+<span class="s">[mariadb]</span>
+<span class="s">name = MariaDB</span>
+<span class="s">baseurl = http://yum.mariadb.org/10.0/centos6-amd64</span>
+<span class="s">gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB</span>
+<span class="s">gpgcheck=1</span>
+<span class="s">END</span>
+$ rpm --import https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+$ yum install MariaDB-server MariaDB-client
+$ service mysql start
+$ chkconfig mysql on
+</pre></div>
+</div>
+<p>After that, all you need is to create a database admin user for this service, with all necessary grants</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creating a database user(log into the database with the root user)</span>
+&gt; GRANT ALL PRIVILEGES ON *.* TO <span class="s1">&#39;tsuru&#39;</span>@<span class="s1">&#39;%&#39;</span> IDENTIFIED BY <span class="s1">&#39;password&#39;</span> with GRANT OPTION<span class="p">;</span>
+&gt; FLUSH PRIVILEGES<span class="p">;</span>
+</pre></div>
+</div>
+<p>Now, you will install our mysql-api service example. Just create an application that will be responsible for this service</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a database for this service (change the 192.168.123.131 for your mysql server host)</span>
+$ <span class="nb">echo</span> <span class="s2">&quot;CREATE DATABASE mysqlapi&quot;</span> <span class="p">|</span> mysql -h <span class="m">192</span>.168.123.131 -u tsuru -ppassword
+<span class="c1"># In a machine with tsuru client and crane installed</span>
+$ git clone https://github.com/globocom/mysqlapi
+<span class="c1"># Create the mysqlapi application using python as its platform.</span>
+$ tsuru app-create mysql-api python
+</pre></div>
+</div>
+<p>In order to have mysql API ready to receive requests, we need some bootstrap stuff.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#First export the django settings variable:</span>
+$ tsuru env-set --app mysql-api <span class="nv">DJANGO_SETTINGS_MODULE</span><span class="o">=</span>mysqlapi.settings
+<span class="c1"># Inject the right environment for that service</span>
+$ tsuru env-set -a mysql-api <span class="nv">MYSQLAPI_DB_NAME</span><span class="o">=</span>mysqlapi
+$ tsuru env-set -a mysql-api <span class="nv">MYSQLAPI_DB_USER</span><span class="o">=</span>tsuru
+$ tsuru env-set -a mysql-api <span class="nv">MYSQLAPI_DB_PASSWORD</span><span class="o">=</span>password
+$ tsuru env-set -a mysql-api <span class="nv">MYSQLAPI_DB_HOST</span><span class="o">=</span><span class="m">192</span>.168.123.131
+<span class="c1"># To show the application&#39;s repository</span>
+$ tsuru app-info -a mysql-api<span class="p">|</span>grep Repository
+Repository: git@192.168.123.131:mysql-api.git
+$ git push git@192.168.123.131:mysql-api.git master
+<span class="c1">#Now gunicorn is able to run with our wsgi.py configuration. After that, we need to run syncdb:</span>
+$ tsuru run --app mysql-api -- python manage.py syncdb --noinput
+</pre></div>
+</div>
+<p>To run the API in shared mode, follow this steps</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># First export the needed variables:</span>
+<span class="c1"># If the shared mysql database is installed in the same vm that the app is, you can use localhost for MYSQLAPI_SHARED_SERVER</span>
+$ tsuru env-set --app mysql-api <span class="nv">MYSQLAPI_SHARED_SERVER</span><span class="o">=</span><span class="m">192</span>.168.123.131
+<span class="c1"># Here you&#39;ll also need to set up a externally accessible endpoint to be used by the apps that are using the service</span>
+$ tsuru env-set --app mysql-api <span class="nv">MYSQLAPI_SHARED_SERVER_PUBLIC_HOST</span><span class="o">=</span><span class="m">192</span>.168.123.131
+<span class="c1"># Here the mysql user to manage the shared databases</span>
+$ tsuru env-set -a mysql-api <span class="nv">MYSQLAPI_SHARED_USER</span><span class="o">=</span>tsuru
+$ tsuru env-set -a mysql-api <span class="nv">MYSQLAPI_SHARED_PASSWORD</span><span class="o">=</span>password
+</pre></div>
+</div>
+<p>More information about the ways you can work with that api you can found <a class="reference external" href="https://github.com/globocom/mysqlapi#choose-your-configuration-mode">here</a>.</p>
+<p>Now you should have your application working. You just need to submit the mysqlapi service via crane.
+The manifest.yaml is used by crane to define an id and an endpoint to your service.
+For more details, see the text “Services API Workflow”: <a class="reference external" href="http://docs.tsuru.io/en/latest/services/api.html">http://docs.tsuru.io/en/latest/services/api.html</a>
+To submit your new service, you can run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configure the service template and point it to the application service (considering that your domain is cloud.company.com)</span>
+$  cat manifest.yaml
+id: mysqlapi
+   endpoint:
+   production: mysql-api.cloud.company.com
+$ crane create manifest.yaml
+</pre></div>
+</div>
+<p>To list your services:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ crane list
+<span class="c1">#OR</span>
+$ tsuru service-list
+</pre></div>
+</div>
+<p>This will return something like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>+----------+-----------+
+<span class="p">|</span> Services <span class="p">|</span> Instances <span class="p">|</span>
++----------+-----------+
+<span class="p">|</span> mysqlapi <span class="p">|</span>           <span class="p">|</span>
++----------+-----------+
+</pre></div>
+</div>
+<p>It would be nice if your service had some documentation. To add a documentation to you service you can use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ crane doc-add mysqlapi doc.txt
+</pre></div>
+</div>
+<p>Crane will read the content of the file and save it.</p>
+<p>To show the current documentation of your service:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ crane doc-get mysqlapi
+</pre></div>
+</div>
+<p>doc-get will retrieve the current documentation of the service.</p>
+<div class="section" id="further-instructions">
+<h2>Further instructions<a class="headerlink" href="#further-instructions" title="Permalink to this headline">¶</a></h2>
+<p>Now you can add this service for your applications using the <a class="reference external" href="http://godoc.org/github.com/globocom/tsuru/cmd/tsuru#hdr-Bind_an_application_to_a_service_instance">bind</a> command</p>
+<p>For a complete reference, check the documentation for <a class="reference external" href="http://docs.tsuru.io/en/latest/services/usage.html">crane</a> command:
+<a class="reference external" href="http://godoc.org/github.com/globocom/tsuru/cmd/crane">http://godoc.org/github.com/globocom/tsuru/cmd/crane</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="usage.html" class="btn btn-neutral float-right" title="Crane usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="build.html" class="btn btn-neutral" title="Building your service" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.2.12
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.2.12',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

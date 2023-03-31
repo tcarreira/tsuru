@@ -1,0 +1,11 @@
+*.test
+.vscode/
+.DS_Store
+dist-*
+cmd/tsurud/tsurud
+docs/_build
+build
+data
+dist/
+vendor/
+etc/tsuru-local.conf

@@ -1,0 +1,1500 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tsuru.conf reference &mdash; tsuru main documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API reference" href="api.html" />
+    <link rel="prev" title="bs" href="bs.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                main
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tsuru-client.html">tsuru client usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bs.html">bs</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">tsuru.conf reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#notation">Notation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tsuru-configuration">tsuru configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#http-server">HTTP server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#database-access">Database access</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#email-configuration">Email configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#authentication-configuration">Authentication configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#queue-configuration">Queue configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#quota-management">Quota management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#logging">Logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#routers">Routers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Hipache</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#defining-the-provisioner">Defining the provisioner</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-provisioner-configuration">Docker provisioner configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#iaas-configuration">IaaS configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#general-settings">General settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ec2-iaas">EC2 IaaS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cloudstack-iaas">CloudStack IaaS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#digitalocean-iaas">DigitalOcean IaaS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-machine-iaas">Docker Machine IaaS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#custom-iaas">Custom IaaS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#event-throttling-configuration">Event throttling configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#security-configuration">Security configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#volume-plans-configuration">Volume plans configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#common-redis-configuration-options">Common redis configuration options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kubernetes-specific-configuration-options">Kubernetes specific configuration options</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#sample-file">Sample file</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="router-api.html">Router API specification</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Reference</a> &raquo;</li>
+        
+      <li>tsuru.conf reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/config.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tsuru-conf-reference">
+<h1>tsuru.conf reference<a class="headerlink" href="#tsuru-conf-reference" title="Permalink to this headline">¶</a></h1>
+<p>tsuru uses a configuration file in <a class="reference external" href="http://www.yaml.org/">YAML</a> format. This
+document describes what each option means, and how it should look.</p>
+<div class="section" id="notation">
+<h2>Notation<a class="headerlink" href="#notation" title="Permalink to this headline">¶</a></h2>
+<p>tsuru uses a colon to represent nesting in YAML. So, whenever this document says
+something like <code class="docutils literal notranslate"><span class="pre">key1:key2</span></code>, it refers to the value of the <code class="docutils literal notranslate"><span class="pre">key2</span></code> that is
+nested in the block that is the value of <code class="docutils literal notranslate"><span class="pre">key1</span></code>. For example,
+<code class="docutils literal notranslate"><span class="pre">database:url</span></code> means:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">database</span><span class="p">:</span>
+  <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;value&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tsuru-configuration">
+<h2>tsuru configuration<a class="headerlink" href="#tsuru-configuration" title="Permalink to this headline">¶</a></h2>
+<p>This section describes tsuru’s core configuration. Other sections will include
+configuration of optional components, and finally, a full sample file.</p>
+<div class="section" id="http-server">
+<h3>HTTP server<a class="headerlink" href="#http-server" title="Permalink to this headline">¶</a></h3>
+<p>tsuru provides a REST API, that supports HTTP and HTTP/TLS (a.k.a. HTTPS). Here
+are the options that affect how tsuru’s API behaves:</p>
+<div class="section" id="listen">
+<h4>listen<a class="headerlink" href="#listen" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">listen</span></code> defines in which address tsuru webserver will listen. It has the
+form &lt;host&gt;:&lt;port&gt;. You may omit the host (example: <code class="docutils literal notranslate"><span class="pre">:8080</span></code>). This setting
+has no default value.</p>
+</div>
+<div class="section" id="shutdown-timeout">
+<h4>shutdown-timeout<a class="headerlink" href="#shutdown-timeout" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">shutdown-timeout</span></code> defines how many seconds to wait when performing an api
+shutdown (by sending SIGTERM or SIGQUIT). Defaults to 600 seconds.</p>
+</div>
+<div class="section" id="use-tls">
+<h4>use-tls<a class="headerlink" href="#use-tls" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">use-tls</span></code> indicates whether tsuru should use TLS or not. This setting is
+optional, and defaults to “false”.</p>
+</div>
+<div class="section" id="tls-listen">
+<h4>tls:listen<a class="headerlink" href="#tls-listen" title="Permalink to this headline">¶</a></h4>
+<p>If both this and <code class="docutils literal notranslate"><span class="pre">listen</span></code> keys are set (following the same rules as <code class="docutils literal notranslate"><span class="pre">listen</span></code>
+key), tsuru will start two webserver instances: one with HTTP on <code class="docutils literal notranslate"><span class="pre">listen</span></code>
+address, and the other one with HTTPS on <code class="docutils literal notranslate"><span class="pre">tls:listen</span></code> address.
+If only one of <code class="docutils literal notranslate"><span class="pre">listen</span></code> and <code class="docutils literal notranslate"><span class="pre">tls:listen</span></code> keys is set (and <code class="docutils literal notranslate"><span class="pre">use-tls</span></code> is
+true), tsuru will only run the TLS supporting webserver. This setting is
+optional, unless <code class="docutils literal notranslate"><span class="pre">use-tls</span></code> is true.</p>
+</div>
+<div class="section" id="tls-cert-file">
+<h4>tls:cert-file<a class="headerlink" href="#tls-cert-file" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">tls:cert-file</span></code> is the path to the X.509 certificate file configured to serve
+the domain.  This setting is optional, unless <code class="docutils literal notranslate"><span class="pre">use-tls</span></code> is true.</p>
+</div>
+<div class="section" id="tls-key-file">
+<h4>tls:key-file<a class="headerlink" href="#tls-key-file" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">tls:key-file</span></code> is the path to private key file configured to serve the
+domain. This setting is optional, unless <code class="docutils literal notranslate"><span class="pre">use-tls</span></code> is true.</p>
+</div>
+<div class="section" id="tls-validate-certificate">
+<h4>tls:validate-certificate<a class="headerlink" href="#tls-validate-certificate" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">tls:validate-certificate</span></code> prevents an invalid certificate from being offered
+to web clients or not. This setting is optional and defaults to “false”.</p>
+<p>If enabled, the server will validate the certificates before server’s start and
+during the certificates auto-reload process (if any). If a certificate expires
+during server execution (after loaded by server) this feature will gracefully
+shutdown the server.</p>
+</div>
+<div class="section" id="tls-auto-reload-interval">
+<h4>tls:auto-reload:interval<a class="headerlink" href="#tls-auto-reload-interval" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">tls:auto-reload:interval</span></code> defines the time frequency which the TLS
+certificates are reloaded by the webserver. A new certificate only is loaded
+when there is difference between newer and older.</p>
+<p>This setting is optional. The default value is 0, which means automatic reload
+is not enabled. To enable it, you could use any <a class="reference external" href="https://golang.org/pkg/time/#Duration">time.Duration</a>
+value greater than zero, as well as <a class="reference external" href="https://golang.org/pkg/time/#ParseDuration">parseable values</a>
+as: “1h”, “60m”, “3600s”, etc.</p>
+</div>
+<div class="section" id="server-read-timeout">
+<h4>server:read-timeout<a class="headerlink" href="#server-read-timeout" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">server:read-timeout</span></code> is the timeout of reading requests in the server. This
+is the maximum duration of any request to the tsuru server.</p>
+<p>This is useful to avoid leaking connections, in case clients drop the
+connection before end sending the request. The default value is 0, meaning no
+timeout.</p>
+</div>
+<div class="section" id="server-write-timeout">
+<h4>server:write-timeout<a class="headerlink" href="#server-write-timeout" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">server:write-timeout</span></code> is the timeout of writing responses in the server.</p>
+<p>This is useful to avoid leaking connections, in case clients drop the
+connection before reading the response from tsuru. The default value is 0,
+meaning no timeout.</p>
+</div>
+<div class="section" id="server-app-log-buffer-size">
+<h4>server:app-log-buffer-size<a class="headerlink" href="#server-app-log-buffer-size" title="Permalink to this headline">¶</a></h4>
+<p>The maximum number of received log messages from applications to hold in memory
+waiting to be sent to the log database. The default value is 500000.</p>
+</div>
+<div class="section" id="disable-index-page">
+<h4>disable-index-page<a class="headerlink" href="#disable-index-page" title="Permalink to this headline">¶</a></h4>
+<p>tsuru API serves an index page with some basic instructions on how to use the
+current target. It’s possible to disable this page by setting the
+<code class="docutils literal notranslate"><span class="pre">disable-index-page</span></code> flag to true. It’s also possible to customize which
+template will be used in the index page, see the next configuration entry for
+more details.</p>
+<p>This setting is optional, and defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</div>
+<div class="section" id="index-page-template">
+<h4>index-page-template<a class="headerlink" href="#index-page-template" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">index-page-template</span></code> is the template that will be used for the index page.
+It must use the <a class="reference external" href="http://golang.org/pkg/text/template/">Go template syntax</a>,
+and tsuru will provide the following variables in the context of the template:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">tsuruTarget</span></code>: the target URL of the tsuru API serving the index page</li>
+<li><code class="docutils literal notranslate"><span class="pre">userCreate</span></code>: a boolean indicating whether user registration is enabled
+or disabled</li>
+<li><code class="docutils literal notranslate"><span class="pre">nativeLogin</span></code>: a boolean indicating whether the API is configured to
+use the native authentication scheme</li>
+<li><code class="docutils literal notranslate"><span class="pre">keysEnabled</span></code>: a boolean indicating whether the API is configured to
+manage SSH keys</li>
+</ul>
+</div></blockquote>
+<p>It will also include a function used for querying configuration values, named
+<code class="docutils literal notranslate"><span class="pre">getConfig</span></code>. Here is an example of the function usage:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    {{if getConfig &quot;use-tls&quot;}}
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>we&#39;re safe<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    {{else}}
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>we&#39;re not safe<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    {{end}}
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>This setting is optional. When <code class="docutils literal notranslate"><span class="pre">index-page-template</span></code> is not defined, tsuru
+will use the <a class="reference external" href="https://github.com/tsuru/tsuru/blob/main/api/index_templates.go">default template</a>.</p>
+</div>
+<div class="section" id="reset-password-template">
+<h4>reset-password-template<a class="headerlink" href="#reset-password-template" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">reset-password-template</span></code> is the template that will be used to “password reset” email.
+It must use the <a class="reference external" href="http://golang.org/pkg/text/template/">Go template syntax</a>,
+and tsuru will provide the following variables in the context of the template:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Token</span></code>: a string, the id of password reset request</li>
+<li><code class="docutils literal notranslate"><span class="pre">UserEmail</span></code>: a string, the user email</li>
+<li><code class="docutils literal notranslate"><span class="pre">Creation</span></code>: a time, when password reset was requested</li>
+<li><code class="docutils literal notranslate"><span class="pre">Used</span></code>: a boolean, reset-password was done or not</li>
+</ul>
+</div></blockquote>
+<p>This setting is optional. When <code class="docutils literal notranslate"><span class="pre">reset-password-template</span></code> is not defined, tsuru
+will use the <a class="reference external" href="https://github.com/tsuru/tsuru/blob/main/auth/native/data.go">default template</a>.</p>
+</div>
+<div class="section" id="reset-password-successfully-template">
+<h4>reset-password-successfully-template<a class="headerlink" href="#reset-password-successfully-template" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">reset-password-successfully-template</span></code> is the template that will be used to email with new password, after reset.
+It must use the <a class="reference external" href="http://golang.org/pkg/text/template/">Go template syntax</a>,
+and tsuru will provide the following variables in the context of the template:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">password</span></code>: a string, the new password</li>
+<li><code class="docutils literal notranslate"><span class="pre">email</span></code>: a string, the user email</li>
+</ul>
+</div></blockquote>
+<p>This setting is optional. When <code class="docutils literal notranslate"><span class="pre">reset-password-template</span></code> is not defined, tsuru
+will use the <a class="reference external" href="https://github.com/tsuru/tsuru/blob/main/auth/native/data.go">default template</a>.</p>
+</div>
+</div>
+<div class="section" id="database-access">
+<h3>Database access<a class="headerlink" href="#database-access" title="Permalink to this headline">¶</a></h3>
+<p>tsuru uses MongoDB as a database manager to store information like users,
+machines, containers, etc. You need to describe how tsuru will connect to your
+database server. Therefore, it’s necessary to provide a <a class="reference external" href="https://docs.mongodb.org/manual/reference/connection-string/">MongoDB connection
+string</a>.
+Database related options are listed below:</p>
+<div class="section" id="database-url">
+<h4>database:url<a class="headerlink" href="#database-url" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">database:url</span></code> is the database connection string. It is a mandatory setting
+and it has no default value. Examples of strings include basic <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code> and
+more advanced <code class="docutils literal notranslate"><span class="pre">mongodb://user:password&#64;127.0.0.1:27017/database</span></code>. Please refer
+to <a class="reference external" href="http://docs.mongodb.org/manual/reference/connection-string/">MongoDB documentation</a> for more details
+and examples of connection strings.</p>
+</div>
+<div class="section" id="database-name">
+<h4>database:name<a class="headerlink" href="#database-name" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">database:name</span></code> is the name of the database that tsuru uses. It is a
+mandatory setting and has no default value. An example of value is “tsuru”.</p>
+</div>
+<div class="section" id="database-driver">
+<h4>database:driver<a class="headerlink" href="#database-driver" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">database:driver</span></code> is the name of the database driver that tsuru uses.
+Currently, the only value supported is “mongodb”.</p>
+</div>
+</div>
+<div class="section" id="email-configuration">
+<span id="config-logdb"></span><h3>Email configuration<a class="headerlink" href="#email-configuration" title="Permalink to this headline">¶</a></h3>
+<p>tsuru sends email to users when they request password recovery. In order to send
+those emails, tsuru needs to be configured with some SMTP settings. Omitting
+these settings won’t break tsuru, but users will not be able to reset their
+password.</p>
+<div class="section" id="smtp-server">
+<h4>smtp:server<a class="headerlink" href="#smtp-server" title="Permalink to this headline">¶</a></h4>
+<p>The SMTP server to connect to. It must be in the form &lt;host&gt;:&lt;port&gt;. Example:
+“smtp.gmail.com:587”.</p>
+</div>
+<div class="section" id="smtp-user">
+<h4>smtp:user<a class="headerlink" href="#smtp-user" title="Permalink to this headline">¶</a></h4>
+<p>The user to authenticate with the SMTP sever. Currently, tsuru requires
+authenticated sessions.</p>
+</div>
+<div class="section" id="smtp-password">
+<h4>smtp:password<a class="headerlink" href="#smtp-password" title="Permalink to this headline">¶</a></h4>
+<p>The password for authentication within the SMTP server.</p>
+</div>
+</div>
+<div class="section" id="authentication-configuration">
+<h3>Authentication configuration<a class="headerlink" href="#authentication-configuration" title="Permalink to this headline">¶</a></h3>
+<p>tsuru has support for <code class="docutils literal notranslate"><span class="pre">native</span></code>, <code class="docutils literal notranslate"><span class="pre">oauth</span></code> and <code class="docutils literal notranslate"><span class="pre">saml</span></code> authentication schemes.</p>
+<p>The default scheme is <code class="docutils literal notranslate"><span class="pre">native</span></code> and it supports the creation of users in
+tsuru’s internal database. It hashes passwords brcypt. Tokens are generated
+during authentication and are hashed using SHA512.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">auth</span></code> section also controls whether user registration is on or off. When
+user registration is off, only admin users are able to create new users.</p>
+<div class="section" id="auth-scheme">
+<h4>auth:scheme<a class="headerlink" href="#auth-scheme" title="Permalink to this headline">¶</a></h4>
+<p>The authentication scheme to be used. The default value is <code class="docutils literal notranslate"><span class="pre">native</span></code>, the other
+supported value is <code class="docutils literal notranslate"><span class="pre">oauth</span></code>.</p>
+</div>
+<div class="section" id="auth-user-registration">
+<h4>auth:user-registration<a class="headerlink" href="#auth-user-registration" title="Permalink to this headline">¶</a></h4>
+<p>This flag indicates whether user registration is enabled. This setting is
+optional, and defaults to false.</p>
+</div>
+<div class="section" id="auth-hash-cost">
+<h4>auth:hash-cost<a class="headerlink" href="#auth-hash-cost" title="Permalink to this headline">¶</a></h4>
+<p>Required only with <code class="docutils literal notranslate"><span class="pre">native</span></code> chosen as <code class="docutils literal notranslate"><span class="pre">auth:scheme</span></code>.</p>
+<p>This number indicates how many CPU time you’re willing to give to hashing
+calculation. It is an absolute number, between 4 and 31, where 4 is faster and
+less secure, while 31 is very secure and <em>very</em> slow.</p>
+</div>
+<div class="section" id="auth-token-expire-days">
+<h4>auth:token-expire-days<a class="headerlink" href="#auth-token-expire-days" title="Permalink to this headline">¶</a></h4>
+<p>Required only with <code class="docutils literal notranslate"><span class="pre">native</span></code> chosen as <code class="docutils literal notranslate"><span class="pre">auth:scheme</span></code>.</p>
+<p>Whenever a user logs in, tsuru generates a token for him/her, and the user may
+store the token. <code class="docutils literal notranslate"><span class="pre">auth:token-expire-days</span></code> setting defines the amount of days
+that the token will be valid. This setting is optional, and defaults to “7”.</p>
+</div>
+<div class="section" id="auth-max-simultaneous-sessions">
+<h4>auth:max-simultaneous-sessions<a class="headerlink" href="#auth-max-simultaneous-sessions" title="Permalink to this headline">¶</a></h4>
+<p>tsuru can limit the number of simultaneous sessions per user. This setting is
+optional, and defaults to “unlimited”.</p>
+</div>
+<div class="section" id="auth-oauth">
+<h4>auth:oauth<a class="headerlink" href="#auth-oauth" title="Permalink to this headline">¶</a></h4>
+<p>Every config entry inside <code class="docutils literal notranslate"><span class="pre">auth:oauth</span></code> are used when the <code class="docutils literal notranslate"><span class="pre">auth:scheme</span></code> is
+set to “oauth”. Please check <a class="reference external" href="http://tools.ietf.org/html/rfc6749">rfc6749</a> for
+more details.</p>
+</div>
+<div class="section" id="auth-oauth-client-id">
+<h4>auth:oauth:client-id<a class="headerlink" href="#auth-oauth-client-id" title="Permalink to this headline">¶</a></h4>
+<p>The client id provided by your OAuth server.</p>
+</div>
+<div class="section" id="auth-oauth-client-secret">
+<h4>auth:oauth:client-secret<a class="headerlink" href="#auth-oauth-client-secret" title="Permalink to this headline">¶</a></h4>
+<p>The client secret provided by your OAuth server.</p>
+</div>
+<div class="section" id="auth-oauth-scope">
+<h4>auth:oauth:scope<a class="headerlink" href="#auth-oauth-scope" title="Permalink to this headline">¶</a></h4>
+<p>The scope for your authentication request.</p>
+</div>
+<div class="section" id="auth-oauth-auth-url">
+<h4>auth:oauth:auth-url<a class="headerlink" href="#auth-oauth-auth-url" title="Permalink to this headline">¶</a></h4>
+<p>The URL used in the authorization step of the OAuth flow. tsuru CLI will receive
+this URL and trigger the opening a browser on this URL with the necessary
+parameters.</p>
+<p>During the authorization step, tsuru CLI will start a server locally and set the
+callback to <a class="reference external" href="http://localhost">http://localhost</a>:&lt;port&gt;, if <code class="docutils literal notranslate"><span class="pre">auth:oauth:callback-port</span></code> is set
+tsuru CLI will use its value as &lt;port&gt;. If <code class="docutils literal notranslate"><span class="pre">auth:oauth:callback-port</span></code> isn’t
+present tsuru CLI will automatically choose an open port.</p>
+<p>The callback URL should be registered on your OAuth server.</p>
+<p>If the chosen server requires the callback URL to match the same host and port
+as the registered one you should register “<a class="reference external" href="http://localhost">http://localhost</a>:&lt;chosen port&gt;” and
+set the <code class="docutils literal notranslate"><span class="pre">auth:oauth:callback-port</span></code> accordingly.</p>
+<p>If the chosen server is more lenient and allows a different port to be used you
+should register simply “<a class="reference external" href="http://localhost">http://localhost</a>” and leave <code class="docutils literal notranslate"><span class="pre">auth:oauth:callback-port</span></code>
+empty.</p>
+</div>
+<div class="section" id="auth-oauth-token-url">
+<h4>auth:oauth:token-url<a class="headerlink" href="#auth-oauth-token-url" title="Permalink to this headline">¶</a></h4>
+<p>The URL used in the exchange token step of the OAuth flow.</p>
+</div>
+<div class="section" id="auth-oauth-info-url">
+<h4>auth:oauth:info-url<a class="headerlink" href="#auth-oauth-info-url" title="Permalink to this headline">¶</a></h4>
+<p>The URL used to fetch information about the authenticated user. tsuru expects a
+json response containing a field called <code class="docutils literal notranslate"><span class="pre">email</span></code>.</p>
+<p>tsuru will also make call this URL on every request to the API to make sure the
+token is still valid and hasn’t been revoked.</p>
+</div>
+<div class="section" id="auth-oauth-collection">
+<h4>auth:oauth:collection<a class="headerlink" href="#auth-oauth-collection" title="Permalink to this headline">¶</a></h4>
+<p>The database collection used to store valid access tokens. Defaults to
+“oauth_tokens”.</p>
+</div>
+<div class="section" id="auth-oauth-callback-port">
+<h4>auth:oauth:callback-port<a class="headerlink" href="#auth-oauth-callback-port" title="Permalink to this headline">¶</a></h4>
+<p>The port used in the callback URL during the authorization step. Check docs for
+<code class="docutils literal notranslate"><span class="pre">auth:oauth:auth-url</span></code> for more details.</p>
+</div>
+<div class="section" id="auth-saml">
+<span id="saml-configuration"></span><h4>auth:saml<a class="headerlink" href="#auth-saml" title="Permalink to this headline">¶</a></h4>
+<p>Every config entry inside <code class="docutils literal notranslate"><span class="pre">auth:saml</span></code> are used when the <code class="docutils literal notranslate"><span class="pre">auth:scheme</span></code> is
+set to “saml”. Please check <a class="reference external" href="http://saml.xml.org/saml-specifications">SAML V2.0 specification</a> for
+more details.</p>
+</div>
+<div class="section" id="auth-saml-sp-publiccert">
+<h4>auth:saml:sp-publiccert<a class="headerlink" href="#auth-saml-sp-publiccert" title="Permalink to this headline">¶</a></h4>
+<p>Service provider public certificate path.</p>
+</div>
+<div class="section" id="auth-saml-sp-privatekey">
+<h4>auth:saml:sp-privatekey<a class="headerlink" href="#auth-saml-sp-privatekey" title="Permalink to this headline">¶</a></h4>
+<p>Service provider private key path.</p>
+</div>
+<div class="section" id="auth-saml-idp-ssourl">
+<h4>auth:saml:idp-ssourl<a class="headerlink" href="#auth-saml-idp-ssourl" title="Permalink to this headline">¶</a></h4>
+<p>Identity provider url.</p>
+</div>
+<div class="section" id="auth-saml-sp-display-name">
+<h4>auth:saml:sp-display-name<a class="headerlink" href="#auth-saml-sp-display-name" title="Permalink to this headline">¶</a></h4>
+<p>Service provider display name. The default value is <cite>Tsuru</cite>.</p>
+</div>
+<div class="section" id="auth-saml-sp-description">
+<h4>auth:saml:sp-description<a class="headerlink" href="#auth-saml-sp-description" title="Permalink to this headline">¶</a></h4>
+<p>Service provider description. The default values is <cite>Tsuru Platform as a Service software</cite>.</p>
+</div>
+<div class="section" id="auth-saml-idp-publiccert">
+<h4>auth:saml:idp-publiccert<a class="headerlink" href="#auth-saml-idp-publiccert" title="Permalink to this headline">¶</a></h4>
+<p>Identity provider public certificate.</p>
+</div>
+<div class="section" id="auth-saml-sp-entityid">
+<h4>auth:saml:sp-entityid<a class="headerlink" href="#auth-saml-sp-entityid" title="Permalink to this headline">¶</a></h4>
+<p>Service provider entity id.</p>
+</div>
+<div class="section" id="auth-saml-sp-sign-request">
+<h4>auth:saml:sp-sign-request<a class="headerlink" href="#auth-saml-sp-sign-request" title="Permalink to this headline">¶</a></h4>
+<p>Boolean value that indicates to service provider signs the request.
+The default value is <cite>false</cite>.</p>
+</div>
+<div class="section" id="auth-saml-idp-sign-response">
+<h4>auth:saml:idp-sign-response<a class="headerlink" href="#auth-saml-idp-sign-response" title="Permalink to this headline">¶</a></h4>
+<p>Boolean value that indicates to identity provider signs the response.
+The default value is <cite>false</cite>.</p>
+</div>
+<div class="section" id="auth-saml-idp-deflate-encoding">
+<h4>auth:saml:idp-deflate-encoding<a class="headerlink" href="#auth-saml-idp-deflate-encoding" title="Permalink to this headline">¶</a></h4>
+<p>Boolean value that indicates to identity provider to enable deflate encoding.
+The default value is <cite>false</cite>.</p>
+</div>
+</div>
+<div class="section" id="queue-configuration">
+<span id="config-queue"></span><h3>Queue configuration<a class="headerlink" href="#queue-configuration" title="Permalink to this headline">¶</a></h3>
+<p>tsuru uses a work queue for asynchronous tasks.</p>
+<p><code class="docutils literal notranslate"><span class="pre">queue:*</span></code> groups configuration settings for a MongoDB server that will be used
+as storage for delayed execution of queued jobs.</p>
+<p>This queue is used to manage creation and destruction of IaaS machines, but
+tsuru may start using it in more places in the future.</p>
+<p>It’s not mandatory to configure the queue, however creating and removing
+machines using a IaaS provider will not be possible.</p>
+<div class="section" id="queue-mongo-url">
+<h4>queue:mongo-url<a class="headerlink" href="#queue-mongo-url" title="Permalink to this headline">¶</a></h4>
+<p>Connection url for MongoDB server used to store task information.</p>
+</div>
+<div class="section" id="queue-mongo-database">
+<h4>queue:mongo-database<a class="headerlink" href="#queue-mongo-database" title="Permalink to this headline">¶</a></h4>
+<p>Database name used in MongoDB. This value will take precedence over any database
+name already specified in the connection url.</p>
+</div>
+<div class="section" id="pubsub">
+<span id="config-pubsub"></span><h4>pubsub<a class="headerlink" href="#pubsub" title="Permalink to this headline">¶</a></h4>
+<p>Deprecated: These settings are obsolete and are ignored as of tsuru 1.3.0.</p>
+</div>
+</div>
+<div class="section" id="quota-management">
+<span id="config-admin-user"></span><h3>Quota management<a class="headerlink" href="#quota-management" title="Permalink to this headline">¶</a></h3>
+<p>tsuru can, optionally, manage quotas. Currently, there are two available
+quotas: apps per user and units per app.</p>
+<p>tsuru administrators can control the default quota for new users and new apps
+in the configuration file, and use <code class="docutils literal notranslate"><span class="pre">tsuru</span></code> command to change quotas for
+users or apps. Quota management is disabled by default, to enable it, just set
+the desired quota to a positive integer.</p>
+<div class="section" id="quota-units-per-app">
+<h4>quota:units-per-app<a class="headerlink" href="#quota-units-per-app" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">quota:units-per-app</span></code> is the default value for units per-app quota. All new
+apps will have at most the number of units specified by this setting. This
+setting is optional, and defaults to “unlimited”.</p>
+</div>
+<div class="section" id="quota-apps-per-user">
+<h4>quota:apps-per-user<a class="headerlink" href="#quota-apps-per-user" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">quota:apps-per-user</span></code> is the default value for apps per-user quota. All new
+users will have at most the number of apps specified by this setting. This
+setting is optional, and defaults to “unlimited”.</p>
+</div>
+</div>
+<div class="section" id="logging">
+<span id="config-logging"></span><h3>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
+<p>Tsuru supports three logging flavors, that can be enabled or disabled
+altogether. The default behavior of tsuru is to send all logs to syslog, but it
+can also send logs to the standard error stream or a file. It’s is possible to
+use any combination of the three flavors at any time in tsuru configuration
+(e.g.: write logs both to stderr and syslog, or a file and stderr, or to all of
+the flavors simultaneously).</p>
+<p>There’s also the possibility to enable or disable debugging log, via the debug
+flag.</p>
+<div class="section" id="debug">
+<h4>debug<a class="headerlink" href="#debug" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">false</span></code> is the default value, so you won’t see any
+noises on logs, to turn it on set it to true, e.g.: <code class="docutils literal notranslate"><span class="pre">debug:</span> <span class="pre">true</span></code></p>
+</div>
+<div class="section" id="log-file">
+<h4>log:file<a class="headerlink" href="#log-file" title="Permalink to this headline">¶</a></h4>
+<p>Use this to specify a path to a log file. If no file is specified, tsuru-server
+won’t write logs to any file.</p>
+</div>
+<div class="section" id="log-disable-syslog">
+<h4>log:disable-syslog<a class="headerlink" href="#log-disable-syslog" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">log:disable-syslog</span></code> indicates whether tsuru-server should disable the use of
+syslog. <code class="docutils literal notranslate"><span class="pre">false</span></code> is the default value. If it’s <code class="docutils literal notranslate"><span class="pre">true</span></code>, tsuru-server won’t
+send any logs to syslog.</p>
+</div>
+<div class="section" id="log-syslog-tag">
+<h4>log:syslog-tag<a class="headerlink" href="#log-syslog-tag" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">log:syslog-tag</span></code> is the tag that will be attached to every log line. The
+default value is “tsr”.</p>
+</div>
+<div class="section" id="log-use-stderr">
+<h4>log:use-stderr<a class="headerlink" href="#log-use-stderr" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">log:use-stderr</span></code> indicates whether tsuru-server should write logs to standard
+error stream. The default value is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</div>
+</div>
+<div class="section" id="routers">
+<span id="config-routers"></span><h3>Routers<a class="headerlink" href="#routers" title="Permalink to this headline">¶</a></h3>
+<p>As of 0.10.0, all your router configuration should live under entries with the
+format <code class="docutils literal notranslate"><span class="pre">routers:&lt;router</span> <span class="pre">name&gt;</span></code>.</p>
+<div class="section" id="routers-router-name-type-type-hipache-galeb-vulcand-api">
+<h4>routers:&lt;router name&gt;:type (type: hipache, galeb, vulcand, api)<a class="headerlink" href="#routers-router-name-type-type-hipache-galeb-vulcand-api" title="Permalink to this headline">¶</a></h4>
+<p>Indicates the type of this router configuration. The standard router supported
+by tsuru is <a class="reference external" href="https://github.com/hipache/hipache">hipache</a>. There is also
+experimental support for <a class="reference external" href="http://galeb.io/">galeb</a>, <a class="reference external" href="https://docs.vulcand.io/">vulcand</a>) and a generic api router.</p>
+</div>
+<div class="section" id="routers-router-name-default">
+<h4>routers:&lt;router name&gt;:default<a class="headerlink" href="#routers-router-name-default" title="Permalink to this headline">¶</a></h4>
+<p>Boolean value that indicates if this router is to be used when an app is created
+with no specific router. Defaults to false.</p>
+<p>Depending on the type, there are some specific configuration options available.</p>
+</div>
+<div class="section" id="routers-router-name-domain-type-hipache-galeb-vulcand">
+<h4>routers:&lt;router name&gt;:domain (type: hipache, galeb, vulcand)<a class="headerlink" href="#routers-router-name-domain-type-hipache-galeb-vulcand" title="Permalink to this headline">¶</a></h4>
+<p>The domain of the server running your router. Applications created with
+tsuru will have a address of <code class="docutils literal notranslate"><span class="pre">http://&lt;app-name&gt;.&lt;domain&gt;</span></code></p>
+</div>
+<div class="section" id="routers-router-name-redis-type-hipache">
+<h4>routers:&lt;router name&gt;:redis-* (type: hipache)<a class="headerlink" href="#routers-router-name-redis-type-hipache" title="Permalink to this headline">¶</a></h4>
+<p>Redis server used by Hipache router. This same server (or a redis slave of it),
+must be configured in your hipache.conf file. For details on all available
+options for connecting to redis check <a class="reference internal" href="#config-common-redis"><span class="std std-ref">common redis configuration</span></a></p>
+</div>
+<div class="section" id="routers-router-name-api-url-type-galeb-vulcand-api">
+<h4>routers:&lt;router name&gt;:api-url (type: galeb, vulcand, api)<a class="headerlink" href="#routers-router-name-api-url-type-galeb-vulcand-api" title="Permalink to this headline">¶</a></h4>
+<p>The URL for the router manager API.</p>
+</div>
+<div class="section" id="routers-router-name-debug-type-galeb-api">
+<h4>routers:&lt;router name&gt;:debug (type galeb, api)<a class="headerlink" href="#routers-router-name-debug-type-galeb-api" title="Permalink to this headline">¶</a></h4>
+<p>Enables debug mode, logging additional information.</p>
+</div>
+<div class="section" id="routers-router-name-username-type-galeb">
+<h4>routers:&lt;router name&gt;:username (type: galeb)<a class="headerlink" href="#routers-router-name-username-type-galeb" title="Permalink to this headline">¶</a></h4>
+<p>Galeb manager username.</p>
+</div>
+<div class="section" id="routers-router-name-password-type-galeb">
+<h4>routers:&lt;router name&gt;:password (type: galeb)<a class="headerlink" href="#routers-router-name-password-type-galeb" title="Permalink to this headline">¶</a></h4>
+<p>Galeb manager password.</p>
+</div>
+<div class="section" id="routers-router-name-environment-type-galeb">
+<h4>routers:&lt;router name&gt;:environment (type: galeb)<a class="headerlink" href="#routers-router-name-environment-type-galeb" title="Permalink to this headline">¶</a></h4>
+<p>Galeb manager environment used to create virtual hosts and backend pools.</p>
+</div>
+<div class="section" id="routers-router-name-farm-type-type-galeb">
+<h4>routers:&lt;router name&gt;:farm-type (type: galeb)<a class="headerlink" href="#routers-router-name-farm-type-type-galeb" title="Permalink to this headline">¶</a></h4>
+<p>Galeb manager farm type used to create virtual hosts and backend pools.</p>
+</div>
+<div class="section" id="routers-router-name-plan-type-galeb">
+<h4>routers:&lt;router name&gt;:plan (type: galeb)<a class="headerlink" href="#routers-router-name-plan-type-galeb" title="Permalink to this headline">¶</a></h4>
+<p>Galeb manager plan used to create virtual hosts and backend pools.</p>
+</div>
+<div class="section" id="routers-router-name-project-type-galeb">
+<h4>routers:&lt;router name&gt;:project (type: galeb)<a class="headerlink" href="#routers-router-name-project-type-galeb" title="Permalink to this headline">¶</a></h4>
+<p>Galeb manager project used to create virtual hosts, backend pools and pools.</p>
+</div>
+<div class="section" id="routers-router-name-load-balance-policy-type-galeb">
+<h4>routers:&lt;router name&gt;:load-balance-policy (type: galeb)<a class="headerlink" href="#routers-router-name-load-balance-policy-type-galeb" title="Permalink to this headline">¶</a></h4>
+<p>Galeb manager load balancing policy used to create backend pools.</p>
+</div>
+<div class="section" id="routers-router-name-rule-type-type-galeb">
+<h4>routers:&lt;router name&gt;:rule-type (type: galeb)<a class="headerlink" href="#routers-router-name-rule-type-type-galeb" title="Permalink to this headline">¶</a></h4>
+<p>Galeb manager rule type used to create rules.</p>
+</div>
+<div class="section" id="routers-router-name-use-token-type-galeb">
+<h4>routers:&lt;router name&gt;:use-token (type: galeb)<a class="headerlink" href="#routers-router-name-use-token-type-galeb" title="Permalink to this headline">¶</a></h4>
+<p>If true, tsuru will get an authentication token by calling the /token route and
+reuse it until it expires. (Defaults to false)</p>
+</div>
+<div class="section" id="routers-router-name-max-requests-type-galeb">
+<h4>routers:&lt;router name&gt;:max-requests (type: galeb)<a class="headerlink" href="#routers-router-name-max-requests-type-galeb" title="Permalink to this headline">¶</a></h4>
+<p>Maximum number of parallel requests to the Galeb API when adding or removing
+routes. (Defaults to unlimited)</p>
+</div>
+<div class="section" id="routers-router-name-headers-type-api">
+<h4>routers:&lt;router name&gt;:headers (type: api)<a class="headerlink" href="#routers-router-name-headers-type-api" title="Permalink to this headline">¶</a></h4>
+<p>Headers to be added to the request to the api responsible for mananing the router. Example:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>headers:
+  - X-CUSTOM-HEADER: my-value
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>Hipache<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="hipache-redis-server">
+<h4>hipache:redis-server<a class="headerlink" href="#hipache-redis-server" title="Permalink to this headline">¶</a></h4>
+<p>Redis server used by Hipache router. This same server (or a redis slave of it),
+must be configured in your hipache.conf file.</p>
+<p>This setting is deprecated in favor of <code class="docutils literal notranslate"><span class="pre">routers:&lt;router</span> <span class="pre">name&gt;:type</span> <span class="pre">=</span> <span class="pre">hipache</span></code>
+and <code class="docutils literal notranslate"><span class="pre">routers:&lt;router</span> <span class="pre">name&gt;:redis-server</span></code>.</p>
+</div>
+<div class="section" id="hipache-domain">
+<h4>hipache:domain<a class="headerlink" href="#hipache-domain" title="Permalink to this headline">¶</a></h4>
+<p>The domain of the server running your hipache server. Applications created with
+tsuru will have a address of <code class="docutils literal notranslate"><span class="pre">http://&lt;app-name&gt;.&lt;hipache:domain&gt;</span></code>.</p>
+<p>This setting is deprecated in favor of <code class="docutils literal notranslate"><span class="pre">routers:&lt;router</span> <span class="pre">name&gt;:type</span> <span class="pre">=</span> <span class="pre">hipache</span></code>
+and <code class="docutils literal notranslate"><span class="pre">routers:&lt;router</span> <span class="pre">name&gt;:domain</span></code></p>
+</div>
+</div>
+<div class="section" id="defining-the-provisioner">
+<h3>Defining the provisioner<a class="headerlink" href="#defining-the-provisioner" title="Permalink to this headline">¶</a></h3>
+<p>tsuru has extensible support for provisioners. A provisioner is a Go type that
+satisfies the <cite>provision.Provisioner</cite> interface. By default, tsuru will use
+<code class="docutils literal notranslate"><span class="pre">DockerProvisioner</span></code> (identified by the string “docker”). Other provisioners
+are available as <strong>experiments</strong> and may be removed in future versions:
+<code class="docutils literal notranslate"><span class="pre">swarm</span></code> and <code class="docutils literal notranslate"><span class="pre">kubernetes</span></code>.</p>
+<div class="section" id="provisioner">
+<span id="config-provisioner"></span><h4>provisioner<a class="headerlink" href="#provisioner" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">provisioner</span></code> is the string the name of the <strong>default</strong> provisioner that will
+be used by tsuru. This setting is optional and defaults to <code class="docutils literal notranslate"><span class="pre">docker</span></code>.</p>
+</div>
+</div>
+<div class="section" id="docker-provisioner-configuration">
+<h3>Docker provisioner configuration<a class="headerlink" href="#docker-provisioner-configuration" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="docker-collection">
+<h4>docker:collection<a class="headerlink" href="#docker-collection" title="Permalink to this headline">¶</a></h4>
+<p>Database collection name used to store containers information.</p>
+</div>
+<div class="section" id="docker-port-allocator">
+<span id="config-port-allocator"></span><h4>docker:port-allocator<a class="headerlink" href="#docker-port-allocator" title="Permalink to this headline">¶</a></h4>
+<p>Deprecated. Currently, when using Docker as provisioner, tsuru trusts it
+to allocate ports. Meaning thatwhenever a container restarts, the port might
+change (usually, it changes).</p>
+</div>
+<div class="section" id="docker-registry">
+<h4>docker:registry<a class="headerlink" href="#docker-registry" title="Permalink to this headline">¶</a></h4>
+<p>For tsuru to work with multiple docker nodes, you will need a docker-registry.
+This should be in the form of <code class="docutils literal notranslate"><span class="pre">hostname:port</span></code>, the scheme cannot be present.</p>
+</div>
+<div class="section" id="docker-registry-max-try">
+<h4>docker:registry-max-try<a class="headerlink" href="#docker-registry-max-try" title="Permalink to this headline">¶</a></h4>
+<p>Number of times tsuru will try to send a image to registry.</p>
+</div>
+<div class="section" id="docker-registry-auth-username">
+<span id="config-registry-auth"></span><h4>docker:registry-auth:username<a class="headerlink" href="#docker-registry-auth-username" title="Permalink to this headline">¶</a></h4>
+<p>The username used for registry authentication. This setting is optional, for
+registries with authentication disabled, it can be omitted.</p>
+</div>
+<div class="section" id="docker-registry-auth-password">
+<h4>docker:registry-auth:password<a class="headerlink" href="#docker-registry-auth-password" title="Permalink to this headline">¶</a></h4>
+<p>The password used for registry authentication. This setting is optional, for
+registries with authentication disabled, it can be omitted.</p>
+</div>
+<div class="section" id="docker-registry-auth-email">
+<h4>docker:registry-auth:email<a class="headerlink" href="#docker-registry-auth-email" title="Permalink to this headline">¶</a></h4>
+<p>The email used for registry authentication. This setting is optional, for
+registries with authentication disabled, it can be omitted.</p>
+</div>
+<div class="section" id="docker-repository-namespace">
+<h4>docker:repository-namespace<a class="headerlink" href="#docker-repository-namespace" title="Permalink to this headline">¶</a></h4>
+<p>Docker repository namespace to be used for application and platform images. Images
+will be tagged in docker as &lt;docker:repository-namespace&gt;/&lt;platform-name&gt; and
+&lt;docker:repository-namespace&gt;/&lt;app-name&gt;. The default value is ‘tsuru’.</p>
+</div>
+<div class="section" id="docker-max-layers">
+<h4>docker:max-layers<a class="headerlink" href="#docker-max-layers" title="Permalink to this headline">¶</a></h4>
+<p>The maximum number of layers in Docker images. This number represents the
+number of times that Tsuru will reuse the previous image on application
+deployment. The default value is 10.</p>
+</div>
+<div class="section" id="docker-gc-dry-run">
+<h4>docker:gc:dry-run<a class="headerlink" href="#docker-gc-dry-run" title="Permalink to this headline">¶</a></h4>
+<p>If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, tsuru garbage collector won’t remove old and failed images from registry.</p>
+</div>
+<div class="section" id="docker-bs-image">
+<span id="config-bs"></span><h4>docker:bs:image<a class="headerlink" href="#docker-bs-image" title="Permalink to this headline">¶</a></h4>
+<p>This setting is deprecated in favor of dynamically configuring with
+<code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">node-container-update</span> <span class="pre">big-sibling</span> <span class="pre">--image</span> <span class="pre">&lt;image&gt;</span></code>.</p>
+</div>
+<div class="section" id="docker-bs-socket">
+<h4>docker:bs:socket<a class="headerlink" href="#docker-bs-socket" title="Permalink to this headline">¶</a></h4>
+<p>This setting is deprecated in favor of dynamically configuring with
+<code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">node-container-update</span> <span class="pre">big-sibling</span> <span class="pre">--volume</span> <span class="pre">&lt;local&gt;:&lt;remote&gt;</span> <span class="pre">--env</span>
+<span class="pre">DOCKER_ENDPOINT=&lt;remote&gt;</span></code>.</p>
+</div>
+<div class="section" id="docker-bs-syslog-port">
+<h4>docker:bs:syslog-port<a class="headerlink" href="#docker-bs-syslog-port" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">docker:bs:syslog-port</span></code> is the port in the Docker node that will be used by
+the bs container for collecting logs. The default value is 1514.</p>
+<p>If this value is changed bs node containers must be update with <code class="docutils literal notranslate"><span class="pre">tsuru</span>
+<span class="pre">node-container-update</span> <span class="pre">big-sibling</span> <span class="pre">--env</span>
+<span class="pre">SYSLOG_LISTEN_ADDRESS=udp://0.0.0.0:&lt;port&gt;</span></code>.</p>
+</div>
+<div class="section" id="docker-max-workers">
+<h4>docker:max-workers<a class="headerlink" href="#docker-max-workers" title="Permalink to this headline">¶</a></h4>
+<p>Maximum amount of threads to be created when starting new containers, so tsuru
+doesn’t start too much threads in the process of starting 1000 units, for
+instance. Defaults to 0 which means unlimited.</p>
+</div>
+<div class="section" id="docker-nodecontainer-max-workers">
+<h4>docker:nodecontainer:max-workers<a class="headerlink" href="#docker-nodecontainer-max-workers" title="Permalink to this headline">¶</a></h4>
+<p>Same as <code class="docutils literal notranslate"><span class="pre">docker:max-workers</span></code> but applies only to when starting new node containers.
+Defaults to 0 which means unlimited.</p>
+</div>
+<div class="section" id="docker-router">
+<span id="config-docker-router"></span><h4>docker:router<a class="headerlink" href="#docker-router" title="Permalink to this headline">¶</a></h4>
+<p>Default router to be used to distribute requests to units. This should be the
+name of a router configured under the <code class="docutils literal notranslate"><span class="pre">routers:&lt;name&gt;</span></code> key, see <a class="reference internal" href="#config-routers"><span class="std std-ref">routers</span></a>.</p>
+<p>For backward compatibility reasons, the value <code class="docutils literal notranslate"><span class="pre">hipache</span></code> is also supported, and
+it will use either configuration available under <code class="docutils literal notranslate"><span class="pre">router:hipache:*</span></code> or
+<code class="docutils literal notranslate"><span class="pre">hipache:*</span></code>, in this order.</p>
+<p>The router defined in <code class="docutils literal notranslate"><span class="pre">docker:router</span></code> will only be used if there is no router
+with <cite>router:&lt;my-router&gt;:default</cite> set to true.</p>
+</div>
+<div class="section" id="docker-deploy-cmd">
+<h4>docker:deploy-cmd<a class="headerlink" href="#docker-deploy-cmd" title="Permalink to this headline">¶</a></h4>
+<p>The command that will be called in your platform when a new deploy happens. The
+default value for platforms supported in tsuru’s basebuilder repository is
+<code class="docutils literal notranslate"><span class="pre">/var/lib/tsuru/deploy</span></code>.</p>
+</div>
+<div class="section" id="docker-security-opts">
+<h4>docker:security-opts<a class="headerlink" href="#docker-security-opts" title="Permalink to this headline">¶</a></h4>
+<p>This setting describes a list of security options that will be passed to
+containers. This setting must be a list, and has no default value. If one wants
+to specify just one value, it’s still needed to use the list notation:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>docker:
+  ...
+  security-opts:
+    - apparmor:PROFILE
+</pre></div>
+</div>
+<p>For more details on the available options, please refer to the Docker
+documentation: &lt;<a class="reference external" href="https://docs.docker.com/reference/run/#security-configuration">https://docs.docker.com/reference/run/#security-configuration</a>&gt;.</p>
+</div>
+<div class="section" id="docker-scheduler-total-memory-metadata">
+<span id="config-scheduler-memory"></span><h4>docker:scheduler:total-memory-metadata<a class="headerlink" href="#docker-scheduler-total-memory-metadata" title="Permalink to this headline">¶</a></h4>
+<p>This value describes which metadata key will describe the total amount of
+memory, in bytes, available to a docker node.</p>
+</div>
+<div class="section" id="docker-scheduler-max-used-memory">
+<h4>docker:scheduler:max-used-memory<a class="headerlink" href="#docker-scheduler-max-used-memory" title="Permalink to this headline">¶</a></h4>
+<p>This should be a value between 0.0 and 1.0 which describes which fraction of the
+total amount of memory available to a server should be reserved for app units.</p>
+<p>The amount of memory available is found based on the node metadata described by
+<code class="docutils literal notranslate"><span class="pre">docker:scheduler:total-memory-metadata</span></code> config setting.</p>
+<p>If this value is set, tsuru will try to find a node with enough unreserved
+memory to fit the creation of new units, based on how much memory is required by
+the plan used to create the application. If no node with enough unreserved
+memory is found, tsuru will ignore memory restrictions and let the scheduler
+choose any node.</p>
+</div>
+<div class="section" id="docker-cluster-storage">
+<span id="config-cluster-storage"></span><h4>docker:cluster:storage<a class="headerlink" href="#docker-cluster-storage" title="Permalink to this headline">¶</a></h4>
+<p>This setting has been removed. You shouldn’t define it anymore, the only storage
+available for the docker cluster is now <code class="docutils literal notranslate"><span class="pre">mongodb</span></code>.</p>
+</div>
+<div class="section" id="docker-cluster-mongo-url">
+<h4>docker:cluster:mongo-url<a class="headerlink" href="#docker-cluster-mongo-url" title="Permalink to this headline">¶</a></h4>
+<p>Connection URL to the mongodb server used to store information about the docker
+cluster.</p>
+</div>
+<div class="section" id="docker-cluster-mongo-database">
+<h4>docker:cluster:mongo-database<a class="headerlink" href="#docker-cluster-mongo-database" title="Permalink to this headline">¶</a></h4>
+<p>Database name to be used to store information about the docker cluster.</p>
+</div>
+<div class="section" id="docker-run-cmd-bin">
+<h4>docker:run-cmd:bin<a class="headerlink" href="#docker-run-cmd-bin" title="Permalink to this headline">¶</a></h4>
+<p>The command that will be called on the application image to start the
+application. The default value for platforms supported in tsuru’s basebuilder
+repository is <code class="docutils literal notranslate"><span class="pre">/var/lib/tsuru/start</span></code>.</p>
+</div>
+<div class="section" id="docker-run-cmd-port">
+<h4>docker:run-cmd:port<a class="headerlink" href="#docker-run-cmd-port" title="Permalink to this headline">¶</a></h4>
+<p>The tcp port that will be exported by the container to the node network. The
+default value expected by platforms defined in tsuru’s basebuilder repository is
+<code class="docutils literal notranslate"><span class="pre">8888</span></code>.</p>
+</div>
+<div class="section" id="docker-user">
+<h4>docker:user<a class="headerlink" href="#docker-user" title="Permalink to this headline">¶</a></h4>
+<p>The user tsuru will use to start the container. The default value is
+<code class="docutils literal notranslate"><span class="pre">ubuntu</span></code>, which is the expected value for default tsuru platforms. An empty
+for this will make tsuru use the platform image user.</p>
+</div>
+<div class="section" id="docker-uid">
+<h4>docker:uid<a class="headerlink" href="#docker-uid" title="Permalink to this headline">¶</a></h4>
+<p>The user ID tsuru will use to start the container in provisioners that do not
+support <code class="docutils literal notranslate"><span class="pre">docker:user</span></code>. The default value is <code class="docutils literal notranslate"><span class="pre">1000</span></code>, which is the expected
+value for default tsuru platforms. The value <code class="docutils literal notranslate"><span class="pre">-1</span></code> can be used to make tsuru
+use the platform image user.</p>
+</div>
+<div class="section" id="docker-healing-heal-nodes">
+<span id="config-healing"></span><h4>docker:healing:heal-nodes<a class="headerlink" href="#docker-healing-heal-nodes" title="Permalink to this headline">¶</a></h4>
+<p>Boolean value that indicates whether tsuru should try to heal nodes that have
+failed a specified number of times. Healing nodes is only available if the node
+was created by tsuru itself using the IaaS configuration. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</div>
+<div class="section" id="docker-healing-active-monitoring-interval">
+<h4>docker:healing:active-monitoring-interval<a class="headerlink" href="#docker-healing-active-monitoring-interval" title="Permalink to this headline">¶</a></h4>
+<p>Number of seconds between calls to &lt;server&gt;/_ping in each one of the docker
+nodes. If this value is 0 or unset tsuru will never call the ping URL. Defaults
+to 0.</p>
+</div>
+<div class="section" id="docker-healing-disabled-time">
+<h4>docker:healing:disabled-time<a class="headerlink" href="#docker-healing-disabled-time" title="Permalink to this headline">¶</a></h4>
+<p>Number of seconds tsuru disables a node after a failure. This setting is only
+valid if <code class="docutils literal notranslate"><span class="pre">heal-nodes</span></code> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>. Defaults to 30 seconds.</p>
+</div>
+<div class="section" id="docker-healing-max-failures">
+<h4>docker:healing:max-failures<a class="headerlink" href="#docker-healing-max-failures" title="Permalink to this headline">¶</a></h4>
+<p>Number of consecutive failures a node should have before triggering a healing
+operation. Only valid if <code class="docutils literal notranslate"><span class="pre">heal-nodes</span></code> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>. Defaults to 5.</p>
+</div>
+<div class="section" id="docker-healing-wait-new-time">
+<h4>docker:healing:wait-new-time<a class="headerlink" href="#docker-healing-wait-new-time" title="Permalink to this headline">¶</a></h4>
+<p>Number of seconds tsuru should wait for the creation of a new node during the
+healing process. Only valid if <code class="docutils literal notranslate"><span class="pre">heal-nodes</span></code> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>. Defaults to
+300 seconds (5 minutes).</p>
+</div>
+<div class="section" id="docker-healing-heal-containers-timeout">
+<h4>docker:healing:heal-containers-timeout<a class="headerlink" href="#docker-healing-heal-containers-timeout" title="Permalink to this headline">¶</a></h4>
+<p>Number of seconds a container should be unresponsive before triggering the
+recreation of the container. A container is deemed unresponsive if it doesn’t
+call the set unit status URL (/apps/{app}/units/{unit}) with a <code class="docutils literal notranslate"><span class="pre">started</span></code>
+status. If this value is 0 or unset tsuru will never try to heal unresponsive
+containers. Defaults to 0.</p>
+</div>
+<div class="section" id="docker-healing-events-collection">
+<h4>docker:healing:events_collection<a class="headerlink" href="#docker-healing-events-collection" title="Permalink to this headline">¶</a></h4>
+<p>Collection name in mongodb used to store information about triggered healing
+events. Defaults to <code class="docutils literal notranslate"><span class="pre">healing_events</span></code>.</p>
+</div>
+<div class="section" id="docker-healthcheck-max-time">
+<span id="config-healthcheck-max-time"></span><h4>docker:healthcheck:max-time<a class="headerlink" href="#docker-healthcheck-max-time" title="Permalink to this headline">¶</a></h4>
+<p>Maximum time in seconds to wait for deployment time health check to be
+successful. Defaults to 120 seconds.</p>
+</div>
+<div class="section" id="docker-image-history-size">
+<span id="config-image-history-size"></span><h4>docker:image-history-size<a class="headerlink" href="#docker-image-history-size" title="Permalink to this headline">¶</a></h4>
+<p>Number of images available for rollback using <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">app</span> <span class="pre">deploy</span> <span class="pre">rollback</span></code>.
+tsuru will try to delete older images, but it may not be able to due to it being
+used as a layer to a newer image. tsuru will keep trying to remove these old
+images until they are not used as layers anymore. Defaults to 10 images.</p>
+</div>
+<div class="section" id="docker-auto-scale-wait-new-time">
+<span id="config-docker-auto-scale"></span><h4>docker:auto-scale:wait-new-time<a class="headerlink" href="#docker-auto-scale-wait-new-time" title="Permalink to this headline">¶</a></h4>
+<p>Number of seconds tsuru should wait for the creation of a new node during the
+scaling up process. Defaults to 300 seconds (5 minutes).</p>
+</div>
+<div class="section" id="docker-auto-scale-group-by-metadata">
+<h4>docker:auto-scale:group-by-metadata<a class="headerlink" href="#docker-auto-scale-group-by-metadata" title="Permalink to this headline">¶</a></h4>
+<p>Deprecated. The <code class="docutils literal notranslate"><span class="pre">pool</span></code> is used to group nodes.</p>
+</div>
+<div class="section" id="docker-auto-scale-metadata-filter">
+<h4>docker:auto-scale:metadata-filter<a class="headerlink" href="#docker-auto-scale-metadata-filter" title="Permalink to this headline">¶</a></h4>
+<p>The name of a pool where auto scale will be enabled. Leave unset to allow
+dynamically configuring with <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">node-autoscale-rule-set</span></code>.</p>
+</div>
+<div class="section" id="docker-auto-scale-run-interval">
+<h4>docker:auto-scale:run-interval<a class="headerlink" href="#docker-auto-scale-run-interval" title="Permalink to this headline">¶</a></h4>
+<p>Number of seconds between two periodic runs of the auto scaling algorithm.
+Defaults to 3600 seconds (1 hour).</p>
+</div>
+<div class="section" id="docker-limit-actions-per-host">
+<span id="docker-limit"></span><h4>docker:limit:actions-per-host<a class="headerlink" href="#docker-limit-actions-per-host" title="Permalink to this headline">¶</a></h4>
+<p>The maximum number of simultaneous actions to run on a docker node. When the
+number of running actions is greater then the limit further actions will block
+until another action has finished. Setting this limit may help the stability of
+docker nodes with limited resources. If this value is set to <code class="docutils literal notranslate"><span class="pre">0</span></code> the limit is
+disabled. Default value is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</div>
+<div class="section" id="docker-limit-mode">
+<h4>docker:limit:mode<a class="headerlink" href="#docker-limit-mode" title="Permalink to this headline">¶</a></h4>
+<p>The way tsuru will ensure <code class="docutils literal notranslate"><span class="pre">docker:limit:actions-per-host</span></code> limit is being
+respected. Possible values are <code class="docutils literal notranslate"><span class="pre">local</span></code> and <code class="docutils literal notranslate"><span class="pre">global</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">local</span></code>.
+In <code class="docutils literal notranslate"><span class="pre">local</span></code> mode tsuru will only limit simultaneous actions from the current
+tsurud process. <code class="docutils literal notranslate"><span class="pre">global</span></code> mode uses MongoDB to ensure all tsurud servers using
+respects the same limit.</p>
+</div>
+<div class="section" id="docker-sharedfs">
+<span id="id4"></span><h4>docker:sharedfs<a class="headerlink" href="#docker-sharedfs" title="Permalink to this headline">¶</a></h4>
+<p>Used to create shared volumes for apps.</p>
+</div>
+<div class="section" id="docker-sharedfs-hostdir">
+<h4>docker:sharedfs:hostdir<a class="headerlink" href="#docker-sharedfs-hostdir" title="Permalink to this headline">¶</a></h4>
+<p>Directory on host machine to access shared data with installed apps.</p>
+</div>
+<div class="section" id="docker-sharedfs-mountpoint">
+<h4>docker:sharedfs:mountpoint<a class="headerlink" href="#docker-sharedfs-mountpoint" title="Permalink to this headline">¶</a></h4>
+<p>Directory inside the container that point to <code class="docutils literal notranslate"><span class="pre">hostdir</span></code> directory configured
+above.</p>
+</div>
+<div class="section" id="docker-sharedfs-app-isolation">
+<h4>docker:sharedfs:app-isolation<a class="headerlink" href="#docker-sharedfs-app-isolation" title="Permalink to this headline">¶</a></h4>
+<p>If true, the <code class="docutils literal notranslate"><span class="pre">hostdir</span></code> will have subdirectories for each app. All apps will still have access to a shared mount point, however they will be in completely isolated subdirectories.</p>
+</div>
+<div class="section" id="docker-pids-limit">
+<h4>docker:pids-limit<a class="headerlink" href="#docker-pids-limit" title="Permalink to this headline">¶</a></h4>
+<p>Maximum number of pids in a single container. Defaults to unlimited.</p>
+</div>
+</div>
+</div>
+<div class="section" id="iaas-configuration">
+<span id="id5"></span><h2>IaaS configuration<a class="headerlink" href="#iaas-configuration" title="Permalink to this headline">¶</a></h2>
+<p>tsuru uses IaaS configuration to automatically create new docker nodes and
+adding them to your cluster when using <code class="docutils literal notranslate"><span class="pre">docker-node-add</span></code> command. See
+<a class="reference internal" href="../installing/adding-nodes.html"><span class="doc">adding nodes</span></a> for more details about how to use
+this command.</p>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">You should configure <a class="reference internal" href="#config-queue"><span class="std std-ref">queue</span></a> to be able to use IaaS.</p>
+</div>
+<div class="section" id="general-settings">
+<h3>General settings<a class="headerlink" href="#general-settings" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="iaas-default">
+<h4>iaas:default<a class="headerlink" href="#iaas-default" title="Permalink to this headline">¶</a></h4>
+<p>The default IaaS tsuru will use when calling <code class="docutils literal notranslate"><span class="pre">docker-node-add</span></code> without
+specifying <code class="docutils literal notranslate"><span class="pre">iaas=&lt;iaas_name&gt;</span></code> as a metadata. Defaults to <code class="docutils literal notranslate"><span class="pre">ec2</span></code>.</p>
+</div>
+<div class="section" id="iaas-node-protocol">
+<h4>iaas:node-protocol<a class="headerlink" href="#iaas-node-protocol" title="Permalink to this headline">¶</a></h4>
+<p>Which protocol to use when accessing the docker api in the created node.
+Defaults to <code class="docutils literal notranslate"><span class="pre">http</span></code>.</p>
+</div>
+<div class="section" id="iaas-node-port">
+<h4>iaas:node-port<a class="headerlink" href="#iaas-node-port" title="Permalink to this headline">¶</a></h4>
+<p>In which port the docker API will be accessible in the created node. Defaults to
+<code class="docutils literal notranslate"><span class="pre">2375</span></code>.</p>
+</div>
+<div class="section" id="iaas-collection">
+<h4>iaas:collection<a class="headerlink" href="#iaas-collection" title="Permalink to this headline">¶</a></h4>
+<p>Collection name on database containing information about created machines.
+Defaults to <code class="docutils literal notranslate"><span class="pre">iaas_machines</span></code>.</p>
+</div>
+</div>
+<div class="section" id="ec2-iaas">
+<h3>EC2 IaaS<a class="headerlink" href="#ec2-iaas" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="iaas-ec2-key-id">
+<h4>iaas:ec2:key-id<a class="headerlink" href="#iaas-ec2-key-id" title="Permalink to this headline">¶</a></h4>
+<p>Your AWS key id.</p>
+</div>
+<div class="section" id="iaas-ec2-secret-key">
+<h4>iaas:ec2:secret-key<a class="headerlink" href="#iaas-ec2-secret-key" title="Permalink to this headline">¶</a></h4>
+<p>Your AWS secret key.</p>
+</div>
+<div class="section" id="iaas-ec2-user-data">
+<h4>iaas:ec2:user-data<a class="headerlink" href="#iaas-ec2-user-data" title="Permalink to this headline">¶</a></h4>
+<p>A url for which the response body will be sent to ec2 as user-data.
+Defaults to a script which will run <a class="reference external" href="https://github.com/tsuru/now">tsuru now installation</a>.</p>
+</div>
+<div class="section" id="iaas-ec2-wait-timeout">
+<h4>iaas:ec2:wait-timeout<a class="headerlink" href="#iaas-ec2-wait-timeout" title="Permalink to this headline">¶</a></h4>
+<p>Number of seconds to wait for the machine to be created. Defaults to 300 (5
+minutes).</p>
+</div>
+</div>
+<div class="section" id="cloudstack-iaas">
+<h3>CloudStack IaaS<a class="headerlink" href="#cloudstack-iaas" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="iaas-cloudstack-api-key">
+<h4>iaas:cloudstack:api-key<a class="headerlink" href="#iaas-cloudstack-api-key" title="Permalink to this headline">¶</a></h4>
+<p>Your api key.</p>
+</div>
+<div class="section" id="iaas-cloudstack-secret-key">
+<h4>iaas:cloudstack:secret-key<a class="headerlink" href="#iaas-cloudstack-secret-key" title="Permalink to this headline">¶</a></h4>
+<p>Your secret key.</p>
+</div>
+<div class="section" id="iaas-cloudstack-url">
+<h4>iaas:cloudstack:url<a class="headerlink" href="#iaas-cloudstack-url" title="Permalink to this headline">¶</a></h4>
+<p>The url for the cloudstack api.</p>
+</div>
+<div class="section" id="iaas-cloudstack-user-data">
+<h4>iaas:cloudstack:user-data<a class="headerlink" href="#iaas-cloudstack-user-data" title="Permalink to this headline">¶</a></h4>
+<p>A url for which the response body will be sent to cloudstack as user-data.
+Defaults to a script which will run <a class="reference external" href="https://github.com/tsuru/now">tsuru now installation</a>.</p>
+</div>
+<div class="section" id="iaas-cloudstack-wait-timeout">
+<h4>iaas:cloudstack:wait-timeout<a class="headerlink" href="#iaas-cloudstack-wait-timeout" title="Permalink to this headline">¶</a></h4>
+<p>Number of seconds to wait for the machine to be created. Defaults to 300 (5
+minutes).</p>
+</div>
+</div>
+<div class="section" id="digitalocean-iaas">
+<h3>DigitalOcean IaaS<a class="headerlink" href="#digitalocean-iaas" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="iaas-digitalocean-token">
+<h4>iaas:digitalocean:token<a class="headerlink" href="#iaas-digitalocean-token" title="Permalink to this headline">¶</a></h4>
+<p>The access token used for communication with the DigitalOcean API.</p>
+</div>
+<div class="section" id="iaas-digitalocean-url">
+<h4>iaas:digitalocean:url<a class="headerlink" href="#iaas-digitalocean-url" title="Permalink to this headline">¶</a></h4>
+<p>The URL of the DigitalOcean API. This is optional, and defaults to
+“<a class="reference external" href="https://api.digitalocean.com/">https://api.digitalocean.com/</a>”.</p>
+</div>
+<div class="section" id="iaas-digitalocean-user-data">
+<h4>iaas:digitalocean:user-data<a class="headerlink" href="#iaas-digitalocean-user-data" title="Permalink to this headline">¶</a></h4>
+<p>A URL for which the response body will be sent to DigitalOcean as user-data.
+Defaults to a script which will run <a class="reference external" href="https://github.com/tsuru/now">tsuru now installation</a>.</p>
+</div>
+</div>
+<div class="section" id="docker-machine-iaas">
+<span id="config-custom-iaas"></span><h3>Docker Machine IaaS<a class="headerlink" href="#docker-machine-iaas" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="iaas-dockermachine-ca-path">
+<h4>iaas:dockermachine:ca-path<a class="headerlink" href="#iaas-dockermachine-ca-path" title="Permalink to this headline">¶</a></h4>
+<p>Path to a directory containing <code class="docutils literal notranslate"><span class="pre">ca.pem</span></code> and <code class="docutils literal notranslate"><span class="pre">ca-key.pem</span></code> files to be used for
+signing the certificates used by docker engine.</p>
+</div>
+<div class="section" id="iaas-dockermachine-driver-name">
+<h4>iaas:dockermachine:driver:name<a class="headerlink" href="#iaas-dockermachine-driver-name" title="Permalink to this headline">¶</a></h4>
+<p>The name of the docker machine driver to be used for machine provisioning. Can be
+any of the <a class="reference external" href="https://docs.docker.com/machine/drivers/">core drivers</a> or a 3rd party driver (available on the $PATH).</p>
+</div>
+<div class="section" id="iaas-dockermachine-driver-user-data-file-param">
+<h4>iaas:dockermachine:driver:user-data-file-param<a class="headerlink" href="#iaas-dockermachine-driver-user-data-file-param" title="Permalink to this headline">¶</a></h4>
+<p>The name of the driver parameter that accepts a local file to be used as userdata. The remote file provided
+as iaas:dockermachine:user-data will be copied to a local file and feeded into the driver as the value of
+the provided parameter.</p>
+</div>
+<div class="section" id="iaas-dockermachine-driver-options">
+<h4>iaas:dockermachine:driver:options<a class="headerlink" href="#iaas-dockermachine-driver-options" title="Permalink to this headline">¶</a></h4>
+<p>Any parameter to be sent to the driver. For example:
+<code class="docutils literal notranslate"><span class="pre">iaas:dockermachine:driver:options:amazonec2-access-key:</span> <span class="pre">ABCDE</span></code>.</p>
+</div>
+<div class="section" id="iaas-dockermachine-docker-install-url">
+<h4>iaas:dockermachine:docker-install-url<a class="headerlink" href="#iaas-dockermachine-docker-install-url" title="Permalink to this headline">¶</a></h4>
+<p>Remote script to be used for docker installation. Defaults to: <a class="reference external" href="http://get.docker.com">http://get.docker.com</a>.</p>
+</div>
+<div class="section" id="iaas-dockermachine-docker-storage-driver">
+<h4>iaas:dockermachine:docker-storage-driver<a class="headerlink" href="#iaas-dockermachine-docker-storage-driver" title="Permalink to this headline">¶</a></h4>
+<p>Docker engine storage driver</p>
+</div>
+<div class="section" id="iaas-dockermachine-insecure-registry">
+<h4>iaas:dockermachine:insecure-registry<a class="headerlink" href="#iaas-dockermachine-insecure-registry" title="Permalink to this headline">¶</a></h4>
+<p>Registry to be added as insecure registry to the docker engine.</p>
+</div>
+<div class="section" id="iaas-dockermachine-docker-flags">
+<h4>iaas:dockermachine:docker-flags<a class="headerlink" href="#iaas-dockermachine-docker-flags" title="Permalink to this headline">¶</a></h4>
+<p>Additional flags to be set on the docker engine.</p>
+</div>
+</div>
+<div class="section" id="custom-iaas">
+<h3>Custom IaaS<a class="headerlink" href="#custom-iaas" title="Permalink to this headline">¶</a></h3>
+<p>You can define a custom IaaS based on an existing provider. Any configuration
+keys with the format <code class="docutils literal notranslate"><span class="pre">iaas:custom:&lt;name&gt;</span></code> will create a new IaaS with
+<code class="docutils literal notranslate"><span class="pre">name</span></code>.</p>
+<div class="section" id="iaas-custom-name-provider">
+<h4>iaas:custom:&lt;name&gt;:provider<a class="headerlink" href="#iaas-custom-name-provider" title="Permalink to this headline">¶</a></h4>
+<p>The base provider name, it can be any of the supported providers: <code class="docutils literal notranslate"><span class="pre">cloudstack</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ec2</span></code>, <code class="docutils literal notranslate"><span class="pre">digitalocean</span></code> or <code class="docutils literal notranslate"><span class="pre">dockermachine</span></code>.</p>
+</div>
+<div class="section" id="iaas-custom-name-any-other-option">
+<h4>iaas:custom:&lt;name&gt;:&lt;any_other_option&gt;<a class="headerlink" href="#iaas-custom-name-any-other-option" title="Permalink to this headline">¶</a></h4>
+<p>This will overwrite the value of <code class="docutils literal notranslate"><span class="pre">iaas:&lt;provider&gt;:&lt;any_other_option&gt;</span></code> for this
+IaaS. As an example, having the configuration below would allow you to call
+<code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">node-add</span> <span class="pre">iaas=region1_cloudstack</span> <span class="pre">...</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">iaas</span><span class="p">:</span>
+    <span class="nt">custom</span><span class="p">:</span>
+        <span class="nt">region1_cloudstack</span><span class="p">:</span>
+            <span class="nt">provider</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cloudstack</span>
+            <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http://region1.url/</span>
+            <span class="nt">secret-key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mysecretkey</span>
+    <span class="nt">cloudstack</span><span class="p">:</span>
+        <span class="nt">api-key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">myapikey</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="event-throttling-configuration">
+<span id="config-throttling"></span><h3>Event throttling configuration<a class="headerlink" href="#event-throttling-configuration" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="event-throttling">
+<h4>event:throttling<a class="headerlink" href="#event-throttling" title="Permalink to this headline">¶</a></h4>
+<p>Event throttling is a list of throttling settings that will match events based
+on their target and kind. Each list entry has the config options described
+below.</p>
+</div>
+<div class="section" id="event-throttling-target-type">
+<h4>event:throttling:[]:target-type<a class="headerlink" href="#event-throttling-target-type" title="Permalink to this headline">¶</a></h4>
+<p>The target type this throttling config will match. This option is mandatory for
+every throttling entry.</p>
+</div>
+<div class="section" id="event-throttling-kind-name">
+<h4>event:throttling:[]:kind-name<a class="headerlink" href="#event-throttling-kind-name" title="Permalink to this headline">¶</a></h4>
+<p>The event kind name this throttling config will match. If not set this
+throttling config will match all events based on ther target-type regardless of
+the kind name.</p>
+</div>
+<div class="section" id="event-throttling-limit">
+<h4>event:throttling:[]:limit<a class="headerlink" href="#event-throttling-limit" title="Permalink to this headline">¶</a></h4>
+<p>Positive integer representing maximum number of events in <code class="docutils literal notranslate"><span class="pre">event:throttling:[]:window</span></code>
+time. Use 0 to disable throttling.</p>
+</div>
+<div class="section" id="event-throttling-window">
+<h4>event:throttling:[]:window<a class="headerlink" href="#event-throttling-window" title="Permalink to this headline">¶</a></h4>
+<p>Number of seconds for the rolling window for events in which <code class="docutils literal notranslate"><span class="pre">event:throttling:[]:limit</span></code>
+will be considered.</p>
+</div>
+<div class="section" id="event-throttling-wait-finish">
+<h4>event:throttling:[]:wait-finish<a class="headerlink" href="#event-throttling-wait-finish" title="Permalink to this headline">¶</a></h4>
+<p>Boolean value describing whether tsuru will only execute a new event after
+previous ones were completed or not, even if the time window already allows the
+execution of a new event.</p>
+</div>
+<div class="section" id="event-throttling-all-targets">
+<h4>event:throttling:[]:all-targets<a class="headerlink" href="#event-throttling-all-targets" title="Permalink to this headline">¶</a></h4>
+<p>Boolean value describing whether the throttling will apply to all events target
+values or to individual values.</p>
+</div>
+</div>
+<div class="section" id="security-configuration">
+<h3>Security configuration<a class="headerlink" href="#security-configuration" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="events-suppress-sensitive-envs">
+<h4>events:suppress-sensitive-envs<a class="headerlink" href="#events-suppress-sensitive-envs" title="Permalink to this headline">¶</a></h4>
+<p>Boolean value used to enable suppression of sensitive environment variables on <cite>tsuru event-info</cite> and tsuru-dashboard.
+Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>, will be <code class="docutils literal notranslate"><span class="pre">true</span></code> in next minor version.</p>
+</div>
+</div>
+<div class="section" id="volume-plans-configuration">
+<h3>Volume plans configuration<a class="headerlink" href="#volume-plans-configuration" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="volume-plans-plan-name-provisioner">
+<h4>volume-plans:&lt;plan-name&gt;:&lt;provisioner&gt;<a class="headerlink" href="#volume-plans-plan-name-provisioner" title="Permalink to this headline">¶</a></h4>
+<p>Provisioner specific configuration entries for the volume plan. See
+<a class="reference internal" href="../managing/volumes.html"><span class="doc">managing volumes</span></a>.</p>
+</div>
+</div>
+<div class="section" id="common-redis-configuration-options">
+<span id="config-common-redis"></span><h3>Common redis configuration options<a class="headerlink" href="#common-redis-configuration-options" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="prefix-redis-server">
+<h4>&lt;prefix&gt;:redis-server<a class="headerlink" href="#prefix-redis-server" title="Permalink to this headline">¶</a></h4>
+<p>Connect to a single redis server. The redis server address should be in the
+format <code class="docutils literal notranslate"><span class="pre">host:port</span></code>. This parameter is mutually exclusive with
+<code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;:redis-sentinel-addrs</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;:redis-cluster-addrs</span></code>.</p>
+</div>
+<div class="section" id="prefix-redis-host">
+<h4>&lt;prefix&gt;:redis-host<a class="headerlink" href="#prefix-redis-host" title="Permalink to this headline">¶</a></h4>
+<p>Alternative way to specify a single redis server to connect. Only the <code class="docutils literal notranslate"><span class="pre">host</span></code>
+name should be informed.</p>
+</div>
+<div class="section" id="prefix-redis-port">
+<h4>&lt;prefix&gt;:redis-port<a class="headerlink" href="#prefix-redis-port" title="Permalink to this headline">¶</a></h4>
+<p>The port used when <code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;:redis-host</span></code> is defined.</p>
+</div>
+<div class="section" id="prefix-redis-sentinel-addrs">
+<h4>&lt;prefix&gt;:redis-sentinel-addrs<a class="headerlink" href="#prefix-redis-sentinel-addrs" title="Permalink to this headline">¶</a></h4>
+<p>Connect to a farm of redis sentinel servers. It’s a comma separated list of
+<code class="docutils literal notranslate"><span class="pre">host:port</span></code> pairs. e.g.: <code class="docutils literal notranslate"><span class="pre">10.0.0.1:26379,10.0.0.2:26379</span></code>. This parameter is
+mutually exclusive with <code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;:redis-server</span></code> and
+<code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;:redis-cluster-addrs</span></code>.</p>
+</div>
+<div class="section" id="prefix-redis-sentinel-master">
+<h4>&lt;prefix&gt;:redis-sentinel-master<a class="headerlink" href="#prefix-redis-sentinel-master" title="Permalink to this headline">¶</a></h4>
+<p>The master name for a sentinel farm. This parameter is mandatory when
+<code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;:redis-sentinel-addrs</span></code> is defined.</p>
+</div>
+<div class="section" id="prefix-redis-cluster-addrs">
+<h4>&lt;prefix&gt;:redis-cluster-addrs<a class="headerlink" href="#prefix-redis-cluster-addrs" title="Permalink to this headline">¶</a></h4>
+<p>Connect to a farm of redis cluster servers. It’s a comma separated list of
+<code class="docutils literal notranslate"><span class="pre">host:port</span></code> pairs. e.g.: <code class="docutils literal notranslate"><span class="pre">10.0.0.1:6379,10.0.0.2:6379</span></code>. This parameter is
+mutually exclusive with <code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;:redis-server</span></code> and
+<code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;:redis-sentinel-addrs</span></code>.</p>
+</div>
+<div class="section" id="prefix-redis-db">
+<h4>&lt;prefix&gt;:redis-db<a class="headerlink" href="#prefix-redis-db" title="Permalink to this headline">¶</a></h4>
+<p>The db number selected when connecting to redis.</p>
+</div>
+<div class="section" id="prefix-redis-password">
+<h4>&lt;prefix&gt;:redis-password<a class="headerlink" href="#prefix-redis-password" title="Permalink to this headline">¶</a></h4>
+<p>The password used when connecting to redis.</p>
+</div>
+<div class="section" id="prefix-redis-pool-size">
+<h4>&lt;prefix&gt;:redis-pool-size<a class="headerlink" href="#prefix-redis-pool-size" title="Permalink to this headline">¶</a></h4>
+<p>The maximum number of simultaneously open connections to a redis server.</p>
+</div>
+<div class="section" id="prefix-redis-max-retries">
+<h4>&lt;prefix&gt;:redis-max-retries<a class="headerlink" href="#prefix-redis-max-retries" title="Permalink to this headline">¶</a></h4>
+<p>The number of times an unsuccessful command will be sent to redis again.</p>
+</div>
+<div class="section" id="prefix-redis-pool-timeout">
+<h4>&lt;prefix&gt;:redis-pool-timeout<a class="headerlink" href="#prefix-redis-pool-timeout" title="Permalink to this headline">¶</a></h4>
+<p>Duration in seconds to wait for a free redis connection once the maximum pool
+size defined in <code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;:redis-pool-size</span></code> is reached.</p>
+</div>
+<div class="section" id="prefix-redis-pool-idle-timeout">
+<h4>&lt;prefix&gt;:redis-pool-idle-timeout<a class="headerlink" href="#prefix-redis-pool-idle-timeout" title="Permalink to this headline">¶</a></h4>
+<p>Duration in seconds after which an idle connection will be discarded from the
+pool.</p>
+</div>
+<div class="section" id="prefix-redis-dial-timeout">
+<h4>&lt;prefix&gt;:redis-dial-timeout<a class="headerlink" href="#prefix-redis-dial-timeout" title="Permalink to this headline">¶</a></h4>
+<p>Duration in seconds after which an error will be returned if a connection to
+redis cannot be established.</p>
+</div>
+<div class="section" id="prefix-redis-read-timeout">
+<h4>&lt;prefix&gt;:redis-read-timeout<a class="headerlink" href="#prefix-redis-read-timeout" title="Permalink to this headline">¶</a></h4>
+<p>Duration in seconds after which an error will be returned if tsuru is still
+waiting for the response for an issued command.</p>
+</div>
+<div class="section" id="prefix-redis-write-timeout">
+<h4>&lt;prefix&gt;:redis-write-timeout<a class="headerlink" href="#prefix-redis-write-timeout" title="Permalink to this headline">¶</a></h4>
+<p>Duration in seconds after which an error will be returned if tsuru is still
+sending a command to redis.</p>
+</div>
+</div>
+<div class="section" id="kubernetes-specific-configuration-options">
+<h3>Kubernetes specific configuration options<a class="headerlink" href="#kubernetes-specific-configuration-options" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="kubernetes-use-pool-namespaces">
+<h4>kubernetes:use-pool-namespaces<a class="headerlink" href="#kubernetes-use-pool-namespaces" title="Permalink to this headline">¶</a></h4>
+<p>If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, tsuru will create a Kubernetes namespace for each pool.
+Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code> (using a single namespace).</p>
+</div>
+</div>
+</div>
+<div class="section" id="sample-file">
+<h2>Sample file<a class="headerlink" href="#sample-file" title="Permalink to this headline">¶</a></h2>
+<p>Here is a complete example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">listen</span><span class="p">:</span> <span class="s">&quot;0.0.0.0:8080&quot;</span>
+<span class="nt">debug</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http://&lt;machine-public-addr&gt;:8080</span> <span class="c1"># This port must be the same as in the &quot;listen&quot; conf</span>
+<span class="nt">auth</span><span class="p">:</span>
+    <span class="nt">user-registration</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="nt">scheme</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">native</span>
+<span class="nt">database</span><span class="p">:</span>
+    <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;your-mongodb-server&gt;:27017</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tsurudb</span>
+<span class="nt">queue</span><span class="p">:</span>
+    <span class="nt">mongo-url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;your-mongodb-server&gt;:27017</span>
+    <span class="nt">mongo-database</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">queuedb</span>
+<span class="nt">provisioner</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker</span>
+<span class="nt">docker</span><span class="p">:</span>
+    <span class="nt">router</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hipache</span>
+    <span class="nt">collection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker_containers</span>
+    <span class="nt">repository-namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tsuru</span>
+    <span class="nt">deploy-cmd</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/var/lib/tsuru/deploy</span>
+    <span class="nt">cluster</span><span class="p">:</span>
+        <span class="nt">storage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mongodb</span>
+        <span class="nt">mongo-url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;your-mongodb-server&gt;:27017</span>
+        <span class="nt">mongo-database</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cluster</span>
+    <span class="nt">run-cmd</span><span class="p">:</span>
+        <span class="nt">bin</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/var/lib/tsuru/start</span>
+        <span class="nt">port</span><span class="p">:</span> <span class="s">&quot;8888&quot;</span>
+<span class="nt">routers</span><span class="p">:</span>
+    <span class="nt">hipache</span><span class="p">:</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hipache</span>
+        <span class="nt">domain</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;your-hipache-server-ip&gt;.xip.io</span>
+        <span class="nt">redis-server</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;your-redis-server-with-port&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api.html" class="btn btn-neutral float-right" title="API reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bs.html" class="btn btn-neutral" title="bs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: main
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'main',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

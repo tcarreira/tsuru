@@ -1,0 +1,1182 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API reference &mdash; tsuru 0.5.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tsuru architecture" href="architecture.html" />
+    <link rel="prev" title="Creating a platform to tsuru" href="add-a-platform.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.5.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="add-a-platform.html">Creating a platform to tsuru</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#endpoints">1. Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#apps">1.1 Apps</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#list-apps">List apps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#info-about-an-app">Info about an app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#remove-an-app">Remove an app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-an-app">Create an app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#restart-an-app">Restart an app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-app-environment-variables">Get app environment variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#set-an-app-environment">Set an app environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-an-app-environment">Delete an app environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#swapping-two-apps">Swapping two apps</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#services">1.2 Services</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#list-services">List services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-a-new-service">Create a new service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#remove-a-service">Remove a service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#update-a-service">Update a service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-info-about-a-service">Get info about a service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-service-documentation">Get service documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#update-service-documentation">Update service documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#grant-access-to-a-service">Grant access to a service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#revoke-access-from-a-service">Revoke access from a service</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#service-instances">1.3 Service instances</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#add-a-new-service-instance">Add a new service instance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#remove-a-service-instance">Remove a service instance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bind-a-service-instance-with-an-app">Bind a service instance with an app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#unbind-a-service-instance-with-an-app">Unbind a service instance with an app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#list-all-services-and-your-instances">List all services and your instances</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-an-info-about-a-service-instance">Get an info about a service instance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#service-instance-status">service instance status</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#quotas">1.4 Quotas</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#get-quota-info-of-an-user">Get quota info of an user</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#healers">1.5 Healers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#list-healers">List healers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#execute-healer">Execute healer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#platforms">1.6 Platforms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#list-platforms">List platforms</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#users">1.7 Users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#create-an-user">Create an user</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reset-password">Reset password</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#login">Login</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#logout">Logout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#change-password">Change password</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#remove-an-user">Remove an user</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-public-key-to-user">Add public key to user</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#remove-public-key-from-user">Remove public key from user</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#teams">1.8 Teams</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#list-teams">List teams</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#info-about-a-team">Info about a team</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-a-team">Add a team</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#remove-a-team">Remove a team</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-user-to-team">Add user to team</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#remove-user-from-team">Remove user from team</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tokens">1.9 Tokens</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generate-app-token">Generate app token</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">tsuru architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuring tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Install tsuru and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-centos.html">Build your own PaaS with tsuru and Docker on Centos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-node.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-node.html#docker">docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-node.html#tsuru-node-agent">tsuru node agent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">tsuru Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">tsuru Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="why.html">Why tsuru?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/deploy-hooks.html">Deployment hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/deployment.html">Application Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/recovery.html">Recovering an application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/coding-style.html">Coding style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/setting-up-your-tsuru-development-environment.html">Setting up you tsuru development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/vagrant.html">Building a tsuru development environment with Vagrant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install/client.html">Installing tsuru clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/dns-forwarders.html">Howto install a dns forwarder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server/backup.html">Backing up tsuru database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server/install.html">Server installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/api.html">api workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/build.html">Building your service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/mysql-example.html">HOWTO Install a MySQL service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/usage.html">Crane usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/buildpacks.html">Using Buildpacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/procfile.html">Procfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/unit-states.html">unit states</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/client/services.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/client/usage.html">Client usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/go.html">Deploying Go applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/php.html">Deploying PHP applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/python.html">Deploying Python applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/ruby.html">Deploying Ruby applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/tsuru-admin/usage.html">tsuru-admin usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioners/docker/architecture.html">Docker Provisioner Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioners/docker/schedulers.html">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.0.html">tsr 0.3.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.1.html">tsr 0.3.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.10.html">tsr 0.3.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.11.html">tsr 0.3.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.12.html">tsr 0.3.12 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.2.html">tsr 0.3.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.3.html">tsr 0.3.3 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.4.html">tsr 0.3.4 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.5.html">tsr 0.3.5 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.6.html">tsr 0.3.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.7.html">tsr 0.3.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.8.html">tsr 0.3.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.9.html">tsr 0.3.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.4.0.html">tsr 0.4.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.5.0.html">tsr 0.5.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.5.1.html">tsr 0.5.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.5.2.html">tsr 0.5.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.5.3.html">tsr 0.5.3 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru-admin/0.3.0.html">tsuru-admin 0.3.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru-admin/0.4.0.html">tsuru-admin 0.4.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru-admin/0.4.1.html">tsuru-admin 0.4.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru-admin/0.4.2.html">tsuru-admin 0.4.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.10.0.html">tsuru 0.10.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.10.1.html">tsuru 0.10.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.10.html">tsuru 0.8.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.11.html">tsuru 0.8.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.6.html">tsuru 0.8.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.7.html">tsuru 0.8.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.8.html">tsuru 0.8.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.9.html">tsuru 0.8.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.9.1.html">tsuru 0.8.9.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.9.0.html">tsuru 0.9.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/cli/plugins.html">Guide to create tsuru cli plugins</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>API reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api-reference">
+<h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="endpoints">
+<h2>1. Endpoints<a class="headerlink" href="#endpoints" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="apps">
+<h3>1.1 Apps<a class="headerlink" href="#apps" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="list-apps">
+<h4>List apps<a class="headerlink" href="#list-apps" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: GET</li>
+<li>URI: /apps</li>
+<li>Format: json</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success, and json in the body of the response containing the app list.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /apps HTTP/1.1
+Content-Length: <span class="m">82</span>
+<span class="o">[{</span><span class="s2">&quot;Ip&quot;</span>:<span class="s2">&quot;10.10.10.10&quot;</span>,<span class="s2">&quot;Name&quot;</span>:<span class="s2">&quot;app1&quot;</span>,<span class="s2">&quot;Units&quot;</span>:<span class="o">[{</span><span class="s2">&quot;Name&quot;</span>:<span class="s2">&quot;app1/0&quot;</span>,<span class="s2">&quot;State&quot;</span>:<span class="s2">&quot;started&quot;</span><span class="o">}]}]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="info-about-an-app">
+<h4>Info about an app<a class="headerlink" href="#info-about-an-app" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: GET</li>
+<li>URI: /apps/:appname</li>
+<li>Format: json</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success, and a json in the body of the response containing the app content.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /apps/myapp HTTP/1.1
+Content-Length: <span class="m">284</span>
+<span class="o">{</span><span class="s2">&quot;Name&quot;</span>:<span class="s2">&quot;app1&quot;</span>,<span class="s2">&quot;Framework&quot;</span>:<span class="s2">&quot;php&quot;</span>,<span class="s2">&quot;Repository&quot;</span>:<span class="s2">&quot;git@git.com:php.git&quot;</span>,<span class="s2">&quot;State&quot;</span>:<span class="s2">&quot;dead&quot;</span>, <span class="s2">&quot;Units&quot;</span>:<span class="o">[{</span><span class="s2">&quot;Ip&quot;</span>:<span class="s2">&quot;10.10.10    .10&quot;</span>,<span class="s2">&quot;Name&quot;</span>:<span class="s2">&quot;app1/0&quot;</span>,<span class="s2">&quot;State&quot;</span>:<span class="s2">&quot;started&quot;</span><span class="o">}</span>, <span class="o">{</span><span class="s2">&quot;Ip&quot;</span>:<span class="s2">&quot;9.9.9.9&quot;</span>,<span class="s2">&quot;Name&quot;</span>:<span class="s2">&quot;app1/1&quot;</span>,<span class="s2">&quot;State&quot;</span>:<span class="s2">&quot;started&quot;</span><span class="o">}</span>, <span class="o">{</span><span class="s2">&quot;Ip&quot;</span>:<span class="s2">&quot;&quot;</span>,<span class="s2">&quot;Name&quot;</span>:<span class="s2">&quot;app1/2&quot;</span>,<span class="s2">&quot;Stat    e&quot;</span>:<span class="s2">&quot;pending&quot;</span><span class="o">}]</span>,<span class="s2">&quot;Teams&quot;</span>:<span class="o">[</span><span class="s2">&quot;tsuruteam&quot;</span>,<span class="s2">&quot;crane&quot;</span><span class="o">]}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="remove-an-app">
+<h4>Remove an app<a class="headerlink" href="#remove-an-app" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: DELETE</li>
+<li>URI: /apps/:appname</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>DELETE /apps/myapp HTTP/1.1
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-an-app">
+<h4>Create an app<a class="headerlink" href="#create-an-app" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: POST</li>
+<li>URI: /apps</li>
+<li>Format: json</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success, and json in the body of the response containing the status and the url for git repository.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>POST /apps HTTP/1.1
+<span class="o">{</span><span class="s2">&quot;status&quot;</span>:<span class="s2">&quot;success&quot;</span>, <span class="s2">&quot;repository_url&quot;</span>:<span class="s2">&quot;git@tsuru.plataformas.glb.com:ble.git&quot;</span><span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="restart-an-app">
+<h4>Restart an app<a class="headerlink" href="#restart-an-app" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: GET</li>
+<li>URI: /apps/&lt;appname&gt;/restart</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /apps/myapp/restart HTTP/1.1
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-app-environment-variables">
+<h4>Get app environment variables<a class="headerlink" href="#get-app-environment-variables" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: GET</li>
+<li>URI: /apps/&lt;appname&gt;/env</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success, and json in the body returning a dictionary with environment names and values..</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /apps/myapp/env HTTP/1.1
+<span class="o">[{</span><span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;DATABASE_HOST&quot;</span>, <span class="s2">&quot;value&quot;</span>: <span class="s2">&quot;localhost&quot;</span>, <span class="s2">&quot;public&quot;</span>: true<span class="o">}]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-an-app-environment">
+<h4>Set an app environment<a class="headerlink" href="#set-an-app-environment" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: POST</li>
+<li>URI: /apps/&lt;appname&gt;/env</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>POST /apps/myapp/env HTTP/1.1
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-an-app-environment">
+<h4>Delete an app environment<a class="headerlink" href="#delete-an-app-environment" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: DELETE</li>
+<li>URI: /apps/&lt;appname&gt;/env</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>DELETE /apps/myapp/env HTTP/1.1
+</pre></div>
+</div>
+</div>
+<div class="section" id="swapping-two-apps">
+<h4>Swapping two apps<a class="headerlink" href="#swapping-two-apps" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: PUT</li>
+<li>URI: /swap?app1=appname&amp;app2=anotherapp</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>PUT /swap?app1<span class="o">=</span>myapp<span class="p">&amp;</span><span class="nv">app2</span><span class="o">=</span>anotherapp
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="services">
+<h3>1.2 Services<a class="headerlink" href="#services" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="list-services">
+<h4>List services<a class="headerlink" href="#list-services" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: GET</li>
+<li>URI: /services</li>
+<li>Format: json</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /services HTTP/1.1
+Content-Length: <span class="m">67</span>
+<span class="o">{</span><span class="s2">&quot;service&quot;</span>: <span class="s2">&quot;mongodb&quot;</span>, <span class="s2">&quot;instances&quot;</span>: <span class="o">[</span><span class="s2">&quot;my_nosql&quot;</span>, <span class="s2">&quot;other-instance&quot;</span><span class="o">]}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-a-new-service">
+<h4>Create a new service<a class="headerlink" href="#create-a-new-service" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: POST</li>
+<li>URI: /services</li>
+<li>Format: yaml</li>
+<li>Body: a yaml with the service metadata.</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.
+Returns 403 if the user is not a member of a team.
+Returns 500 if the yaml is invalid.
+Returns 500 if the service name already exists.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>POST /services HTTP/1.1
+Body:
+    <span class="sb">`</span>id: some_service
+endpoint:
+    production: someservice.com<span class="sb">`</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="remove-a-service">
+<h4>Remove a service<a class="headerlink" href="#remove-a-service" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: DELETE</li>
+<li>URI: /services/&lt;servicename&gt;</li>
+</ul>
+</div></blockquote>
+<p>Returns 204 in case of success.
+Returns 403 if user has not access to the server.
+Returns 403 if service has instances.
+Returns 404 if service is not found.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>DELETE /services/mongodb HTTP/1.1
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-a-service">
+<h4>Update a service<a class="headerlink" href="#update-a-service" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: PUT</li>
+<li>URI: /services</li>
+<li>Format: yaml</li>
+<li>Body: a yaml with the service metadata.</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.
+Returns 403 if the user is not a member of a team.
+Returns 500 if the yaml is invalid.
+Returns 500 if the service name already exists.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>PUT /services HTTP/1.1
+Body:
+    <span class="sb">`</span>id: some_service
+endpoint:
+    production: someservice.com<span class="sb">`</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-info-about-a-service">
+<h4>Get info about a service<a class="headerlink" href="#get-info-about-a-service" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: GET</li>
+<li>URI: /services/&lt;servicename&gt;</li>
+<li>Format: json</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.
+Returns 404 if the service does not exists.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /services/mongodb HTTP/1.1
+<span class="o">[{</span><span class="s2">&quot;Name&quot;</span>: <span class="s2">&quot;my-mongo&quot;</span>, <span class="s2">&quot;Teams&quot;</span>: <span class="o">[</span><span class="s2">&quot;myteam&quot;</span><span class="o">]</span>, <span class="s2">&quot;Apps&quot;</span>: <span class="o">[</span><span class="s2">&quot;myapp&quot;</span><span class="o">]</span>, <span class="s2">&quot;ServiceName&quot;</span>: <span class="s2">&quot;mongodb&quot;</span><span class="o">}]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-service-documentation">
+<h4>Get service documentation<a class="headerlink" href="#get-service-documentation" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: GET</li>
+<li>URI: /services/&lt;servicename&gt;/doc</li>
+<li>Format: text</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.
+Returns 404 if the service does not exists.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /services/mongodb/doc HTTP/1.1
+Mongodb exports the ...
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-service-documentation">
+<h4>Update service documentation<a class="headerlink" href="#update-service-documentation" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: PUT</li>
+<li>URI: /services/&lt;servicename&gt;/doc</li>
+<li>Format: text</li>
+<li>Body: text with the documentation</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.
+Returns 404 if the service does not exists.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>PUT /services/mongodb/doc HTTP/1.1
+Body: Mongodb exports the ...
+</pre></div>
+</div>
+</div>
+<div class="section" id="grant-access-to-a-service">
+<h4>Grant access to a service<a class="headerlink" href="#grant-access-to-a-service" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: PUT</li>
+<li>URI: /services/&lt;servicename&gt;/&lt;teamname&gt;</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.
+Returns 404 if the service does not exists.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>PUT /services/mongodb/cobrateam HTTP/1.1
+</pre></div>
+</div>
+</div>
+<div class="section" id="revoke-access-from-a-service">
+<h4>Revoke access from a service<a class="headerlink" href="#revoke-access-from-a-service" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: DELETE</li>
+<li>URI: /services/&lt;servicename&gt;/&lt;teamname&gt;</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.
+Returns 404 if the service does not exists.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>DELETE /services/mongodb/cobrateam HTTP/1.1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="service-instances">
+<h3>1.3 Service instances<a class="headerlink" href="#service-instances" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="add-a-new-service-instance">
+<h4>Add a new service instance<a class="headerlink" href="#add-a-new-service-instance" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: POST</li>
+<li>URI: /services/instances</li>
+<li>Body: <cite>{“name”: “mymysql”: “service_name”: “mysql”}</cite></li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.
+Returns 404 if the service does not exists.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>POST /services/instances HTTP/1.1
+<span class="o">{</span><span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;mymysql&quot;</span>: <span class="s2">&quot;service_name&quot;</span>: <span class="s2">&quot;mysql&quot;</span><span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="remove-a-service-instance">
+<h4>Remove a service instance<a class="headerlink" href="#remove-a-service-instance" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: DELETE</li>
+<li>URI: /services/instances/&lt;serviceinstancename&gt;</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.
+Returns 404 if the service does not exists.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>DELETE /services/instances/mymysql HTTP/1.1
+</pre></div>
+</div>
+</div>
+<div class="section" id="bind-a-service-instance-with-an-app">
+<h4>Bind a service instance with an app<a class="headerlink" href="#bind-a-service-instance-with-an-app" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: PUT</li>
+<li>URI: /services/instances/&lt;serviceinstancename&gt;/&lt;appname&gt;</li>
+<li>Format: json</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success, and json with the environment variables to be exported
+in the app environ.
+Returns 403 if the user has not access to the app.
+Returns 404 if the application does not exists.
+Returns 404 if the service instance does not exists.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>PUT /services/instances/mymysql/myapp HTTP/1.1
+Content-Length: <span class="m">29</span>
+<span class="o">{</span><span class="s2">&quot;DATABASE_HOST&quot;</span>:<span class="s2">&quot;localhost&quot;</span><span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="unbind-a-service-instance-with-an-app">
+<h4>Unbind a service instance with an app<a class="headerlink" href="#unbind-a-service-instance-with-an-app" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: DELETE</li>
+<li>URI: /services/instances/&lt;serviceinstancename&gt;/&lt;appname&gt;</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.
+Returns 403 if the user has not access to the app.
+Returns 404 if the application does not exists.
+Returns 404 if the service instance does not exists.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>DELETE /services/instances/mymysql/myapp HTTP/1.1
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-all-services-and-your-instances">
+<h4>List all services and your instances<a class="headerlink" href="#list-all-services-and-your-instances" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: GET</li>
+<li>URI: /services/instances</li>
+<li>Format: json</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success and a json with the service list.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /services/instances HTTP/1.1
+Content-Length: <span class="m">52</span>
+<span class="o">[{</span><span class="s2">&quot;service&quot;</span>: <span class="s2">&quot;redis&quot;</span>, <span class="s2">&quot;instances&quot;</span>: <span class="o">[</span><span class="s2">&quot;redis-globo&quot;</span><span class="o">]}]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-an-info-about-a-service-instance">
+<h4>Get an info about a service instance<a class="headerlink" href="#get-an-info-about-a-service-instance" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: GET</li>
+<li>URI: /services/instances/&lt;serviceinstancename&gt;</li>
+<li>Format: json</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success and a json with the service instance data.
+Returns 404 if the service instance does not exists.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /services/instances/mymysql HTTP/1.1
+Content-Length: <span class="m">71</span>
+<span class="o">{</span><span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;mongo-1&quot;</span>, <span class="s2">&quot;servicename&quot;</span>: <span class="s2">&quot;mongodb&quot;</span>, <span class="s2">&quot;teams&quot;</span>: <span class="o">[]</span>, <span class="s2">&quot;apps&quot;</span>: <span class="o">[]}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="service-instance-status">
+<h4>service instance status<a class="headerlink" href="#service-instance-status" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: GET</li>
+<li>URI: /services/instances/&lt;serviceinstancename&gt;/status</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /services/instances/mymysql/status HTTP/1.1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="quotas">
+<h3>1.4 Quotas<a class="headerlink" href="#quotas" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="get-quota-info-of-an-user">
+<h4>Get quota info of an user<a class="headerlink" href="#get-quota-info-of-an-user" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: GET</li>
+<li>URI: /quota/&lt;user&gt;</li>
+<li>Format: json</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success, and json with the quota info.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /quota/wolverine HTTP/1.1
+Content-Length: <span class="m">29</span>
+<span class="o">{</span><span class="s2">&quot;items&quot;</span>: <span class="m">10</span>, <span class="s2">&quot;available&quot;</span>: <span class="m">2</span><span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="healers">
+<h3>1.5 Healers<a class="headerlink" href="#healers" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="list-healers">
+<h4>List healers<a class="headerlink" href="#list-healers" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: GET</li>
+<li>URI: /healers</li>
+<li>Format: json</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success, and json in the body with a list of healers.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /healers HTTP/1.1
+Content-Length: <span class="m">35</span>
+<span class="o">[{</span><span class="s2">&quot;app-heal&quot;</span>: <span class="s2">&quot;http://healer.com&quot;</span><span class="o">}]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="execute-healer">
+<h4>Execute healer<a class="headerlink" href="#execute-healer" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: GET</li>
+<li>URI: /healers/&lt;healer&gt;</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /healers/app-heal HTTP/1.1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="platforms">
+<h3>1.6 Platforms<a class="headerlink" href="#platforms" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="list-platforms">
+<h4>List platforms<a class="headerlink" href="#list-platforms" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: GET</li>
+<li>URI: /platforms</li>
+<li>Format: json</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success, and json in the body with a list of platforms.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /platforms HTTP/1.1
+Content-Length: <span class="m">67</span>
+<span class="o">[{</span>Name: <span class="s2">&quot;python&quot;</span><span class="o">}</span>,<span class="o">{</span>Name: <span class="s2">&quot;java&quot;</span><span class="o">}</span>,<span class="o">{</span>Name: <span class="s2">&quot;ruby20&quot;</span><span class="o">}</span>,<span class="o">{</span>Name: <span class="s2">&quot;static&quot;</span><span class="o">}]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="users">
+<h3>1.7 Users<a class="headerlink" href="#users" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="create-an-user">
+<h4>Create an user<a class="headerlink" href="#create-an-user" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: POST</li>
+<li>URI: /users</li>
+<li>Body: <cite>{“email”:”nobody&#64;globo.com”,”password”:”123456”}</cite></li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.
+Returns 400 if the json is invalid.
+Returns 400 if the email is invalid.
+Returns 400 if the password characters length is less than 6 and greater than 50.
+Returns 409 if the email already exists.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>POST /users HTTP/1.1
+Body: <span class="sb">`</span><span class="o">{</span><span class="s2">&quot;email&quot;</span>:<span class="s2">&quot;nobody@globo.com&quot;</span>,<span class="s2">&quot;password&quot;</span>:<span class="s2">&quot;123456&quot;</span><span class="o">}</span><span class="sb">`</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reset-password">
+<h4>Reset password<a class="headerlink" href="#reset-password" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: POST</li>
+<li>URI: /users/&lt;email&gt;/password?token=token</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.
+Returns 404 if the user is not found.</p>
+<p>The token parameter is optional.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>POST /users/user@email.com/password?token<span class="o">=</span><span class="m">1234</span> HTTP/1.1
+</pre></div>
+</div>
+</div>
+<div class="section" id="login">
+<h4>Login<a class="headerlink" href="#login" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: POST</li>
+<li>URI: /users/&lt;email&gt;/tokens</li>
+<li>Body: <cite>{“password”:”123456”}</cite></li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.
+Returns 400 if the json is invalid.
+Returns 400 if the password is empty or nil.
+Returns 404 if the user is not found.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>POST /users/user@email.com/tokens HTTP/1.1
+<span class="o">{</span><span class="s2">&quot;token&quot;</span>:<span class="s2">&quot;e275317394fb099f62b3993fd09e5f23b258d55f&quot;</span><span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="logout">
+<h4>Logout<a class="headerlink" href="#logout" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: DELETE</li>
+<li>URI: /users/tokens</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>DELETE /users/tokens HTTP/1.1
+</pre></div>
+</div>
+</div>
+<div class="section" id="change-password">
+<h4>Change password<a class="headerlink" href="#change-password" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: PUT</li>
+<li>URI: /users/password</li>
+<li>Body: <cite>{“old”:”123456”,”new”:”654321”}</cite></li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.
+Returns 400 if the json is invalid.
+Returns 400 if the old or new password is empty or nil.
+Returns 400 if the new password characters length is less than 6 and greater than 50.
+Returns 403 if the old password does not match with the current password.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>PUT /users/password HTTP/1.1
+Body: <span class="sb">`</span><span class="o">{</span><span class="s2">&quot;old&quot;</span>:<span class="s2">&quot;123456&quot;</span>,<span class="s2">&quot;new&quot;</span>:<span class="s2">&quot;654321&quot;</span><span class="o">}</span><span class="sb">`</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="remove-an-user">
+<h4>Remove an user<a class="headerlink" href="#remove-an-user" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: DELETE</li>
+<li>URI: /users</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>DELETE /users HTTP/1.1
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-public-key-to-user">
+<h4>Add public key to user<a class="headerlink" href="#add-public-key-to-user" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: POST</li>
+<li>URI: /users/keys</li>
+<li>Body: <cite>{“key”:”my-key”}</cite></li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>POST /users/keys HTTP/1.1
+Body: <span class="sb">`</span><span class="o">{</span><span class="s2">&quot;key&quot;</span>:<span class="s2">&quot;my-key&quot;</span><span class="o">}</span><span class="sb">`</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="remove-public-key-from-user">
+<h4>Remove public key from user<a class="headerlink" href="#remove-public-key-from-user" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: DELETE</li>
+<li>URI: /users/keys</li>
+<li>Body: <cite>{“key”:”my-key”}</cite></li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>DELETE /users/keys HTTP/1.1
+Body: <span class="sb">`</span><span class="o">{</span><span class="s2">&quot;key&quot;</span>:<span class="s2">&quot;my-key&quot;</span><span class="o">}</span><span class="sb">`</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="teams">
+<h3>1.8 Teams<a class="headerlink" href="#teams" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="list-teams">
+<h4>List teams<a class="headerlink" href="#list-teams" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: GET</li>
+<li>URI: /teams</li>
+<li>Format: json</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success, and json in the body with a list of teams.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /teams HTTP/1.1
+Content-Length: <span class="m">22</span>
+<span class="o">[{</span><span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;teamname&quot;</span><span class="o">}]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="info-about-a-team">
+<h4>Info about a team<a class="headerlink" href="#info-about-a-team" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: GET</li>
+<li>URI: /teams/&lt;teamname&gt;</li>
+<li>Format: json</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success, and json in the body with the info about a team.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /teams/teamname HTTP/1.1
+<span class="o">{</span><span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;teamname&quot;</span>, <span class="s2">&quot;users&quot;</span>: <span class="o">[</span><span class="s2">&quot;user@email.com&quot;</span><span class="o">]}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-a-team">
+<h4>Add a team<a class="headerlink" href="#add-a-team" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: POST</li>
+<li>URI: /teams</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>POST /teams HTTP/1.1
+<span class="o">{</span><span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;teamname&quot;</span><span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="remove-a-team">
+<h4>Remove a team<a class="headerlink" href="#remove-a-team" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: DELETE</li>
+<li>URI: /teams/&lt;teamname&gt;</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>DELELE /teams/myteam HTTP/1.1
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-user-to-team">
+<h4>Add user to team<a class="headerlink" href="#add-user-to-team" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: PUT</li>
+<li>URI: /teams/&lt;teanmaname&gt;/&lt;username&gt;</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>PUT /teams/myteam/myuser HTTP/1.1
+</pre></div>
+</div>
+</div>
+<div class="section" id="remove-user-from-team">
+<h4>Remove user from team<a class="headerlink" href="#remove-user-from-team" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: DELETE</li>
+<li>URI: /teams/&lt;teanmaname&gt;/&lt;username&gt;</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>DELETE /teams/myteam/myuser HTTP/1.1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="tokens">
+<h3>1.9 Tokens<a class="headerlink" href="#tokens" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="generate-app-token">
+<h4>Generate app token<a class="headerlink" href="#generate-app-token" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Method: POST</li>
+<li>URI: /tokens</li>
+<li>Format: json</li>
+</ul>
+</div></blockquote>
+<p>Returns 200 in case of success, with the token in the body.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>POST /tokens HTTP/1.1
+    <span class="o">{</span>
+            <span class="s2">&quot;Token&quot;</span>: <span class="s2">&quot;sometoken&quot;</span>,
+            <span class="s2">&quot;Creation&quot;</span>: <span class="s2">&quot;2001/01/01&quot;</span>,
+            <span class="s2">&quot;Expires&quot;</span>: <span class="m">1000</span>,
+            <span class="s2">&quot;AppName&quot;</span>: <span class="s2">&quot;appname&quot;</span>,
+    <span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="architecture.html" class="btn btn-neutral float-right" title="tsuru architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="add-a-platform.html" class="btn btn-neutral" title="Creating a platform to tsuru" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.5.3
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.5.3',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

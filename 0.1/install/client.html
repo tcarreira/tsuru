@@ -1,0 +1,389 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta content="Install guide for tsuru clients" name="description" />
+<meta content="paas, cloud computing, tsuru" name="keywords" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installing tsuru clients &mdash; tsuru 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Backing up tsuru database" href="../server/backup.html" />
+    <link rel="prev" title="Setting up you tsuru development environment" href="../contribute/setting-up-your-tsuru-development-environment.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build.html">Build your own PaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../community.html">community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html">Configuring tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Build your own PaaS with tsuru and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Tsuru Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Tsuru Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../why.html">Why Tsuru?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/deployment.html">Application Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/coding-style.html">Coding style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/setting-up-your-tsuru-development-environment.html">Setting up you tsuru development environment</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installing tsuru clients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#using-homebrew-mac-os-x-only">Using homebrew (Mac OS X only)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pre-built-binaries-linux-and-mac-os-x">Pre-built binaries (Linux and Mac OS X)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#build-from-source-linux-and-mac-os-x">Build from source (Linux and Mac OS X)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../server/backup.html">Backing up tsuru database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/install.html">Server installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/api.html">api workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/build.html">Building your service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/usage.html">Crane usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/client/services.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/client/usage.html">Client usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart/python.html">Deploying Python applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/quickstart/ruby.html">Deploying Ruby applications in tsuru</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Installing tsuru clients</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/install/client.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installing-tsuru-clients">
+<h1>Installing tsuru clients<a class="headerlink" href="#installing-tsuru-clients" title="Permalink to this headline">¶</a></h1>
+<p>tsuru contains three clients: <code class="docutils literal notranslate"><span class="pre">tsuru</span></code>, <code class="docutils literal notranslate"><span class="pre">tsuru-admin</span></code> and <code class="docutils literal notranslate"><span class="pre">crane</span></code>.</p>
+<ul class="simple">
+<li><strong>tsuru</strong> is the command line utility used by application developers, that
+will allow users to create, list, bind and manage apps. For more details,
+check <a class="reference internal" href="../apps/client/usage.html"><span class="doc">tsuru usage</span></a>;</li>
+<li><strong>crane</strong> is used by service administrators. For more detail, check
+<a class="reference internal" href="../services/usage.html"><span class="doc">crane usage</span></a>;</li>
+<li><strong>tsuru-admin</strong> is used by cloud administrators. Whoever is allowed to use
+it has gotten super powers :-)</li>
+</ul>
+<p>This document describes how you can install those clients, using pre-compiled
+binaries or building them from source.</p>
+<p><a class="reference internal" href="#using-homebrew-mac-os-x-only">Using homebrew (Mac OS X only)</a></p>
+<p><a class="reference internal" href="#pre-built-binaries-linux-and-mac-os-x">Pre-built binaries (Linux and Mac OS X)</a></p>
+<p><a class="reference internal" href="#build-from-source-linux-and-mac-os-x">Build from source (Linux and Mac OS X)</a></p>
+<div class="section" id="using-homebrew-mac-os-x-only">
+<h2>Using homebrew (Mac OS X only)<a class="headerlink" href="#using-homebrew-mac-os-x-only" title="Permalink to this headline">¶</a></h2>
+<p>If you use Mac OS X and <a class="reference external" href="http://mxcl.github.com/homebrew/">homebrew</a>, you may
+use a custom tap to install <code class="docutils literal notranslate"><span class="pre">tsuru</span></code>, <code class="docutils literal notranslate"><span class="pre">crane</span></code> and <code class="docutils literal notranslate"><span class="pre">tsuru-admin</span></code>. First you
+need to add the tap:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ brew tap globocom/homebrew-tsuru
+</pre></div>
+</div>
+<p>Now you can install tsuru, tsuru-admin and crane:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ brew install tsuru
+$ brew install tsuru-admin
+$ brew install crane
+</pre></div>
+</div>
+<p>Whenever a new version of any of tsuru’s clients is out, you can just run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ brew update
+$ brew upgrade &lt;formula&gt; <span class="c1"># tsuru/tsuru-admin/crane</span>
+</pre></div>
+</div>
+<p>For more details on taps, check <a class="reference external" href="https://github.com/mxcl/homebrew/wiki">homebrew documentation</a>.</p>
+<p><strong>NOTE:</strong> Tsuru requires Go 1.1 or higher. Make sure you have the last version
+of Go installed in your system.</p>
+</div>
+<div class="section" id="pre-built-binaries-linux-and-mac-os-x">
+<h2>Pre-built binaries (Linux and Mac OS X)<a class="headerlink" href="#pre-built-binaries-linux-and-mac-os-x" title="Permalink to this headline">¶</a></h2>
+<p>tsuru clients are also distributed in binary version, so you can just download
+an executable and put them somewhere in your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
+<p>It’s important to note that all binaries are platform dependent. Currently, we
+provide each of them in three flavors:</p>
+<ol class="arabic simple">
+<li><strong>darwin_amd64</strong>: This is Mac OS X, 64 bits. Make sure the command <code class="docutils literal notranslate"><span class="pre">uname</span> <span class="pre">-ms</span></code>
+prints “Darwin x86_64”, otherwise this binary will not work in your system;</li>
+<li><strong>linux_386</strong>: This is Linux, 32 bits. Make sure the command <code class="docutils literal notranslate"><span class="pre">uname</span> <span class="pre">-ms</span></code>
+prints “Linux x86”, otherwise this binary will not work in your system;</li>
+<li><strong>linux_amd64</strong>: This is Linux, 64 bits. Make sure the command <code class="docutils literal notranslate"><span class="pre">uname</span> <span class="pre">-ms</span></code>
+prints “Linux x86_64”, otherwise this binary will not work in your system.</li>
+</ol>
+<p>Below are the links to the binaries, you can just download, extract the archive
+and put the binary somewhere in your PATH:</p>
+<p><strong>darwin_amd64</strong></p>
+<ul class="simple">
+<li>tsuru: <a class="reference external" href="https://s3.amazonaws.com/tsuru/dist-cmd/tsuru-darwin-amd64.tar.gz">https://s3.amazonaws.com/tsuru/dist-cmd/tsuru-darwin-amd64.tar.gz</a></li>
+<li>tsuru-admin: <a class="reference external" href="https://s3.amazonaws.com/tsuru/dist-cmd/tsuru-admin-darwin-amd64.tar.gz">https://s3.amazonaws.com/tsuru/dist-cmd/tsuru-admin-darwin-amd64.tar.gz</a></li>
+<li>crane: <a class="reference external" href="https://s3.amazonaws.com/tsuru/dist-cmd/crane-darwin-amd64.tar.gz">https://s3.amazonaws.com/tsuru/dist-cmd/crane-darwin-amd64.tar.gz</a></li>
+</ul>
+<p><strong>linux_386</strong></p>
+<ul class="simple">
+<li>tsuru: <a class="reference external" href="https://s3.amazonaws.com/tsuru/dist-cmd/tsuru-linux-386.tar.gz">https://s3.amazonaws.com/tsuru/dist-cmd/tsuru-linux-386.tar.gz</a></li>
+<li>tsuru-admin: <a class="reference external" href="https://s3.amazonaws.com/tsuru/dist-cmd/tsuru-admin-linux-386.tar.gz">https://s3.amazonaws.com/tsuru/dist-cmd/tsuru-admin-linux-386.tar.gz</a></li>
+<li>crane: <a class="reference external" href="https://s3.amazonaws.com/tsuru/dist-cmd/crane-linux-386.tar.gz">https://s3.amazonaws.com/tsuru/dist-cmd/crane-linux-386.tar.gz</a></li>
+</ul>
+<p><strong>linux_amd64</strong></p>
+<ul class="simple">
+<li>tsuru: <a class="reference external" href="https://s3.amazonaws.com/tsuru/dist-cmd/tsuru-linux-amd64.tar.gz">https://s3.amazonaws.com/tsuru/dist-cmd/tsuru-linux-amd64.tar.gz</a></li>
+<li>tsuru-admin: <a class="reference external" href="https://s3.amazonaws.com/tsuru/dist-cmd/tsuru-admin-linux-amd64.tar.gz">https://s3.amazonaws.com/tsuru/dist-cmd/tsuru-admin-linux-amd64.tar.gz</a></li>
+<li>crane: <a class="reference external" href="https://s3.amazonaws.com/tsuru/dist-cmd/crane-linux-amd64.tar.gz">https://s3.amazonaws.com/tsuru/dist-cmd/crane-linux-amd64.tar.gz</a></li>
+</ul>
+</div>
+<div class="section" id="build-from-source-linux-and-mac-os-x">
+<h2>Build from source (Linux and Mac OS X)<a class="headerlink" href="#build-from-source-linux-and-mac-os-x" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/globocom/tsuru">Tsuru’s source</a> is written in <a class="reference external" href="http://golang.org">Go</a>, so before installing tsuru from source, please make sure
+you have <a class="reference external" href="http://golang.org/doc/install">installed and configured Go</a>.</p>
+<p>With Go installed and configured, you can use <code class="docutils literal notranslate"><span class="pre">go</span> <span class="pre">get</span></code> to install any of
+tsuru’s clients:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ go get github.com/globocom/tsuru/cmd/tsuru
+$ go get github.com/globocom/tsuru/cmd/tsuru-admin
+$ go get github.com/globocom/tsuru/cmd/crane
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../server/backup.html" class="btn btn-neutral float-right" title="Backing up tsuru database" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../contribute/setting-up-your-tsuru-development-environment.html" class="btn btn-neutral" title="Setting up you tsuru development environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.1.0
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

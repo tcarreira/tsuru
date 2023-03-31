@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API Server &mdash; tsuru 1.10.3-rc5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PlanB Router" href="planb-router.html" />
+    <link rel="prev" title="Installing tsuru components" href="installing-tsuru-components.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.10.3-rc5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Installing</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installing-minikube.html">Installing Tsuru in a local Kubernetes cluster with Helm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using-tsuru-installer.html">tsuru Installer</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="installing-tsuru-components.html">Installing tsuru components</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">API Server</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#adding-repositories">Adding repositories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#installing">Installing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#creating-admin-user">Creating admin user</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="planb-router.html">PlanB Router</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adding-nodes.html">Adding Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dashboard.html">Dashboard</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Installing</a> &raquo;</li>
+        
+          <li><a href="installing-tsuru-components.html">Installing tsuru components</a> &raquo;</li>
+        
+      <li>API Server</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/installing/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api-server">
+<h1>API Server<a class="headerlink" href="#api-server" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>tsuru API depends on a MongoDB server, Redis server and Hipache router.
+Instructions for installing <a class="reference external" href="http://docs.mongodb.org/">MongoDB</a> and <a class="reference external" href="http://redis.io/">Redis</a>
+are outside the scope of this documentation, but it’s pretty straight-forward following their
+docs. <a class="reference internal" href="hipache-router.html"><span class="doc">installing Hipache</span></a> is described in other session.</p>
+</div>
+<div class="section" id="adding-repositories">
+<h2>Adding repositories<a class="headerlink" href="#adding-repositories" title="Permalink to this headline">¶</a></h2>
+<p>Let’s start adding the repositories for tsuru.</p>
+<p>For debian based distributions (eg. Ubuntu, Debian)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ curl -s https://packagecloud.io/install/repositories/tsuru/stable/script.deb.sh <span class="p">|</span> sudo bash
+</pre></div>
+</div>
+<p>For rpm based distributions (eg. RedHat, Fedora)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ curl -s https://packagecloud.io/install/repositories/tsuru/stable/script.rpm.sh <span class="p">|</span> sudo bash
+</pre></div>
+</div>
+</div>
+<div class="section" id="installing">
+<h2>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install tsuru-server -qqy
+</pre></div>
+</div>
+<p>Now you need to customize the configuration in the <code class="docutils literal notranslate"><span class="pre">/etc/tsuru/tsuru.conf</span></code>. A
+description of possible configuration values can be found in the
+<a class="reference internal" href="../reference/config.html"><span class="doc">configuration reference</span></a>. A basic possible
+configuration is described below, please note that you should replace the values
+<code class="docutils literal notranslate"><span class="pre">your-mongodb-server</span></code>, <code class="docutils literal notranslate"><span class="pre">your-redis-server</span></code> and <code class="docutils literal notranslate"><span class="pre">your-hipache-server</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">listen</span><span class="p">:</span> <span class="s">&quot;0.0.0.0:8080&quot;</span>
+<span class="nt">debug</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http://&lt;machine-public-addr&gt;:8080</span> <span class="c1"># This port must be the same as in the &quot;listen&quot; conf</span>
+<span class="nt">auth</span><span class="p">:</span>
+    <span class="nt">user-registration</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="nt">scheme</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">native</span>
+<span class="nt">database</span><span class="p">:</span>
+    <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;your-mongodb-server&gt;:27017</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tsurudb</span>
+<span class="nt">queue</span><span class="p">:</span>
+    <span class="nt">mongo-url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;your-mongodb-server&gt;:27017</span>
+    <span class="nt">mongo-database</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">queuedb</span>
+<span class="nt">provisioner</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker</span>
+<span class="nt">docker</span><span class="p">:</span>
+    <span class="nt">router</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hipache</span>
+    <span class="nt">collection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker_containers</span>
+    <span class="nt">repository-namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tsuru</span>
+    <span class="nt">deploy-cmd</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/var/lib/tsuru/deploy</span>
+    <span class="nt">bs</span><span class="p">:</span>
+        <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tsuru/bs:v1</span>
+        <span class="nt">socket</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/var/run/docker.sock</span>
+    <span class="nt">cluster</span><span class="p">:</span>
+        <span class="nt">storage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mongodb</span>
+        <span class="nt">mongo-url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;your-mongodb-server&gt;:27017</span>
+        <span class="nt">mongo-database</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cluster</span>
+    <span class="nt">run-cmd</span><span class="p">:</span>
+        <span class="nt">bin</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/var/lib/tsuru/start</span>
+        <span class="nt">port</span><span class="p">:</span> <span class="s">&quot;8888&quot;</span>
+<span class="nt">routers</span><span class="p">:</span>
+    <span class="nt">hipache</span><span class="p">:</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hipache</span>
+        <span class="nt">domain</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;your-hipache-server-ip&gt;.xip.io</span>
+        <span class="nt">redis-server</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;your-redis-server-with-port&gt;</span>
+</pre></div>
+</div>
+<p>In particular, take note that you must set <code class="docutils literal notranslate"><span class="pre">auth:user-registration</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">auth</span><span class="p">:</span>
+    <span class="nt">user-registration</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="nt">scheme</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">native</span>
+</pre></div>
+</div>
+<p>Otherwise, tsuru will fail to create an admin user in the next section.</p>
+<p>Now you only need to start your tsuru API server:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo sed -i -e <span class="s1">&#39;s/=no/=yes/&#39;</span> /etc/default/tsuru-server
+sudo start tsuru-server-api
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-admin-user">
+<h2>Creating admin user<a class="headerlink" href="#creating-admin-user" title="Permalink to this headline">¶</a></h2>
+<p>The creation of an admin user is necessary before interaction with the API is
+possible. This can be done using the <code class="docutils literal notranslate"><span class="pre">root-user-create</span></code> command as shown
+below. This command will create a new authorization role with a global
+permission allowing this user run any action on tsuru. More fine-grained roles
+can be created later, please refer to <a class="reference internal" href="../managing/users-and-permissions.html"><span class="doc">managing users and permissions</span></a> for more details.</p>
+<p>Here we’re also going to describe how to install the <code class="docutils literal notranslate"><span class="pre">tsuru</span></code> client
+application. For a description of each command shown below please refer to the
+<a class="reference internal" href="../reference/tsuru-client.html"><span class="doc">client documentation</span></a>.</p>
+<p>For a description</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsurud root-user-create <span class="o">[</span>--config &lt;path to tsuru.conf&gt;<span class="o">]</span> myemail@somewhere.com
+<span class="c1"># type a password and confirmation (only if using native auth scheme)</span>
+
+$ sudo apt-get install tsuru-client
+or
+$ sudo yum install tsuru-client
+
+$ tsuru target-add default http://&lt;your-tsuru-api-addr&gt;:8080
+$ tsuru target-set default
+$ tsuru login myemail@somewhere.com
+<span class="c1"># type the chosen password</span>
+</pre></div>
+</div>
+<p>And that’s it, you now have registered a user in your tsuru API server and its
+ready to run any commands.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="planb-router.html" class="btn btn-neutral float-right" title="PlanB Router" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installing-tsuru-components.html" class="btn btn-neutral" title="Installing tsuru components" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.10.3-rc5
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.10.3-rc5',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

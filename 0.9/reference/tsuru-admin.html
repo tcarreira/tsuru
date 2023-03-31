@@ -1,0 +1,538 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tsuru-admin usage &mdash; tsuru 0.9.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Client usage" href="tsuru-client.html" />
+    <link rel="prev" title="Services" href="services.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.9.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="config.html">Configuring tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services.html">Services</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">tsuru-admin usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setting-a-target">Setting a target</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#commands">Commands</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#container-move">container-move</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#containers-move">containers-move</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#containers-rebalance">containers-rebalance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-node-add">docker-node-add</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-node-list">docker-node-list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-node-remove">docker-node-remove</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#platform-add">platform-add</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#platform-update">platform-update</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#machines-list">machines-list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#machine-destroy">machine-destroy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#machine-template-list">machine-template-list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#machine-template-add">machine-template-add</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ssh">ssh</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-healing-list">docker-healing-list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#plan-create">plan-create</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#plan-remove">plan-remove</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#user-list">user-list</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tsuru-client.html">Client usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Reference</a> &raquo;</li>
+        
+      <li>tsuru-admin usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/tsuru-admin.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tsuru-admin-usage">
+<h1>tsuru-admin usage<a class="headerlink" href="#tsuru-admin-usage" title="Permalink to this headline">¶</a></h1>
+<p>tsuru-admin command supports administrative operations on a tsuru server.
+Please make sure you have it <a class="reference internal" href="../using/install-client.html"><span class="doc">installed</span></a> before
+continuing on this guide.</p>
+<p>In order to use <code class="docutils literal notranslate"><span class="pre">tsuru-admin</span></code> commands, a user should be an <a class="reference internal" href="config.html#config-admin-user"><span class="std std-ref">admin user</span></a>.  To be an admin user you should be member of an
+<a class="reference internal" href="config.html#config-admin-team"><span class="std std-ref">admin team</span></a>.</p>
+<div class="section" id="setting-a-target">
+<h2>Setting a target<a class="headerlink" href="#setting-a-target" title="Permalink to this headline">¶</a></h2>
+<p>The target for the tsuru-admin command should point to the <cite>listen</cite> address
+configured in your tsuru.conf file.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">listen</span><span class="p">:</span> <span class="s">&quot;:8080&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin target-add default tsuru.myhost.com:8080
+$ tsuru-admin target-set default
+</pre></div>
+</div>
+</div>
+<div class="section" id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
+<p>All the “container*”” commands below only exist when using the docker
+provisioner.</p>
+<div class="section" id="container-move">
+<span id="tsuru-admin-container-move-cmd"></span><h3>container-move<a class="headerlink" href="#container-move" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin container-move &lt;container id&gt; &lt;to host&gt;
+</pre></div>
+</div>
+<p>This command allow you to specify a container id and a destination host, this
+will create a new container on the destination host and remove the container
+from its previous host.</p>
+</div>
+<div class="section" id="containers-move">
+<span id="tsuru-admin-containers-move-cmd"></span><h3>containers-move<a class="headerlink" href="#containers-move" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin containers-move &lt;from host&gt; &lt;to host&gt;
+</pre></div>
+</div>
+<p>It allows you to move all containers from one host to another. This is useful
+when doing maintenance on hosts. &lt;from host&gt; and &lt;to host&gt; must be host names
+of existing docker nodes.</p>
+<p>This command will go through the following steps:</p>
+<ul class="simple">
+<li>Enumerate all units at the origin host;</li>
+<li>For each unit, create a new unit at the destination host;</li>
+<li>Erase each unit from the origin host.</li>
+</ul>
+</div>
+<div class="section" id="containers-rebalance">
+<span id="tsuru-admin-containers-rebalance-cmd"></span><h3>containers-rebalance<a class="headerlink" href="#containers-rebalance" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin containers-rebalance <span class="o">[</span>--dry<span class="o">]</span>
+</pre></div>
+</div>
+<p>Instead of specifying hosts as in the containers-move command, this command
+will automatically choose to which host each unit should be moved, trying to
+distribute the units as evenly as possible.</p>
+<p>The –dry flag runs the balancing algorithm without doing any real
+modification. It will only print which units would be moved and where they
+would be created.</p>
+<p>All the “platform*”” commands below only exist when using the docker
+provisioner.</p>
+</div>
+<div class="section" id="docker-node-add">
+<span id="tsuru-admin-docker-node-add-cmd"></span><h3>docker-node-add<a class="headerlink" href="#docker-node-add" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin docker-node-add <span class="o">[</span><span class="nv">param_name</span><span class="o">=</span>param_value<span class="o">]</span>... <span class="o">[</span>--register<span class="o">]</span>
+</pre></div>
+</div>
+<p>This command add a node to your docker cluster. By default, this command will
+call the configured IaaS to create a new machine. Every param will be sent to
+the IaaS implementation.</p>
+<p>You should configure in <strong>tsuru.conf</strong> the protocol and port for IaaS be able
+to access your node (<a class="reference external" href="config.html#iaas-configuration">you can see it here</a>).</p>
+<p>If you want to just register an docker node, you should use the –register
+flag with an <strong>address=http://your-docker-node:docker-port</strong></p>
+<div class="section" id="parameters-have-special-meaning">
+<h4>Parameters have special meaning<a class="headerlink" href="#parameters-have-special-meaning" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">iaas=&lt;iaas</span> <span class="pre">name&gt;</span></code> Which iaas provider should be used, if not set tsuru will use
+the default iaas specified in tsuru.conf file.</li>
+<li><code class="docutils literal notranslate"><span class="pre">template=&lt;template</span> <span class="pre">name&gt;</span></code> A machine template with predefined parameters,
+additional parameters will override template ones. See
+<a class="reference internal" href="#tsuru-admin-machine-template-add-cmd"><span class="std std-ref">machine-template-add</span></a> command.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="docker-node-list">
+<span id="tsuru-admin-docker-node-list-cmd"></span><h3>docker-node-list<a class="headerlink" href="#docker-node-list" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin docker-node-list <span class="o">[</span>-f/--filter &lt;metadata&gt;<span class="o">=</span>&lt;value&gt;<span class="o">]</span>
+</pre></div>
+</div>
+<p>This command list all nodes present in the cluster. It will also show you metadata
+associated to each node and the IaaS ID if the node was added using tsuru builtin
+IaaS providers.</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">-f/--filter</span></code> flag, the user is able to filter the nodes that
+appear in the list based on the key pairs displayed in the metadata column.
+Users can also combine filters with multiple listings of <code class="docutils literal notranslate"><span class="pre">-f</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin docker-node-list -f <span class="nv">pool</span><span class="o">=</span>mypool -f <span class="nv">LastSuccess</span><span class="o">=</span><span class="m">2014</span>-10-20T15:28:28-02:00
+</pre></div>
+</div>
+</div>
+<div class="section" id="docker-node-remove">
+<span id="tsuru-admin-docker-node-remove-cmd"></span><h3>docker-node-remove<a class="headerlink" href="#docker-node-remove" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin docker-node-remove &lt;address&gt; <span class="o">[</span>--destroy<span class="o">]</span>
+</pre></div>
+</div>
+<p>This command removes a node from the cluster. Optionally it also destroys the
+created IaaS machine if the <code class="docutils literal notranslate"><span class="pre">--destroy</span></code> flag is passed.</p>
+</div>
+<div class="section" id="platform-add">
+<span id="tsuru-admin-platform-add-cmd"></span><h3>platform-add<a class="headerlink" href="#platform-add" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin platform-add &lt;name&gt; <span class="o">[</span>--dockerfile<span class="o">]</span>
+</pre></div>
+</div>
+<p>This command allow you to add a new platform to your tsuru installation.
+It will automatically create and build a whole new platform on tsuru server and
+will allow your users to create apps based on that platform.</p>
+<p>The –dockerfile flag is an URL to a dockerfile which will create your platform.</p>
+</div>
+<div class="section" id="platform-update">
+<span id="tsuru-admin-platform-update-cmd"></span><h3>platform-update<a class="headerlink" href="#platform-update" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin platform-update &lt;name&gt; <span class="o">[</span>-d/--dockerfile<span class="o">]</span>
+</pre></div>
+</div>
+<p>This command allow you to update a platform in your tsuru installation.
+It will automatically rebuild your platform and will flag apps to update
+platform on next deploy.</p>
+<p>The –dockerfile flag is an URL to a dockerfile which will update your platform.</p>
+</div>
+<div class="section" id="machines-list">
+<span id="tsuru-admin-machines-list-cmd"></span><h3>machines-list<a class="headerlink" href="#machines-list" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin machines-list
+</pre></div>
+</div>
+<p>This command will list all machines created using <code class="docutils literal notranslate"><span class="pre">docker-node-add</span></code> and a IaaS
+provider.</p>
+</div>
+<div class="section" id="machine-destroy">
+<span id="tsuru-admin-machine-destroy-cmd"></span><h3>machine-destroy<a class="headerlink" href="#machine-destroy" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin machines-list &lt;machine id&gt;
+</pre></div>
+</div>
+<p>This command will destroy a IaaS machine based on its ID.</p>
+</div>
+<div class="section" id="machine-template-list">
+<h3>machine-template-list<a class="headerlink" href="#machine-template-list" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin machine-template-list
+</pre></div>
+</div>
+<p>This command will list all templates created using <code class="docutils literal notranslate"><span class="pre">machine-template-add</span></code>.</p>
+</div>
+<div class="section" id="machine-template-add">
+<span id="tsuru-admin-machine-template-add-cmd"></span><h3>machine-template-add<a class="headerlink" href="#machine-template-add" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin machine-template-add &lt;name&gt; &lt;iaas&gt; &lt;param&gt;<span class="o">=</span>&lt;value&gt;...
+</pre></div>
+</div>
+<p>This command creates a new machine template to be used with <code class="docutils literal notranslate"><span class="pre">docker-node-add</span></code>
+command. This template will contain a list of parameters that will be sent to the
+IaaS provider.</p>
+</div>
+<div class="section" id="ssh">
+<span id="tsuru-admin-ssh-cmd"></span><h3>ssh<a class="headerlink" href="#ssh" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin ssh &lt;container-id&gt;
+</pre></div>
+</div>
+<p>This command opens a SSH connection to the container, using the API server as a
+proxy. The user may specify part of the ID of the container. For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-info -a myapp
+Application: tsuru-dashboard
+Repository: git@54.94.9.232:tsuru-dashboard.git
+Platform: python
+Teams: admin
+Address: tsuru-dashboard.54.94.9.232.xip.io
+Owner: admin@example.com
+Deploys: <span class="m">1</span>
+Units:
++------------------------------------------------------------------+---------+
+<span class="p">|</span> Unit                                                             <span class="p">|</span> State   <span class="p">|</span>
++------------------------------------------------------------------+---------+
+<span class="p">|</span> 39f82550514af3bbbec1fd204eba000546217a2fe6049e80eb28899db0419b2f <span class="p">|</span> started <span class="p">|</span>
++------------------------------------------------------------------+---------+
+$ tsuru-admin ssh 39f8
+Welcome to Ubuntu <span class="m">14</span>.04 LTS <span class="o">(</span>GNU/Linux <span class="m">3</span>.13.0-24-generic x86_64<span class="o">)</span>
+ubuntu@ip-10-253-6-84:~$
+</pre></div>
+</div>
+</div>
+<div class="section" id="docker-healing-list">
+<h3>docker-healing-list<a class="headerlink" href="#docker-healing-list" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin docker-healing-list <span class="o">[</span>--node<span class="o">]</span> <span class="o">[</span>--container<span class="o">]</span>
+</pre></div>
+</div>
+<p>This command will list all healing processes started for nodes or containers.</p>
+</div>
+<div class="section" id="plan-create">
+<span id="tsuru-admin-plan-create"></span><h3>plan-create<a class="headerlink" href="#plan-create" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin plan-create &lt;name&gt; -c/--cpu-share cpushare <span class="o">[</span>-m/--memory memory<span class="o">]</span> <span class="o">[</span>-s/--swap swap<span class="o">]</span> <span class="o">[</span>-d/--default<span class="o">]</span>
+</pre></div>
+</div>
+<p>This command creates a new plan for being used when creating new apps.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">--cpushare</span></code> flag defines a relative amount of cpu share for units created
+in apps using this plan. This value is unitless and relative, so specifying the
+same value for all plans means all units will equally share processing power.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">--memory</span></code> flag defines how much physical memory a unit is able to use, in
+bytes.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">--swap</span></code> flag defines how much virtual swap memory a unit is able to use, in
+bytes.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">--default</span></code> flag sets this plan as the default plan. It means this plan will
+be used when creating an app without explicitly setting a plan.</p>
+</div>
+<div class="section" id="plan-remove">
+<h3>plan-remove<a class="headerlink" href="#plan-remove" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin plan-remove &lt;name&gt;
+</pre></div>
+</div>
+<p>This command removes an existing plan, it will no longer be available for newly
+created apps. However, this won’t change anything for existing apps that were
+created using the removed plan. They will keep using the same value amount of
+resources described by the plan.</p>
+</div>
+<div class="section" id="user-list">
+<h3>user-list<a class="headerlink" href="#user-list" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru-admin user-list
+</pre></div>
+</div>
+<p>This command list all users in tsuru.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tsuru-client.html" class="btn btn-neutral float-right" title="Client usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="services.html" class="btn btn-neutral" title="Services" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.9.1
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.9.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

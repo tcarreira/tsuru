@@ -1,0 +1,854 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configuring tsuru &mdash; tsuru 0.5.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="contribute" href="contribute.html" />
+    <link rel="prev" title="community" href="community.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.5.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="add-a-platform.html">Creating a platform to tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">tsuru architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">community</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuring tsuru</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#notation">Notation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tsuru-configuration">tsuru configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#http-server">HTTP server</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#listen">listen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#use-tls">use-tls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tls-cert-file">tls:cert-file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tls-key-file">tls:key-file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#database-access">Database access</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#database-url">database:url</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#database-name">database:name</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#email-configuration">Email configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#smtp-server">smtp:server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smtp-user">smtp:user</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smtp-password">smtp:password</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#git-configuration">Git configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#git-unit-repo">git:unit-repo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#git-api-server">git:api-server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#git-rw-host">git:rw-host</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#git-ro-host">git:ro-host</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#authentication-configuration">Authentication configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#auth-scheme">auth:scheme</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth-user-registration">auth:user-registration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth-hash-cost">auth:hash-cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth-token-expire-days">auth:token-expire-days</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth-max-simultaneous-sessions">auth:max-simultaneous-sessions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth-oauth">auth:oauth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth-oauth-client-id">auth:oauth:client-id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth-oauth-client-secret">auth:oauth:client-secret</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth-oauth-scope">auth:oauth:scope</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth-oauth-auth-url">auth:oauth:auth-url</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth-oauth-token-url">auth:oauth:token-url</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth-oauth-info-url">auth:oauth:info-url</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth-oauth-collection">auth:oauth:collection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth-oauth-callback-port">auth:oauth:callback-port</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#queue-configuration">queue configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#queue">queue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#queue-server">queue-server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#redis-queue-host">redis-queue:host</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#redis-queue-port">redis-queue:port</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#redis-queue-password">redis-queue:password</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#redis-queue-db">redis-queue:db</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#admin-users">Admin users</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#admin-team">admin-team</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#quota-management">Quota management</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#quota-units-per-app">quota:units-per-app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#quota-apps-per-user">quota:apps-per-user</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#log-level">Log level</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#debug">debug</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#defining-the-provisioner">Defining the provisioner</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#provisioner">provisioner</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#docker-provisioner-configuration">Docker provisioner configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#docker-collection">docker:collection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-repository-namespace">docker:repository-namespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-router">docker:router</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-deploy-cmd">docker:deploy-cmd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-ssh-agent-port">docker:ssh-agent-port</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-segregate">docker:segregate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-scheduler-redis-server">docker:scheduler:redis-server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-scheduler-redis-prefix">docker:scheduler:redis-prefix</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-run-cmd-bin">docker:run-cmd:bin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-run-cmd-port">docker:run-cmd:port</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-ssh-add-key-cmd">docker:ssh:add-key-cmd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-ssh-public-key">docker:ssh:public-key</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-ssh-user">docker:ssh:user</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sample-file">Sample file</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Install tsuru and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-centos.html">Build your own PaaS with tsuru and Docker on Centos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-node.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-node.html#docker">docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-node.html#tsuru-node-agent">tsuru node agent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">tsuru Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">tsuru Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="why.html">Why tsuru?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/deploy-hooks.html">Deployment hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/deployment.html">Application Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/recovery.html">Recovering an application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/coding-style.html">Coding style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/setting-up-your-tsuru-development-environment.html">Setting up you tsuru development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/vagrant.html">Building a tsuru development environment with Vagrant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install/client.html">Installing tsuru clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/dns-forwarders.html">Howto install a dns forwarder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server/backup.html">Backing up tsuru database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server/install.html">Server installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/api.html">api workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/build.html">Building your service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/mysql-example.html">HOWTO Install a MySQL service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/usage.html">Crane usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/buildpacks.html">Using Buildpacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/procfile.html">Procfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/unit-states.html">unit states</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/client/services.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/client/usage.html">Client usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/go.html">Deploying Go applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/php.html">Deploying PHP applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/python.html">Deploying Python applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/ruby.html">Deploying Ruby applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/tsuru-admin/usage.html">tsuru-admin usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioners/docker/architecture.html">Docker Provisioner Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioners/docker/schedulers.html">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.0.html">tsr 0.3.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.1.html">tsr 0.3.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.10.html">tsr 0.3.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.11.html">tsr 0.3.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.12.html">tsr 0.3.12 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.2.html">tsr 0.3.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.3.html">tsr 0.3.3 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.4.html">tsr 0.3.4 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.5.html">tsr 0.3.5 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.6.html">tsr 0.3.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.7.html">tsr 0.3.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.8.html">tsr 0.3.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.9.html">tsr 0.3.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.4.0.html">tsr 0.4.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.5.0.html">tsr 0.5.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.5.1.html">tsr 0.5.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.5.2.html">tsr 0.5.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.5.3.html">tsr 0.5.3 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru-admin/0.3.0.html">tsuru-admin 0.3.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru-admin/0.4.0.html">tsuru-admin 0.4.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru-admin/0.4.1.html">tsuru-admin 0.4.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru-admin/0.4.2.html">tsuru-admin 0.4.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.10.0.html">tsuru 0.10.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.10.1.html">tsuru 0.10.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.10.html">tsuru 0.8.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.11.html">tsuru 0.8.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.6.html">tsuru 0.8.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.7.html">tsuru 0.8.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.8.html">tsuru 0.8.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.9.html">tsuru 0.8.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.9.1.html">tsuru 0.8.9.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.9.0.html">tsuru 0.9.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/cli/plugins.html">Guide to create tsuru cli plugins</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Configuring tsuru</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/config.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configuring-tsuru">
+<h1>Configuring tsuru<a class="headerlink" href="#configuring-tsuru" title="Permalink to this headline">¶</a></h1>
+<p>tsuru uses a configuration file in <a class="reference external" href="http://www.yaml.org/">YAML</a> format. This
+document describes what each option means, and how it should look like.</p>
+<div class="section" id="notation">
+<h2>Notation<a class="headerlink" href="#notation" title="Permalink to this headline">¶</a></h2>
+<p>tsuru uses a colon to represent nesting in YAML. So, whenever this document say
+something like <code class="docutils literal notranslate"><span class="pre">key1:key2</span></code>, it refers to the value of the <code class="docutils literal notranslate"><span class="pre">key2</span></code> that is
+nested in the block that is the value of <code class="docutils literal notranslate"><span class="pre">key1</span></code>. For example,
+<code class="docutils literal notranslate"><span class="pre">database:url</span></code> means:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">database</span><span class="p">:</span>
+  <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;value&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tsuru-configuration">
+<h2>tsuru configuration<a class="headerlink" href="#tsuru-configuration" title="Permalink to this headline">¶</a></h2>
+<p>This section describes tsuru’s core configuration. Other sections will include
+configuration of optional components, and finally, a full sample file.</p>
+<div class="section" id="http-server">
+<h3>HTTP server<a class="headerlink" href="#http-server" title="Permalink to this headline">¶</a></h3>
+<p>tsuru provides a REST API, that supports HTTP and HTTP/TLS (a.k.a. HTTPS). Here
+are the options that affect how tsuru’s API behaves:</p>
+<div class="section" id="listen">
+<h4>listen<a class="headerlink" href="#listen" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">listen</span></code> defines in which address tsuru webserver will listen. It has the
+form &lt;host&gt;:&lt;port&gt;. You may omit the host (example: <code class="docutils literal notranslate"><span class="pre">:8080</span></code>). This setting
+has no default value.</p>
+</div>
+<div class="section" id="use-tls">
+<h4>use-tls<a class="headerlink" href="#use-tls" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">use-tls</span></code> indicates whether tsuru should use TLS or not. This setting is
+optional, and defaults to “false”.</p>
+</div>
+<div class="section" id="tls-cert-file">
+<h4>tls:cert-file<a class="headerlink" href="#tls-cert-file" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">tls:cert-file</span></code> is the path to the X.509 certificate file configured to serve
+the domain.  This setting is optional, unless <code class="docutils literal notranslate"><span class="pre">use-tls</span></code> is true.</p>
+</div>
+<div class="section" id="tls-key-file">
+<h4>tls:key-file<a class="headerlink" href="#tls-key-file" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">tls:key-file</span></code> is the path to private key file configured to serve the
+domain. This setting is optional, unless <code class="docutils literal notranslate"><span class="pre">use-tls</span></code> is true.</p>
+</div>
+</div>
+<div class="section" id="database-access">
+<h3>Database access<a class="headerlink" href="#database-access" title="Permalink to this headline">¶</a></h3>
+<p>tsuru uses MongoDB as database manager, to store information about users, VM’s,
+and its components. Regarding database control, you’re able to define to which
+database server tsuru will connect (providing a <a class="reference external" href="http://docs.mongodb.org/manual/reference/connection-string/">MongoDB connection string</a>). The database
+related options are listed below:</p>
+<div class="section" id="database-url">
+<h4>database:url<a class="headerlink" href="#database-url" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">database:url</span></code> is the database connection string. It is a mandatory setting
+and has no default value. Examples of strings include the basic “127.0.0.1” and
+the more advanced “mongodb://user&#64;password:127.0.0.1:27017/database”. Please
+refer to <a class="reference external" href="http://docs.mongodb.org/manual/reference/connection-string/">MongoDB documentation</a> for more
+details and examples of connection strings.</p>
+</div>
+<div class="section" id="database-name">
+<h4>database:name<a class="headerlink" href="#database-name" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">database:name</span></code> is the name of the database that tsuru uses. It is a
+mandatory setting and has no default value. An example of value is “tsuru”.</p>
+</div>
+</div>
+<div class="section" id="email-configuration">
+<h3>Email configuration<a class="headerlink" href="#email-configuration" title="Permalink to this headline">¶</a></h3>
+<p>tsuru sends email to users when they request password recovery. In order to
+send those emails, tsuru needs to be configured with some SMTP settings.
+Omitting these settings won’t break tsuru, but users would not be able to reset
+their password automatically.</p>
+<div class="section" id="smtp-server">
+<h4>smtp:server<a class="headerlink" href="#smtp-server" title="Permalink to this headline">¶</a></h4>
+<p>The SMTP server to connect to. It must be in the form &lt;host&gt;:&lt;port&gt;. Example:
+“smtp.gmail.com:587”.</p>
+</div>
+<div class="section" id="smtp-user">
+<h4>smtp:user<a class="headerlink" href="#smtp-user" title="Permalink to this headline">¶</a></h4>
+<p>The user to authenticate with the SMTP sever. Currently, tsuru requires
+authenticated sessions.</p>
+</div>
+<div class="section" id="smtp-password">
+<h4>smtp:password<a class="headerlink" href="#smtp-password" title="Permalink to this headline">¶</a></h4>
+<p>The password for authentication within the SMTP server.</p>
+</div>
+</div>
+<div class="section" id="git-configuration">
+<h3>Git configuration<a class="headerlink" href="#git-configuration" title="Permalink to this headline">¶</a></h3>
+<p>tsuru uses <a class="reference external" href="https://github.com/tsuru/gandalf">Gandalf</a> to manage git
+repositories. Gandalf exposes a REST API for repositories management, and tsuru
+uses it. So tsuru requires information about the Gandalf HTTP server, and also
+its git-daemon and SSH service.</p>
+<p>tsuru also needs to know where the git repository will be cloned and stored in
+units storage. Here are all options related to git repositories:</p>
+<div class="section" id="git-unit-repo">
+<h4>git:unit-repo<a class="headerlink" href="#git-unit-repo" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">git:unit-repo</span></code> is the path where tsuru will clone and manage the git
+repository in all units of an application. This is where the code of the
+applications will be stored in their units. Example of value:
+<code class="docutils literal notranslate"><span class="pre">/home/application/current</span></code>.</p>
+</div>
+<div class="section" id="git-api-server">
+<h4>git:api-server<a class="headerlink" href="#git-api-server" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">git:api-server</span></code> is the address of the Gandalf API. It should define the
+entire address, including protocol and port. Examples of value:
+<code class="docutils literal notranslate"><span class="pre">http://localhost:9090</span></code> and <code class="docutils literal notranslate"><span class="pre">https://gandalf.tsuru.io:9595</span></code>.</p>
+</div>
+<div class="section" id="git-rw-host">
+<h4>git:rw-host<a class="headerlink" href="#git-rw-host" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">git:rw-host</span></code> is the host that will be used to build the push URL. For
+example, when the value is “tsuruhost.com”, the push URL will be something like
+<a class="reference external" href="mailto:git&#37;&#52;&#48;tsuruhost&#46;com">git<span>&#64;</span>tsuruhost<span>&#46;</span>com</a>:&lt;app-name&gt;.git.</p>
+</div>
+<div class="section" id="git-ro-host">
+<h4>git:ro-host<a class="headerlink" href="#git-ro-host" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">git:ro-host</span></code> is the host that units will use to clone code from users
+applications. It’s used to build the read only URL of the repository. For
+example, when the value is “tsuruhost.com”, the read-only URL will be something
+like git://tsuruhost.com/&lt;app-name&gt;.git.</p>
+</div>
+</div>
+<div class="section" id="authentication-configuration">
+<h3>Authentication configuration<a class="headerlink" href="#authentication-configuration" title="Permalink to this headline">¶</a></h3>
+<p>tsuru has support for <code class="docutils literal notranslate"><span class="pre">native</span></code> and <code class="docutils literal notranslate"><span class="pre">oauth</span></code> authentication schemes.</p>
+<p>The default scheme is <code class="docutils literal notranslate"><span class="pre">native</span></code> and it supports the creation of users in
+Tsuru’s internal database. It hashes passwords brcypt and tokens are generated
+during authentication, and are hashed using SHA512.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">auth</span></code> section also controls whether user registration is on or off. When
+user registration is off, the user creation URL is not registered in the
+server.</p>
+<div class="section" id="auth-scheme">
+<h4>auth:scheme<a class="headerlink" href="#auth-scheme" title="Permalink to this headline">¶</a></h4>
+<p>The authentication scheme to be used. The default value is <code class="docutils literal notranslate"><span class="pre">native</span></code>, the other
+supported value is <code class="docutils literal notranslate"><span class="pre">oauth</span></code>.</p>
+</div>
+<div class="section" id="auth-user-registration">
+<h4>auth:user-registration<a class="headerlink" href="#auth-user-registration" title="Permalink to this headline">¶</a></h4>
+<p>This flag indicates whether user registration is enabled. This setting is
+optional, and defaults to false.</p>
+</div>
+<div class="section" id="auth-hash-cost">
+<h4>auth:hash-cost<a class="headerlink" href="#auth-hash-cost" title="Permalink to this headline">¶</a></h4>
+<p>Required only with <code class="docutils literal notranslate"><span class="pre">native</span></code> chosen as <code class="docutils literal notranslate"><span class="pre">auth:scheme</span></code>.</p>
+<p>This number indicates how many CPU time you’re willing to give to hashing
+calculation. It is an absolute number, between 4 and 31, where 4 is faster and
+less secure, while 31 is very secure and <em>very</em> slow.</p>
+</div>
+<div class="section" id="auth-token-expire-days">
+<h4>auth:token-expire-days<a class="headerlink" href="#auth-token-expire-days" title="Permalink to this headline">¶</a></h4>
+<p>Required only with <code class="docutils literal notranslate"><span class="pre">native</span></code> chosen as <code class="docutils literal notranslate"><span class="pre">auth:scheme</span></code>.</p>
+<p>Whenever a user logs in, tsuru generates a token for him/her, and the user may
+store the token. <code class="docutils literal notranslate"><span class="pre">auth:token-expire-days</span></code> setting defines the amount of days
+that the token will be valid. This setting is optional, and defaults to “7”.</p>
+</div>
+<div class="section" id="auth-max-simultaneous-sessions">
+<h4>auth:max-simultaneous-sessions<a class="headerlink" href="#auth-max-simultaneous-sessions" title="Permalink to this headline">¶</a></h4>
+<p>tsuru can limit the number of simultaneous sessions per user. This setting is
+optional, and defaults to “unlimited”.</p>
+</div>
+<div class="section" id="auth-oauth">
+<h4>auth:oauth<a class="headerlink" href="#auth-oauth" title="Permalink to this headline">¶</a></h4>
+<p>Every config entry inside <code class="docutils literal notranslate"><span class="pre">auth:oauth</span></code> are used when the <code class="docutils literal notranslate"><span class="pre">auth:scheme</span></code> is set
+to “oauth”. Please check <a class="reference external" href="http://tools.ietf.org/html/rfc6749">rfc6749</a> for more
+details.</p>
+</div>
+<div class="section" id="auth-oauth-client-id">
+<h4>auth:oauth:client-id<a class="headerlink" href="#auth-oauth-client-id" title="Permalink to this headline">¶</a></h4>
+<p>The client id provided by your OAuth server.</p>
+</div>
+<div class="section" id="auth-oauth-client-secret">
+<h4>auth:oauth:client-secret<a class="headerlink" href="#auth-oauth-client-secret" title="Permalink to this headline">¶</a></h4>
+<p>The client secret provided by your OAuth server.</p>
+</div>
+<div class="section" id="auth-oauth-scope">
+<h4>auth:oauth:scope<a class="headerlink" href="#auth-oauth-scope" title="Permalink to this headline">¶</a></h4>
+<p>The scope for your authentication request.</p>
+</div>
+<div class="section" id="auth-oauth-auth-url">
+<h4>auth:oauth:auth-url<a class="headerlink" href="#auth-oauth-auth-url" title="Permalink to this headline">¶</a></h4>
+<p>The URL used in the authorization step of the OAuth flow. Tsuru CLI will
+receive this URL and trigger the opening a browser on this URL with the necessary
+parameters.</p>
+<p>During the authorization step, Tsuru CLI will start a server locally and set the
+callback to <a class="reference external" href="http://localhost">http://localhost</a>:&lt;port&gt;, if <code class="docutils literal notranslate"><span class="pre">auth:oauth:callback-port</span></code> is set Tsuru
+CLI will use its value as &lt;port&gt;. If <code class="docutils literal notranslate"><span class="pre">auth:oauth:callback-port</span></code> isn’t present
+Tsuru CLI will automatically choose an open port.</p>
+<p>The callback URL should be registered on your OAuth server.</p>
+<p>If the chosen server requires the callback URL to match the same host and port as
+the registered one you should register “<a class="reference external" href="http://localhost">http://localhost</a>:&lt;chosen port&gt;” and set
+the <code class="docutils literal notranslate"><span class="pre">auth:oauth:callback-port</span></code> accordingly.</p>
+<p>If the chosen server is more lenient and allows a different port to be used you
+should register simply “<a class="reference external" href="http://localhost">http://localhost</a>” and leave <code class="docutils literal notranslate"><span class="pre">auth:oauth:callback-port</span></code>
+empty.</p>
+</div>
+<div class="section" id="auth-oauth-token-url">
+<h4>auth:oauth:token-url<a class="headerlink" href="#auth-oauth-token-url" title="Permalink to this headline">¶</a></h4>
+<p>The URL used in the exchange token step of the OAuth flow.</p>
+</div>
+<div class="section" id="auth-oauth-info-url">
+<h4>auth:oauth:info-url<a class="headerlink" href="#auth-oauth-info-url" title="Permalink to this headline">¶</a></h4>
+<p>The URL used to fetch information about the authenticated user. Tsuru expects a
+json response containing a field called <code class="docutils literal notranslate"><span class="pre">email</span></code>.</p>
+<p>Tsuru will also make call this URL on every request to the API to make sure the
+token is still valid and hasn’t been revoked.</p>
+</div>
+<div class="section" id="auth-oauth-collection">
+<h4>auth:oauth:collection<a class="headerlink" href="#auth-oauth-collection" title="Permalink to this headline">¶</a></h4>
+<p>The database collection used to store valid access tokens. Defaults to
+“oauth_tokens”.</p>
+</div>
+<div class="section" id="auth-oauth-callback-port">
+<h4>auth:oauth:callback-port<a class="headerlink" href="#auth-oauth-callback-port" title="Permalink to this headline">¶</a></h4>
+<p>The port used in the callback URL during the authorization step. Check docs for
+<code class="docutils literal notranslate"><span class="pre">auth:oauth:auth-url</span></code> for more details.</p>
+</div>
+</div>
+<div class="section" id="queue-configuration">
+<h3>queue configuration<a class="headerlink" href="#queue-configuration" title="Permalink to this headline">¶</a></h3>
+<p>tsuru uses a work queue for asynchronous tasks.</p>
+<p>tsuru supports both <code class="docutils literal notranslate"><span class="pre">redis</span></code> and <code class="docutils literal notranslate"><span class="pre">beanstalkd</span></code> as queue backends. However,
+using <code class="docutils literal notranslate"><span class="pre">beanstalkd</span></code> is <em>deprecated</em> as of 0.5.0. The log live streaming feature
+“tsuru log -f” will not work if using <code class="docutils literal notranslate"><span class="pre">beanstalkd</span></code>.</p>
+<p>For compatibility and historical reasons the default queue is <a class="reference external" href="http://kr.github.com/beanstalkd">beanstalkd</a>. You can customize the used queue, and
+settings related to the queue (like the address where the server is listening).</p>
+<p>Creating a new queue provider is as easy as implementing <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/queue#Q">an interface</a>.</p>
+<div class="section" id="queue">
+<h4>queue<a class="headerlink" href="#queue" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">queue</span></code> is the name of the queue implementation that tsuru will use. This
+setting defaults to <code class="docutils literal notranslate"><span class="pre">beanstalkd</span></code>, but we strongly encourage you to change it to
+<code class="docutils literal notranslate"><span class="pre">redis</span></code>.</p>
+</div>
+<div class="section" id="queue-server">
+<h4>queue-server<a class="headerlink" href="#queue-server" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">queue-server</span></code> is the TCP address where beanstalkd is listening. This setting
+is optional and defaults to “localhost:11300”.</p>
+</div>
+<div class="section" id="redis-queue-host">
+<h4>redis-queue:host<a class="headerlink" href="#redis-queue-host" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">redis-queue:host</span></code> is the host of the Redis server to be used for the working
+queue. This settings is optional and defaults to “localhost”.</p>
+</div>
+<div class="section" id="redis-queue-port">
+<h4>redis-queue:port<a class="headerlink" href="#redis-queue-port" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">redis-queue:port</span></code> is the port of the Redis server to be used for the working
+queue. This settings is optional and defaults to 6379.</p>
+</div>
+<div class="section" id="redis-queue-password">
+<h4>redis-queue:password<a class="headerlink" href="#redis-queue-password" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">redis-queue:password</span></code> is the password of the Redis server to be used for the
+working queue. This settings is optional and defaults to “”, indicating that
+the Redis server is not authenticated.</p>
+</div>
+<div class="section" id="redis-queue-db">
+<h4>redis-queue:db<a class="headerlink" href="#redis-queue-db" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">redis-queue:db</span></code> is the database number of the Redis server to be used
+for the working queue. This settings is optional and defaults to 3.</p>
+</div>
+</div>
+<div class="section" id="admin-users">
+<h3>Admin users<a class="headerlink" href="#admin-users" title="Permalink to this headline">¶</a></h3>
+<p>tsuru has a very simple way to identify admin users: an admin user is a user
+that is the member of the admin team, and the admin team is defined in the
+configuration file, using the <code class="docutils literal notranslate"><span class="pre">admin-team</span></code> setting.</p>
+<div class="section" id="admin-team">
+<h4>admin-team<a class="headerlink" href="#admin-team" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">admin-team</span></code> is the name of the administration team for the current tsuru
+installation. All members of the administration team is able to use the
+<code class="docutils literal notranslate"><span class="pre">tsuru-admin</span></code> command.</p>
+</div>
+</div>
+<div class="section" id="quota-management">
+<h3>Quota management<a class="headerlink" href="#quota-management" title="Permalink to this headline">¶</a></h3>
+<p>tsuru can, optionally, manage quotas. Currently, there are two available
+quotas: apps per user and units per app.</p>
+<p>tsuru administrators can control the default quota for new users and new apps
+in the configuration file, and use <code class="docutils literal notranslate"><span class="pre">tsuru-admin</span></code> command to change quotas for
+users or apps. Quota management is disabled by default, to enable it, just set
+the desired quota to a positive integer.</p>
+<div class="section" id="quota-units-per-app">
+<h4>quota:units-per-app<a class="headerlink" href="#quota-units-per-app" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">quota:units-per-app</span></code> is the default value for units per-app quota. All new
+apps will have at most the number of units specified by this setting. This
+setting is optional, and defaults to “unlimited”.</p>
+</div>
+<div class="section" id="quota-apps-per-user">
+<h4>quota:apps-per-user<a class="headerlink" href="#quota-apps-per-user" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">quota:apps-per-user</span></code> is the default value for apps per-user quota. All new
+users will have at most the number of apps specified by this setting. This
+setting is optional, and defaults to “unlimited”.</p>
+</div>
+</div>
+<div class="section" id="log-level">
+<h3>Log level<a class="headerlink" href="#log-level" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="debug">
+<h4>debug<a class="headerlink" href="#debug" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">false</span></code> is the default value, so you won’t see any
+noises on logs, to turn it on set it to true, e.g.: <code class="docutils literal notranslate"><span class="pre">debug:</span> <span class="pre">true</span></code></p>
+</div>
+</div>
+<div class="section" id="defining-the-provisioner">
+<h3>Defining the provisioner<a class="headerlink" href="#defining-the-provisioner" title="Permalink to this headline">¶</a></h3>
+<p>tsuru has extensible support for provisioners. A provisioner is a Go type that
+satisfies the <cite>provision.Provisioner</cite> interface. By default, tsuru will use
+<code class="docutils literal notranslate"><span class="pre">DockerProvisioner</span></code> (identified by the string “docker”), and now that’s the only
+supported provisioner (Ubuntu Juju was supported in the past but its support has
+been removed from Tsuru).</p>
+<div class="section" id="provisioner">
+<h4>provisioner<a class="headerlink" href="#provisioner" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">provisioner</span></code> is the string the name of the provisioner that will be used by
+tsuru. This setting is optional and defaults to “docker”.</p>
+</div>
+</div>
+<div class="section" id="docker-provisioner-configuration">
+<h3>Docker provisioner configuration<a class="headerlink" href="#docker-provisioner-configuration" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="docker-collection">
+<h4>docker:collection<a class="headerlink" href="#docker-collection" title="Permalink to this headline">¶</a></h4>
+<p>Database collection name used to store containers information.</p>
+</div>
+<div class="section" id="docker-repository-namespace">
+<h4>docker:repository-namespace<a class="headerlink" href="#docker-repository-namespace" title="Permalink to this headline">¶</a></h4>
+<p>TODO: see <cite>tsuru with docker &lt;/docker&gt;</cite></p>
+</div>
+<div class="section" id="docker-router">
+<h4>docker:router<a class="headerlink" href="#docker-router" title="Permalink to this headline">¶</a></h4>
+<p>TODO: see <cite>tsuru with docker &lt;/docker&gt;</cite></p>
+</div>
+<div class="section" id="docker-deploy-cmd">
+<h4>docker:deploy-cmd<a class="headerlink" href="#docker-deploy-cmd" title="Permalink to this headline">¶</a></h4>
+<p>TODO: see <cite>tsuru with docker &lt;/docker&gt;</cite></p>
+</div>
+<div class="section" id="docker-ssh-agent-port">
+<h4>docker:ssh-agent-port<a class="headerlink" href="#docker-ssh-agent-port" title="Permalink to this headline">¶</a></h4>
+<p>TODO: see <cite>tsuru with docker &lt;/docker&gt;</cite></p>
+</div>
+<div class="section" id="docker-segregate">
+<h4>docker:segregate<a class="headerlink" href="#docker-segregate" title="Permalink to this headline">¶</a></h4>
+<p>TODO: see <cite>tsuru with docker &lt;/docker&gt;</cite></p>
+</div>
+<div class="section" id="docker-scheduler-redis-server">
+<h4>docker:scheduler:redis-server<a class="headerlink" href="#docker-scheduler-redis-server" title="Permalink to this headline">¶</a></h4>
+<p>TODO: see <cite>tsuru with docker &lt;/docker&gt;</cite></p>
+</div>
+<div class="section" id="docker-scheduler-redis-prefix">
+<h4>docker:scheduler:redis-prefix<a class="headerlink" href="#docker-scheduler-redis-prefix" title="Permalink to this headline">¶</a></h4>
+<p>TODO: see <cite>tsuru with docker &lt;/docker&gt;</cite></p>
+</div>
+<div class="section" id="docker-run-cmd-bin">
+<h4>docker:run-cmd:bin<a class="headerlink" href="#docker-run-cmd-bin" title="Permalink to this headline">¶</a></h4>
+<p>TODO: see <cite>tsuru with docker &lt;/docker&gt;</cite></p>
+</div>
+<div class="section" id="docker-run-cmd-port">
+<h4>docker:run-cmd:port<a class="headerlink" href="#docker-run-cmd-port" title="Permalink to this headline">¶</a></h4>
+<p>TODO: see <cite>tsuru with docker &lt;/docker&gt;</cite></p>
+</div>
+<div class="section" id="docker-ssh-add-key-cmd">
+<h4>docker:ssh:add-key-cmd<a class="headerlink" href="#docker-ssh-add-key-cmd" title="Permalink to this headline">¶</a></h4>
+<p>TODO: see <cite>tsuru with docker &lt;/docker&gt;</cite></p>
+</div>
+<div class="section" id="docker-ssh-public-key">
+<h4>docker:ssh:public-key<a class="headerlink" href="#docker-ssh-public-key" title="Permalink to this headline">¶</a></h4>
+<p>TODO: see <cite>tsuru with docker &lt;/docker&gt;</cite></p>
+</div>
+<div class="section" id="docker-ssh-user">
+<h4>docker:ssh:user<a class="headerlink" href="#docker-ssh-user" title="Permalink to this headline">¶</a></h4>
+<p>TODO: see <cite>tsuru with docker &lt;/docker&gt;</cite></p>
+</div>
+</div>
+</div>
+<div class="section" id="sample-file">
+<h2>Sample file<a class="headerlink" href="#sample-file" title="Permalink to this headline">¶</a></h2>
+<p>Here is a complete example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">listen</span><span class="p">:</span> <span class="s">&quot;0.0.0.0:8080&quot;</span>
+<span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http://{{{API_HOST}}}:8080</span>
+<span class="nt">admin-team</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">admin</span>
+
+<span class="nt">database</span><span class="p">:</span>
+  <span class="nt">url</span><span class="p">:</span> <span class="p p-Indicator">{{{</span><span class="nv">MONGO_HOST</span><span class="p p-Indicator">}}}</span><span class="l l-Scalar l-Scalar-Plain">:{{{MONGO_PORT}}}</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tsurudb</span>
+
+<span class="nt">git</span><span class="p">:</span>
+  <span class="nt">unit-repo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/home/application/current</span>
+  <span class="nt">api-server</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http://{{{GANDALF_HOST}}}:8000</span>
+  <span class="nt">rw-host</span><span class="p">:</span> <span class="p p-Indicator">{{{</span><span class="nv">GANDALF_HOST</span><span class="p p-Indicator">}}}</span>
+  <span class="nt">ro-host</span><span class="p">:</span> <span class="p p-Indicator">{{{</span><span class="nv">GANDALF_HOST</span><span class="p p-Indicator">}}}</span>
+
+<span class="nt">auth</span><span class="p">:</span>
+  <span class="nt">user-registration</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">scheme</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">native</span>
+
+<span class="nt">provisioner</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker</span>
+<span class="nt">hipache</span><span class="p">:</span>
+  <span class="nt">domain</span><span class="p">:</span> <span class="p p-Indicator">{{{</span><span class="nv">HOST_NAME</span><span class="p p-Indicator">}}}</span>
+<span class="nt">queue</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">redis</span>
+<span class="nt">redis-queue</span><span class="p">:</span>
+  <span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+  <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">6379</span>
+<span class="nt">docker</span><span class="p">:</span>
+  <span class="nt">collection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker_containers</span>
+  <span class="nt">repository-namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tsuru</span>
+  <span class="nt">router</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hipache</span>
+  <span class="nt">deploy-cmd</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/var/lib/tsuru/deploy</span>
+  <span class="nt">ssh-agent-port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4545</span>
+  <span class="nt">segregate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">scheduler</span><span class="p">:</span>
+    <span class="nt">redis-server</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">127.0.0.1:6379</span>
+    <span class="nt">redis-prefix</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-cluster</span>
+  <span class="nt">run-cmd</span><span class="p">:</span>
+    <span class="nt">bin</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/var/lib/tsuru/start</span>
+    <span class="nt">port</span><span class="p">:</span> <span class="s">&quot;8888&quot;</span>
+  <span class="nt">ssh</span><span class="p">:</span>
+    <span class="nt">add-key-cmd</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/var/lib/tsuru/add-key</span>
+    <span class="nt">public-key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/var/lib/tsuru/.ssh/id_rsa.pub</span>
+    <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ubuntu</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="contribute.html" class="btn btn-neutral float-right" title="contribute" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="community.html" class="btn btn-neutral" title="community" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.5.3
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.5.3',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

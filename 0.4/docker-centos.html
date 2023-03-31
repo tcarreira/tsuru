@@ -1,0 +1,484 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Build your own PaaS with tsuru and Docker on Centos &mdash; tsuru 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Setup" href="docker-node.html" />
+    <link rel="prev" title="Build your own PaaS with tsuru and Docker" href="docker.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">tsuru architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Build your own PaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuring tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Build your own PaaS with tsuru and Docker</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Build your own PaaS with tsuru and Docker on Centos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dns-server">DNS server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docker">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tsuru-s-dependencies">tsuru’s Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tsuru-setup">tsuru Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuring">Configuring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running">Running</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-docker-images">Creating Docker Images</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#using-tsuru">Using tsuru</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#adding-services">Adding Services</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="docker-node.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-node.html#docker">docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-node.html#tsuru-node-agent">tsuru node agent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">tsuru Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">tsuru Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="why.html">Why tsuru?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/deploy-hooks.html">Deployment hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/deployment.html">Application Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/recovery.html">Recovering an application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/coding-style.html">Coding style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/setting-up-your-tsuru-development-environment.html">Setting up you tsuru development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/vagrant.html">Building a tsuru development environment with Vagrant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install/client.html">Installing tsuru clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/dns-forwarders.html">Howto install a dns forwarder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server/backup.html">Backing up tsuru database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server/install.html">Server installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/api.html">api workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/build.html">Building your service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/mysql-example.html">HOWTO Install a MySQL service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/usage.html">Crane usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/procfile.html">Procfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/unit-states.html">unit states</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/client/services.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/client/usage.html">Client usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/go.html">Deploying Go applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/php.html">Deploying PHP applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/python.html">Deploying Python applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/ruby.html">Deploying Ruby applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/tsuru-admin/usage.html">tsuru-admin usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioners/docker/architecture.html">Docker Provisioner Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioners/docker/schedulers.html">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.0.html">tsr 0.3.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.1.html">tsr 0.3.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.10.html">tsr 0.3.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.11.html">tsr 0.3.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.12.html">tsr 0.3.12 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.2.html">tsr 0.3.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.3.html">tsr 0.3.3 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.4.html">tsr 0.3.4 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.5.html">tsr 0.3.5 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.6.html">tsr 0.3.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.7.html">tsr 0.3.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.8.html">tsr 0.3.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.9.html">tsr 0.3.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.4.0.html">tsr 0.4.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru-admin/0.3.0.html">tsuru-admin 0.3.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.10.html">tsuru 0.8.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.11.html">tsuru 0.8.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.6.html">tsuru 0.8.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.7.html">tsuru 0.8.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.8.html">tsuru 0.8.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.9.html">tsuru 0.8.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.9.1.html">tsuru 0.8.9.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.9.0.html">tsuru 0.9.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/cli/plugins.html">Guide to create tsuru cli plugins</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Build your own PaaS with tsuru and Docker on Centos</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/docker-centos.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="build-your-own-paas-with-tsuru-and-docker-on-centos">
+<h1>Build your own PaaS with tsuru and Docker on Centos<a class="headerlink" href="#build-your-own-paas-with-tsuru-and-docker-on-centos" title="Permalink to this headline">¶</a></h1>
+<p>This document describes how to create a private PaaS service using tsuru and docker on Centos.</p>
+<p>This document assumes that tsuru is being installed on a Centos (6.4+) machine. You
+can use equivalent packages for beanstalkd, git, MongoDB and other tsuru
+dependencies. Please make sure you satisfy minimal version requirements.</p>
+<p>Just follow this steps:</p>
+<div class="section" id="dns-server">
+<h2>DNS server<a class="headerlink" href="#dns-server" title="Permalink to this headline">¶</a></h2>
+<p>You can integrate any DNS server with tsuru. Here: <a class="reference external" href="http://docs.tsuru.io/en/latest/misc/dns-forwarders.html">http://docs.tsuru.io/en/latest/misc/dns-forwarders.html</a> you can find a example of how to install a DNS server integrated with tsuru</p>
+</div>
+<div class="section" id="docker">
+<h2>Docker<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h2>
+<p>To make docker working on a RHEL/Centos distro, you will need to use the <a class="reference external" href="http://fedoraproject.org/wiki/EPEL">EPEL repository</a>, build a kernel with <a class="reference external" href="http://aufs.sourceforge.net/">AUFS</a> support, and install all dependencies as following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Installing the EPEL respository</span>
+$ rpm -iUvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+$ yum update -y
+</pre></div>
+</div>
+<p>Here you can install our own kernel+lxc+docker or compile them
+To install our RPM package ready to go:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Installing the EPEL respository</span>
+<span class="c1"># rpm -iUvh http://tsuru.s3.amazonaws.com/centos/docker-0.6.0-1.el6.x86_64.rpm \</span>
+http://tsuru.s3.amazonaws.com/centos/lxc-0.8.0-3.el6.x86_64.rpm <span class="se">\</span>
+http://tsuru.s3.amazonaws.com/centos/lxc-libs-0.8.0-3.el6.x86_64.rpm <span class="se">\</span>
+http://tsuru.s3.amazonaws.com/centos/kernel-ml-aufs-3.10.11-1.el6.x86_64.rpm
+</pre></div>
+</div>
+<p>To Compile, just follow these steps</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download the kernel + dependencies for docker</span>
+$ yum install fedora-packager -y
+<span class="c1"># you will need to perform these steps bellow with a unprivileged user, ex: su - tsuru</span>
+$ git clone https://github.com/sciurus/docker-rhel-rpm
+$ <span class="nb">cd</span> docker-rhel-rpm
+<span class="c1"># Remove auto restart of docker, as it will be managed by circus</span>
+$ sed -i <span class="s1">&#39;s|^%{_sysconfdir}/init/docker.conf||; s/.*source1.*//i&#39;</span> docker/docker.spec
+</pre></div>
+</div>
+<p>Now, just follow the steps to build the kernel + lxc + docker from <a class="reference external" href="https://github.com/sciurus/docker-rhel-rpm/blob/master/README.md">here: https://github.com/sciurus/docker-rhel-rpm/blob/master/README.md</a></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># In order to use docker, you will need to allow the ip forward</span>
+$ grep ^net.ipv4.ip_forward /etc/sysctl.conf &gt; /dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+                    sed -i <span class="s1">&#39;s/^net.ipv4.ip_forward.*/net.ipv4.ip_forward = 1/&#39;</span> /etc/sysctl.conf  <span class="o">||</span> <span class="se">\</span>
+                    <span class="nb">echo</span> <span class="s1">&#39;net.ipv4.ip_forward = 1&#39;</span> &gt;&gt; /etc/sysctl.conf
+$ sysctl -p
+<span class="c1"># You also need to disable selinux, adding the parameter &quot;selinux=0&quot; in your new kernel 3.10 (/boot/grub/grub.conf)</span>
+$ grep <span class="nv">selinux</span><span class="o">=</span><span class="m">0</span> /boot/grub/menu.lst
+<span class="c1"># Turn off your default firewall rules for now</span>
+$ service iptables stop
+$ chkconfig iptables off
+</pre></div>
+</div>
+<p>After build, install and reboot the server with the new kernel(it will take some time), you will need to install the tsuru’s dependencies</p>
+</div>
+<div class="section" id="tsuru-s-dependencies">
+<h2>tsuru’s Dependencies<a class="headerlink" href="#tsuru-s-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>tsuru needs MongoDB stable, distributed by 10genr, <a class="reference external" href="http://kr.github.com/beanstalkd/">Beanstalkd</a> as work queue, git-daemon(necessary for Gandalf) and Redis for <a class="reference external" href="https://github.com/dotcloud/hipache/">hipache</a> pt-ge
+Install the latest EPEL version, by doing this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ yum install mongodb-server beanstalkd git-daemon redis python-pip python-devel gcc gcc-c++ -y
+$ service mongod start
+$ service beanstalkd start
+$ service redis start
+$ chkconfig mongod on
+$ chkconfig beanstalkd on
+$ chkconfig redis on
+</pre></div>
+</div>
+</div>
+<div class="section" id="tsuru-setup">
+<h2>tsuru Setup<a class="headerlink" href="#tsuru-setup" title="Permalink to this headline">¶</a></h2>
+<p>tsuru uses <a class="reference external" href="https://github.com/tsuru/gandalf/">Gandalf</a> to manage <a class="reference external" href="https://gandalf.readthedocs.org/en/latest/install.html/">git repositories</a>, and <a class="reference external" href="https://github.com/dotcloud/hipache/">hipache</a> as router
+To setup tsuru, just follow this steps. Obs: It can be used to upgrade this services as needed</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ curl https://raw.github.com/tsuru/tsuru/master/misc/functions-docker-centos.sh -o functions-docker-centos.sh
+$ <span class="nb">source</span> functions-docker-centos.sh
+<span class="c1"># Install tsuru Server(tsr), Gandalf, Hipache and Circus for monitoring</span>
+$ install_services
+</pre></div>
+</div>
+<div class="section" id="configuring">
+<h3>Configuring<a class="headerlink" href="#configuring" title="Permalink to this headline">¶</a></h3>
+<p>Before running tsuru, you must configure it. By default, tsuru will look for
+the configuration file in the <code class="docutils literal notranslate"><span class="pre">/etc/tsuru/tsuru.conf</span></code> path. You can check a
+sample configuration file and documentation for each tsuru setting in the
+<a class="reference internal" href="config.html"><span class="doc">“Configuring tsuru”</span></a> page.</p>
+<p>You can download the sample configuration file from <a class="reference external" href="https://raw.github.com/tsuru/tsuru/master/etc/tsuru-docker.conf/">Github</a></p>
+<p>By default, this configuration will use the tsuru image namespace, so if you try to create an application using python platform,
+tsuru will search for an image named tsuru/python. You can change this default behavior by changing the docker:repository-namespace config field.</p>
+<p>To automatically configure tsuru and all other services, just run the function presented in functions-docker-centos.sh file, as following</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># It will configure tsuru, gandalf, hipache and circus. If you had already done that before, your previously configuration will be lost</span>
+$ <span class="nb">source</span> functions-docker-centos.sh <span class="c1">#you already did it above</span>
+$ configure_services_for_first_time
+<span class="c1"># start circus</span>
+$ initctl start circusd
+</pre></div>
+</div>
+<p>At that time, circus should be running and started all the tsuru services</p>
+</div>
+<div class="section" id="running">
+<h3>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h3>
+<p>Now that you have <code class="docutils literal notranslate"><span class="pre">tsr</span></code> properly installed, and you
+<a class="reference internal" href="config.html"><span class="doc">configured tsuru</span></a>
+Verify api, collector and docker-ssh-agent</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ps -ef<span class="p">|</span>grep ts<span class="o">[</span>r<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-docker-images">
+<h3>Creating Docker Images<a class="headerlink" href="#creating-docker-images" title="Permalink to this headline">¶</a></h3>
+<p>Now it’s time to install the docker images for your neededs platform. You can build your own docker image, or you can use ours own images as following</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add an alias for docker to make your life easier (add it to your .bash_profile)</span>
+$ <span class="nb">alias</span> <span class="nv">docker</span><span class="o">=</span><span class="s1">&#39;docker -H 127.0.0.1:4243&#39;</span>
+<span class="c1"># Build the wanted platform, here we are adding the static platform(webserver)</span>
+$ docker build -t tsuru/static https://raw.github.com/flaviamissi/basebuilder/master/static/Dockerfile
+<span class="c1"># Now you can see if your image is ready - you should see the tsuru/static as an repository</span>
+$ docker images
+<span class="c1"># If you want all the other platforms, just run the command bellow</span>
+$ <span class="k">for</span> image in nodejs php python ruby<span class="p">;</span> <span class="k">do</span> docker build -t tsuru/<span class="nv">$image</span> https://raw.github.com/flaviamissi/basebuilder/master/<span class="nv">$image</span>/Dockerfile<span class="p">;</span><span class="k">done</span>
+<span class="c1"># To see if everything went well - just take a look in the repository column</span>
+$ docker images
+<span class="c1"># Now try to create your apps!</span>
+</pre></div>
+</div>
+<div class="section" id="using-tsuru">
+<h4>Using tsuru<a class="headerlink" href="#using-tsuru" title="Permalink to this headline">¶</a></h4>
+<p>Congratulations! At this point you should have a working tsuru server running
+on your machine, follow the <a class="reference internal" href="apps/client/usage.html"><span class="doc">tsuru client usage guide</span></a> to start build your apps.</p>
+</div>
+<div class="section" id="adding-services">
+<h4>Adding Services<a class="headerlink" href="#adding-services" title="Permalink to this headline">¶</a></h4>
+<p>Here you will find a complete step-by-step example of how to install a mysql service with tsuru: <a class="reference external" href="http://docs.tsuru.io/en/latest/services/mysql-example.html">http://docs.tsuru.io/en/latest/services/mysql-example.html</a></p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="docker-node.html" class="btn btn-neutral float-right" title="Setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="docker.html" class="btn btn-neutral" title="Build your own PaaS with tsuru and Docker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.4.0
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.4.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

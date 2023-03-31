@@ -1,0 +1,371 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using Buildpacks &mdash; tsuru 1.11.6 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Using services with your app" href="services.html" />
+    <link rel="prev" title="Deploying Docker Image applications" href="docker-image.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.11.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Using</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="install-client.html">Installing tsuru client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploying.html">Deploying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app-deploy.html">App-Deploy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html">Deploying Python applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ruby.html">Deploying Ruby applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="go.html">Deploying Go applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="java.html">Deploying Java applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="php.html">Deploying PHP applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker-image.html">Deploying Docker Image applications</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Using Buildpacks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-an-application">Creating an Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deploying-your-application">Deploying your Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#included-buildpacks">Included Buildpacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-a-custom-buildpack">Using a Custom Buildpack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-your-own-buildpack">Creating your own Buildpack</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="services.html">Using services with your app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery.html">Recovering an application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="procfile.html">Procfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsuru.yaml.html">tsuru.yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-states.html">Unit states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/plugins.html">tsuru client plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">Application Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application-pool.html">Choose a pool to deploy your app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="team-tokens.html">Handling tokens</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Using</a> &raquo;</li>
+        
+      <li>Using Buildpacks</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/using/buildpacks.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-buildpacks">
+<h1>Using Buildpacks<a class="headerlink" href="#using-buildpacks" title="Permalink to this headline">¶</a></h1>
+<p>tsuru supports deploying applications via Heroku Buildpacks.</p>
+<p>Buildpacks are useful if you’re interested in following Heroku’s best practices for building applications or if you are deploying an application that already runs on Heroku.</p>
+<p>tsuru uses <a class="reference external" href="https://github.com/progrium/buildstep">Buildstep Docker image</a> to make deploy using buildpacks possible.</p>
+<div class="section" id="creating-an-application">
+<h2>Creating an Application<a class="headerlink" href="#creating-an-application" title="Permalink to this headline">¶</a></h2>
+<p>What do you need is create an application using <cite>buildpack</cite> platform:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-create myapp buildpack
+</pre></div>
+</div>
+</div>
+<div class="section" id="deploying-your-application">
+<h2>Deploying your Application<a class="headerlink" href="#deploying-your-application" title="Permalink to this headline">¶</a></h2>
+<p>Use <cite>tsuru app deploy</cite> to deploy your application.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app deploy -a myapp .
+</pre></div>
+</div>
+</div>
+<div class="section" id="included-buildpacks">
+<h2>Included Buildpacks<a class="headerlink" href="#included-buildpacks" title="Permalink to this headline">¶</a></h2>
+<p>A number of buildpacks come bundled by default:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/heroku/heroku-buildpack-ruby.git">https://github.com/heroku/heroku-buildpack-ruby.git</a></li>
+<li><a class="reference external" href="https://github.com/heroku/heroku-buildpack-nodejs.git">https://github.com/heroku/heroku-buildpack-nodejs.git</a></li>
+<li><a class="reference external" href="https://github.com/heroku/heroku-buildpack-java.git">https://github.com/heroku/heroku-buildpack-java.git</a></li>
+<li><a class="reference external" href="https://github.com/heroku/heroku-buildpack-play.git">https://github.com/heroku/heroku-buildpack-play.git</a></li>
+<li><a class="reference external" href="https://github.com/heroku/heroku-buildpack-python.git">https://github.com/heroku/heroku-buildpack-python.git</a></li>
+<li><a class="reference external" href="https://github.com/heroku/heroku-buildpack-scala.git">https://github.com/heroku/heroku-buildpack-scala.git</a></li>
+<li><a class="reference external" href="https://github.com/heroku/heroku-buildpack-clojure.git">https://github.com/heroku/heroku-buildpack-clojure.git</a></li>
+<li><a class="reference external" href="https://github.com/heroku/heroku-buildpack-gradle.git">https://github.com/heroku/heroku-buildpack-gradle.git</a></li>
+<li><a class="reference external" href="https://github.com/heroku/heroku-buildpack-grails.git">https://github.com/heroku/heroku-buildpack-grails.git</a></li>
+<li><a class="reference external" href="https://github.com/CHH/heroku-buildpack-php.git">https://github.com/CHH/heroku-buildpack-php.git</a></li>
+<li><a class="reference external" href="https://github.com/kr/heroku-buildpack-go.git">https://github.com/kr/heroku-buildpack-go.git</a></li>
+<li><a class="reference external" href="https://github.com/oortcloud/heroku-buildpack-meteorite.git">https://github.com/oortcloud/heroku-buildpack-meteorite.git</a></li>
+<li><a class="reference external" href="https://github.com/miyagawa/heroku-buildpack-perl.git">https://github.com/miyagawa/heroku-buildpack-perl.git</a></li>
+<li><a class="reference external" href="https://github.com/igrigorik/heroku-buildpack-dart.git">https://github.com/igrigorik/heroku-buildpack-dart.git</a></li>
+<li><a class="reference external" href="https://github.com/rhy-jot/buildpack-nginx.git">https://github.com/rhy-jot/buildpack-nginx.git</a></li>
+<li><a class="reference external" href="https://github.com/Kloadut/heroku-buildpack-static-apache.git">https://github.com/Kloadut/heroku-buildpack-static-apache.git</a></li>
+<li><a class="reference external" href="https://github.com/bacongobbler/heroku-buildpack-jekyll.git">https://github.com/bacongobbler/heroku-buildpack-jekyll.git</a></li>
+<li><a class="reference external" href="https://github.com/ddollar/heroku-buildpack-multi.git">https://github.com/ddollar/heroku-buildpack-multi.git</a></li>
+</ul>
+<p>tsuru will cycle through the bin/detect script of each buildpack to match the code you are pushing.</p>
+</div>
+<div class="section" id="using-a-custom-buildpack">
+<h2>Using a Custom Buildpack<a class="headerlink" href="#using-a-custom-buildpack" title="Permalink to this headline">¶</a></h2>
+<p>To use a custom buildpack, set the BUILDPACK_URL environment variable.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru env-set <span class="nv">BUILDPACK_URL</span><span class="o">=</span>https://github.com/dpiddy/heroku-buildpack-ruby-minimal
+</pre></div>
+</div>
+<p>On your next <cite>git push</cite>, the custom buildpack will be used.</p>
+</div>
+<div class="section" id="creating-your-own-buildpack">
+<h2>Creating your own Buildpack<a class="headerlink" href="#creating-your-own-buildpack" title="Permalink to this headline">¶</a></h2>
+<p>You can follow this Heroku documentation to learn how to create your own Buildpack: <a class="reference external" href="https://devcenter.heroku.com/articles/buildpack-api">https://devcenter.heroku.com/articles/buildpack-api</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="services.html" class="btn btn-neutral float-right" title="Using services with your app" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="docker-image.html" class="btn btn-neutral" title="Deploying Docker Image applications" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.11.6
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.11.6',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

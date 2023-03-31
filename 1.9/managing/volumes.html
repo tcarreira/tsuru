@@ -1,0 +1,381 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Volumes &mdash; tsuru 1.9.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Event webhooks" href="event-webhooks.html" />
+    <link rel="prev" title="Debugging and Troubleshooting" href="debugging-and-troubleshooting.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.9.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Managing</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="add-platform.html">Installing platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-platform.html">Creating a platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using-pools.html">Using Pools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="provisioners.html">Provisioners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clusters.html">Clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="segregate-scheduler.html">Segregate Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrading-docker.html">Upgrading Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="repositories.html">Managing Git repositories and SSH keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users-and-permissions.html">Managing users and permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html">Managing Application Logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-and-troubleshooting.html">Debugging and Troubleshooting</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Volumes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#volume-plans">Volume Plans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Volumes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#on-kubernetes-provisioner">On Kubernetes provisioner</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#on-swarm-provisioner">On Swarm provisioner</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#volume-binds">Volume binds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#volumes-with-minikube">Volumes with Minikube</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="event-webhooks.html">Event webhooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/index.html">Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Managing</a> &raquo;</li>
+        
+      <li>Volumes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/managing/volumes.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="volumes">
+<h1>Volumes<a class="headerlink" href="#volumes" title="Permalink to this headline">¶</a></h1>
+<p>Volumes allow applications running on tsuru to use external storage volumes mounted on their filesystem.
+There are three concepts involved in the process: volume plans, volume and volume binds.</p>
+<div class="section" id="volume-plans">
+<h2>Volume Plans<a class="headerlink" href="#volume-plans" title="Permalink to this headline">¶</a></h2>
+<p>Volume plans are managed by tsuru administrators and are configured in tsuru.conf file. Volume plans describe
+how each volume that will be associated to this plan will be created by each provisioner.</p>
+<p>The following configuration register a volume plan called <code class="docutils literal notranslate"><span class="pre">ebs</span></code> that is supported by swarm and kubernetes using
+different parameters. Each has a own set of parameters that may be set on the configuration file.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">volume-plans</span><span class="p">:</span>
+  <span class="nt">ebs</span><span class="p">:</span>
+    <span class="nt">swarm</span><span class="p">:</span>
+        <span class="nt">driver</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rexray/ebs</span>
+    <span class="nt">kubernetes</span><span class="p">:</span>
+        <span class="nt">storage-class</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my-ebs-storage-class</span>
+</pre></div>
+</div>
+<p>On swarm a driver must be specified along with its parameters. On Kubernetes, volume plans may use a volume plugin or a storage class.</p>
+</div>
+<div class="section" id="id1">
+<h2>Volumes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Volumes are created by tsuru users using one of the plans previously configurated. These can be created and managed by using
+the tsuru client. The behavior is provisioner specific:</p>
+<div class="section" id="on-kubernetes-provisioner">
+<h3>On Kubernetes provisioner<a class="headerlink" href="#on-kubernetes-provisioner" title="Permalink to this headline">¶</a></h3>
+<p>Creating a volume with a plan that has no storage-class defined will cause tsuru to manually create one PersistentVolume
+using the plugin specified in the plan with the opt received in the command line. Also, one PersistentVolumeClaim would be created and bound to
+the PersistentVolume.</p>
+<p>If the plan specifies a storage-class instead of a plugin only the PersistentVolumeClaim will be created using the specified storage-class.</p>
+</div>
+<div class="section" id="on-swarm-provisioner">
+<h3>On Swarm provisioner<a class="headerlink" href="#on-swarm-provisioner" title="Permalink to this headline">¶</a></h3>
+<p>A new volume would be created (i.e. docker volume create) using the driver informed in the plan and the volume opt would be a merge between
+the plan opt and command line opt.</p>
+</div>
+</div>
+<div class="section" id="volume-binds">
+<h2>Volume binds<a class="headerlink" href="#volume-binds" title="Permalink to this headline">¶</a></h2>
+<p>Volumes binds, like service binds, associate a given application to a previously created volume. This is the moment when
+the volume will be made available to the application by the provisioner. The bind/unbind actions can be triggered by the tsuru
+client.</p>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>Supose an <code class="docutils literal notranslate"><span class="pre">ebs</span></code> volume plan is registered in tsuru configuration, one can create a volume using tsuru client:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru volume create myvol ebs -o <span class="nv">capacity</span><span class="o">=</span>1Gi
+</pre></div>
+</div>
+<p>To be able to use this volume from an app, bind to it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru volume <span class="nb">bind</span> myvol /mnt/mountpoint -a my-app
+</pre></div>
+</div>
+</div>
+<div class="section" id="volumes-with-minikube">
+<h2>Volumes with Minikube<a class="headerlink" href="#volumes-with-minikube" title="Permalink to this headline">¶</a></h2>
+<p>If you’re running <a class="reference external" href="https://github.com/kubernetes/minikube">minikube</a>, you can share a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/volumes/#hostpath">hostPath</a> volume among your app units. Add the following configuration to tsuru config file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">volume-plans</span><span class="p">:</span>
+  <span class="nt">minikube-plan</span><span class="p">:</span>
+    <span class="nt">kubernetes</span><span class="p">:</span>
+      <span class="nt">storage-class</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">standard</span>
+</pre></div>
+</div>
+<p>Then, to create a volume and bind it to your app:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tsuru volume create my-vol minikube-plan -p my-kubernetes-pool -t my-team -o <span class="nv">capacity</span><span class="o">=</span>1Gi -o access-modes<span class="o">=</span>ReadWriteMany
+tsuru volume <span class="nb">bind</span> my-vol /mnt/mountpoint -a my-app
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="event-webhooks.html" class="btn btn-neutral float-right" title="Event webhooks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="debugging-and-troubleshooting.html" class="btn btn-neutral" title="Debugging and Troubleshooting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.9.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.9.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

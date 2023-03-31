@@ -1,0 +1,383 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tsuru.yaml &mdash; tsuru 1.1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Unit states" href="unit-states.html" />
+    <link rel="prev" title="Procfile" href="procfile.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Using</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="install-client.html">Installing tsuru clients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html">Deploying Python applications in tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ruby.html">Deploying Ruby applications in tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="go.html">Deploying Go applications in tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="java.html">Deploying Java applications on tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="php.html">Deploying PHP applications in tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildpacks.html">Using Buildpacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services.html">Using services with your app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery.html">Recovering an application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="procfile.html">Procfile</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">tsuru.yaml</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deployment-hooks">Deployment hooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#healthcheck">Healthcheck</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="unit-states.html">Unit states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/plugins.html">tsuru client plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">Application Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application-pool.html">Choose a pool to deploy your app</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/index.html">Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Using</a> &raquo;</li>
+        
+      <li>tsuru.yaml</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/using/tsuru.yaml.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tsuru-yaml">
+<h1>tsuru.yaml<a class="headerlink" href="#tsuru-yaml" title="Permalink to this headline">¶</a></h1>
+<p>tsuru.yaml is a special file located in the root of the application. The name of
+the file may be <code class="docutils literal notranslate"><span class="pre">tsuru.yaml</span></code> or <code class="docutils literal notranslate"><span class="pre">tsuru.yml</span></code>.</p>
+<p>This file is used to describe certain aspects of your app. Currently it describes
+information about deployment hooks and deployment time health checks. How to use
+this features is described below.</p>
+<div class="section" id="deployment-hooks">
+<span id="yaml-deployment-hooks"></span><h2>Deployment hooks<a class="headerlink" href="#deployment-hooks" title="Permalink to this headline">¶</a></h2>
+<p>tsuru provides some deployment hooks, like <code class="docutils literal notranslate"><span class="pre">restart:before</span></code>, <code class="docutils literal notranslate"><span class="pre">restart:after</span></code>
+and <code class="docutils literal notranslate"><span class="pre">build</span></code>. Deployment hooks allow developers to run commands before and after
+some commands.</p>
+<p>Here is an example about how to declare this hooks in your tsuru.yaml file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">hooks</span><span class="p">:</span>
+  <span class="nt">restart</span><span class="p">:</span>
+    <span class="nt">before</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">python manage.py generate_local_file</span>
+    <span class="nt">after</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">python manage.py clear_local_cache</span>
+  <span class="nt">build</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">python manage.py collectstatic --noinput</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">python manage.py compress</span>
+</pre></div>
+</div>
+<p>tsuru supports the following hooks:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">restart:before</span></code>: this hook lists commands that will run before the unit is
+restarted. Commands listed in this hook will run once per unit. For instance,
+imagine there’s an app with two units and the <code class="docutils literal notranslate"><span class="pre">tsuru.yaml</span></code> file listed above.
+The command <strong>python manage.py generate_local_file</strong> would run two times, once
+per unit.</li>
+<li><code class="docutils literal notranslate"><span class="pre">restart:after</span></code>: this hook is like before-each, but runs after restarting a
+unit.</li>
+<li><code class="docutils literal notranslate"><span class="pre">build</span></code>: this hook lists commands that will be run during deploy, when the
+image is being generated.</li>
+</ul>
+</div>
+<div class="section" id="healthcheck">
+<span id="yaml-healthcheck"></span><h2>Healthcheck<a class="headerlink" href="#healthcheck" title="Permalink to this headline">¶</a></h2>
+<p>You can declare a health check in your tsuru.yaml file. This health check will be
+called during the deployment process and tsuru will make sure this health check is
+passing before continuing with the deployment process.</p>
+<p>If tsuru fails to run the health check successfully it will abort the deployment
+before switching the router to point to the new units, so your application will
+never be unresponsive. You can configure the maximum time to wait for the
+application to respond with the <code class="docutils literal notranslate"><span class="pre">docker:healthcheck:max-time</span></code> config.</p>
+<p>Here is how you can configure a health check in your yaml file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">healthcheck</span><span class="p">:</span>
+  <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/healthcheck</span>
+  <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">GET</span>
+  <span class="nt">status</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">200</span>
+  <span class="nt">match</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.*OKAY.*</span>
+  <span class="nt">allowed_failures</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">use_in_router</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">healthcheck:path</span></code>: Which path to call in your application. This path will be
+called for each unit. It is the only mandatory field, if it’s not set your
+health check will be ignored.</li>
+<li><code class="docutils literal notranslate"><span class="pre">healthcheck:method</span></code>: The method used to make the http request. Defaults to
+GET.</li>
+<li><code class="docutils literal notranslate"><span class="pre">healthcheck:status</span></code>: The expected response code for the request. Defaults to
+200.</li>
+<li><code class="docutils literal notranslate"><span class="pre">healthcheck:match</span></code>: A regular expression to be matched against the request
+body. If it’s not set the body won’t be read and only the status code will be
+checked. This regular expression uses <a class="reference external" href="https://code.google.com/p/re2/wiki/Syntax">Go syntax</a> and runs with <code class="docutils literal notranslate"><span class="pre">.</span></code> matching
+<code class="docutils literal notranslate"><span class="pre">\n</span></code> (<code class="docutils literal notranslate"><span class="pre">s</span></code> flag).</li>
+<li><code class="docutils literal notranslate"><span class="pre">healthcheck:allowed_failures</span></code>: The number of allowed failures before that the
+health check consider the application as unhealthy. Defaults to 0.</li>
+<li><code class="docutils literal notranslate"><span class="pre">healthcheck:use_in_router</span></code>: Whether this health check path should also be
+registered in the router. Please, ensure that the check is consistent to
+prevent units being disabled by the router. Defaults to false.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="unit-states.html" class="btn btn-neutral float-right" title="Unit states" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="procfile.html" class="btn btn-neutral" title="Procfile" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.1.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.1.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installing tsuru components &mdash; tsuru 1.5.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Server" href="api.html" />
+    <link rel="prev" title="tsuru Installer" href="using-tsuru-installer.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Installing</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="using-tsuru-installer.html">tsuru Installer</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Installing tsuru components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html">API Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="planb-router.html">PlanB Router</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adding-nodes.html">Adding Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dashboard.html">Dashboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gandalf.html">Gandalf (Optional)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/index.html">Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Installing</a> &raquo;</li>
+        
+      <li>Installing tsuru components</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/installing/installing-tsuru-components.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installing-tsuru-components">
+<span id="id1"></span><h1>Installing tsuru components<a class="headerlink" href="#installing-tsuru-components" title="Permalink to this headline">¶</a></h1>
+<p>This document will describe how to install each component separately.
+We assume that tsuru is being installed on an Ubuntu Server 14.04 LTS 64-bit
+machine. This is currently the supported environment for tsuru, you may try
+running it on other environments, but there’s a chance it won’t be a smooth
+ride.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#adding-repositories">Adding repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#installing">Installing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#creating-admin-user">Creating admin user</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="planb-router.html">PlanB Router</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="planb-router.html#adding-repositories">Adding repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planb-router.html#installing">Installing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planb-router.html#configuring">Configuring</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="adding-nodes.html">Adding Nodes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="adding-nodes.html#managed-nodes">Managed nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adding-nodes.html#unmanaged-nodes">Unmanaged nodes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Dashboard</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dashboard.html#adding-the-python-platform">Adding the Python platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dashboard.html#creating-the-dashboard-app">Creating the dashboard app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dashboard.html#deploying-the-dashboard">Deploying the dashboard</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gandalf.html">Gandalf (Optional)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gandalf.html#installing">Installing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gandalf.html#configuring-tsuru-to-use-gandalf">Configuring tsuru to use Gandalf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gandalf.html#token-for-authentication-with-tsuru-api">Token for authentication with tsuru API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gandalf.html#adding-gandalf-to-an-already-existing-tsuru-cluster">Adding Gandalf to an already existing tsuru cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gandalf.html#managing-ssh-public-keys">Managing SSH public keys</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api.html" class="btn btn-neutral float-right" title="API Server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="using-tsuru-installer.html" class="btn btn-neutral" title="tsuru Installer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.5.4
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.5.4',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

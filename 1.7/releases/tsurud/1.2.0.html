@@ -1,0 +1,461 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tsurud 1.2.0 release notes &mdash; tsuru 1.7.6 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="tsurud 1.1.2 release notes" href="1.1.2.html" />
+    <link rel="prev" title="tsurud 1.2.1 release notes" href="1.2.1.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.7.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../managing/index.html">Managing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/index.html">Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugins/index.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Release notes</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#tsurud-tsuru-server-daemon">tsurud (tsuru server daemon)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="1.7.0.html">tsurud 1.7.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.6.0.html">tsurud 1.6.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.5.0.html">tsurud 1.5.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.4.0.html">tsurud 1.4.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.3.0.html">tsurud 1.3.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.2.2.html">tsurud 1.2.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.2.1.html">tsurud 1.2.1 release notes</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">tsurud 1.2.0 release notes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#new-features">New features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#required-migrations">Required migrations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bug-fixes">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="1.1.2.html">tsurud 1.1.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.1.1.html">tsurud 1.1.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.1.0.html">tsurud 1.1.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.0.1.html">tsurud 1.0.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.0.0.html">tsurud 1.0.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.13.1.html">tsurud 0.13.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.13.0.html">tsurud 0.13.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.12.4.html">tsurud 0.12.4 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.12.3.html">tsurud 0.12.3 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.12.2.html">tsurud 0.12.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.12.1.html">tsurud 0.12.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0.12.0.html">tsurud 0.12.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.11.3.html">tsr 0.11.3 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.11.2.html">tsr 0.11.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.11.1.html">tsr 0.11.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.11.0.html">tsr 0.11.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.10.2.html">tsr 0.10.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.10.1.html">tsr 0.10.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.10.0.html">tsr 0.10.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.9.1.html">tsr 0.9.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.9.0.html">tsr 0.9.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.8.2.html">tsr 0.8.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.8.1.html">tsr 0.8.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.8.0.html">tsr 0.8.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.7.2.html">tsr 0.7.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.7.1.html">tsr 0.7.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.7.0.html">tsr 0.7.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.6.2.html">tsr 0.6.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.6.1.html">tsr 0.6.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.6.0.html">tsr 0.6.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.5.3.html">tsr 0.5.3 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.5.2.html">tsr 0.5.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.5.1.html">tsr 0.5.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.5.0.html">tsr 0.5.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.4.0.html">tsr 0.4.0 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.12.html">tsr 0.3.12 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.11.html">tsr 0.3.11 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.10.html">tsr 0.3.10 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.9.html">tsr 0.3.9 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.8.html">tsr 0.3.8 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.7.html">tsr 0.3.7 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.6.html">tsr 0.3.6 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.5.html">tsr 0.3.5 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.4.html">tsr 0.3.4 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.3.html">tsr 0.3.3 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.2.html">tsr 0.3.2 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.1.html">tsr 0.3.1 release notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tsr/0.3.0.html">tsr 0.3.0 release notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tsuru">tsuru</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Release notes</a> &raquo;</li>
+        
+      <li>tsurud 1.2.0 release notes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/releases/tsurud/1.2.0.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tsurud-1-2-0-release-notes">
+<h1>tsurud 1.2.0 release notes<a class="headerlink" href="#tsurud-1-2-0-release-notes" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to tsurud 1.2.0!</p>
+<p>These release notes cover the <a class="reference internal" href="#new-1-2-0"><span class="std std-ref">new features</span></a>, <a class="reference internal" href="#bug-1-2-0"><span class="std std-ref">bug fixes</span></a> and <a class="reference internal" href="#migrations-1-2-0"><span class="std std-ref">required migrations</span></a>.</p>
+<div class="section" id="new-features">
+<span id="new-1-2-0"></span><h2>New features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="multiple-provisioners">
+<h3>Multiple provisioners<a class="headerlink" href="#multiple-provisioners" title="Permalink to this headline">¶</a></h3>
+<p><strong>Experimental</strong> support for multiple provisioners. This release of tsuru is
+the first in a long time to support multiple provisioners. The provisioners in
+tsuru are responsible for, among other things, schedule containers on different
+nodes and handle moving containers in case of failures.</p>
+<p>Our default provisioner implementation remains the same, it includes a
+battle-tested containers scheduler and healer and has been in production for
+over 3 years, managing thousands of containers every day.</p>
+<p>However, the scenario has changed a lot since tsuru first started 3 years ago.
+Where the options for container orchestration/scheduling were few and imature,
+now they are plenty and (in some cases) stable. Because of this change we
+thought it would be nice to experiment on how to integrate other container
+schedulers as tsuru provisioners. These experiments have the potential of
+motivating us to change the default provisioner used in tsuru and remove a
+whole bunch of code from tsuru.</p>
+<p>To allow a seemless experience, first, a <code class="docutils literal notranslate"><span class="pre">provisioner</span></code> attribute was added to
+pools. It can be set using <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">pool-add</span> <span class="pre">--provisioner</span></code> and <code class="docutils literal notranslate"><span class="pre">tsuru</span>
+<span class="pre">pool-update</span> <span class="pre">--provisioner</span></code>. This allows changing the provisioner of single
+pool, you can also set the default provisioner in the <a class="reference internal" href="../../reference/config.html#config-provisioner"><span class="std std-ref">config file</span></a>.</p>
+<p>Over the course of the next tsuru releases we intend to add <strong>experimental</strong>
+support as provisioners for:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://docs.docker.com/engine/swarm/">Docker Swarm mode</a> (<code class="docutils literal notranslate"><span class="pre">swarm</span></code>
+provisioner)</li>
+<li><a class="reference external" href="https://mesosphere.github.io/marathon/">Mesos/Marathon</a> (<code class="docutils literal notranslate"><span class="pre">mesos</span></code>
+provisioner)</li>
+<li><a class="reference external" href="http://kubernetes.io/">Kubernetes</a> (<code class="docutils literal notranslate"><span class="pre">kubernetes</span></code> provisioner)</li>
+</ul>
+<p>This release focused on adding support for the <code class="docutils literal notranslate"><span class="pre">swarm</span></code> provisioner. Please
+note that as much as we’d love feedback on the new added provisioners, they
+should be considered as highly <strong>experimental</strong> and may be removed from tsuru
+in the future. Because of that we cannot recommend them for production
+environments just yet. That said, please do play and report any bugs found
+while using them.</p>
+</div>
+<div class="section" id="iaas-integration-with-docker-machine">
+<h3>IaaS integration with Docker Machine<a class="headerlink" href="#iaas-integration-with-docker-machine" title="Permalink to this headline">¶</a></h3>
+<p>Apart from containers orchestration one thing that sets tsuru apart is the
+ability to also orchestrate virtual machines. This is acomplished using tsuru
+<a class="reference internal" href="../../installing/adding-nodes.html#installing-managed-nodes"><span class="std std-ref">managed nodes</span></a>. Previously we had support for
+only 3 IaaS providers: Amazon EC2, Digital Ocean and Cloudstack.</p>
+<p>Starting on this version we added a new IaaS provider that uses Docker Machine
+as a backend, this means all drivers <a class="reference external" href="https://github.com/docker/machine/tree/master/drivers">supported by Docker Machine</a> and also <a class="reference external" href="https://github.com/docker/docker.github.io/blob/master/machine/AVAILABLE_DRIVER_PLUGINS.md">community
+supported drivers</a>
+can be used to add managed nodes to tsuru. This is huge and adds support for
+big names like Azure, Google Compute Engine, among others.</p>
+</div>
+<div class="section" id="docker-tls-support-for-provisioners">
+<h3>Docker TLS support for provisioners<a class="headerlink" href="#docker-tls-support-for-provisioners" title="Permalink to this headline">¶</a></h3>
+<p>In this version we added support for orchestrating containers on docker nodes
+configured with TLS. TLS is mandatory for nodes created using the newly
+introduced Docker Machine IaaS and can be also configured for nonmanaged and
+nodes provisioned with other IaaS providers. Both provisioners, native and
+swarm, support docker with TLS.</p>
+</div>
+<div class="section" id="https-routing-support-for-apps">
+<h3>HTTPS routing support for apps<a class="headerlink" href="#https-routing-support-for-apps" title="Permalink to this headline">¶</a></h3>
+<p>In this version, we added support for configuring TLS certificates for
+applications. The certificate and private key are passed directly to the
+application router which is responsible for TLS termination. Currently, the
+<a class="reference external" href="https://github.com/tsuru/planb">planB router</a> is the only router that
+supports managing TLS certificates and HTTPs routing directly from tsuru.</p>
+<p>Certificates should be configured for each app cname using <code class="docutils literal notranslate"><span class="pre">tsuru</span>
+<span class="pre">certificate-set</span> <span class="pre">-a</span> <span class="pre">&lt;app&gt;</span> <span class="pre">-c</span> <span class="pre">&lt;cname&gt;</span> <span class="pre">cert.crt</span> <span class="pre">key.crt</span></code> and can be removed by
+<code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">certificate-unset</span> <span class="pre">-a</span> <span class="pre">&lt;app&gt;</span> <span class="pre">-c</span> <span class="pre">&lt;cname&gt;</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">certificate-list</span> <span class="pre">-a</span> <span class="pre">&lt;app&gt;</span></code> may be used to list certificates bound to a
+particular app.</p>
+</div>
+<div class="section" id="other-improvements">
+<h3>Other improvements<a class="headerlink" href="#other-improvements" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/google/gops">gops</a> can be used to extract information
+from tsurud process. <a class="reference external" href="https://github.com/tsuru/tsuru/issues/1495">#1495</a></li>
+<li>Basic support for prometheus style metrics on <code class="docutils literal notranslate"><span class="pre">/metrics</span></code> endpoint. <a class="reference external" href="https://github.com/tsuru/tsuru/commit/32c117b5c9d90d1244bbbeaffd7060ecbd6c33df">32c117</a></li>
+<li>Improved documentation on how to extract and process metrics from application
+containers. <a class="reference external" href="https://github.com/tsuru/tsuru/issues/1460">#1460</a></li>
+<li>Improved documentation on how to install and use tsuru-dashboard. <a class="reference external" href="https://github.com/tsuru/tsuru/issues/1444">#1444</a></li>
+<li>When a single IaaS is configured tsuru will use it as default. <a class="reference external" href="https://github.com/tsuru/tsuru/issues/1259">#1259</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="required-migrations">
+<span id="migrations-1-2-0"></span><h2>Required migrations<a class="headerlink" href="#required-migrations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Due to a bug in tsuru, it was possible for duplicated entries to be added to
+the <code class="docutils literal notranslate"><span class="pre">db.routers</span></code> collection in MongoDB. This collection keeps track of
+swapped application routers when <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">app-swap</span></code> is used. To fix the
+duplicated entries simply run <code class="docutils literal notranslate"><span class="pre">tsurud</span> <span class="pre">migrate</span></code>. The migration will try its
+best to fix the entries but it might fail in some extreme corner cases. In
+case of failure it will print the offending entries that will have to be
+manually fixed in MongoDB (i.e. removing one of the duplicated entries).</li>
+</ul>
+</div>
+<div class="section" id="bug-fixes">
+<span id="bug-1-2-0"></span><h2>Bug fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Correctly using entrypoint and command in image deploys. <a class="reference external" href="https://github.com/tsuru/tsuru/issues/1484">#1484</a></li>
+<li>Removing healthcheck from hipache router when backend is removed. <a class="reference external" href="https://github.com/tsuru/tsuru/issues/1450">#1450</a></li>
+<li>Fixed error when listing nodes if there were no nodes registered. <a class="reference external" href="https://github.com/tsuru/tsuru/issues/1436">#1436</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="1.1.2.html" class="btn btn-neutral float-right" title="tsurud 1.1.2 release notes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="1.2.1.html" class="btn btn-neutral" title="tsurud 1.2.1 release notes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.7.6
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.7.6',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

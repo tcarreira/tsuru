@@ -1,0 +1,384 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Node Auto Scaling &mdash; tsuru 1.7.6 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Plugins" href="../plugins/index.html" />
+    <link rel="prev" title="Metrics" href="metrics.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.7.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Advanced topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Node Auto Scaling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#count-based-scaling">Count based scaling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#adding-nodes">Adding nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#removing-nodes">Removing nodes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#memory-based-scaling">Memory based scaling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Adding nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Removing nodes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#rebalancing-nodes">Rebalancing nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auto-scale-events">Auto scale events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-auto-scale-once">Running auto scale once</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Advanced topics</a> &raquo;</li>
+        
+      <li>Node Auto Scaling</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/advanced_topics/node_scaling.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="node-auto-scaling">
+<h1>Node Auto Scaling<a class="headerlink" href="#node-auto-scaling" title="Permalink to this headline">¶</a></h1>
+<p>Node auto scaling can be enabled by setting <cite>docker:auto-scale:enabled</cite> to true or
+by using <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">node</span> <span class="pre">autoscale</span> <span class="pre">rule</span> <span class="pre">set</span></code> to configure a autoscale rule.
+It will try to add, remove and rebalance docker nodes used by tsuru.</p>
+<p>Node scaling algorithms run in clusters of docker nodes, each cluster is based
+on the pool the node belongs to.</p>
+<p>There are two different scaling algorithms that will be used, depending on how
+tsuru is configured: count based scaling, and memory based scaling.</p>
+<div class="section" id="count-based-scaling">
+<h2>Count based scaling<a class="headerlink" href="#count-based-scaling" title="Permalink to this headline">¶</a></h2>
+<p>It’s chosen if <cite>docker:auto-scale:max-container-count</cite> is set to a value &gt; 0 in
+your tsuru configuration.</p>
+<div class="section" id="adding-nodes">
+<h3>Adding nodes<a class="headerlink" href="#adding-nodes" title="Permalink to this headline">¶</a></h3>
+<p>Having <cite>max-container-count</cite> value as <span class="math notranslate nohighlight">\(max\)</span>, the number of nodes in cluster
+as <span class="math notranslate nohighlight">\(nodes\)</span>, and the total number of containers in all cluster’s nodes as
+<span class="math notranslate nohighlight">\(total\)</span>, we get the number of free slots <span class="math notranslate nohighlight">\(free\)</span> with:</p>
+<div class="math notranslate nohighlight">
+\[free = max * nodes - total\]</div>
+<p>If <span class="math notranslate nohighlight">\(free &lt; 0\)</span> then a new node will be added and tsuru will rebalance
+containers using the new node.</p>
+</div>
+<div class="section" id="removing-nodes">
+<h3>Removing nodes<a class="headerlink" href="#removing-nodes" title="Permalink to this headline">¶</a></h3>
+<p>Having <cite>docker:auto-scale:scale-down-ratio</cite> value <span class="math notranslate nohighlight">\(ratio\)</span>. tsuru will try to
+remove an existing node if:</p>
+<div class="math notranslate nohighlight">
+\[free &gt; max * ratio\]</div>
+<p>Before removing a node tsuru will move it’s containers to other nodes available in
+the cluster.</p>
+<p>To avoid entering loops, removing and adding node, tsuru will require <span class="math notranslate nohighlight">\(ratio
+&gt; 1\)</span>, if this is not true scaling will not run.</p>
+</div>
+</div>
+<div class="section" id="memory-based-scaling">
+<h2>Memory based scaling<a class="headerlink" href="#memory-based-scaling" title="Permalink to this headline">¶</a></h2>
+<p>It’s chosen if <cite>docker:auto-scale:max-container-count</cite> is not set and your
+scheduler is configured to use node’s memory information, by setting
+<cite>docker:scheduler:total-memory-metadata</cite> and <cite>docker:scheduler:max-used-memory</cite>.</p>
+<div class="section" id="id1">
+<h3>Adding nodes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Having the amount of memory necessary by the plan with the largest memory
+requirement as <span class="math notranslate nohighlight">\(maxPlanMemory\)</span>. A new node will be added if for all nodes
+the amount of unreserved memory (<span class="math notranslate nohighlight">\(unreserved\)</span>) satisfies:</p>
+<div class="math notranslate nohighlight">
+\[unreserved &lt; maxPlanMemory\]</div>
+</div>
+<div class="section" id="id2">
+<h3>Removing nodes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Considering the amount of memory necessary by the plan with the largest memory
+requirement as <span class="math notranslate nohighlight">\(maxPlanMemory\)</span> and <cite>docker:auto-scale:scale-down-ratio</cite>
+value as <span class="math notranslate nohighlight">\(ratio\)</span>. A node will be removed if its current containers can be
+distributed across other nodes in the same pool and at least one node still has
+unreserved memory (<span class="math notranslate nohighlight">\(unreserved\)</span>) satisfying:</p>
+<div class="math notranslate nohighlight">
+\[unreserved &gt; maxPlanMemory * ratio\]</div>
+</div>
+</div>
+<div class="section" id="rebalancing-nodes">
+<h2>Rebalancing nodes<a class="headerlink" href="#rebalancing-nodes" title="Permalink to this headline">¶</a></h2>
+<p>Rebalancing containers will be triggered when a new node is added or if
+rebalancing would decrease the difference of containers in nodes by a number
+greater than 2, regardless the scaling algorithm.</p>
+<p>Also, rebalancing will not run if <cite>docker:auto-scale:prevent-rebalance</cite> is set to
+true.</p>
+</div>
+<div class="section" id="auto-scale-events">
+<h2>Auto scale events<a class="headerlink" href="#auto-scale-events" title="Permalink to this headline">¶</a></h2>
+<p>Each time tsuru tries to run an auto scale action (add, remove, or rebalance). It
+will create an auto scale event. This event will record the result of the auto
+scale action and possible errors that occurred during its execution.</p>
+<p>You can list auto scale events with <cite>tsuru docker-autoscale-list</cite>.</p>
+</div>
+<div class="section" id="running-auto-scale-once">
+<h2>Running auto scale once<a class="headerlink" href="#running-auto-scale-once" title="Permalink to this headline">¶</a></h2>
+<p>Even if you have not enabled autoscale, you can make tsuru
+trigger the execution of the auto scale algorithm by running <cite>tsuru docker-autoscale-run</cite>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../plugins/index.html" class="btn btn-neutral float-right" title="Plugins" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="metrics.html" class="btn btn-neutral" title="Metrics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.7.6
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.7.6',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

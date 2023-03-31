@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Handling tokens &mdash; tsuru 1.8.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Services" href="../services/index.html" />
+    <link rel="prev" title="Choose a pool to deploy your app" href="application-pool.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.8.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Using</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="install-client.html">Installing tsuru client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploying.html">Deploying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app-deploy.html">App-Deploy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html">Deploying Python applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ruby.html">Deploying Ruby applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="go.html">Deploying Go applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="java.html">Deploying Java applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="php.html">Deploying PHP applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker-image.html">Deploying Docker Image applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildpacks.html">Using Buildpacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services.html">Using services with your app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery.html">Recovering an application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="procfile.html">Procfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsuru.yaml.html">tsuru.yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-states.html">Unit states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/plugins.html">tsuru client plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">Application Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application-pool.html">Choose a pool to deploy your app</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Handling tokens</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/index.html">Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Using</a> &raquo;</li>
+        
+      <li>Handling tokens</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/using/team-tokens.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="handling-tokens">
+<h1>Handling tokens<a class="headerlink" href="#handling-tokens" title="Permalink to this headline">¶</a></h1>
+<p>Every action in tsuru requires a token. If you need to do some kind of
+automation, instead of setting a user token, you can create a team token.</p>
+<p>To create a team token, use the <cite>token create</cite> command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru token create --id my-ci-token --team myteam <span class="se">\</span>
+    --description <span class="s2">&quot;CI token&quot;</span> --expires 48h
+Token <span class="s2">&quot;my-ci-token&quot;</span> created: b3bc4ded93dd9a799874b564835d362aa1274be0e9511f29d3f78dc8517af176
+</pre></div>
+</div>
+<p>The <cite>expires</cite> flag is optional. By default, team tokens don’t expire.</p>
+<p>Now you can set new permissions to this token with <cite>role assign</cite> command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru role assign deployer my-ci-token
+Role successfully assigned!
+</pre></div>
+</div>
+<p>This example assumes a role called <cite>deployer</cite> was previously created. A user
+can only add permissions that he owns himself.</p>
+<p>To list all team tokens you have permission to see, use <cite>token list</cite> command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru token list
++-------------+--------+-------------+-------------------------+----------------------------------+----------------------------------------------------+-----------------+
+<span class="p">|</span> Token ID    <span class="p">|</span> Team   <span class="p">|</span> Description <span class="p">|</span> Creator                 <span class="p">|</span> Timestamps                       <span class="p">|</span> Value                                              <span class="p">|</span> Roles      <span class="p">|</span>
++-------------+--------+-------------+-------------------------+----------------------------------+----------------------------------------------------+-----------------+
+<span class="p">|</span> my-ci-token <span class="p">|</span> myteam <span class="p">|</span> CI token    <span class="p">|</span> me@example.com          <span class="p">|</span>  Created At: <span class="m">19</span> Sep <span class="m">18</span> <span class="m">11</span>:42 -03 <span class="p">|</span> b3bc4ded93dd9a799874b564835d362aa1274be0e9511f29d↵ <span class="p">|</span> deployer<span class="o">()</span> <span class="p">|</span>
+<span class="p">|</span>             <span class="p">|</span>        <span class="p">|</span>             <span class="p">|</span>                         <span class="p">|</span>  Expires At: -                   <span class="p">|</span> 3f78dc8517af176                                    <span class="p">|</span>          <span class="p">|</span>
+<span class="p">|</span>             <span class="p">|</span>        <span class="p">|</span>             <span class="p">|</span>                         <span class="p">|</span> Last Access: -                   <span class="p">|</span>                                                    <span class="p">|</span>          <span class="p">|</span>
++-------------+--------+-------------+-------------------------+----------------------------------+----------------------------------------------------+-----------------+
+</pre></div>
+</div>
+<p>Now you can use the token in <cite>Value</cite> column above to make deploys to apps
+owned by <cite>myteam</cite> team.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../services/index.html" class="btn btn-neutral float-right" title="Services" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="application-pool.html" class="btn btn-neutral" title="Choose a pool to deploy your app" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.8.0
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.8.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

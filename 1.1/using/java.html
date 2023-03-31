@@ -1,0 +1,571 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Deploying Java applications on tsuru &mdash; tsuru 1.1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Deploying PHP applications in tsuru" href="php.html" />
+    <link rel="prev" title="Deploying Go applications in tsuru" href="go.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Using</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="install-client.html">Installing tsuru clients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html">Deploying Python applications in tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ruby.html">Deploying Ruby applications in tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="go.html">Deploying Go applications in tsuru</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Deploying Java applications on tsuru</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-the-app-within-tsuru">Creating the app within tsuru</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deploying-the-code">Deploying the code</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#war-deployment">WAR deployment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#git-deployment">Git deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#switching-between-java-versions">Switching between Java versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-memory-for-application">Setting memory for application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#going-further">Going further</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="php.html">Deploying PHP applications in tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildpacks.html">Using Buildpacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services.html">Using services with your app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery.html">Recovering an application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="procfile.html">Procfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsuru.yaml.html">tsuru.yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-states.html">Unit states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/plugins.html">tsuru client plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">Application Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application-pool.html">Choose a pool to deploy your app</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/index.html">Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Using</a> &raquo;</li>
+        
+      <li>Deploying Java applications on tsuru</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/using/java.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="deploying-java-applications-on-tsuru">
+<h1>Deploying Java applications on tsuru<a class="headerlink" href="#deploying-java-applications-on-tsuru" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This document is a hands-on guide to deploying a simple Java application on
+tsuru. The example application is a simple mvn generated archetype, in order to
+generate it, just run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mvn archetype:generate -DgroupId<span class="o">=</span>io.tsuru.javasample -DartifactId<span class="o">=</span>helloweb -DarchetypeArtifactId<span class="o">=</span>maven-archetype-webapp
+</pre></div>
+</div>
+<p>You can also deploy any other Java application you have on a tsuru server.
+Another alternative is to just download the code available at GitHub:
+<a class="reference external" href="https://github.com/tsuru/tsuru-java-sample">https://github.com/tsuru/tsuru-java-sample</a>.</p>
+</div>
+<div class="section" id="creating-the-app-within-tsuru">
+<h2>Creating the app within tsuru<a class="headerlink" href="#creating-the-app-within-tsuru" title="Permalink to this headline">¶</a></h2>
+<p>To create an app, you use the command <cite>app-create</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-create &lt;app-name&gt; &lt;app-platform&gt;
+</pre></div>
+</div>
+<p>For Java, the app platform is, guess what, <code class="docutils literal notranslate"><span class="pre">java</span></code>! Let’s call our application “helloweb”:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-create helloweb java
+</pre></div>
+</div>
+<p>To list all available platforms, use the command <cite>platform-list</cite>.</p>
+<p>You can see all your applications using the command <cite>app-list</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-list
++-------------+-------------------------+------------------------------+
+<span class="p">|</span> Application <span class="p">|</span> Units State Summary     <span class="p">|</span> Address                      <span class="p">|</span>
++-------------+-------------------------+------------------------------+
+<span class="p">|</span> helloweb    <span class="p">|</span> <span class="m">0</span> of <span class="m">0</span> units in-service <span class="p">|</span> helloweb.192.168.50.4.nip.io <span class="p">|</span>
++-------------+-------------------------+------------------------------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="deploying-the-code">
+<h2>Deploying the code<a class="headerlink" href="#deploying-the-code" title="Permalink to this headline">¶</a></h2>
+<p>Using the Java platform, there are two deployment strategies: users can either
+upload WAR files to tsuru or send the code using the regular <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code>
+approach. This guide will cover both approaches:</p>
+<div class="section" id="war-deployment">
+<h3>WAR deployment<a class="headerlink" href="#war-deployment" title="Permalink to this headline">¶</a></h3>
+<p>Using the mvn archetype, generating the WAR is as easy as running <code class="docutils literal notranslate"><span class="pre">mvn</span>
+<span class="pre">package</span></code>, then the user can deploy the code using <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">app-deploy</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mvn package
+$ <span class="nb">cd</span> target
+$ tsuru app-deploy -a helloweb helloweb.war
+Uploading files.... ok
+
+---- Building application image ----
+ ---&gt; Sending image to repository <span class="o">(</span><span class="m">0</span>.00MB<span class="o">)</span>
+ ---&gt; Cleaning up
+
+---- Starting <span class="m">1</span> new unit ----
+ ---&gt; Started unit 21c3b6aafa...
+
+---- Binding and checking <span class="m">1</span> new units ----
+ ---&gt; Bound and checked unit 21c3b6aafa
+
+---- Adding routes to <span class="m">1</span> new units ----
+ ---&gt; Added route to unit 21c3b6aafa
+
+OK
+</pre></div>
+</div>
+<p>Done! Now you can access your project in the address displayed in the output of
+<cite>tsuru app-list</cite>.  Remeber to add <code class="docutils literal notranslate"><span class="pre">/helloweb/</span></code>.</p>
+<p>You can also deploy you application to the / address, renaming the WAR to
+ROOT.war and redeploying it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mv helloweb.war ROOT.war
+$ tsuru app-deploy -a helloweb ROOT.war
+Uploading files... ok
+
+---- Building application image ----
+ ---&gt; Sending image to repository <span class="o">(</span><span class="m">0</span>.00MB<span class="o">)</span>
+ ---&gt; Cleaning up
+
+---- Starting <span class="m">1</span> new unit ----
+ ---&gt; Started unit 4d155e805f...
+
+---- Adding routes to <span class="m">1</span> new units ----
+ ---&gt; Added route to unit 4d155e805f
+
+---- Removing routes from <span class="m">1</span> old units ----
+ ---&gt; Removed route from unit d2811c0801
+
+---- Removing <span class="m">1</span> old unit ----
+ ---&gt; Removed old unit <span class="m">1</span>/1
+
+OK
+</pre></div>
+</div>
+<p>And now you can access your hello world in the root of the application address!</p>
+</div>
+<div class="section" id="git-deployment">
+<h3>Git deployment<a class="headerlink" href="#git-deployment" title="Permalink to this headline">¶</a></h3>
+<p>For Git deployment, we will send the code to tsuru, and compile the classes
+there. For that, we’re going to use mvn with the <a class="reference external" href="https://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html">Jetty plugin</a>.
+For doing that, we will need to create a Procfile with the command for starting
+the application:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cat Procfile
+web: mvn jetty:run
+</pre></div>
+</div>
+<p>In order to compile the application classes during deployment, we need also to
+add a deployment hook. tsuru parses a file called <code class="docutils literal notranslate"><span class="pre">tsuru.yaml</span></code> and runs some
+build hooks in the deployment phase.</p>
+<p>Here is how the file for the <code class="docutils literal notranslate"><span class="pre">helloweb</span></code> application looks like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cat tsuru.yaml
+hooks:
+  build:
+    - mvn package
+</pre></div>
+</div>
+<p>After adding these files, we’re ready for deploying the application. The
+command <cite>app-info</cite> command will display a Git remote that we can use to push
+the application code to production:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-info -a helloweb
+Application: helloweb
+Repository: git@192.168.50.4.nip.io:helloweb.git
+Platform: java
+Teams: admin
+Address: helloweb.192.168.50.4.nip.io
+Owner: admin@example.com
+Team owner: admin
+Deploys: <span class="m">2</span>
+Pool: theonepool
+Units: <span class="m">1</span>
++------------+---------+
+<span class="p">|</span> Unit       <span class="p">|</span> State   <span class="p">|</span>
++------------+---------+
+<span class="p">|</span> 313458bb9d <span class="p">|</span> started <span class="p">|</span>
++------------+---------+
+
+App Plan:
++---------------+--------+------+-----------+--------+---------+
+<span class="p">|</span> Name          <span class="p">|</span> Memory <span class="p">|</span> Swap <span class="p">|</span> Cpu Share <span class="p">|</span> Router <span class="p">|</span> Default <span class="p">|</span>
++---------------+--------+------+-----------+--------+---------+
+<span class="p">|</span> autogenerated <span class="p">|</span> <span class="m">0</span> MB   <span class="p">|</span> <span class="m">0</span> MB <span class="p">|</span> <span class="m">100</span>       <span class="p">|</span>        <span class="p">|</span> <span class="nb">false</span>   <span class="p">|</span>
++---------------+--------+------+-----------+--------+---------+
+</pre></div>
+</div>
+<p>The “Repository” line contains what we need: the remote repository. Now we can
+simply push the application code, using Git push:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> git push git@192.168.50.4.nip.io:helloweb.git master
+<span class="go">Counting objects: 25, done.</span>
+<span class="go">Delta compression using up to 4 threads.</span>
+<span class="go">Compressing objects: 100% (19/19), done.</span>
+<span class="go">Writing objects: 100% (25/25), 2.59 KiB | 0 bytes/s, done.</span>
+<span class="go">Total 25 (delta 5), reused 0 (delta 0)</span>
+<span class="go">remote: tar: Removing leading `/&#39; from member names</span>
+<span class="go">remote: [INFO] Scanning for projects...</span>
+<span class="go">remote: [INFO]</span>
+<span class="go">remote: [INFO] ------------------------------------------------------------------------</span>
+<span class="go">remote: [INFO] Building helloweb Maven Webapp 1.0-SNAPSHOT</span>
+<span class="go">remote: [INFO] ------------------------------------------------------------------------</span>
+<span class="go">remote: Downloading: http://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-resources-plugin/2.3/maven-resources-plugin-2.3.pom</span>
+<span class="go">remote: Downloaded: http://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-resources-plugin/2.3/maven-resources-plugin-2.3.pom (5 KB at 6.0 KB/sec)</span>
+<span class="go">remote: Downloading: http://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/12/maven-plugins-12.pom</span>
+<span class="go">remote: Downloaded: http://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/12/maven-plugins-12.pom (12 KB at 35.9 KB/sec)</span>
+
+<span class="go">...</span>
+
+<span class="go">remote: [INFO] Packaging webapp</span>
+<span class="go">remote: [INFO] Assembling webapp [helloweb] in [/home/application/current/target/helloweb]</span>
+<span class="go">remote: [INFO] Processing war project</span>
+<span class="go">remote: [INFO] Copying webapp resources [/home/application/current/src/main/webapp]</span>
+<span class="go">remote: [INFO] Webapp assembled in [27 msecs]</span>
+<span class="go">remote: [INFO] Building war: /home/application/current/target/helloweb.war</span>
+<span class="go">remote: [INFO] WEB-INF/web.xml already added, skipping</span>
+<span class="go">remote: [INFO] ------------------------------------------------------------------------</span>
+<span class="go">remote: [INFO] BUILD SUCCESS</span>
+<span class="go">remote: [INFO] ------------------------------------------------------------------------</span>
+<span class="go">remote: [INFO] Total time: 51.729s</span>
+<span class="go">remote: [INFO] Finished at: Tue Nov 11 17:04:05 UTC 2014</span>
+<span class="go">remote: [INFO] Final Memory: 8M/19M</span>
+<span class="go">remote: [INFO] ------------------------------------------------------------------------</span>
+<span class="go">remote:</span>
+<span class="go">remote: ---- Building application image ----</span>
+<span class="go">remote:  ---&gt; Sending image to repository (2.96MB)</span>
+<span class="go">remote:  ---&gt; Cleaning up</span>
+<span class="go">remote:</span>
+<span class="go">remote: ---- Starting 1 new unit ----</span>
+<span class="go">remote:  ---&gt; Started unit e71d176232...</span>
+<span class="go">remote:</span>
+<span class="go">remote: ---- Adding routes to 1 new units ----</span>
+<span class="go">remote:  ---&gt; Added route to unit e71d176232</span>
+<span class="go">remote:</span>
+<span class="go">remote: ---- Removing routes from 1 old units ----</span>
+<span class="go">remote:  ---&gt; Removed route from unit d8a2d14948</span>
+<span class="go">remote:</span>
+<span class="go">remote: ---- Removing 1 old unit ----</span>
+<span class="go">remote:  ---&gt; Removed old unit 1/1</span>
+<span class="go">remote:</span>
+<span class="go">remote: OK</span>
+<span class="go">To git@tsuru.mycompany.com:helloweb.git</span>
+<span class="go"> * [new branch]      master -&gt; master</span>
+</pre></div>
+</div>
+<p>As you can see, the final part of the output is the same, and the application
+is running in the address given by tsuru as well.</p>
+</div>
+</div>
+<div class="section" id="switching-between-java-versions">
+<h2>Switching between Java versions<a class="headerlink" href="#switching-between-java-versions" title="Permalink to this headline">¶</a></h2>
+<p>In the Java platform provided by tsuru, users can use two version of Java: 7
+and 8, both provided by Oracle. There’s an environment variable for defining
+the Java version you wanna use: <code class="docutils literal notranslate"><span class="pre">JAVA_VERSION</span></code>. The default behavior of the
+platform is to use Java 7, but you can change to Java 8 by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru env-set -a helloweb <span class="nv">JAVA_VERSION</span><span class="o">=</span><span class="m">8</span>
+---- Setting <span class="m">1</span> new environment variables ----
+
+---- Starting <span class="m">1</span> new unit ----
+ ---&gt; Started unit d8a2d14948...
+
+---- Adding routes to <span class="m">1</span> new units ----
+ ---&gt; Added route to unit d8a2d14948
+
+---- Removing routes from <span class="m">1</span> old units ----
+ ---&gt; Removed route from unit 4d155e805f
+
+---- Removing <span class="m">1</span> old unit ----
+ ---&gt; Removed old unit <span class="m">1</span>/1
+</pre></div>
+</div>
+<p>And… done! No need to run another deployment, your application is now running
+with Java 8.</p>
+</div>
+<div class="section" id="setting-memory-for-application">
+<h2>Setting memory for application<a class="headerlink" href="#setting-memory-for-application" title="Permalink to this headline">¶</a></h2>
+<p>In the Java platform provided by tsuru, users can use units with diferent plans and each plan may have containers with different amounts of memory. There’s an environment variable for defining the max amount of heap memory (in megabytes) that Java should use: <code class="docutils literal notranslate"><span class="pre">JAVA_MAX_MEMORY</span></code> ( it’s equal <code class="docutils literal notranslate"><span class="pre">-Xmx</span></code>). The default value for this environment variable is 128 (it can be different according to your <a class="reference external" href="https://github.com/tsuru/basebuilder/blob/master/java/start-tomcat">basebuilder</a>).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru env-set -a helloweb <span class="nv">JAVA_MAX_MEMORY</span><span class="o">=</span><span class="m">1024</span>
+---- Setting <span class="m">1</span> new environment variables ----
+
+---- Starting <span class="m">1</span> new unit ----
+ ---&gt; Started unit o5p1k70289...
+
+---- Adding routes to <span class="m">1</span> new units ----
+ ---&gt; Added route to unit o5p1k70289
+
+---- Removing routes from <span class="m">1</span> old units ----
+ ---&gt; Removed route from unit d8a2d14948
+
+---- Removing <span class="m">1</span> old unit ----
+ ---&gt; Removed old unit <span class="m">1</span>/1
+</pre></div>
+</div>
+<p>And… done! No need to run another deployment, your application is now running
+with more memory.</p>
+</div>
+<div class="section" id="going-further">
+<h2>Going further<a class="headerlink" href="#going-further" title="Permalink to this headline">¶</a></h2>
+<p>For more information, you can dig into <a class="reference external" href="http://docs.tsuru.io">tsuru docs</a>, or
+read <a class="reference external" href="https://tsuru-client.readthedocs.org">complete instructions of use for the tsuru command</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="php.html" class="btn btn-neutral float-right" title="Deploying PHP applications in tsuru" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="go.html" class="btn btn-neutral" title="Deploying Go applications in tsuru" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.1.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.1.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

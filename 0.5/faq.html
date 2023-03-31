@@ -1,0 +1,469 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tsuru Frequently Asked Questions &mdash; tsuru 0.5.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tsuru Overview" href="overview.html" />
+    <link rel="prev" title="Download" href="download.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.5.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="add-a-platform.html">Creating a platform to tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">tsuru architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuring tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Install tsuru and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-centos.html">Build your own PaaS with tsuru and Docker on Centos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-node.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-node.html#docker">docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker-node.html#tsuru-node-agent">tsuru node agent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">Download</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">tsuru Frequently Asked Questions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-tsuru">What is tsuru?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-an-application">What is an application?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-a-unit">What is a unit?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-a-platform">What is a platform?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-a-service">What is a service?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-does-environment-variables-work">How does environment variables work?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-does-the-quota-system-works">How does the quota system works?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-routing-works">How routing works?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-are-git-repositories-managed">How are Git repositories managed?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#client-installation-fails-with-undefined-bufio-scanner-what-does-it-mean">Client installation fails with “undefined: bufio.Scanner”. What does it mean?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">tsuru Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="why.html">Why tsuru?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/deploy-hooks.html">Deployment hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/deployment.html">Application Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/recovery.html">Recovering an application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/coding-style.html">Coding style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/setting-up-your-tsuru-development-environment.html">Setting up you tsuru development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/vagrant.html">Building a tsuru development environment with Vagrant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install/client.html">Installing tsuru clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/dns-forwarders.html">Howto install a dns forwarder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server/backup.html">Backing up tsuru database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server/install.html">Server installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/api.html">api workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/build.html">Building your service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/mysql-example.html">HOWTO Install a MySQL service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/usage.html">Crane usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/buildpacks.html">Using Buildpacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/procfile.html">Procfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/unit-states.html">unit states</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/client/services.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/client/usage.html">Client usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/go.html">Deploying Go applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/php.html">Deploying PHP applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/python.html">Deploying Python applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/ruby.html">Deploying Ruby applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/tsuru-admin/usage.html">tsuru-admin usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioners/docker/architecture.html">Docker Provisioner Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioners/docker/schedulers.html">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.0.html">tsr 0.3.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.1.html">tsr 0.3.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.10.html">tsr 0.3.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.11.html">tsr 0.3.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.12.html">tsr 0.3.12 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.2.html">tsr 0.3.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.3.html">tsr 0.3.3 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.4.html">tsr 0.3.4 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.5.html">tsr 0.3.5 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.6.html">tsr 0.3.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.7.html">tsr 0.3.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.8.html">tsr 0.3.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.3.9.html">tsr 0.3.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.4.0.html">tsr 0.4.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.5.0.html">tsr 0.5.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.5.1.html">tsr 0.5.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.5.2.html">tsr 0.5.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsr/0.5.3.html">tsr 0.5.3 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru-admin/0.3.0.html">tsuru-admin 0.3.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru-admin/0.4.0.html">tsuru-admin 0.4.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru-admin/0.4.1.html">tsuru-admin 0.4.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru-admin/0.4.2.html">tsuru-admin 0.4.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.10.0.html">tsuru 0.10.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.10.1.html">tsuru 0.10.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.10.html">tsuru 0.8.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.11.html">tsuru 0.8.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.6.html">tsuru 0.8.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.7.html">tsuru 0.8.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.8.html">tsuru 0.8.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.9.html">tsuru 0.8.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.8.9.1.html">tsuru 0.8.9.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases/tsuru/0.9.0.html">tsuru 0.9.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using/cli/plugins.html">Guide to create tsuru cli plugins</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>tsuru Frequently Asked Questions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/faq.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tsuru-frequently-asked-questions">
+<h1>tsuru Frequently Asked Questions<a class="headerlink" href="#tsuru-frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="#what-is-tsuru">What is tsuru?</a></li>
+<li><a class="reference internal" href="#what-is-an-application">What is an application?</a></li>
+<li><a class="reference internal" href="#what-is-a-unit">What is a unit?</a></li>
+<li><a class="reference internal" href="#what-is-a-platform">What is a platform?</a></li>
+<li><a class="reference internal" href="#what-is-a-service">What is a service?</a></li>
+<li><a class="reference internal" href="#how-does-environment-variables-work">How does environment variables work?</a></li>
+<li><a class="reference internal" href="#how-does-the-quota-system-works">How does the quota system works?</a></li>
+<li><a class="reference internal" href="#how-routing-works">How routing works?</a></li>
+<li><a class="reference internal" href="#how-are-git-repositories-managed">How are Git repositories managed?</a></li>
+</ul>
+<p>This document is an attempt to explain concepts you’ll face when deploying and
+managing applications using tsuru.  To request additional explanations you can
+open an issue on our issue tracker, talk to us at #tsuru &#64; freenode.net or open
+a thread on our mailing list.</p>
+<div class="section" id="what-is-tsuru">
+<h2>What is tsuru?<a class="headerlink" href="#what-is-tsuru" title="Permalink to this headline">¶</a></h2>
+<p>tsuru is an open source polyglot cloud application platform (PaaS). With tsuru,
+you don’t need to think about servers at all.  You can write apps in the
+programming language of your choice, back it with add-on resources such as SQL
+and NoSQL databases, memcached, redis, and many others. You manage your app
+using the tsuru command-line tool and you deploy code using the Git revision
+control system, all running on the tsuru infrastructure.</p>
+</div>
+<div class="section" id="what-is-an-application">
+<h2>What is an application?<a class="headerlink" href="#what-is-an-application" title="Permalink to this headline">¶</a></h2>
+<p>An application, in tsuru, is a program’s source code, dependencies list - on
+operational system and language level - and a Procfile with instructions on how
+to run that program.  An application has a name, a unique address, a Platform,
+associated development teams, a repository and a set of units.</p>
+</div>
+<div class="section" id="what-is-a-unit">
+<h2>What is a unit?<a class="headerlink" href="#what-is-a-unit" title="Permalink to this headline">¶</a></h2>
+<p>A unit is an isolated Unix container or a virtual machine - depending on the
+configured provisioner. A unit has everything an application needs to run, the
+fetched operational system and language level dependencies, the application’s
+source code, the language runtime, and the applications processes defined on
+the Procfile.</p>
+</div>
+<div class="section" id="what-is-a-platform">
+<h2>What is a platform?<a class="headerlink" href="#what-is-a-platform" title="Permalink to this headline">¶</a></h2>
+<p>A platform is a well defined pack with installed dependencies for a language or
+framework that a group of applications will need. A platform might be a
+container template, or a virtual machine image.</p>
+<p>For instance, tsuru has a container image for python applications, with
+virtualenv installed and other required things needed for tsuru to deploy
+applications on top of that platform. Platforms are easily extendable in
+tsuru, but currently not managed by it, all tsuru does (by now) is to keep
+database records for each existent platform. Every application runs on top of
+a platform.</p>
+</div>
+<div class="section" id="what-is-a-service">
+<h2>What is a service?<a class="headerlink" href="#what-is-a-service" title="Permalink to this headline">¶</a></h2>
+<p>A service is a well defined API that tsuru communicates with to provide extra
+functionality for applications. Examples of services are MySQL, Redis, MongoDB,
+etc. tsuru has built-in services, but it is easy to create and add new services
+to tsuru. Services aren’t managed by tsuru, but by its creators.</p>
+<p>Check the <a class="reference internal" href="apps/client/services.html"><span class="doc">service usage documentation</span></a> for more
+on using services and the <a class="reference internal" href="services/build.html"><span class="doc">building your own service tutorial</span></a> for a quick start on how to extend tsuru by creating new
+services.</p>
+</div>
+<div class="section" id="how-does-environment-variables-work">
+<h2>How does environment variables work?<a class="headerlink" href="#how-does-environment-variables-work" title="Permalink to this headline">¶</a></h2>
+<p>All configurations in tsuru are handled by the use of environment variables. If
+you need to connect with a third party service, e.g. twitter’s API,
+you are probably going to need some extra configurations, like client_id. In
+tsuru, you can export those as environment variables, visible only
+by your application’s processes.</p>
+<p>When you bind your application into a service, most likely you’ll need to
+communicate with that service in some way. Services can export environment
+variables by telling tsuru what they need, so whenever you bind your
+application with a service, its API can return environment variables for tsuru
+to export on your application’s units.</p>
+</div>
+<div class="section" id="how-does-the-quota-system-works">
+<h2>How does the quota system works?<a class="headerlink" href="#how-does-the-quota-system-works" title="Permalink to this headline">¶</a></h2>
+<p>Quotas are handled per application and user. Every user has a quota number for
+applications. For example, users may have a default quota of 2 applications, so
+whenever a user tries to create more than two applications, he/she will receive
+a quota exceeded error. There are also per applications quota. This one limits
+the maximum number of units that an application may have.</p>
+</div>
+<div class="section" id="how-routing-works">
+<h2>How routing works?<a class="headerlink" href="#how-routing-works" title="Permalink to this headline">¶</a></h2>
+<p>tsuru has a router interface, which makes extremely easy to change the way
+routing works with any provisioner. There are two ready-to-go routers: one
+using <a class="reference external" href="https://github.com/dotcloud/hipache">hipache</a> and another with <a class="reference external" href="http://http://aws.amazon.com/elasticloadbalancing/">elb</a>.</p>
+</div>
+<div class="section" id="how-are-git-repositories-managed">
+<h2>How are Git repositories managed?<a class="headerlink" href="#how-are-git-repositories-managed" title="Permalink to this headline">¶</a></h2>
+<p>tsuru uses <a class="reference external" href="https://github.com/tsuru/gandalf">Gandalf</a> to manage git
+repositories. Every time you create an application, tsuru will ask Gandalf to
+create a related git bare repository for you to push in.</p>
+<p>This is the remote tsuru gives you when you create a new app. Everytime you
+perform a git push, Gandalf intercepts it, check if you have the required
+authorization to write into the application’s repository, and then lets the
+push proceeds or returns an error message.</p>
+</div>
+<div class="section" id="client-installation-fails-with-undefined-bufio-scanner-what-does-it-mean">
+<h2>Client installation fails with “undefined: bufio.Scanner”. What does it mean?<a class="headerlink" href="#client-installation-fails-with-undefined-bufio-scanner-what-does-it-mean" title="Permalink to this headline">¶</a></h2>
+<p>tsuru clients require Go 1.1 or later. The message <code class="docutils literal notranslate"><span class="pre">undefined:</span> <span class="pre">bufio.Scanner</span></code>
+means that you’re using an old version of Go. You’ll have to <a class="reference external" href="http://golang.org/doc/install">install</a> the last version.</p>
+<p>If you’re using Homebrew on Mac OS, just run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ brew update
+$ brew upgrade go
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="overview.html" class="btn btn-neutral float-right" title="tsuru Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="download.html" class="btn btn-neutral" title="Download" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.5.3
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.5.3',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,624 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Deploying Python applications &mdash; tsuru 1.9.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Deploying Ruby applications" href="ruby.html" />
+    <link rel="prev" title="Building your app in tsuru" href="quickstart.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.9.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Using</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="install-client.html">Installing tsuru client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploying.html">Deploying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app-deploy.html">App-Deploy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Deploying Python applications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-the-app">Creating the app</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#application-code">Application code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#git-deployment">Git deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#listing-dependencies">Listing dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-application">Running the application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deployment-hooks">Deployment hooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#going-further">Going further</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ruby.html">Deploying Ruby applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="go.html">Deploying Go applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="java.html">Deploying Java applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="php.html">Deploying PHP applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker-image.html">Deploying Docker Image applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildpacks.html">Using Buildpacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services.html">Using services with your app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery.html">Recovering an application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="procfile.html">Procfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsuru.yaml.html">tsuru.yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-states.html">Unit states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/plugins.html">tsuru client plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">Application Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application-pool.html">Choose a pool to deploy your app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="team-tokens.html">Handling tokens</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/index.html">Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Using</a> &raquo;</li>
+        
+      <li>Deploying Python applications</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/using/python.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="deploying-python-applications">
+<h1>Deploying Python applications<a class="headerlink" href="#deploying-python-applications" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This document is a hands-on guide to deploying a simple Python application in
+tsuru. The example application will be a very simple Django project using a
+SQLite database. It’s applicable to any WSGI application.</p>
+</div>
+<div class="section" id="creating-the-app">
+<h2>Creating the app<a class="headerlink" href="#creating-the-app" title="Permalink to this headline">¶</a></h2>
+<p>To create an app, you use the command <cite>app-create</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-create &lt;app-name&gt; &lt;app-platform&gt;
+</pre></div>
+</div>
+<p>For Python, the app platform is, guess what, <code class="docutils literal notranslate"><span class="pre">python</span></code>! Let’s be over creative
+and develop a never-developed tutorial-app: a blog, and its name will also be
+very creative, let’s call it “blog”:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-create blog python
+</pre></div>
+</div>
+<p>To list all available platforms, use the command <cite>platform-list</cite>.</p>
+<p>You can see all your applications using the command <cite>app-list</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-list
++-------------+-------+--------------------------+
+<span class="p">|</span> Application <span class="p">|</span> Units <span class="p">|</span> Address                  <span class="p">|</span>
++-------------+-------+--------------------------+
+<span class="p">|</span> blog        <span class="p">|</span>       <span class="p">|</span> blog.192.168.50.4.nip.io <span class="p">|</span>
++-------------+-------+--------------------------+
+</pre></div>
+</div>
+<p>You can then send the code of your application.</p>
+</div>
+<div class="section" id="application-code">
+<h2>Application code<a class="headerlink" href="#application-code" title="Permalink to this headline">¶</a></h2>
+<p>This document will not focus on how to write a Django blog, you can clone the
+entire source direct from GitHub:
+<a class="reference external" href="https://github.com/tsuru/tsuru-django-sample">https://github.com/tsuru/tsuru-django-sample</a>. Here is what we did for the
+project:</p>
+<ol class="arabic simple">
+<li>Create the project (<code class="docutils literal notranslate"><span class="pre">django-admin</span> <span class="pre">startproject</span> <span class="pre">blog</span></code>)</li>
+<li>Create a “posts” app (<code class="docutils literal notranslate"><span class="pre">django-admin</span> <span class="pre">startapp</span> <span class="pre">posts</span></code>)</li>
+<li>Add a “Post” model to the app</li>
+<li>Register the model in django-admin</li>
+</ol>
+</div>
+<div class="section" id="git-deployment">
+<h2>Git deployment<a class="headerlink" href="#git-deployment" title="Permalink to this headline">¶</a></h2>
+<p>When you create a new app, tsuru will display the Git remote that you should
+use. You can always get it using the command <cite>app-info</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-info --app blog
+Application: blog
+Repository: git@192.168.50.4.nip.io:blog.git
+Tags:
+Platform: python
+Teams: admin
+Address: blog.192.168.50.4.nip.io
+Owner: admin@example.com
+Team owner: admin
+Deploys: <span class="m">0</span>
+Pool: theonepool
+
+App Plan:
++---------------+--------+------+-----------+---------+
+<span class="p">|</span> Name          <span class="p">|</span> Memory <span class="p">|</span> Swap <span class="p">|</span> Cpu Share <span class="p">|</span> Default <span class="p">|</span>
++---------------+--------+------+-----------+---------+
+<span class="p">|</span> autogenerated <span class="p">|</span> <span class="m">0</span> MB   <span class="p">|</span> <span class="m">0</span> MB <span class="p">|</span> <span class="m">100</span>       <span class="p">|</span> <span class="nb">false</span>   <span class="p">|</span>
++---------------+--------+------+-----------+---------+
+</pre></div>
+</div>
+<p>The Git remote will be used to deploy your application using Git. You can just
+push to tsuru remote and your project will be deployed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git push git@192.168.50.4.nip.io:blog.git master
+remote: HEAD is now at 260ae00...
+remote: -- Using python version: <span class="m">2</span>.7.13 <span class="o">(</span>default<span class="o">)</span> --
+remote: /home/application/current /
+remote:
+remote: ---- Building image ----
+remote:  ---&gt; Sending image to repository <span class="o">(</span><span class="m">0</span>.01MB<span class="o">)</span>
+remote:  ---&gt; Cleaning up
+<span class="c1">#####################################</span>
+<span class="c1">#                OMIT               #</span>
+<span class="c1">#####################################</span>
+To git@192.168.50.4.nip.io:blog.git
+ * <span class="o">[</span>new branch<span class="o">]</span>      master -&gt; master
+</pre></div>
+</div>
+<p>If you get a “Permission denied (publickey).”, make sure you’re member of a
+team and have a public key added to tsuru. To add a key, use the command
+<cite>key-add</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru key-add mykey ~/.ssh/id_rsa.pub
+</pre></div>
+</div>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">add</span></code> to avoid typing the entire remote url every time
+you want to push:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git remote add tsuru git@192.168.50.4.nip.io:blog.git
+</pre></div>
+</div>
+<p>Then you can run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git push tsuru master
+Everything up-to-date
+</pre></div>
+</div>
+<p>And you will be also able to omit the <code class="docutils literal notranslate"><span class="pre">--app</span></code> flag from now on:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-info
+Application: blog
+Repository: git@192.168.50.4.nip.io:blog.git
+Platform: python
+Teams: admin
+Address: blog.192.168.50.4.nip.io
+Owner: admin@example.com
+Team owner: admin
+Deploys: <span class="m">0</span>
+Pool: theonepool
+Units: <span class="m">1</span>
++------------+---------+
+<span class="p">|</span> Unit       <span class="p">|</span> Status  <span class="p">|</span>
++------------+---------+
+<span class="p">|</span> eab5151eff <span class="p">|</span> started <span class="p">|</span>
++------------+---------+
+
+App Plan:
++---------------+--------+------+-----------+---------+
+<span class="p">|</span> Name          <span class="p">|</span> Memory <span class="p">|</span> Swap <span class="p">|</span> Cpu Share <span class="p">|</span> Default <span class="p">|</span>
++---------------+--------+------+-----------+---------+
+<span class="p">|</span> autogenerated <span class="p">|</span> <span class="m">0</span> MB   <span class="p">|</span> <span class="m">0</span> MB <span class="p">|</span> <span class="m">100</span>       <span class="p">|</span> <span class="nb">false</span>   <span class="p">|</span>
++---------------+--------+------+-----------+---------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="listing-dependencies">
+<h2>Listing dependencies<a class="headerlink" href="#listing-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>In the last section we omitted the dependencies step of deploy. In tsuru, an
+application can have two kinds of dependencies:</p>
+<ul class="simple">
+<li><strong>Operating system dependencies</strong>, represented by packages in the package manager
+of the underlying operating system (e.g.: <code class="docutils literal notranslate"><span class="pre">yum</span></code> and <code class="docutils literal notranslate"><span class="pre">apt-get</span></code>);</li>
+<li><strong>Platform dependencies</strong>, represented by packages in the package manager of the
+platform/language (in Python, <code class="docutils literal notranslate"><span class="pre">pip</span></code>).</li>
+</ul>
+<p>All <code class="docutils literal notranslate"><span class="pre">apt-get</span></code> dependencies must be specified in a <code class="docutils literal notranslate"><span class="pre">requirements.apt</span></code> file,
+located in the root of your application, and pip dependencies must be located
+in a file called <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>, also in the root of the application.
+Since we will use Django, we need to install <code class="docutils literal notranslate"><span class="pre">django</span></code> package using <code class="docutils literal notranslate"><span class="pre">pip</span></code>.
+As this project doesn’t have any external dependencies, we don’t need a
+<code class="docutils literal notranslate"><span class="pre">requirements.apt</span></code> file. Here is the <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file contents:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Django&lt;<span class="o">=</span><span class="m">1</span>.11
+</pre></div>
+</div>
+<p>You can see the complete output of installing these dependencies below:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>% git push tsuru master
+remote: HEAD is now at 260ae00...
+remote: -- Using python version: <span class="m">2</span>.7.13 <span class="o">(</span>default<span class="o">)</span> --
+remote: /home/application/current /
+remote: requirements.txt detected, using <span class="s1">&#39;pip install -r ./requirements.txt&#39;</span> to install dependencies
+remote: Requirement already satisfied: Django&lt;<span class="o">=</span><span class="m">1</span>.11 in /var/lib/pyenv/versions/2.7.13/envs/app_env_2.7.13/lib/python2.7/site-packages <span class="o">(</span>from -r ./requirements.txt <span class="o">(</span>line <span class="m">1</span><span class="o">))</span>
+remote: Requirement already satisfied: pytz in /var/lib/pyenv/versions/2.7.13/envs/app_env_2.7.13/lib/python2.7/site-packages <span class="o">(</span>from Django&lt;<span class="o">=</span><span class="m">1</span>.11-&gt;-r ./requirements.txt <span class="o">(</span>line <span class="m">1</span><span class="o">))</span>
+remote: /
+remote:
+remote: ---- Building image ----
+remote:  ---&gt; Sending image to repository <span class="o">(</span><span class="m">0</span>.01MB<span class="o">)</span>
+remote:  ---&gt; Cleaning up
+<span class="c1">#####################################</span>
+<span class="c1">#                OMIT               #</span>
+<span class="c1">#####################################</span>
+To git@192.168.50.4.nip.io:blog.git
+ * <span class="o">[</span>new branch<span class="o">]</span>      master -&gt; master
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-the-application">
+<h2>Running the application<a class="headerlink" href="#running-the-application" title="Permalink to this headline">¶</a></h2>
+<p>As you can see, in the deploy output there is a step described as “Restarting
+your app”. In this step, tsuru will restart your app if it’s running, or start
+it if it’s not. But how does tsuru start an application? That’s very simple, it
+uses a Procfile (a concept stolen from Foreman). In this Procfile, you describe
+how your application should be started. We can use <a class="reference external" href="http://gunicorn.org/">gunicorn</a>, for example, to start our Django application. Here is
+how the Procfile should look like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>web: gunicorn -b <span class="m">0</span>.0.0.0:<span class="nv">$PORT</span> blog.wsgi
+</pre></div>
+</div>
+<p>Now we commit the file and push the changes to tsuru git server, running
+another deploy:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git add Procfile
+$ git commit -m <span class="s2">&quot;Procfile: added file&quot;</span>
+$ git push tsuru master
+remote: HEAD is now at 260ae00...
+remote: -- Using python version: <span class="m">2</span>.7.13 <span class="o">(</span>default<span class="o">)</span> --
+remote: /home/application/current /
+remote: requirements.txt detected, using <span class="s1">&#39;pip install -r ./requirements.txt&#39;</span> to install dependencies
+remote: Requirement already satisfied: Django&lt;<span class="o">=</span><span class="m">1</span>.11 in /var/lib/pyenv/versions/2.7.13/envs/app_env_2.7.13/lib/python2.7/site-packages <span class="o">(</span>from -r ./requirements.txt <span class="o">(</span>line <span class="m">1</span><span class="o">))</span>
+remote: Requirement already satisfied: pytz in /var/lib/pyenv/versions/2.7.13/envs/app_env_2.7.13/lib/python2.7/site-packages <span class="o">(</span>from Django&lt;<span class="o">=</span><span class="m">1</span>.11-&gt;-r ./requirements.txt <span class="o">(</span>line <span class="m">1</span><span class="o">))</span>
+remote: /
+remote:
+remote: ---- Building image ----
+remote:  ---&gt; Sending image to repository <span class="o">(</span><span class="m">0</span>.01MB<span class="o">)</span>
+remote:  ---&gt; Cleaning up
+<span class="c1">#####################################</span>
+<span class="c1">#                OMIT               #</span>
+<span class="c1">#####################################</span>
+remote:  ---&gt; Restarting your app
+remote: /var/lib/tsuru/hooks/start: line <span class="m">13</span>: gunicorn: <span class="nb">command</span> not found
+remote:
+remote:  ---&gt; Deploy <span class="k">done</span>!
+remote:
+To git@192.168.50.4.nip.io:blog.git
+   81e884e..530c528  master -&gt; master
+</pre></div>
+</div>
+<p>Now we get an error: <code class="docutils literal notranslate"><span class="pre">gunicorn:</span> <span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span></code>. It means that we need to
+add gunicorn to <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cat &gt;&gt; requirements.txt
+<span class="nv">gunicorn</span><span class="o">==</span><span class="m">19</span>.6
+^D
+</pre></div>
+</div>
+<p>Now we commit the changes and run another deploy:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git add requirements.txt
+$ git commit -m <span class="s2">&quot;requirements.txt: added gunicorn&quot;</span>
+$ git push tsuru master
+remote: -- Using python version: <span class="m">2</span>.7.13 <span class="o">(</span>default<span class="o">)</span> --
+remote: /home/application/current /
+remote: requirements.txt detected, using <span class="s1">&#39;pip install -r ./requirements.txt&#39;</span> to install dependencies
+remote: Requirement already satisfied: Django&lt;<span class="o">=</span><span class="m">1</span>.11 in /var/lib/pyenv/versions/2.7.13/envs/app_env_2.7.13/lib/python2.7/site-packages <span class="o">(</span>from -r ./requirements.txt <span class="o">(</span>line <span class="m">1</span><span class="o">))</span>
+remote: Requirement already satisfied: <span class="nv">gunicorn</span><span class="o">==</span><span class="m">19</span>.6 in /var/lib/pyenv/versions/2.7.13/envs/app_env_2.7.13/lib/python2.7/site-packages <span class="o">(</span>from -r ./requirements.txt <span class="o">(</span>line <span class="m">2</span><span class="o">))</span>
+remote: Requirement already satisfied: pytz in /var/lib/pyenv/versions/2.7.13/envs/app_env_2.7.13/lib/python2.7/site-packages <span class="o">(</span>from Django&lt;<span class="o">=</span><span class="m">1</span>.11-&gt;-r ./requirements.txt <span class="o">(</span>line <span class="m">1</span><span class="o">))</span>
+remote: /
+remote:
+remote: ---- Building image ----
+remote:  ---&gt; Sending image to repository <span class="o">(</span><span class="m">0</span>.01MB<span class="o">)</span>
+remote:  ---&gt; Cleaning up
+<span class="c1">#####################################</span>
+<span class="c1">#                OMIT               #</span>
+<span class="c1">#####################################</span>
+remote:  ---&gt; Restarting your app
+remote:
+remote:  ---&gt; Deploy <span class="k">done</span>!
+remote:
+To git@192.168.50.4.nip.io:blog.git
+   81e884e..530c528  master -&gt; master
+</pre></div>
+</div>
+<p>Now that the app is deployed, you can access it from your browser, getting the
+IP or host listed in <code class="docutils literal notranslate"><span class="pre">app-list</span></code> and opening it. For example,
+in the list below:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-list
++-------------+-----------+---------------------+
+<span class="p">|</span> Application <span class="p">|</span> Units     <span class="p">|</span> Address             <span class="p">|</span>
++-------------+-----------+---------------------+
+<span class="p">|</span> blog        <span class="p">|</span> <span class="m">1</span> started <span class="p">|</span> blog.cloud.tsuru.io <span class="p">|</span>
++-------------+-----------+---------------------+
+</pre></div>
+</div>
+<p>We can access the admin of the app in the URL <a class="reference external" href="http://blog.cloud.tsuru.io/admin/">http://blog.cloud.tsuru.io/admin/</a>.</p>
+</div>
+<div class="section" id="deployment-hooks">
+<h2>Deployment hooks<a class="headerlink" href="#deployment-hooks" title="Permalink to this headline">¶</a></h2>
+<p>It would be boring to manually run <code class="docutils literal notranslate"><span class="pre">syncdb</span></code> and/or <code class="docutils literal notranslate"><span class="pre">migrate</span></code> after every
+deployment. So we can configure an automatic hook to always run before or after
+the app restarts.</p>
+<p>tsuru parses a file called <code class="docutils literal notranslate"><span class="pre">tsuru.yml</span></code> and runs restart hooks. As the
+extension suggests, this is a YAML file, that contains a list of commands that
+should run before and after the restart. Here is our example of tsuru.yml:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">hooks</span><span class="p">:</span>
+  <span class="nt">build</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">python manage.py collectstatic -c --noinput</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">python manage.py migrate</span>
+</pre></div>
+</div>
+<p>For more details, check the <a class="reference internal" href="tsuru.yaml.html#yaml-deployment-hooks"><span class="std std-ref">hooks documentation</span></a>.</p>
+<p>tsuru will look for the file in the root of the project. Let’s commit and
+deploy it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git add tsuru.yml
+$ git commit -m <span class="s2">&quot;tsuru.yml: added file&quot;</span>
+$ git push tsuru master
+    remote: -- Using python version: <span class="m">2</span>.7.13 <span class="o">(</span>default<span class="o">)</span> --
+remote: /home/application/current /
+remote: requirements.txt detected, using <span class="s1">&#39;pip install -r ./requirements.txt&#39;</span> to install dependencies
+remote: Requirement already satisfied: Django&lt;<span class="o">=</span><span class="m">1</span>.11 in /var/lib/pyenv/versions/2.7.13/envs/app_env_2.7.13/lib/python2.7/site-packages <span class="o">(</span>from -r ./requirements.txt <span class="o">(</span>line <span class="m">1</span><span class="o">))</span>
+remote: Requirement already satisfied: <span class="nv">gunicorn</span><span class="o">==</span><span class="m">19</span>.6 in /var/lib/pyenv/versions/2.7.13/envs/app_env_2.7.13/lib/python2.7/site-packages <span class="o">(</span>from -r ./requirements.txt <span class="o">(</span>line <span class="m">2</span><span class="o">))</span>
+remote: Requirement already satisfied: pytz in /var/lib/pyenv/versions/2.7.13/envs/app_env_2.7.13/lib/python2.7/site-packages <span class="o">(</span>from Django&lt;<span class="o">=</span><span class="m">1</span>.11-&gt;-r ./requirements.txt <span class="o">(</span>line <span class="m">1</span><span class="o">))</span>
+remote: /
+remote:
+remote: ---- Building image ----
+remote:  ---&gt; Sending image to repository <span class="o">(</span><span class="m">0</span>.01MB<span class="o">)</span>
+remote:  ---&gt; Cleaning up
+remote: ---- Running build hooks ----
+remote:  ---&gt; Running <span class="s2">&quot;python manage.py collectstatic -c --noinput&quot;</span>
+<span class="c1">#####################################</span>
+<span class="c1">#                OMIT               #</span>
+<span class="c1">#####################################</span>
+remote:  ---&gt; Restarting your app
+remote:
+remote:  ---&gt; Deploy <span class="k">done</span>!
+remote:
+To git@192.168.50.4.nip.io:blog.git
+   81e884e..530c528  master -&gt; master
+</pre></div>
+</div>
+<p>It’s done! Now we have a Django project deployed on tsuru.</p>
+</div>
+<div class="section" id="going-further">
+<h2>Going further<a class="headerlink" href="#going-further" title="Permalink to this headline">¶</a></h2>
+<p>For more information, you can dig into <a class="reference external" href="http://docs.tsuru.io">tsuru docs</a>, or
+read <a class="reference external" href="https://tsuru-client.readthedocs.org">complete instructions of use for the tsuru client</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ruby.html" class="btn btn-neutral float-right" title="Deploying Ruby applications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="quickstart.html" class="btn btn-neutral" title="Building your app in tsuru" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.9.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.9.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

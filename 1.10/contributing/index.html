@@ -1,0 +1,369 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Contributing &mdash; tsuru 1.10.3-rc5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Coding style" href="coding-style.html" />
+    <link rel="prev" title="Plugins" href="../plugins/index.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.10.3-rc5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Plugins</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fixing-typos-and-enhancing-the-documentation">Fixing typos and enhancing the documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#building-docs">Building docs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-new-features">Adding new features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#submitting-changes">Submitting Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#development-environment">Development environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="coding-style.html">Coding style</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vagrant.html">Building a development environment with Vagrant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compose.html">Building a development environment with Docker Compose</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-tests">Running the tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#release-process">Release Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#discussing">Discussing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Contributing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/contributing/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="contributing">
+<h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h1>
+<p>We really are open to any contributions, in the form of code, documentation,
+feature proposal etc.</p>
+<p>You can add an issue in our <a class="reference external" href="http://github.com/tsuru/tsuru/issues">bug tracker</a>.</p>
+<div class="section" id="fixing-typos-and-enhancing-the-documentation">
+<h2>Fixing typos and enhancing the documentation<a class="headerlink" href="#fixing-typos-and-enhancing-the-documentation" title="Permalink to this headline">¶</a></h2>
+<p>Don’t hesitate to contribute any rephrasing or enhancement in the documentation.</p>
+<p>tsuru documentation is written using <a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a>,
+which uses <a class="reference external" href="http://docutils.sourceforge.net/rst.html">RST</a>.</p>
+<p>Check out these documentation tools to learn how to write and update the documentation.</p>
+<div class="section" id="building-docs">
+<h3>Building docs<a class="headerlink" href="#building-docs" title="Permalink to this headline">¶</a></h3>
+<p>In order to build the HTML docs, just run in a terminal window:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ make doc
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="adding-new-features">
+<h2>Adding new features<a class="headerlink" href="#adding-new-features" title="Permalink to this headline">¶</a></h2>
+<p>New features are of course very much appreciated. If you have the need and the time to work on
+new features, adding them to tsuru shouldn’t be that complicated.
+We tried to have a clean and understandable API, hope it serves the purpose.</p>
+<p>Make sure your patches are well tested and documented.</p>
+</div>
+<div class="section" id="submitting-changes">
+<h2>Submitting Changes<a class="headerlink" href="#submitting-changes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Push your changes to a topic branch in your fork of the repository.</li>
+<li>Submit a pull request to the repository in the tsuru organization.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Before proposing your changes check that they are not breaking anything!
+You can run the tests to ensure this.</p>
+</div>
+</div>
+<div class="section" id="development-environment">
+<h2>Development environment<a class="headerlink" href="#development-environment" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+</div>
+<p>See this guide to <a class="reference internal" href="vagrant.html"><span class="doc">to setup a development environment using Vagrant</span></a>.</p>
+<p>See this guide to <a class="reference internal" href="compose.html"><span class="doc">to setup a development environment using Docker Compose</span></a>.</p>
+<p>And follow our <a class="reference internal" href="coding-style.html"><span class="doc">coding style guide</span></a>.</p>
+</div>
+<div class="section" id="running-the-tests">
+<h2>Running the tests<a class="headerlink" href="#running-the-tests" title="Permalink to this headline">¶</a></h2>
+<p>You can use <cite>make</cite> to install all tsuru dependencies and run tests. It will also check if everything is ok with your <cite>GOPATH</cite> setup:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ make
+</pre></div>
+</div>
+<p>Please ensure that MongoDB and Redis are started before running the test suite. If you see some test failures with messages like “dial tcp 127.0.0.1:6379: connection refused” and “no reachable server”, the most likely reason is that these services are not running.</p>
+<p>If you just want to run the tests you can use <cite>make test</cite>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ make <span class="nb">test</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="release-process">
+<h2>Release Process<a class="headerlink" href="#release-process" title="Permalink to this headline">¶</a></h2>
+<p>tsuru major releases are guided by <a class="reference external" href="https://github.com/tsuru/tsuru/milestones/">GitHub milestones</a>. New releases should be
+generated by <cite>make release version=new-version-number</cite>.</p>
+</div>
+<div class="section" id="discussing">
+<h2>Discussing<a class="headerlink" href="#discussing" title="Permalink to this headline">¶</a></h2>
+<p>If you find yourself in need of any help while looking at the code,
+you can go and find us on <a class="reference external" href="https://gitter.im/tsuru/tsuru">Gitter</a>.</p>
+<p>You can also start a thread in our mailing list - <a class="reference external" href="https://groups.google.com/forum/?fromgroups#!forum/tsuru-users">https://groups.google.com/forum/?fromgroups#!forum/tsuru-users</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="coding-style.html" class="btn btn-neutral float-right" title="Coding style" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../plugins/index.html" class="btn btn-neutral" title="Plugins" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.10.3-rc5
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.10.3-rc5',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

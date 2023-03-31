@@ -1,0 +1,691 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Deploying PHP applications in tsuru &mdash; tsuru 0.3.12 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Deploying Python applications in tsuru" href="python.html" />
+    <link rel="prev" title="Deploying Go applications in tsuru" href="go.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.12
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../build.html">Build your own PaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../community.html">community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../config.html">Configuring tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Build your own PaaS with tsuru and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker-centos.html">Build your own PaaS with tsuru and Docker on Centos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker-node.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker-node.html#docker">docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker-node.html#tsuru-node-agent">Tsuru node agent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Tsuru Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Tsuru Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../why.html">Why Tsuru?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-hooks.html">Deployment hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment.html">Application Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../recovery.html">Recovering an application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/coding-style.html">Coding style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/setting-up-your-tsuru-development-environment.html">Setting up you tsuru development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer/vagrant.html">Building a Tsuru development environment with Vagrant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/client.html">Installing tsuru clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../misc/dns-forwarders.html">Howto install a dns forwarder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../server/backup.html">Backing up tsuru database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../server/install.html">Server installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../services/api.html">api workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../services/build.html">Building your service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../services/mysql-example.html">HOWTO Install a MySQL service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../services/usage.html">Crane usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client/services.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client/usage.html">Client usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="go.html">Deploying Go applications in tsuru</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Deploying PHP applications in tsuru</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-the-app-within-tsuru">Creating the app within tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#application-code">Application code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#git-deployment">Git deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#listing-dependencies">Listing dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-application">Running the application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-services">Using services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#going-further">Going further</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Deploying Python applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ruby.html">Deploying Ruby applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../provisioners/docker/architecture.html">Docker Provisioner Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../provisioners/docker/schedulers.html">Schedulers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.0.html">tsr 0.3.0 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.1.html">tsr 0.3.1 release notes - UNDER DEVELOPMENT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.10.html">tsr 0.3.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.11.html">tsr 0.3.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.2.html">tsr 0.3.2 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.3.html">tsr 0.3.3 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.4.html">tsr 0.3.4 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.5.html">tsr 0.3.5 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.6.html">tsr 0.3.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.7.html">tsr 0.3.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.8.html">tsr 0.3.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsr/0.3.9.html">tsr 0.3.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsuru/0.8.10.html">tsuru 0.8.10 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsuru/0.8.11.html">tsuru 0.8.11 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsuru/0.8.6.html">tsuru 0.8.6 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsuru/0.8.7.html">tsuru 0.8.7 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsuru/0.8.8.html">tsuru 0.8.8 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsuru/0.8.9.html">tsuru 0.8.9 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/tsuru/0.8.9.1.html">tsuru 0.8.9.1 release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using/cli/plugins.html">Guide to create tsuru cli plugins</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Deploying PHP applications in tsuru</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/apps/quickstart/php.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="deploying-php-applications-in-tsuru">
+<h1>Deploying PHP applications in tsuru<a class="headerlink" href="#deploying-php-applications-in-tsuru" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This document is a hands-on guide to deploying a simple PHP application in
+Tsuru. The example application will be a very simple Wordpress project associated
+to a MySQL service. It’s applicable to any php over apache application.</p>
+</div>
+<div class="section" id="creating-the-app-within-tsuru">
+<h2>Creating the app within tsuru<a class="headerlink" href="#creating-the-app-within-tsuru" title="Permalink to this headline">¶</a></h2>
+<p>To create an app, you use <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-Create_an_app">app-create</a>
+command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-create &lt;app-name&gt; &lt;app-platform&gt;
+</pre></div>
+</div>
+<p>For PHP, the app platform is, guess what, <code class="docutils literal notranslate"><span class="pre">php</span></code>! Let’s be over creative
+and develop a never-developed tutorial-app: a blog, and its name will also be
+very creative, let’s call it “blog”:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-create blog php
+</pre></div>
+</div>
+<p>To list all available platforms, use <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-Display_the_list_of_available_platforms">platform-list</a>
+command.</p>
+<p>You can see all your applications using <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-List_apps_that_you_have_access_to">app-list</a>
+command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-list
++-------------+-------------------------+---------+--------+
+<span class="p">|</span> Application <span class="p">|</span> Units State Summary     <span class="p">|</span> Address <span class="p">|</span> Ready? <span class="p">|</span>
++-------------+-------------------------+---------+--------+
+<span class="p">|</span> blog        <span class="p">|</span> <span class="m">0</span> of <span class="m">0</span> units in-service <span class="p">|</span>         <span class="p">|</span> No     <span class="p">|</span>
++-------------+-------------------------+---------+--------+
+</pre></div>
+</div>
+<p>Once your app is ready, you will be able to deploy your code, e.g.:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-list
++-------------+-------------------------+-------------+--------+
+<span class="p">|</span> Application <span class="p">|</span> Units State Summary     <span class="p">|</span> Address     <span class="p">|</span> Ready? <span class="p">|</span>
++-------------+-------------------------+-------------+--------+
+<span class="p">|</span> blog        <span class="p">|</span> <span class="m">0</span> of <span class="m">1</span> units in-service <span class="p">|</span>             <span class="p">|</span> Yes    <span class="p">|</span>
++-------------+-------------------------+-------------+--------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="application-code">
+<h2>Application code<a class="headerlink" href="#application-code" title="Permalink to this headline">¶</a></h2>
+<p>This document will not focus on how to write a php blog, you can download the
+entire source direct from wordpress:
+<a class="reference external" href="http://wordpress.org/latest.zip">http://wordpress.org/latest.zip</a>. Here is all you need to do with your
+project:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download and unpack wordpress</span>
+$ wget http://wordpress.org/latest.zip
+$ unzip latest.zip
+<span class="c1"># Preparing wordpress for tsuru</span>
+$ <span class="nb">cd</span> wordpress
+<span class="c1"># Notify tsuru about the necessary packages</span>
+$ <span class="nb">echo</span> php5-mysql &gt; requirements.apt
+<span class="c1"># Preparing the application to receive the tsuru environment related to the mysql service</span>
+$ sed <span class="s2">&quot;s/&#39;database_name_here&#39;/getenv(&#39;MYSQL_DATABASE_NAME&#39;)/; \</span>
+<span class="s2">            s/&#39;username_here&#39;/getenv(&#39;MYSQL_USER&#39;)/; \</span>
+<span class="s2">            s/&#39;localhost&#39;/getenv(&#39;MYSQL_HOST&#39;)/; \</span>
+<span class="s2">            s/&#39;password_here&#39;/getenv(&#39;MYSQL_PASSWORD&#39;)/&quot;</span> <span class="se">\</span>
+            wp-config-sample.php  &gt; wp-config.php
+<span class="c1"># Creating a local git repository</span>
+$ git init
+$ git add .
+$ git commit -m <span class="s1">&#39;initial project version&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="git-deployment">
+<h2>Git deployment<a class="headerlink" href="#git-deployment" title="Permalink to this headline">¶</a></h2>
+<p>When you create a new app, tsuru will display the Git remote that you should
+use. You can always get it using <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-Display_information_about_an_app">app-info</a>
+command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-info --app blog
+Application: blog
+Repository: git@git.tsuru.io:blog.git
+Platform: php
+Teams: tsuruteam
+Address:
+</pre></div>
+</div>
+<p>The git remote will be used to deploy your application using git. You can just
+push to tsuru remote and your project will be deployed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git push git@git.tsuru.io:blog.git master
+Counting objects: <span class="m">119</span>, <span class="k">done</span>.
+Delta compression using up to <span class="m">4</span> threads.
+Compressing objects: <span class="m">100</span>% <span class="o">(</span><span class="m">53</span>/53<span class="o">)</span>, <span class="k">done</span>.
+Writing objects: <span class="m">100</span>% <span class="o">(</span><span class="m">119</span>/119<span class="o">)</span>, <span class="m">16</span>.24 KiB, <span class="k">done</span>.
+Total <span class="m">119</span> <span class="o">(</span>delta <span class="m">55</span><span class="o">)</span>, reused <span class="m">119</span> <span class="o">(</span>delta <span class="m">55</span><span class="o">)</span>
+remote:
+remote:  ---&gt; Tsuru receiving push
+remote:
+remote: From git://cloud.tsuru.io/blog.git
+remote:  * branch            master     -&gt; FETCH_HEAD
+remote:
+remote:  ---&gt; Installing dependencies
+<span class="c1">#####################################</span>
+<span class="c1">#          OMIT (see below)         #</span>
+<span class="c1">#####################################</span>
+remote:  ---&gt; Restarting your app
+remote:
+remote:  ---&gt; Deploy <span class="k">done</span>!
+remote:
+To git@git.tsuru.io:blog.git
+   a211fba..bbf5b53  master -&gt; master
+</pre></div>
+</div>
+<p>If you get a “Permission denied (publickey).”, make sure you’re member of a
+team and have a public key added to tsuru. To add a key, use <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-Add_SSH_public_key_to_tsuru_s_git_server">key-add</a>
+command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru key-add ~/.ssh/id_dsa.pub
+</pre></div>
+</div>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">add</span></code> to avoid typing the entire remote url every time
+you want to push:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git remote add tsuru git@git.tsuru.io:blog.git
+</pre></div>
+</div>
+<p>Then you can run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git push tsuru master
+Everything up-to-date
+</pre></div>
+</div>
+<p>And you will be also able to omit the <code class="docutils literal notranslate"><span class="pre">--app</span></code> flag from now on:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-info
+Application: blog
+Repository: git@git.tsuru.io:blog.git
+Platform: php
+Teams: tsuruteam
+Address: blog.cloud.tsuru.io
+Units:
++--------------+---------+
+<span class="p">|</span> Unit         <span class="p">|</span> State   <span class="p">|</span>
++--------------+---------+
+<span class="p">|</span> 9e70748f4f25 <span class="p">|</span> started <span class="p">|</span>
++--------------+---------+
+</pre></div>
+</div>
+<p>For more details on the <code class="docutils literal notranslate"><span class="pre">--app</span></code> flag, see <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-Guessing_app_names">“Guessing app names”</a>
+section of tsuru command documentation.</p>
+</div>
+<div class="section" id="listing-dependencies">
+<h2>Listing dependencies<a class="headerlink" href="#listing-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>In the last section we omitted the dependencies step of deploy. In tsuru, an
+application can have two kinds of dependencies:</p>
+<ul class="simple">
+<li><strong>Operating system dependencies</strong>, represented by packages in the package manager
+of the underlying operating system (e.g.: <code class="docutils literal notranslate"><span class="pre">yum</span></code> and <code class="docutils literal notranslate"><span class="pre">apt-get</span></code>);</li>
+<li><strong>Platform dependencies</strong>, represented by packages in the package manager of the
+platform/language (e.g. in Python, <code class="docutils literal notranslate"><span class="pre">pip</span></code>).</li>
+</ul>
+<p>All <code class="docutils literal notranslate"><span class="pre">apt-get</span></code> dependencies must be specified in a <code class="docutils literal notranslate"><span class="pre">requirements.apt</span></code> file,
+located in the root of your application, and pip dependencies must be located
+in a file called <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>, also in the root of the application.
+Since we will use MySQL with PHP, we need to install the package depends on just
+one <code class="docutils literal notranslate"><span class="pre">apt-get</span></code> package:
+<code class="docutils literal notranslate"><span class="pre">php5-mysql</span></code>, so here is how <code class="docutils literal notranslate"><span class="pre">requirements.apt</span></code>
+looks like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>php5-mysql
+</pre></div>
+</div>
+<p>You can see the complete output of installing these dependencies bellow:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>% git push tsuru master
+<span class="c1">#####################################</span>
+<span class="c1">#                OMIT               #</span>
+<span class="c1">#####################################</span>
+Counting objects: <span class="m">1155</span>, <span class="k">done</span>.
+Delta compression using up to <span class="m">4</span> threads.
+Compressing objects: <span class="m">100</span>% <span class="o">(</span><span class="m">1124</span>/1124<span class="o">)</span>, <span class="k">done</span>.
+Writing objects: <span class="m">100</span>% <span class="o">(</span><span class="m">1155</span>/1155<span class="o">)</span>, <span class="m">4</span>.01 MiB <span class="p">|</span> <span class="m">327</span> KiB/s, <span class="k">done</span>.
+Total <span class="m">1155</span> <span class="o">(</span>delta <span class="m">65</span><span class="o">)</span>, reused <span class="m">0</span> <span class="o">(</span>delta <span class="m">0</span><span class="o">)</span>
+remote: Cloning into <span class="s1">&#39;/home/application/current&#39;</span>...
+remote: Reading package lists...
+remote: Building dependency tree...
+remote: Reading state information...
+remote: The following extra packages will be installed:
+remote:   libmysqlclient18 mysql-common
+remote: The following NEW packages will be installed:
+remote:   libmysqlclient18 mysql-common php5-mysql
+remote: <span class="m">0</span> upgraded, <span class="m">3</span> newly installed, <span class="m">0</span> to remove and <span class="m">0</span> not upgraded.
+remote: Need to get <span class="m">1042</span> kB of archives.
+remote: After this operation, <span class="m">3928</span> kB of additional disk space will be used.
+remote: Get:1 http://archive.ubuntu.com/ubuntu/ quantal/main mysql-common all <span class="m">5</span>.5.27-0ubuntu2 <span class="o">[</span><span class="m">13</span>.7 kB<span class="o">]</span>
+remote: Get:2 http://archive.ubuntu.com/ubuntu/ quantal/main libmysqlclient18 amd64 <span class="m">5</span>.5.27-0ubuntu2 <span class="o">[</span><span class="m">949</span> kB<span class="o">]</span>
+remote: Get:3 http://archive.ubuntu.com/ubuntu/ quantal/main php5-mysql amd64 <span class="m">5</span>.4.6-1ubuntu1 <span class="o">[</span><span class="m">79</span>.0 kB<span class="o">]</span>
+remote: Fetched <span class="m">1042</span> kB in 1s <span class="o">(</span><span class="m">739</span> kB/s<span class="o">)</span>
+remote: Selecting previously unselected package mysql-common.
+remote: <span class="o">(</span>Reading database ... <span class="m">23874</span> files and directories currently installed.<span class="o">)</span>
+remote: Unpacking mysql-common <span class="o">(</span>from .../mysql-common_5.5.27-0ubuntu2_all.deb<span class="o">)</span> ...
+remote: Selecting previously unselected package libmysqlclient18:amd64.
+remote: Unpacking libmysqlclient18:amd64 <span class="o">(</span>from .../libmysqlclient18_5.5.27-0ubuntu2_amd64.deb<span class="o">)</span> ...
+remote: Selecting previously unselected package php5-mysql.
+remote: Unpacking php5-mysql <span class="o">(</span>from .../php5-mysql_5.4.6-1ubuntu1_amd64.deb<span class="o">)</span> ...
+remote: Processing triggers <span class="k">for</span> libapache2-mod-php5 ...
+remote:  * Reloading web server config
+remote:    ...done.
+remote: Setting up mysql-common <span class="o">(</span><span class="m">5</span>.5.27-0ubuntu2<span class="o">)</span> ...
+remote: Setting up libmysqlclient18:amd64 <span class="o">(</span><span class="m">5</span>.5.27-0ubuntu2<span class="o">)</span> ...
+remote: Setting up php5-mysql <span class="o">(</span><span class="m">5</span>.4.6-1ubuntu1<span class="o">)</span> ...
+remote: Processing triggers <span class="k">for</span> libc-bin ...
+remote: ldconfig deferred processing now taking place
+remote: Processing triggers <span class="k">for</span> libapache2-mod-php5 ...
+remote:  * Reloading web server config
+remote:    ...done.
+remote: sudo: unable to resolve host 8cf20f4da877
+remote: sudo: unable to resolve host 8cf20f4da877
+remote: debconf: unable to initialize frontend: Dialog
+remote: debconf: <span class="o">(</span>Dialog frontend will not work on a dumb terminal, an emacs shell buffer, or without a controlling terminal.<span class="o">)</span>
+remote: debconf: falling back to frontend: Readline
+remote: debconf: unable to initialize frontend: Dialog
+remote: debconf: <span class="o">(</span>Dialog frontend will not work on a dumb terminal, an emacs shell buffer, or without a controlling terminal.<span class="o">)</span>
+remote: debconf: falling back to frontend: Readline
+remote:
+remote: Creating config file /etc/php5/mods-available/mysql.ini with new version
+remote: debconf: unable to initialize frontend: Dialog
+remote: debconf: <span class="o">(</span>Dialog frontend will not work on a dumb terminal, an emacs shell buffer, or without a controlling terminal.<span class="o">)</span>
+remote: debconf: falling back to frontend: Readline
+remote:
+remote: Creating config file /etc/php5/mods-available/mysqli.ini with new version
+remote: debconf: unable to initialize frontend: Dialog
+remote: debconf: <span class="o">(</span>Dialog frontend will not work on a dumb terminal, an emacs shell buffer, or without a controlling terminal.<span class="o">)</span>
+remote: debconf: falling back to frontend: Readline
+remote:
+remote: Creating config file /etc/php5/mods-available/pdo_mysql.ini with new version
+remote:
+remote:  ---&gt; App will be restarted, please check its log <span class="k">for</span> more details...
+remote:
+To git@git.tsuru.io:ingress.git
+ * <span class="o">[</span>new branch<span class="o">]</span>      master -&gt; master
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-the-application">
+<h2>Running the application<a class="headerlink" href="#running-the-application" title="Permalink to this headline">¶</a></h2>
+<p>As you can see, in the deploy output there is a step described as “App will be
+restarted”. In this step, tsuru will restart your app if it’s running, or start
+it if it’s not.
+Now that the app is deployed, you can access it from your browser, getting the
+IP or host listed in <code class="docutils literal notranslate"><span class="pre">app-list</span></code> and opening it. For example,
+in the list below:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-list
++-------------+-------------------------+---------------------+--------+
+<span class="p">|</span> Application <span class="p">|</span> Units State Summary     <span class="p">|</span> Address             <span class="p">|</span> Ready? <span class="p">|</span>
++-------------+-------------------------+---------------------+--------+
+<span class="p">|</span> blog        <span class="p">|</span> <span class="m">1</span> of <span class="m">1</span> units in-service <span class="p">|</span> blog.cloud.tsuru.io <span class="p">|</span> Yes    <span class="p">|</span>
++-------------+-------------------------+---------------------+--------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-services">
+<h2>Using services<a class="headerlink" href="#using-services" title="Permalink to this headline">¶</a></h2>
+<p>Now that php is running, we can accesss the application in the browser,
+but we get a database connection error: <cite>“Error establishing a database connection”</cite>.
+This error means that we can’t connect to MySQL. That’s because we
+should not connect to MySQL on localhost, we must use a service.
+The service workflow can be resumed to two steps:</p>
+<ol class="arabic simple">
+<li>Create a service instance</li>
+<li>Bind the service instance to the app</li>
+</ol>
+<p>But how can I see what services are available? Easy! Use <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-List_available_services_and_instances">service-list</a>
+command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru service-list
++----------------+-----------+
+<span class="p">|</span> Services       <span class="p">|</span> Instances <span class="p">|</span>
++----------------+-----------+
+<span class="p">|</span> mongodb        <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> mysql          <span class="p">|</span>           <span class="p">|</span>
++----------------+-----------+
+</pre></div>
+</div>
+<p>The output from <code class="docutils literal notranslate"><span class="pre">service-list</span></code> above says that there are two available
+services: “elastic-search” and “mysql”, and no instances. To create our MySQL
+instance, we should run the <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-Create_a_new_service_instance">service-add</a>
+command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru service-add mysql blogsql
+Service successfully added.
+</pre></div>
+</div>
+<p>Now, if we run <code class="docutils literal notranslate"><span class="pre">service-list</span></code> again, we will see our new service instance in
+the list:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru service-list
++----------------+-----------+
+<span class="p">|</span> Services       <span class="p">|</span> Instances <span class="p">|</span>
++----------------+-----------+
+<span class="p">|</span> elastic-search <span class="p">|</span>           <span class="p">|</span>
+<span class="p">|</span> mysql          <span class="p">|</span> blogsql   <span class="p">|</span>
++----------------+-----------+
+</pre></div>
+</div>
+<p>To bind the service instance to the application, we use the <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru#hdr-Bind_an_application_to_a_service_instance">bind</a>
+command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru <span class="nb">bind</span> blogsql
+Instance blogsql is now bound to the app blog.
+
+The following environment variables are now available <span class="k">for</span> use in your app:
+
+- MYSQL_PORT
+- MYSQL_PASSWORD
+- MYSQL_USER
+- MYSQL_HOST
+- MYSQL_DATABASE_NAME
+
+For more details, please check the documentation <span class="k">for</span> the service, using service-doc command.
+</pre></div>
+</div>
+<p>As you can see from bind output, we use environment variables to connect to the
+MySQL server. Next step would be update the <code class="docutils literal notranslate"><span class="pre">wp-config.php</span></code> to use these variables to
+connect in the database:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ grep getenv wp-config.php
+define<span class="o">(</span><span class="s1">&#39;DB_NAME&#39;</span>, getenv<span class="o">(</span><span class="s1">&#39;MYSQL_DATABASE_NAME&#39;</span><span class="o">))</span><span class="p">;</span>
+define<span class="o">(</span><span class="s1">&#39;DB_USER&#39;</span>, getenv<span class="o">(</span><span class="s1">&#39;MYSQL_USER&#39;</span><span class="o">))</span><span class="p">;</span>
+define<span class="o">(</span><span class="s1">&#39;DB_PASSWORD&#39;</span>, getenv<span class="o">(</span><span class="s1">&#39;MYSQL_PASSWORD&#39;</span><span class="o">))</span><span class="p">;</span>
+define<span class="o">(</span><span class="s1">&#39;DB_HOST&#39;</span>, getenv<span class="o">(</span><span class="s1">&#39;MYSQL_HOST&#39;</span><span class="o">))</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>You can extend your wordpress installing plugins into your repository. In the example bellow, we
+are adding the Amazon S3 capability to wordpress, just installing 2 more plugins: <a class="reference external" href="http://wordpress.org/plugins/amazon-s3-and-cloudfront">Amazon S3 and Cloudfront</a> +
+<a class="reference external" href="http://wordpress.org/plugins/amazon-web-services">Amazon Web Services</a>. It’s the right way to store content files into Tsuru.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> wp-content/plugins/
+$ wget http://downloads.wordpress.org/plugin/amazon-web-services.0.1.zip
+$ wget http://downloads.wordpress.org/plugin/amazon-s3-and-cloudfront.0.6.1.zip
+$ unzip amazon-web-services.0.1.zip
+$ unzip amazon-s3-and-cloudfront.0.6.1.zip
+$ rm -f amazon-web-services.0.1.zip amazon-s3-and-cloudfront.0.6.1.zip
+$ git add amazon-web-services/ amazon-s3-and-cloudfront/
+</pre></div>
+</div>
+<p>Now you need to add the amazon AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environments
+support into wp-config.php. You could add these environments right after the WP_DEBUG as bellow:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ grep -A2 define.*WP_DEBUG  wp-config.php
+define<span class="o">(</span><span class="s1">&#39;WP_DEBUG&#39;</span>, <span class="nb">false</span><span class="o">)</span><span class="p">;</span>
+define<span class="o">(</span><span class="s1">&#39;AWS_ACCESS_KEY_ID&#39;</span>, getenv<span class="o">(</span><span class="s1">&#39;AWS_ACCESS_KEY_ID&#39;</span><span class="o">))</span><span class="p">;</span>
+define<span class="o">(</span><span class="s1">&#39;AWS_SECRET_ACCESS_KEY&#39;</span>, getenv<span class="o">(</span><span class="s1">&#39;AWS_SECRET_ACCESS_KEY&#39;</span><span class="o">))</span><span class="p">;</span>
+$ git add wp-config.php
+$ git commit -m <span class="s1">&#39;adding plugins for S3&#39;</span>
+$ git push tsuru master
+</pre></div>
+</div>
+<p>Now, just inject the right values for these environments with tsuru env-set as bellow:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru env-set <span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span> <span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="s2">&quot;xxxxx&quot;</span> -a blog
+</pre></div>
+</div>
+<p>It’s done! Now we have a PHP project deployed on tsuru, with S3 support using a MySQL
+service.</p>
+</div>
+<div class="section" id="going-further">
+<h2>Going further<a class="headerlink" href="#going-further" title="Permalink to this headline">¶</a></h2>
+<p>For more information, you can dig into <a class="reference external" href="http://docs.tsuru.io">tsuru docs</a>, or
+read <a class="reference external" href="http://godoc.org/github.com/tsuru/tsuru/cmd/tsuru">complete instructions of use for the tsuru command</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="python.html" class="btn btn-neutral float-right" title="Deploying Python applications in tsuru" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="go.html" class="btn btn-neutral" title="Deploying Go applications in tsuru" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.3.12
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.3.12',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

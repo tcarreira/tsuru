@@ -1,0 +1,4448 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API reference &mdash; tsuru 1.9.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Router API specification" href="router-api.html" />
+    <link rel="prev" title="tsuru.conf reference" href="config.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.9.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/index.html">Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tsuru-client.html">tsuru client usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bs.html">bs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">tsuru.conf reference</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">API reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#swagger-spec-based-reference">Swagger Spec based reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="router-api.html">Router API specification</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Reference</a> &raquo;</li>
+        
+      <li>API reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api-reference">
+<h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="handlers">
+<h2>unbind service instance<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{service}/instances/{instance}/{app}</li>
+<li>produce: application/x-json-stream</li>
+<li>method: DELETE</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: App not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>list app certificates<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/certificate</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: App not found</li>
+</ul>
+<h2>grant access to app<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/teams/{team}</li>
+<li>method: PUT</li>
+<li>200: Access granted</li>
+<li>401: Unauthorized</li>
+<li>404: App or team not found</li>
+<li>409: Grant already exists</li>
+</ul>
+<h2>run commands<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/run</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: App not found</li>
+</ul>
+<h2>set unit status<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/units/{unit}</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: App or unit not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>app log<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/log</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: App not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>app list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: List apps</li>
+<li>401: Unauthorized</li>
+<li>204: No content</li>
+</ul>
+<h2>remove units<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{name}/units</li>
+<li>produce: application/x-json-stream</li>
+<li>method: DELETE</li>
+<li>200: Units removed</li>
+<li>400: Invalid data</li>
+<li>403: Not enough reserved units</li>
+<li>404: App not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>unset app certificate<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/certificate</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: DELETE</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: App not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>set envs<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/env</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/json</li>
+<li>method: POST</li>
+<li>200: Envs updated</li>
+<li>400: Invalid data</li>
+<li>404: App not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>unset envs<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/env</li>
+<li>produce: application/x-json-stream</li>
+<li>method: DELETE</li>
+<li>200: Envs removed</li>
+<li>400: Invalid data</li>
+<li>404: App not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>get envs<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/env</li>
+<li>produce: application/x-json-stream</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>404: App not found</li>
+</ul>
+<h2>bind service instance<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{service}/instances/{instance}/{app}</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: App not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>app update<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{name}</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: App updated</li>
+<li>400: Invalid new pool</li>
+<li>404: Not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>app stop<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/stop</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: App not found</li>
+</ul>
+<h2>metric envs<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/metric/envs</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: App not found</li>
+</ul>
+<h2>app sleep<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/sleep</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: App not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>app swap<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /swap</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>400: Invalid data</li>
+<li>401: Unauthorized</li>
+<li>404: App not found</li>
+<li>200: Ok</li>
+<li>409: App locked</li>
+<li>412: Number of units or platform don't match</li>
+</ul>
+<h2>app unlock<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/lock</li>
+<li>produce: application/json</li>
+<li>method: DELETE</li>
+<li>410: Not available anymore</li>
+</ul>
+<h2>register unit<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/units/register</li>
+<li>produce: application/json</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: App not found</li>
+</ul>
+<h2>rebuild routes<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/routes</li>
+<li>produce: application/json</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: App not found</li>
+</ul>
+<h2>set node status<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /node/status</li>
+<li>produce: application/json</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: App or unit not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>set cname<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/cname</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: App not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>app restart<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/restart</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: App not found</li>
+</ul>
+<h2>app start<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/start</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: App not found</li>
+</ul>
+<h2>app version delete<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/versions/{version}</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: DELETE</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: Version not found</li>
+</ul>
+<h2>unset cname<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/cname</li>
+<li>method: DELETE</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: App not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>set app certificate<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/certificate</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: App not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>remove app<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{name}</li>
+<li>produce: application/x-json-stream</li>
+<li>method: DELETE</li>
+<li>200: App removed</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+</ul>
+<h2>app create<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps</li>
+<li>produce: application/json</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>400: Invalid data</li>
+<li>201: App created</li>
+<li>403: Quota exceeded</li>
+<li>401: Unauthorized</li>
+<li>409: App already exists</li>
+</ul>
+<h2>app log<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/log</li>
+<li>produce: application/x-json-stream</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: App not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>add units<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{name}/units</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: Units added</li>
+<li>400: Invalid data</li>
+<li>404: App not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>revoke access to app<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/teams/{team}</li>
+<li>method: DELETE</li>
+<li>200: Access revoked</li>
+<li>401: Unauthorized</li>
+<li>403: Forbidden</li>
+<li>404: App or team not found</li>
+</ul>
+<h2>app info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{name}</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+</ul>
+<h2>team update<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /teams/{name}</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: Team updated</li>
+<li>400: Invalid data</li>
+<li>404: Team not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>team info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /teams/{name}</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Info team</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+</ul>
+<h2>user list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /users</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>change password<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /users/password</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>403: Forbidden</li>
+<li>404: Not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>remove team<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /teams/{name}</li>
+<li>method: DELETE</li>
+<li>200: Team removed</li>
+<li>401: Unauthorized</li>
+<li>403: Forbidden</li>
+<li>404: Not found</li>
+</ul>
+<h2>team create<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /teams</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>400: Invalid data</li>
+<li>201: Team created</li>
+<li>401: Unauthorized</li>
+<li>409: Team already exists</li>
+</ul>
+<h2>user create<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /users</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>400: Invalid data</li>
+<li>201: User created</li>
+<li>403: Forbidden</li>
+<li>401: Unauthorized</li>
+<li>409: User already exists</li>
+</ul>
+<h2>login<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /auth/login</li>
+<li>produce: application/json</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>403: Forbidden</li>
+<li>404: Not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>get auth scheme<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /auth/scheme</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+</ul>
+<h2>regenerate token<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /users/api-key</li>
+<li>produce: application/json</li>
+<li>method: POST</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>404: User not found</li>
+</ul>
+<h2>reset password<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /users/{email}/password</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>403: Forbidden</li>
+<li>404: Not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>team list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /teams</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: List teams</li>
+<li>401: Unauthorized</li>
+<li>204: No content</li>
+</ul>
+<h2>show token<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /users/api-key</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>404: User not found</li>
+</ul>
+<h2>user info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /users/info</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>logout<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /users/tokens</li>
+<li>method: DELETE</li>
+<li>200: Ok</li>
+</ul>
+<h2>remove user<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /users</li>
+<li>method: DELETE</li>
+<li>200: User removed</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+</ul>
+<h2>list autoscale history<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /autoscale</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>204: No content</li>
+</ul>
+<h2>autoscale run<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /autoscale/run</li>
+<li>produce: application/x-json-stream</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>get autoscale config<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /autoscale/config</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>autoscale rules list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /autoscale/rules</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>204: No content</li>
+</ul>
+<h2>autoscale set rule<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /autoscale/rules</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>delete autoscale rule<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /autoscale/rules/{id}</li>
+<li>method: DELETE</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+</ul>
+<h2>app build<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{appname}/build</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: OK</li>
+<li>400: Invalid data</li>
+<li>403: Forbidden</li>
+<li>404: Not found</li>
+</ul>
+<h2>list provisioners<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /provisioner</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>204: No Content</li>
+</ul>
+<h2>create provisioner cluster<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /provisioner/clusters</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/json</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: Pool does not exist</li>
+<li>401: Unauthorized</li>
+<li>409: Cluster already exists</li>
+</ul>
+<h2>update provisioner cluster<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /provisioner/clusters/{name}</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/json</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: Cluster not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>list provisioner clusters<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /provisioner/clusters</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>204: No Content</li>
+</ul>
+<h2>provisioner cluster info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /provisioner/clusters/{name}</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: Cluster not found</li>
+</ul>
+<h2>delete provisioner cluster<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /provisioner/clusters/{name}</li>
+<li>produce: application/x-json-stream</li>
+<li>method: DELETE</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: Cluster not found</li>
+</ul>
+<h2>dump goroutines<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /debug/goroutines</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+</ul>
+<h2>deploy diff<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{appname}/diff</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>410: Gone</li>
+</ul>
+<h2>deploy info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /deploys/{deploy}</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+</ul>
+<h2>rebuild<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/deploy/rebuild</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: OK</li>
+<li>400: Invalid data</li>
+<li>403: Forbidden</li>
+<li>404: Not found</li>
+</ul>
+<h2>rollback update<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/deploy/rollback/update</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: Rollback updated</li>
+<li>400: Invalid data</li>
+<li>403: Forbidden</li>
+</ul>
+<h2>app deploy<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{appname}/deploy</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: OK</li>
+<li>400: Invalid data</li>
+<li>403: Forbidden</li>
+<li>404: Not found</li>
+</ul>
+<h2>rollback<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/deploy/rollback</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: OK</li>
+<li>400: Invalid data</li>
+<li>403: Forbidden</li>
+<li>404: Not found</li>
+</ul>
+<h2>deploy list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /deploys</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>204: No content</li>
+</ul>
+<h2>event block list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /events/blocks</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>204: No content</li>
+</ul>
+<h2>add event block<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /events/blocks</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: OK</li>
+<li>400: Invalid data or empty reason</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>remove event block<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /events/blocks/{uuid}</li>
+<li>method: DELETE</li>
+<li>200: OK</li>
+<li>400: Invalid uuid</li>
+<li>404: Active block with provided uuid not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>event list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /events</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>204: No content</li>
+</ul>
+<h2>kind list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /events/kinds</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>204: No content</li>
+</ul>
+<h2>event info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /events/{uuid}</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>400: Invalid uuid</li>
+<li>404: Not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>event cancel<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /events/{uuid}/cancel</li>
+<li>produce: application/json</li>
+<li>method: POST</li>
+<li>400: Invalid uuid or empty reason</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+<li>204: OK</li>
+</ul>
+<h2>docker healing history<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /docker/healing</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>204: No content</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>healthcheck<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /healthcheck</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>500: Internal server error</li>
+</ul>
+<h2>template update<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /iaas/templates/{template_name}</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: OK</li>
+<li>400: Invalid data</li>
+<li>404: Not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>machine list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /iaas/machines</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>machine destroy<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /iaas/machines/{machine_id}</li>
+<li>method: DELETE</li>
+<li>200: OK</li>
+<li>400: Invalid data</li>
+<li>404: Not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>machine template list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /iaas/templates</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>template create<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /iaas/templates</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>400: Invalid data</li>
+<li>201: Template created</li>
+<li>401: Unauthorized</li>
+<li>409: Existent template</li>
+</ul>
+<h2>template destroy<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /iaas/templates/{template_name}</li>
+<li>method: DELETE</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+</ul>
+<h2>index<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /</li>
+<li>method: GET</li>
+<li>200: OK</li>
+</ul>
+<h2>api info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /info</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+</ul>
+<h2>add install host<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /install/hosts</li>
+<li>produce: application/json</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>201: Host added</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>install host info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /install/hosts/{name}</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>404: Not Found</li>
+</ul>
+<h2>list install hosts<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /install/hosts</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>remove node<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /{provisioner}/node/{address}</li>
+<li>method: DELETE</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+</ul>
+<h2>list units by node<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /{provisioner}/node/{address}/containers</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+<li>204: No content</li>
+</ul>
+<h2>node healing update<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /healing/node</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>node info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /node/{address}</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+</ul>
+<h2>list units by app<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /docker/node/apps/{appname}/containers</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+<li>204: No content</li>
+</ul>
+<h2>node healing info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /healing/node</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>remove node healing<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /healing/node</li>
+<li>produce: application/json</li>
+<li>method: DELETE</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>add node<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /node</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>201: Ok</li>
+<li>404: Not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>list nodes<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /{provisioner}/node</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>204: No content</li>
+</ul>
+<h2>update nodes<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /{provisioner}/node</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: Not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>rebalance units in nodes<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /node/rebalance</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>remove node container list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /docker/nodecontainers</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>node container create<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /docker/nodecontainers</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invald data</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>node container info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /docker/nodecontainers/{name}</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+</ul>
+<h2>node container update<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /docker/nodecontainers/{name}</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invald data</li>
+<li>404: Not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>remove node container<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /docker/nodecontainers/{name}</li>
+<li>method: DELETE</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+</ul>
+<h2>node container upgrade<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /docker/nodecontainers/{name}/upgrade</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invald data</li>
+<li>404: Not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>remove permission<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /roles/{name}/permissions/{permission}</li>
+<li>method: DELETE</li>
+<li>200: Permission removed</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+</ul>
+<h2>assign role to token<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /roles/{name}/token</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: Role or team token not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>assign role to user<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /roles/{name}/user</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: Role not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>list permissions<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /permissions</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>list default roles<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /role/default</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>dissociate role from group<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /roles/{name}/group/{group_name}</li>
+<li>method: DELETE</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: Role not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>remove role<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /roles/{name}</li>
+<li>method: DELETE</li>
+<li>200: Role removed</li>
+<li>401: Unauthorized</li>
+<li>404: Role not found</li>
+<li>412: Role with users</li>
+</ul>
+<h2>role info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /roles/{name}</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>404: Role not found</li>
+</ul>
+<h2>add permissions<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /roles/{name}/permissions</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>401: Unauthorized</li>
+<li>409: Permission not allowed</li>
+</ul>
+<h2>add default role<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /role/default</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>updates a role<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /roles</li>
+<li>method: PUT</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>dissociate role from user<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /roles/{name}/user/{email}</li>
+<li>method: DELETE</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: Role not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>dissociate role from token<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /roles/{name}/token/{token_id}</li>
+<li>method: DELETE</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: Role or team token not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>assign role to group<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /roles/{name}/group</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: Role not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>role create<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /roles</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>400: Invalid data</li>
+<li>201: Role created</li>
+<li>401: Unauthorized</li>
+<li>409: Role already exists</li>
+</ul>
+<h2>role list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /roles</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>remove default role<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /role/default</li>
+<li>method: DELETE</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>remove plan<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /plans/{name}</li>
+<li>method: DELETE</li>
+<li>200: Plan removed</li>
+<li>401: Unauthorized</li>
+<li>404: Plan not found</li>
+</ul>
+<h2>plan create<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /plans</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>400: Invalid data</li>
+<li>201: Plan created</li>
+<li>401: Unauthorized</li>
+<li>409: Plan already exists</li>
+</ul>
+<h2>plan list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /plans</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>204: No content</li>
+</ul>
+<h2>add platform<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /platforms</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: multipart/form-data</li>
+<li>method: POST</li>
+<li>200: Platform created</li>
+<li>400: Invalid data</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>update platform<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /platforms/{name}</li>
+<li>produce: application/x-json-stream</li>
+<li>method: PUT</li>
+<li>200: Platform updated</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+</ul>
+<h2>remove platform<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /platforms/{name}</li>
+<li>method: DELETE</li>
+<li>200: Platform removed</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+</ul>
+<h2>platform list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /platforms</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: List platforms</li>
+<li>401: Unauthorized</li>
+<li>204: No content</li>
+</ul>
+<h2>platform info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /platforms/{name}</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Platform info</li>
+<li>401: Unauthorized</li>
+<li>404: NotFound</li>
+</ul>
+<h2>rollback platform<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /platforms/{name}/rollback</li>
+<li>produce: application/x-json-stream</li>
+<li>method: POST</li>
+<li>200: OK</li>
+<li>400: BadRequest</li>
+<li>404: Not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>pool get<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /pools/{name}</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+</ul>
+<h2>add team too pool<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /pools/{name}/team</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Pool updated</li>
+<li>401: Unauthorized</li>
+<li>400: Invalid data</li>
+<li>404: Pool not found</li>
+</ul>
+<h2>set a pool constraint<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /constraints</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>pool list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /pools</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>204: No content</li>
+</ul>
+<h2>pool create<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /pools</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>400: Invalid data</li>
+<li>201: Pool created</li>
+<li>401: Unauthorized</li>
+<li>409: Pool already exists</li>
+</ul>
+<h2>remove pool<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /pools/{name}</li>
+<li>method: DELETE</li>
+<li>200: Pool removed</li>
+<li>401: Unauthorized</li>
+<li>403: Pool still has apps</li>
+<li>404: Pool not found</li>
+</ul>
+<h2>remove team from pool<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /pools/{name}/team</li>
+<li>method: DELETE</li>
+<li>200: Pool updated</li>
+<li>401: Unauthorized</li>
+<li>400: Invalid data</li>
+<li>404: Pool not found</li>
+</ul>
+<h2>pool update<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /pools/{name}</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: Pool updated</li>
+<li>401: Unauthorized</li>
+<li>404: Pool not found</li>
+<li>409: Default pool already defined</li>
+</ul>
+<h2>pool constraints list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /constraints</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>204: No content</li>
+</ul>
+<h2>application quota<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/quota</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>404: Application not found</li>
+</ul>
+<h2>update application quota<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/quota</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: Quota updated</li>
+<li>400: Invalid data</li>
+<li>403: Limit lower than allocated</li>
+<li>404: Application not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>team quota<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /teams/{name}/quota</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>404: Team not found</li>
+</ul>
+<h2>update team quota<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /teams/{name}/quota</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: Quota updated</li>
+<li>400: Invalid data</li>
+<li>403: Limit lower than allocated value</li>
+<li>404: Team not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>user quota<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /users/{email}/quota</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>404: User not found</li>
+</ul>
+<h2>update user quota<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /users/{email}/quota</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: Quota updated</li>
+<li>400: Invalid data</li>
+<li>403: Limit lower than allocated value</li>
+<li>404: User not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>router list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /routers</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>204: No content</li>
+</ul>
+<h2>add app router<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /app/{app}/routers</li>
+<li>produce: application/json</li>
+<li>method: POST</li>
+<li>200: OK</li>
+<li>400: Invalid request</li>
+<li>404: App or router not found</li>
+</ul>
+<h2>update app router<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /app/{app}/routers/{name}</li>
+<li>produce: application/json</li>
+<li>method: PUT</li>
+<li>200: OK</li>
+<li>400: Invalid request</li>
+<li>404: App or router not found</li>
+</ul>
+<h2>list app routers<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /app/{app}/routers</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>204: No content</li>
+<li>404: App not found</li>
+</ul>
+<h2>toggle an app version as routable<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /app/{app}/routable</li>
+<li>method: POST</li>
+<li>200: OK</li>
+<li>400: Bad request</li>
+<li>404: App not found</li>
+<li>401: Not authorized</li>
+</ul>
+<h2>router add<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /routers</li>
+<li>method: POST</li>
+<li>400: Invalid router</li>
+<li>201: Created</li>
+<li>409: Router already exists</li>
+</ul>
+<h2>router delete<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /routers/{name}</li>
+<li>method: DELETE</li>
+<li>200: OK</li>
+<li>404: Router not found</li>
+</ul>
+<h2>router update<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /routers/{name}</li>
+<li>method: PUT</li>
+<li>200: OK</li>
+<li>400: Invalid router</li>
+<li>404: Router not found</li>
+</ul>
+<h2>delete app router<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /app/{app}/routers/{router}</li>
+<li>produce: application/json</li>
+<li>method: DELETE</li>
+<li>200: OK</li>
+<li>404: App or router not found</li>
+</ul>
+<h2>saml metadata<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /auth/saml</li>
+<li>produce: application/xml</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+</ul>
+<h2>saml callback<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /auth/saml</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+</ul>
+<h2>units autoscale info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/units/autoscale</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: App not found</li>
+</ul>
+<h2>add unit auto scale<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/units/autoscale</li>
+<li>consume: application/json</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: App not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>remove unit auto scale<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{app}/units/autoscale</li>
+<li>consume: application/json</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+<li>404: App not found</li>
+</ul>
+<h2>grant access to a service<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{service}/team/{team}</li>
+<li>method: PUT</li>
+<li>200: Service updated</li>
+<li>400: Team not found</li>
+<li>404: Service not found</li>
+<li>401: Unauthorized</li>
+<li>409: Team already has access to this service</li>
+</ul>
+<h2>revoke access to a service<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{service}/team/{team}</li>
+<li>method: DELETE</li>
+<li>200: Access revoked</li>
+<li>400: Team not found</li>
+<li>404: Service not found</li>
+<li>401: Unauthorized</li>
+<li>409: Team does not has access to this service</li>
+</ul>
+<h2>service list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: List services</li>
+<li>401: Unauthorized</li>
+<li>204: No content</li>
+</ul>
+<h2>service update<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{name}</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: Service updated</li>
+<li>400: Invalid data</li>
+<li>403: Forbidden (team is not the owner)</li>
+<li>404: Service not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>service delete<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{name}</li>
+<li>method: DELETE</li>
+<li>200: Service removed</li>
+<li>401: Unauthorized</li>
+<li>403: Forbidden (team is not the owner or service with instances)</li>
+<li>404: Service not found</li>
+</ul>
+<h2>service proxy<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/proxy/service/{service}</li>
+<li>method: *</li>
+<li>401: Unauthorized</li>
+<li>404: Service not found</li>
+</ul>
+<h2>service create<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>400: Invalid data</li>
+<li>201: Service created</li>
+<li>401: Unauthorized</li>
+<li>409: Service already exists</li>
+</ul>
+<h2>change service documentation<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{name}/doc</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: Documentation updated</li>
+<li>401: Unauthorized</li>
+<li>403: Forbidden (team is not the owner or service with instances)</li>
+</ul>
+<h2>service broker list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /brokers</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: List service brokers</li>
+<li>401: Unauthorized</li>
+<li>204: No content</li>
+</ul>
+<h2>Add service broker<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /brokers</li>
+<li>method: POST</li>
+<li>401: Unauthorized</li>
+<li>409: Broker already exists</li>
+<li>201: Service broker created</li>
+</ul>
+<h2>Update service broker<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /brokers/{broker}</li>
+<li>method: PUT</li>
+<li>200: Service broker updated</li>
+<li>401: Unauthorized</li>
+<li>404: Not Found</li>
+</ul>
+<h2>Delete service broker<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /brokers/{broker}</li>
+<li>method: DELETE</li>
+<li>200: Service broker deleted</li>
+<li>401: Unauthorized</li>
+<li>404: Not Found</li>
+</ul>
+<h2>service instance info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{service}/instances/{instance}</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>404: Service instance not found</li>
+</ul>
+<h2>revoke access to service instance<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{service}/instances/permission/{instance}/{team}</li>
+<li>method: DELETE</li>
+<li>200: Access revoked</li>
+<li>401: Unauthorized</li>
+<li>404: Service instance not found</li>
+</ul>
+<h2>service instance create<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{service}/instances</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>400: Invalid data</li>
+<li>201: Service created</li>
+<li>401: Unauthorized</li>
+<li>409: Service already exists</li>
+</ul>
+<h2>remove service instance<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{name}/instances/{instance}</li>
+<li>produce: application/x-json-stream</li>
+<li>method: DELETE</li>
+<li>200: Service removed</li>
+<li>400: Bad request</li>
+<li>404: Service instance not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>service instance list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/instances</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: List services instances</li>
+<li>401: Unauthorized</li>
+<li>204: No content</li>
+</ul>
+<h2>service doc<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{name}/doc</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+</ul>
+<h2>service instance proxy<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{service}/proxy/{instance}</li>
+<li>method: *</li>
+<li>401: Unauthorized</li>
+<li>404: Instance not found</li>
+</ul>
+<h2>service info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{name}</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+</ul>
+<h2>service plans<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{name}/plans</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: OK</li>
+<li>401: Unauthorized</li>
+<li>404: Service not found</li>
+</ul>
+<h2>grant access to service instance<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{service}/instances/permission/{instance}/{team}</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: Access granted</li>
+<li>401: Unauthorized</li>
+<li>404: Service instance not found</li>
+</ul>
+<h2>service instance update<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{service}/instances/{instance}</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: PUT</li>
+<li>200: Service instance updated</li>
+<li>400: Invalid data</li>
+<li>404: Service instance not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>service instance status<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /services/{service}/instances/{instance}/status</li>
+<li>method: GET</li>
+<li>200: List services instances</li>
+<li>401: Unauthorized</li>
+<li>404: Service instance not found</li>
+</ul>
+<h2>app shell<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /apps/{name}/shell</li>
+<li>produce: Websocket connection upgrade</li>
+<li>method: GET</li>
+<li>101: Switch Protocol to websocket</li>
+</ul>
+<h2>token delete<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /tokens/{token_id}</li>
+<li>produce: application/json</li>
+<li>method: DELETE</li>
+<li>200: Token created</li>
+<li>401: Unauthorized</li>
+<li>404: Token not found</li>
+</ul>
+<h2>token list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /tokens</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: List tokens</li>
+<li>401: Unauthorized</li>
+<li>204: No content</li>
+</ul>
+<h2>token info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /tokens/{token_id}</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Get token</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>token create<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /tokens</li>
+<li>produce: application/json</li>
+<li>method: POST</li>
+<li>401: Unauthorized</li>
+<li>409: Token already exists</li>
+<li>201: Token created</li>
+</ul>
+<h2>token update<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /tokens/{token_id}</li>
+<li>produce: application/json</li>
+<li>method: PUT</li>
+<li>200: Token updated</li>
+<li>401: Unauthorized</li>
+<li>404: Token not found</li>
+</ul>
+<h2>volume plan list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /volumeplans</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: List volume plans</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>volume bind<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /volumes/{name}/bind</li>
+<li>produce: application/json</li>
+<li>method: POST</li>
+<li>200: Volume binded</li>
+<li>401: Unauthorized</li>
+<li>404: Volume not found</li>
+<li>409: Volume bind already exists</li>
+</ul>
+<h2>volume unbind<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /volumes/{name}/bind</li>
+<li>produce: application/json</li>
+<li>method: DELETE</li>
+<li>200: Volume unbinded</li>
+<li>401: Unauthorized</li>
+<li>404: Volume not found</li>
+</ul>
+<h2>volume info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /volumes/{name}</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Show volume</li>
+<li>401: Unauthorized</li>
+<li>404: Volume not found</li>
+</ul>
+<h2>volume create<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /volumes</li>
+<li>produce: application/json</li>
+<li>method: POST</li>
+<li>401: Unauthorized</li>
+<li>409: Volume already exists</li>
+<li>201: Volume created</li>
+</ul>
+<h2>volume delete<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /volumes/{name}</li>
+<li>produce: application/json</li>
+<li>method: DELETE</li>
+<li>200: Volume deleted</li>
+<li>401: Unauthorized</li>
+<li>404: Volume not found</li>
+</ul>
+<h2>volume list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /volumes</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: List volumes</li>
+<li>401: Unauthorized</li>
+<li>204: No content</li>
+</ul>
+<h2>volume update<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /volumes/{name}</li>
+<li>produce: application/json</li>
+<li>method: POST</li>
+<li>200: Volume updated</li>
+<li>401: Unauthorized</li>
+<li>404: Volume not found</li>
+</ul>
+<h2>webhook list<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /events/webhooks</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: List webhooks</li>
+<li>204: No content</li>
+</ul>
+<h2>webhook info<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /events/webhooks/{name}</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Get webhook</li>
+<li>401: Unauthorized</li>
+<li>404: Not found</li>
+</ul>
+<h2>webhook create<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /events/webhooks</li>
+<li>method: POST</li>
+<li>200: Webhook created</li>
+<li>401: Unauthorized</li>
+<li>400: Invalid webhook</li>
+<li>409: Webhook already exists</li>
+</ul>
+<h2>webhook update<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /events/webhooks/{name}</li>
+<li>method: PUT</li>
+<li>200: Webhook updated</li>
+<li>401: Unauthorized</li>
+<li>400: Invalid webhook</li>
+<li>404: Webhook not found</li>
+</ul>
+<h2>webhook delete<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /events/webhooks/{name}</li>
+<li>method: DELETE</li>
+<li>200: Webhook deleted</li>
+<li>401: Unauthorized</li>
+<li>404: Webhook not found</li>
+</ul>
+<h2>logs config set<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /docker/logs</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>move container<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /docker/container/{id}/move</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: Not found</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>logs config<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /docker/logs</li>
+<li>produce: application/json</li>
+<li>method: GET</li>
+<li>200: Ok</li>
+<li>401: Unauthorized</li>
+</ul>
+<h2>move containers<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>path: /docker/containers/move</li>
+<li>produce: application/x-json-stream</li>
+<li>consume: application/x-www-form-urlencoded</li>
+<li>method: POST</li>
+<li>200: Ok</li>
+<li>400: Invalid data</li>
+<li>404: Not found</li>
+<li>401: Unauthorized</li>
+</ul>
+</div>
+<div class="section" id="swagger-spec-based-reference">
+<h2>Swagger Spec based reference<a class="headerlink" href="#swagger-spec-based-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="get">
+<dt id="get--1.0-services">
+<code class="descname">GET </code><code class="descname">/1.0/services</code><a class="headerlink" href="#get--1.0-services" title="Permalink to this definition">¶</a></dt>
+<dd><p>List services</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Services</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No content</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.0-services-instances">
+<code class="descname">GET </code><code class="descname">/1.0/services/instances</code><a class="headerlink" href="#get--1.0-services-instances" title="Permalink to this definition">¶</a></dt>
+<dd><p>List service instances</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>app</strong> (<em>string</em>) – Filter instances by app name</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Service instances</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No content</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.0-services-service-instances">
+<code class="descname">POST </code><code class="descname">/1.0/services/{service}/instances</code><a class="headerlink" href="#post--1.0-services-service-instances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a service instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>service</strong> (<em>string</em>) – Service name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Service instance created</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Service not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.0-services-service-instances-instance">
+<code class="descname">GET </code><code class="descname">/1.0/services/{service}/instances/{instance}</code><a class="headerlink" href="#get--1.0-services-service-instances-instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get service instance information</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>service</strong> (<em>string</em>) – Service name.</li>
+<li><strong>instance</strong> (<em>string</em>) – Instance name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Service instance</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Service instance not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="put">
+<dt id="put--1.0-services-service-instances-instance">
+<code class="descname">PUT </code><code class="descname">/1.0/services/{service}/instances/{instance}</code><a class="headerlink" href="#put--1.0-services-service-instances-instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a service instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>service</strong> (<em>string</em>) – Service name.</li>
+<li><strong>instance</strong> (<em>string</em>) – Instance name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Service instance updated</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Service instance not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.0-services-service-instances-instance">
+<code class="descname">DELETE </code><code class="descname">/1.0/services/{service}/instances/{instance}</code><a class="headerlink" href="#delete--1.0-services-service-instances-instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove service instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>service</strong> (<em>string</em>) – Service name.</li>
+<li><strong>instance</strong> (<em>string</em>) – Instance name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>unbindall</strong> (<em>boolean</em>) – Remove current binds to this instance</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Service removed</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Bad request</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Service instance not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="put">
+<dt id="put--1.0-services-service-instances-instance-app">
+<code class="descname">PUT </code><code class="descname">/1.0/services/{service}/instances/{instance}/{app}</code><a class="headerlink" href="#put--1.0-services-service-instances-instance-app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bind the service instance to app</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>service</strong> (<em>string</em>) – Service name.</li>
+<li><strong>instance</strong> (<em>string</em>) – Instance name.</li>
+<li><strong>app</strong> (<em>string</em>) – App name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Instance bound to the app.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.0-services-service-instances-instance-app">
+<code class="descname">DELETE </code><code class="descname">/1.0/services/{service}/instances/{instance}/{app}</code><a class="headerlink" href="#delete--1.0-services-service-instances-instance-app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unbind the service instance from app</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>service</strong> (<em>string</em>) – Service name.</li>
+<li><strong>instance</strong> (<em>string</em>) – Instance name.</li>
+<li><strong>app</strong> (<em>string</em>) – App name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Instance has been unbound from the app.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.7-brokers">
+<code class="descname">GET </code><code class="descname">/1.7/brokers</code><a class="headerlink" href="#get--1.7-brokers" title="Permalink to this definition">¶</a></dt>
+<dd><p>List service brokers</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – List service brokers</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No content</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.7-brokers">
+<code class="descname">POST </code><code class="descname">/1.7/brokers</code><a class="headerlink" href="#post--1.7-brokers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create service broker</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Service Broker created.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – Service Broker already exists.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.7-brokers-name">
+<code class="descname">DELETE </code><code class="descname">/1.7/brokers/{name}</code><a class="headerlink" href="#delete--1.7-brokers-name" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>string</em>) – Service Broker name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Service Broker deleted.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Service Broker not found.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="put">
+<dt id="put--1.7-brokers-name">
+<code class="descname">PUT </code><code class="descname">/1.7/brokers/{name}</code><a class="headerlink" href="#put--1.7-brokers-name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update service broker</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>string</em>) – Service Broker name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Service Broker updated.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Service Broker not found.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.0-apps">
+<code class="descname">GET </code><code class="descname">/1.0/apps</code><a class="headerlink" href="#get--1.0-apps" title="Permalink to this definition">¶</a></dt>
+<dd><p>List apps.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>locked</strong> (<em>boolean</em>) – Filter applications by lock status.</li>
+<li><strong>name</strong> (<em>string</em>) – Filter applications by name.</li>
+<li><strong>owner</strong> (<em>string</em>) – Filter applications by owner.</li>
+<li><strong>platform</strong> (<em>string</em>) – Filter applications by platform.</li>
+<li><strong>pool</strong> (<em>string</em>) – Filter applications by pool.</li>
+<li><strong>status</strong> (<em>string</em>) – Filter applications by unit status.</li>
+<li><strong>tag</strong> (<em>array</em>) – Filter applications by tag.</li>
+<li><strong>teamOwner</strong> (<em>string</em>) – Filter applications by team owner.</li>
+<li><strong>simplified</strong> (<em>boolean</em>) – Returns applications without units list.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – List apps</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No content</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.0-apps">
+<code class="descname">POST </code><code class="descname">/1.0/apps</code><a class="headerlink" href="#post--1.0-apps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new app.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> – App created</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4">403 Forbidden</a> – Quota exceeded</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – App already exists</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.0-apps-app">
+<code class="descname">GET </code><code class="descname">/1.0/apps/{app}</code><a class="headerlink" href="#get--1.0-apps-app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get info about a tsuru app.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>app</strong> (<em>string</em>) – App name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – App info</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – App not found.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.0-apps-app">
+<code class="descname">DELETE </code><code class="descname">/1.0/apps/{app}</code><a class="headerlink" href="#delete--1.0-apps-app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a tsuru app.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>app</strong> (<em>string</em>) – App name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – App removed.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – App not found.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="put">
+<dt id="put--1.0-apps-app">
+<code class="descname">PUT </code><code class="descname">/1.0/apps/{app}</code><a class="headerlink" href="#put--1.0-apps-app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a tsuru app.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>app</strong> (<em>string</em>) – App name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – App updated</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.0-apps-app-env">
+<code class="descname">POST </code><code class="descname">/1.0/apps/{app}/env</code><a class="headerlink" href="#post--1.0-apps-app-env" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set new environment variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>app</strong> (<em>string</em>) – App name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Envs updated</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – App not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.0-apps-app-env">
+<code class="descname">GET </code><code class="descname">/1.0/apps/{app}/env</code><a class="headerlink" href="#get--1.0-apps-app-env" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get app environment variables.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>app</strong> (<em>string</em>) – App name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>env</strong> (<em>string</em>) – Environment variable name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Environment variables</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – App not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.0-apps-app-env">
+<code class="descname">DELETE </code><code class="descname">/1.0/apps/{app}/env</code><a class="headerlink" href="#delete--1.0-apps-app-env" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unset app environment variables.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>app</strong> (<em>string</em>) – App name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>env</strong> (<em>array</em>) – </li>
+<li><strong>norestart</strong> (<em>boolean</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Envs deleted</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – App not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.0-apps-app-quota">
+<code class="descname">GET </code><code class="descname">/1.0/apps/{app}/quota</code><a class="headerlink" href="#get--1.0-apps-app-quota" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows app usage info and its quota limit.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>app</strong> (<em>string</em>) – App name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – OK</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – App not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="put">
+<dt id="put--1.0-apps-app-quota">
+<code class="descname">PUT </code><code class="descname">/1.0/apps/{app}/quota</code><a class="headerlink" href="#put--1.0-apps-app-quota" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the maximum limit of units allowed for use.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>app</strong> (<em>string</em>) – App name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Quota updated</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4">403 Forbidden</a> – Limit lower than allocated</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – App not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.0-apps-app-restart">
+<code class="descname">POST </code><code class="descname">/1.0/apps/{app}/restart</code><a class="headerlink" href="#post--1.0-apps-app-restart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restart App.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>app</strong> (<em>string</em>) – App name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – App restarted</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – App not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.8-apps-app-routable">
+<code class="descname">POST </code><code class="descname">/1.8/apps/{app}/routable</code><a class="headerlink" href="#post--1.8-apps-app-routable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets a version as routable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>app</strong> (<em>string</em>) – App name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – App updated</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid arguments</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – App not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.0-platforms-platform">
+<code class="descname">DELETE </code><code class="descname">/1.0/platforms/{platform}</code><a class="headerlink" href="#delete--1.0-platforms-platform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete platform.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>platform</strong> (<em>string</em>) – Platform name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Platform removed</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="put">
+<dt id="put--1.0-platforms-platform">
+<code class="descname">PUT </code><code class="descname">/1.0/platforms/{platform}</code><a class="headerlink" href="#put--1.0-platforms-platform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update platform.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>platform</strong> (<em>string</em>) – Platform name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Platform updated</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.0-platforms">
+<code class="descname">GET </code><code class="descname">/1.0/platforms</code><a class="headerlink" href="#get--1.0-platforms" title="Permalink to this definition">¶</a></dt>
+<dd><p>List platforms.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Platform list</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No content</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.0-platforms">
+<code class="descname">POST </code><code class="descname">/1.0/platforms</code><a class="headerlink" href="#post--1.0-platforms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new platform.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Platform created</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.6-platforms-platform">
+<code class="descname">GET </code><code class="descname">/1.6/platforms/{platform}</code><a class="headerlink" href="#get--1.6-platforms-platform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Platform info.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>platform</strong> (<em>string</em>) – Platform info.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Platform info</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.6-platforms-platform-rollback">
+<code class="descname">POST </code><code class="descname">/1.6/platforms/{platform}/rollback</code><a class="headerlink" href="#post--1.6-platforms-platform-rollback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Platform rollback.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>platform</strong> (<em>string</em>) – Platform name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>image</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Ok</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.0-teams">
+<code class="descname">GET </code><code class="descname">/1.0/teams</code><a class="headerlink" href="#get--1.0-teams" title="Permalink to this definition">¶</a></dt>
+<dd><p>List teams.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Team list.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No content.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.0-teams">
+<code class="descname">POST </code><code class="descname">/1.0/teams</code><a class="headerlink" href="#post--1.0-teams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a team.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> – Team created.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – Team already exists</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.0-teams-team">
+<code class="descname">DELETE </code><code class="descname">/1.0/teams/{team}</code><a class="headerlink" href="#delete--1.0-teams-team" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a team.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>team</strong> (<em>string</em>) – Team name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Team removed.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4">403 Forbidden</a> – Forbidden</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Team not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.4-teams-team">
+<code class="descname">GET </code><code class="descname">/1.4/teams/{team}</code><a class="headerlink" href="#get--1.4-teams-team" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a team.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>team</strong> (<em>string</em>) – Team name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Team data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Team not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="put">
+<dt id="put--1.6-teams-team">
+<code class="descname">PUT </code><code class="descname">/1.6/teams/{team}</code><a class="headerlink" href="#put--1.6-teams-team" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a team.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>team</strong> (<em>string</em>) – Team name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Team updated</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Team not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.0-users">
+<code class="descname">GET </code><code class="descname">/1.0/users</code><a class="headerlink" href="#get--1.0-users" title="Permalink to this definition">¶</a></dt>
+<dd><p>List users.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>userEmail</strong> (<em>string</em>) – </li>
+<li><strong>role</strong> (<em>string</em>) – </li>
+<li><strong>context</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – List users.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.0-users">
+<code class="descname">POST </code><code class="descname">/1.0/users</code><a class="headerlink" href="#post--1.0-users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> – User created.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4">403 Forbidden</a> – Forbidden</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – User already exists</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.0-users">
+<code class="descname">DELETE </code><code class="descname">/1.0/users</code><a class="headerlink" href="#delete--1.0-users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete an user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>email</strong> (<em>string</em>) – User e-mail.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – User removed</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.0-users-api-key">
+<code class="descname">GET </code><code class="descname">/1.0/users/api-key</code><a class="headerlink" href="#get--1.0-users-api-key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the API token of an user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>email</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – API TOKEN</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – User not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.0-users-api-key">
+<code class="descname">POST </code><code class="descname">/1.0/users/api-key</code><a class="headerlink" href="#post--1.0-users-api-key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Regenerate the API Token of an user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>email</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – API TOKEN</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – User not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.0-users-keys">
+<code class="descname">GET </code><code class="descname">/1.0/users/keys</code><a class="headerlink" href="#get--1.0-users-keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the list of the ssh keys of logged user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – OK</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.0-users-keys">
+<code class="descname">POST </code><code class="descname">/1.0/users/keys</code><a class="headerlink" href="#post--1.0-users-keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add SSH key to logged user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Ok</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – Key already exists</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.0-users-keys-key">
+<code class="descname">DELETE </code><code class="descname">/1.0/users/keys/{key}</code><a class="headerlink" href="#delete--1.0-users-keys-key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete one ssh key of logged user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Ok</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.0-users-info">
+<code class="descname">GET </code><code class="descname">/1.0/users/info</code><a class="headerlink" href="#get--1.0-users-info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get information on logged user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – OK</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.0-users-email-quota">
+<code class="descname">GET </code><code class="descname">/1.0/users/{email}/quota</code><a class="headerlink" href="#get--1.0-users-email-quota" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get quota of an user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>email</strong> (<em>string</em>) – User e-mail.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – OK</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – User not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="put">
+<dt id="put--1.0-users-email-quota">
+<code class="descname">PUT </code><code class="descname">/1.0/users/{email}/quota</code><a class="headerlink" href="#put--1.0-users-email-quota" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change quota of an user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>email</strong> (<em>string</em>) – User e-mail.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>limit</strong> (<em>integer</em>) – User new quota.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Quota successfully updated</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – User not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="put">
+<dt id="put--1.0-users-password">
+<code class="descname">PUT </code><code class="descname">/1.0/users/password</code><a class="headerlink" href="#put--1.0-users-password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change password of logged user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Ok</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4">403 Forbidden</a> – Forbidden</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.0-users-email-password">
+<code class="descname">POST </code><code class="descname">/1.0/users/{email}/password</code><a class="headerlink" href="#post--1.0-users-email-password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset password of an user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>email</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Ok</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4">403 Forbidden</a> – Forbidden</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.0-users-tokens">
+<code class="descname">DELETE </code><code class="descname">/1.0/users/tokens</code><a class="headerlink" href="#delete--1.0-users-tokens" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logout.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Ok</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.2-node">
+<code class="descname">GET </code><code class="descname">/1.2/node</code><a class="headerlink" href="#get--1.2-node" title="Permalink to this definition">¶</a></dt>
+<dd><p>List nodes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Nodes List.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No content.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.2-node">
+<code class="descname">POST </code><code class="descname">/1.2/node</code><a class="headerlink" href="#post--1.2-node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a node.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> – Ok</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid parameters</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="put">
+<dt id="put--1.2-node">
+<code class="descname">PUT </code><code class="descname">/1.2/node</code><a class="headerlink" href="#put--1.2-node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update node.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Ok</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.2-node-address">
+<code class="descname">DELETE </code><code class="descname">/1.2/node/{address}</code><a class="headerlink" href="#delete--1.2-node-address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove node.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>address</strong> (<em>string</em>) – Node address.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>no-rebalance</strong> (<em>boolean</em>) – Trigger node rebalance.</li>
+<li><strong>remove-iaas</strong> (<em>boolean</em>) – Remove machine from IaaS.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Ok</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.2-node-address">
+<code class="descname">GET </code><code class="descname">/1.2/node/{address}</code><a class="headerlink" href="#get--1.2-node-address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get node information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>address</strong> (<em>string</em>) – Node address.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Ok</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.4-volumes">
+<code class="descname">GET </code><code class="descname">/1.4/volumes</code><a class="headerlink" href="#get--1.4-volumes" title="Permalink to this definition">¶</a></dt>
+<dd><p>List volumes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – List volumes</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No content</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.4-volumes">
+<code class="descname">POST </code><code class="descname">/1.4/volumes</code><a class="headerlink" href="#post--1.4-volumes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create volume.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> – Volume created</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – Volume already exists</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.0-pools">
+<code class="descname">GET </code><code class="descname">/1.0/pools</code><a class="headerlink" href="#get--1.0-pools" title="Permalink to this definition">¶</a></dt>
+<dd><p>List pools.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Pools list</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No content</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.0-pools">
+<code class="descname">POST </code><code class="descname">/1.0/pools</code><a class="headerlink" href="#post--1.0-pools" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a pool.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> – Pool created</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – Pool already exists</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--pools-pool">
+<code class="descname">GET </code><code class="descname">/pools/{pool}</code><a class="headerlink" href="#get--pools-pool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get pool information</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pool</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Pool data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Pool not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--pools-pool">
+<code class="descname">DELETE </code><code class="descname">/pools/{pool}</code><a class="headerlink" href="#delete--pools-pool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a pool.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pool</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Pool deleted</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4">403 Forbidden</a> – Pool still has apps</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Pool not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="put">
+<dt id="put--pools-pool">
+<code class="descname">PUT </code><code class="descname">/pools/{pool}</code><a class="headerlink" href="#put--pools-pool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates a pool.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pool</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Pool updated</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Pool not found</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – Default pool already defined</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.3-provisioner-clusters">
+<code class="descname">GET </code><code class="descname">/1.3/provisioner/clusters</code><a class="headerlink" href="#get--1.3-provisioner-clusters" title="Permalink to this definition">¶</a></dt>
+<dd><p>List cluster</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Cluster</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Cluster not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.3-provisioner-clusters">
+<code class="descname">POST </code><code class="descname">/1.3/provisioner/clusters</code><a class="headerlink" href="#post--1.3-provisioner-clusters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create cluster.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Cluster created</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Cluster not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.3-provisioner-clusters-cluster_name">
+<code class="descname">DELETE </code><code class="descname">/1.3/provisioner/clusters/{cluster_name}</code><a class="headerlink" href="#delete--1.3-provisioner-clusters-cluster_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete cluster.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cluster_name</strong> (<em>string</em>) – Cluster name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Cluster deleted</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Cluster not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.4-provisioner-clusters-cluster_name">
+<code class="descname">POST </code><code class="descname">/1.4/provisioner/clusters/{cluster_name}</code><a class="headerlink" href="#post--1.4-provisioner-clusters-cluster_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update cluster.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cluster_name</strong> (<em>string</em>) – Cluster name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Cluster updated</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Cluster not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.8-provisioner-clusters-cluster_name">
+<code class="descname">GET </code><code class="descname">/1.8/provisioner/clusters/{cluster_name}</code><a class="headerlink" href="#get--1.8-provisioner-clusters-cluster_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cluster info</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cluster_name</strong> (<em>string</em>) – Cluster name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Cluster</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Cluster not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.4-volumes-volume">
+<code class="descname">DELETE </code><code class="descname">/1.4/volumes/{volume}</code><a class="headerlink" href="#delete--1.4-volumes-volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete volume.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>volume</strong> (<em>string</em>) – Volume name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Volume deleted</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Volume not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.4-volumes-volume">
+<code class="descname">GET </code><code class="descname">/1.4/volumes/{volume}</code><a class="headerlink" href="#get--1.4-volumes-volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a volume.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>volume</strong> (<em>string</em>) – Volume name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Volume</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – Volume already exists</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.4-volumes-volume-bind">
+<code class="descname">POST </code><code class="descname">/1.4/volumes/{volume}/bind</code><a class="headerlink" href="#post--1.4-volumes-volume-bind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bind volume.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>volume</strong> (<em>string</em>) – Volume name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Volume bind</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Volume not found</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – Volume bind already exists</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.4-volumes-volume-bind">
+<code class="descname">DELETE </code><code class="descname">/1.4/volumes/{volume}/bind</code><a class="headerlink" href="#delete--1.4-volumes-volume-bind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unbind volume.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>volume</strong> (<em>string</em>) – Volume name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Volume unbinded</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Volume not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.4-volumeplans">
+<code class="descname">GET </code><code class="descname">/1.4/volumeplans</code><a class="headerlink" href="#get--1.4-volumeplans" title="Permalink to this definition">¶</a></dt>
+<dd><p>List volume plans.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Volume plans list</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.6-roles-role_name-token">
+<code class="descname">POST </code><code class="descname">/1.6/roles/{role_name}/token</code><a class="headerlink" href="#post--1.6-roles-role_name-token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assigns a role to a team token.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>role_name</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Role assigned.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Role or token not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.6-roles-role_name-token-token_id">
+<code class="descname">DELETE </code><code class="descname">/1.6/roles/{role_name}/token/{token_id}</code><a class="headerlink" href="#delete--1.6-roles-role_name-token-token_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dissociates a role from a team token.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>role_name</strong> (<em>string</em>) – </li>
+<li><strong>token_id</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>context</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Role dissociated.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Role or token not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.6-tokens">
+<code class="descname">GET </code><code class="descname">/1.6/tokens</code><a class="headerlink" href="#get--1.6-tokens" title="Permalink to this definition">¶</a></dt>
+<dd><p>List team tokens.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Team tokens list.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No content.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.6-tokens">
+<code class="descname">POST </code><code class="descname">/1.6/tokens</code><a class="headerlink" href="#post--1.6-tokens" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a team token.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> – Team token created.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – Token with the same ID already exists.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.6-tokens-token_id">
+<code class="descname">DELETE </code><code class="descname">/1.6/tokens/{token_id}</code><a class="headerlink" href="#delete--1.6-tokens-token_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a team token.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>token_id</strong> (<em>string</em>) – Token ID.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Team token deleted.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Team token not found.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="put">
+<dt id="put--1.6-tokens-token_id">
+<code class="descname">PUT </code><code class="descname">/1.6/tokens/{token_id}</code><a class="headerlink" href="#put--1.6-tokens-token_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates a team token.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>token_id</strong> (<em>string</em>) – Token ID.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Team token updated.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Team token not found.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.7-tokens-token_id">
+<code class="descname">GET </code><code class="descname">/1.7/tokens/{token_id}</code><a class="headerlink" href="#get--1.7-tokens-token_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows information about a specific token.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>token_id</strong> (<em>string</em>) – Token ID.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Team token info.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Team token not found.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.1-events-eventid-cancel">
+<code class="descname">POST </code><code class="descname">/1.1/events/{eventid}/cancel</code><a class="headerlink" href="#post--1.1-events-eventid-cancel" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>eventid</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – Event cancelation requested.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Event not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.6-events-webhooks">
+<code class="descname">GET </code><code class="descname">/1.6/events/webhooks</code><a class="headerlink" href="#get--1.6-events-webhooks" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Webhooks list.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No content.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.6-events-webhooks">
+<code class="descname">POST </code><code class="descname">/1.6/events/webhooks</code><a class="headerlink" href="#post--1.6-events-webhooks" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Webhook created.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – Webhook already exists.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.6-events-webhooks-name">
+<code class="descname">GET </code><code class="descname">/1.6/events/webhooks/{name}</code><a class="headerlink" href="#get--1.6-events-webhooks-name" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>string</em>) – Webhook name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Webhook.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Not founds.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="put">
+<dt id="put--1.6-events-webhooks-name">
+<code class="descname">PUT </code><code class="descname">/1.6/events/webhooks/{name}</code><a class="headerlink" href="#put--1.6-events-webhooks-name" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>string</em>) – Webhook name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Webhook updated.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Webhook not found.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.6-events-webhooks-name">
+<code class="descname">DELETE </code><code class="descname">/1.6/events/webhooks/{name}</code><a class="headerlink" href="#delete--1.6-events-webhooks-name" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>string</em>) – Webhook name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Webhook created.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Webhook not found.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.7-provisioner">
+<code class="descname">GET </code><code class="descname">/1.7/provisioner</code><a class="headerlink" href="#get--1.7-provisioner" title="Permalink to this definition">¶</a></dt>
+<dd><p>List provisioners</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Provisioner</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.3-constraints">
+<code class="descname">GET </code><code class="descname">/1.3/constraints</code><a class="headerlink" href="#get--1.3-constraints" title="Permalink to this definition">¶</a></dt>
+<dd><p>List pool constraints</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – PoolConstraints</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No content</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="put">
+<dt id="put--1.3-constraints">
+<code class="descname">PUT </code><code class="descname">/1.3/constraints</code><a class="headerlink" href="#put--1.3-constraints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a service instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Pool constraint set</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--1.3-routers">
+<code class="descname">GET </code><code class="descname">/1.3/routers</code><a class="headerlink" href="#get--1.3-routers" title="Permalink to this definition">¶</a></dt>
+<dd><p>List available routers</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Routers</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No content</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.8-routers">
+<code class="descname">POST </code><code class="descname">/1.8/routers</code><a class="headerlink" href="#post--1.8-routers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new dynamic router</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> – Dynamic router added</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="put">
+<dt id="put--1.8-routers-name">
+<code class="descname">PUT </code><code class="descname">/1.8/routers/{name}</code><a class="headerlink" href="#put--1.8-routers-name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates a dynamic router</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>string</em>) – Dynamic router name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Dynamic router updated</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Dynamic router not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.8-routers-name">
+<code class="descname">DELETE </code><code class="descname">/1.8/routers/{name}</code><a class="headerlink" href="#delete--1.8-routers-name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a dynamic router</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>string</em>) – Dynamic router name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Dynamic router deleted</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Dynamic router not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.2-nodecontainers">
+<code class="descname">POST </code><code class="descname">/1.2/nodecontainers</code><a class="headerlink" href="#post--1.2-nodecontainers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates container that runs on every node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Node container created</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Wrong configuration</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.9-roles-role_name-group">
+<code class="descname">POST </code><code class="descname">/1.9/roles/{role_name}/group</code><a class="headerlink" href="#post--1.9-roles-role_name-group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assigns a role to a group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>role_name</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Role assigned.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Role not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.6-roles-role_name-group-group_name">
+<code class="descname">DELETE </code><code class="descname">/1.6/roles/{role_name}/group/{group_name}</code><a class="headerlink" href="#delete--1.6-roles-role_name-group-group_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dissociates a role from a group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>role_name</strong> (<em>string</em>) – </li>
+<li><strong>group_name</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>context</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – Role dissociated.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized.</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – Role not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--1.9-apps-app-units-autoscale">
+<code class="descname">POST </code><code class="descname">/1.9/apps/{app}/units/autoscale</code><a class="headerlink" href="#post--1.9-apps-app-units-autoscale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new unit autoscale spec.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>app</strong> (<em>string</em>) – App name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – AutoScale updated</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid data</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – App not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--1.9-apps-app-units-autoscale">
+<code class="descname">DELETE </code><code class="descname">/1.9/apps/{app}/units/autoscale</code><a class="headerlink" href="#delete--1.9-apps-app-units-autoscale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove unit autoscale spec.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>app</strong> (<em>string</em>) – App name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>process</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – AutoScale removed</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> – Unauthorized</li>
+<li><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – App not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="router-api.html" class="btn btn-neutral float-right" title="Router API specification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="config.html" class="btn btn-neutral" title="tsuru.conf reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.9.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.9.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

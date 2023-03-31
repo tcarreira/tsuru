@@ -1,0 +1,386 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Logging &mdash; tsuru 1.5.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Procfile" href="procfile.html" />
+    <link rel="prev" title="Recovering an application" href="recovery.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Using</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="install-client.html">Installing tsuru client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploying.html">Deploying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app-deploy.html">App-Deploy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html">Deploying Python applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ruby.html">Deploying Ruby applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="go.html">Deploying Go applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="java.html">Deploying Java applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="php.html">Deploying PHP applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker-image.html">Deploying Docker Image applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildpacks.html">Using Buildpacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services.html">Using services with your app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recovery.html">Recovering an application</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Logging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#watch-your-logs">Watch your logs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#basic-usage">Basic usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#filtering">Filtering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#realtime-logging">Realtime logging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="procfile.html">Procfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsuru.yaml.html">tsuru.yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit-states.html">Unit states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/plugins.html">tsuru client plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">Application Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application-pool.html">Choose a pool to deploy your app</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/index.html">Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Using</a> &raquo;</li>
+        
+      <li>Logging</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/using/logging.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="logging">
+<h1>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h1>
+<p>tsuru aggregates stdout and stderr from every application process making it
+easier to troubleshoot problems. To use the log make sure that your application
+is sending the log to stdout and stderr.</p>
+<div class="section" id="watch-your-logs">
+<h2>Watch your logs<a class="headerlink" href="#watch-your-logs" title="Permalink to this headline">¶</a></h2>
+<p>On its default installation tsuru will have all logs available using the <code class="docutils literal notranslate"><span class="pre">tsuru</span>
+<span class="pre">app-log</span></code> command.</p>
+<p>It’s possible that viewing logs using tsuru was disabled by an administrator. In
+this case running <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">app-log</span></code> will show instructions on how logs can be
+read.</p>
+<p>For more informations about configuring the destination of logs and
+enabling/disabling <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">app-log</span></code> see <a class="reference internal" href="../managing/logs.html"><span class="doc">Managing Application Logs</span></a>.</p>
+<div class="section" id="basic-usage">
+<h3>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-log -a &lt;appname&gt;
+<span class="m">2014</span>-12-11 <span class="m">16</span>:36:17 -0200 <span class="o">[</span>tsuru<span class="o">][</span>api<span class="o">]</span>:  ---&gt; Removed route from unit 1d913e0910
+<span class="m">2014</span>-12-11 <span class="m">16</span>:36:17 -0200 <span class="o">[</span>tsuru<span class="o">][</span>api<span class="o">]</span>: ---- Removing <span class="m">1</span> old unit ----
+<span class="m">2014</span>-12-11 <span class="m">16</span>:36:22 -0200 <span class="o">[</span>app<span class="o">][</span>11f863b2c14b<span class="o">]</span>: Starting gunicorn <span class="m">18</span>.0
+<span class="m">2014</span>-12-11 <span class="m">16</span>:36:22 -0200 <span class="o">[</span>app<span class="o">][</span>11f863b2c14b<span class="o">]</span>: Listening at: http://0.0.0.0:8100 <span class="o">(</span><span class="m">51</span><span class="o">)</span>
+<span class="m">2014</span>-12-11 <span class="m">16</span>:36:22 -0200 <span class="o">[</span>app<span class="o">][</span>11f863b2c14b<span class="o">]</span>: Using worker: sync
+<span class="m">2014</span>-12-11 <span class="m">16</span>:36:22 -0200 <span class="o">[</span>app<span class="o">][</span>11f863b2c14b<span class="o">]</span>: Booting worker with pid: <span class="m">60</span>
+<span class="m">2014</span>-12-11 <span class="m">16</span>:36:28 -0200 <span class="o">[</span>tsuru<span class="o">][</span>api<span class="o">]</span>:  ---&gt; Removed old unit <span class="m">1</span>/1
+</pre></div>
+</div>
+<p>By default is showed the last ten log lines. If you want see more lines,
+you can use the <code class="docutils literal notranslate"><span class="pre">-l/--lines</span></code> parameter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-log -a &lt;appname&gt; --lines <span class="m">100</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filtering">
+<h3>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h3>
+<p>You can filter logs by unit and by source.</p>
+<p>To filter by unit you should use <cite>-u/–unit</cite> parameter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-log -a &lt;appname&gt; --unit 11f863b2c14b
+<span class="m">2014</span>-12-11 <span class="m">16</span>:36:22 -0200 <span class="o">[</span>app<span class="o">][</span>11f863b2c14b<span class="o">]</span>: Starting gunicorn <span class="m">18</span>.0
+<span class="m">2014</span>-12-11 <span class="m">16</span>:36:22 -0200 <span class="o">[</span>app<span class="o">][</span>11f863b2c14b<span class="o">]</span>: Listening at: http://0.0.0.0:8100 <span class="o">(</span><span class="m">51</span><span class="o">)</span>
+<span class="m">2014</span>-12-11 <span class="m">16</span>:36:22 -0200 <span class="o">[</span>app<span class="o">][</span>11f863b2c14b<span class="o">]</span>: Using worker: sync
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">To get the unit id you can use the <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">app-info</span> <span class="pre">-a</span> <span class="pre">&lt;appname&gt;</span></code> command.</p>
+</div>
+<p>The log can be sent by your process or by tsuru api. To filter by source
+you should use <code class="docutils literal notranslate"><span class="pre">-s/--source</span></code> parameter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-log -a &lt;appname&gt; --source app
+<span class="m">2014</span>-12-11 <span class="m">16</span>:36:22 -0200 <span class="o">[</span>app<span class="o">][</span>11f863b2c14b<span class="o">]</span>: Starting gunicorn <span class="m">18</span>.0
+<span class="m">2014</span>-12-11 <span class="m">16</span>:36:22 -0200 <span class="o">[</span>app<span class="o">][</span>11f863b2c14b<span class="o">]</span>: Listening at: http://0.0.0.0:8100 <span class="o">(</span><span class="m">51</span><span class="o">)</span>
+<span class="m">2014</span>-12-11 <span class="m">16</span>:36:22 -0200 <span class="o">[</span>app<span class="o">][</span>11f863b2c14b<span class="o">]</span>: Using worker: sync
+
+$ tsuru app-log -a &lt;appname&gt; --source tsuru
+<span class="m">2014</span>-12-11 <span class="m">16</span>:36:17 -0200 <span class="o">[</span>tsuru<span class="o">][</span>api<span class="o">]</span>:  ---&gt; Removed route from unit 1d913e0910
+<span class="m">2014</span>-12-11 <span class="m">16</span>:36:17 -0200 <span class="o">[</span>tsuru<span class="o">][</span>api<span class="o">]</span>: ---- Removing <span class="m">1</span> old unit ----
+</pre></div>
+</div>
+</div>
+<div class="section" id="realtime-logging">
+<h3>Realtime logging<a class="headerlink" href="#realtime-logging" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">app-log</span></code> has a <code class="docutils literal notranslate"><span class="pre">-f/--follow</span></code> option that causes the log to not stop and
+wait for the new log data. With this option you can see in real time the
+behaviour of your application that is useful to debug problems:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru app-log -a &lt;appname&gt; --follow
+</pre></div>
+</div>
+<p>You can close the session pressing Ctrl-C.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="procfile.html" class="btn btn-neutral float-right" title="Procfile" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="recovery.html" class="btn btn-neutral" title="Recovering an application" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.5.4
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.5.4',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

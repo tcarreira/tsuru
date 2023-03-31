@@ -1,0 +1,524 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Build your own PaaS with tsuru and Docker &mdash; tsuru 0.2.12 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Build your own PaaS with tsuru and Docker on Centos" href="docker-centos.html" />
+    <link rel="prev" title="contribute" href="contribute.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.12
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Build your own PaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">community</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuring tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">contribute</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Build your own PaaS with tsuru and Docker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dns-server">DNS server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docker">docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mongodb">MongoDB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#redis">Redis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#beanstalkd">Beanstalkd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gandalf">Gandalf</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-directory-for-bare-template">Creating directory for bare template</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-gandalf">Configuring gandalf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#starting-gandalf-and-git-daemon">Starting Gandalf and git-daemon</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tsuru-api-and-collector">Tsuru API and collector</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuring">Configuring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running">Running</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#creating-docker-images">Creating Docker Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-tsuru">Using tsuru</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#adding-services">Adding Services</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="docker-centos.html">Build your own PaaS with tsuru and Docker on Centos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Tsuru Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Tsuru Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="why.html">Why Tsuru?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/deploy-hooks.html">Deployment hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/deployment.html">Application Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart.html">Building your app in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/coding-style.html">Coding style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/setting-up-your-tsuru-development-environment.html">Setting up you tsuru development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install/client.html">Installing tsuru clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/dns-forwarders.html">Howto install a dns forwarder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server/backup.html">Backing up tsuru database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server/install.html">Server installation guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/api.html">api workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/build.html">Building your service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/mysql-example.html">HOWTO Install a MySQL service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/usage.html">Crane usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/client/services.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/client/usage.html">Client usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/php.html">Deploying PHP applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/python.html">Deploying Python applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/quickstart/ruby.html">Deploying Ruby applications in tsuru</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioners/docker/architecture.html">Docker Provisioner Architecture</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Build your own PaaS with tsuru and Docker</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/docker.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="build-your-own-paas-with-tsuru-and-docker">
+<h1>Build your own PaaS with tsuru and Docker<a class="headerlink" href="#build-your-own-paas-with-tsuru-and-docker" title="Permalink to this headline">¶</a></h1>
+<p>This document describes how to create a private PaaS service using tsuru and docker.</p>
+<p>This document assumes that tsuru is being installed on a Ubuntu 13.04 64-bit
+machine. If you want to use Ubuntu LTS vesion see <a class="reference external" href="http://docs.docker.io/en/latest/installation/ubuntulinux/#ubuntu-precise-12-04-lts-64-bit">docker documentation</a>
+on how to install it.  You can use equivalent packages for beanstalkd, git,
+MongoDB and other tsuru dependencies. Please make sure you satisfy minimal
+version requirements.</p>
+<p>You can use the scripts bellow to quick install tsuru with docker:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ curl -O https://raw.github.com/globocom/tsuru/master/misc/docker-setup.bash<span class="p">;</span> bash docker-setup.bash
+</pre></div>
+</div>
+<p>Or follow this steps:</p>
+<div class="section" id="dns-server">
+<h2>DNS server<a class="headerlink" href="#dns-server" title="Permalink to this headline">¶</a></h2>
+<p>You can integrate any DNS server with tsuru. Here:
+<a class="reference external" href="http://docs.tsuru.io/en/latest/misc/dns-forwarders.html">http://docs.tsuru.io/en/latest/misc/dns-forwarders.html</a> you can find a
+example of how to install a DNS server integrated with tsuru</p>
+</div>
+<div class="section" id="docker">
+<h2>docker<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h2>
+<p>Install docker:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ wget -qO- https://get.docker.io/gpg <span class="p">|</span> sudo apt-key add -
+$ <span class="nb">echo</span> <span class="s1">&#39;deb http://get.docker.io/ubuntu docker main&#39;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/docker.list
+$ sudo apt-get update
+$ sudo apt-get install lxc-docker
+</pre></div>
+</div>
+<p>Then edit <code class="docutils literal notranslate"><span class="pre">/etc/init/docker.conf</span></code> to start docker on <a class="reference external" href="tcp://127.0.0.1:4243">tcp://127.0.0.1:4243</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cat &gt; /etc/init/docker.conf <span class="s">&lt;&lt;EOF</span>
+<span class="s">description     &quot;Docker daemon&quot;</span>
+
+<span class="s">start on filesystem and started lxc-net</span>
+<span class="s">stop on runlevel [!2345]</span>
+
+<span class="s">respawn</span>
+
+<span class="s">script</span>
+<span class="s">    /usr/bin/docker -H tcp://127.0.0.1:4243 -d</span>
+<span class="s">end script</span>
+
+<span class="s">EOF</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mongodb">
+<h2>MongoDB<a class="headerlink" href="#mongodb" title="Permalink to this headline">¶</a></h2>
+<p>Tsuru needs MongoDB stable, distributed by 10gen. <a class="reference external" href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/">It’s pretty easy to get it
+running on Ubuntu</a></p>
+</div>
+<div class="section" id="redis">
+<h2>Redis<a class="headerlink" href="#redis" title="Permalink to this headline">¶</a></h2>
+<p>Tsuru uses Redis to communicate new routes. By default it points to a locally installed Redis server.
+Install on Ubuntu via <cite>apt-get</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install redis-server
+</pre></div>
+</div>
+<p>If you will use a remote Redis server, skip this and point your server on <cite>/etc/tsuru/tsuru.conf</cite></p>
+</div>
+<div class="section" id="beanstalkd">
+<h2>Beanstalkd<a class="headerlink" href="#beanstalkd" title="Permalink to this headline">¶</a></h2>
+<p>Tsuru uses <a class="reference external" href="http://kr.github.com/beanstalkd/">Beanstalkd</a> as a work queue.
+Install the latest version, by doing this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install beanstalkd
+</pre></div>
+</div>
+<p>Configuring beanstalkd to start, edit the <cite>/etc/default/beanstalkd</cite> and
+uncomment this line:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">START</span><span class="o">=</span>yes
+</pre></div>
+</div>
+<p>Then start beanstalkd:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo service beanstalkd start
+</pre></div>
+</div>
+</div>
+<div class="section" id="gandalf">
+<h2>Gandalf<a class="headerlink" href="#gandalf" title="Permalink to this headline">¶</a></h2>
+<p>Tsuru uses <a class="reference external" href="https://github.com/globocom/gandalf">Gandalf</a> to manage Git
+repositories, you can install it from <a class="reference external" href="https://launchpad.net/~tsuru/+archive/ppa">Tsuru PPA</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo apt-add-repository ppa:tsuru/ppa
+$ sudo apt-get update
+$ sudo apt-get install gandalf-server
+</pre></div>
+</div>
+<div class="section" id="creating-directory-for-bare-template">
+<h3>Creating directory for bare template<a class="headerlink" href="#creating-directory-for-bare-template" title="Permalink to this headline">¶</a></h3>
+<p>Tsuru depends on some Git hooks, you will need to create the bare template
+directory, and download the hook from Tsuru repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo mkdir -p /home/git/bare-template/hooks
+$ curl https://raw.github.com/globocom/tsuru/master/misc/git-hooks/post-receive <span class="p">|</span> sudo tee /home/git/bare-template/hooks/post-receive
+$ sudo chown -R git:git /home/git/bare-template
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuring-gandalf">
+<h3>Configuring gandalf<a class="headerlink" href="#configuring-gandalf" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cat &gt; /etc/gandalf.conf <span class="s">&lt;&lt;EOF</span>
+<span class="s">bin-path: /usr/bin/gandalf-ssh</span>
+<span class="s">database:</span>
+<span class="s">  url: 127.0.0.1:27017</span>
+<span class="s">  name: gandalf</span>
+<span class="s">git:</span>
+<span class="s">  bare:</span>
+<span class="s">    location: /var/lib/gandalf/repositories</span>
+<span class="s">    template: /home/git/bare-template</span>
+<span class="s">host: localhost</span>
+<span class="s">bind: 127.0.0.1:8000</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
+<p>Change the <code class="docutils literal notranslate"><span class="pre">host:</span> <span class="pre">localhost</span></code> to your base domain.</p>
+</div>
+<div class="section" id="starting-gandalf-and-git-daemon">
+<h3>Starting Gandalf and git-daemon<a class="headerlink" href="#starting-gandalf-and-git-daemon" title="Permalink to this headline">¶</a></h3>
+<p>This one is easy:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo start git-daemon
+$ sudo start gandalf-server
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="tsuru-api-and-collector">
+<h2>Tsuru API and collector<a class="headerlink" href="#tsuru-api-and-collector" title="Permalink to this headline">¶</a></h2>
+<p>You can also install Tsuru API and Collector from Tsuru PPA:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install tsuru-server gandalf-server
+</pre></div>
+</div>
+<div class="section" id="configuring">
+<h3>Configuring<a class="headerlink" href="#configuring" title="Permalink to this headline">¶</a></h3>
+<p>Before running tsuru, you must configure it. By default, tsuru will look for
+the configuration file in the <code class="docutils literal notranslate"><span class="pre">/etc/tsuru/tsuru.conf</span></code> path. You can check a
+sample configuration file and documentation for each tsuru setting in the
+<a class="reference internal" href="config.html"><span class="doc">“Configuring tsuru”</span></a> page.</p>
+<p>The debian package will create the file, you may open it and customize some
+settings, or you can download the sample configuration file from Github:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo curl -sL https://raw.github.com/globocom/tsuru/master/etc/tsuru-docker.conf -o /etc/tsuru/tsuru.conf
+</pre></div>
+</div>
+<p>By default, this configuration will use the tsuru image namespace, so if you
+try to create an application using python platform, tsuru will search for an
+image named tsuru/python. You can change this default behavior by changing the
+docker:repository-namespace config field.</p>
+<p>You’ll also need to enable Tsuru API, Collector and SSH agent on
+<code class="docutils literal notranslate"><span class="pre">/etc/default/tsuru-server</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cat &gt; /etc/default/tsuru-server <span class="s">&lt;&lt;EOF</span>
+<span class="s">TSR_API_ENABLED=yes</span>
+<span class="s">TSR_COLLECTOR_ENABLED=yes</span>
+
+<span class="s">TSR_SSH_AGENT_ENABLED=yes</span>
+<span class="s">TSR_SSH_AGENT_USER=ubuntu</span>
+<span class="s">TSR_SSH_AGENT_LISTEN=127.0.0.1:4545</span>
+<span class="s">TSR_SSH_AGENT_PRIVATE_KEY=/var/lib/tsuru/.ssh/id_rsa</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="running">
+<h3>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h3>
+<p>Now that you have <code class="docutils literal notranslate"><span class="pre">tsr</span></code> properly installed, and you <a class="reference internal" href="config.html"><span class="doc">configured tsuru</span></a>, you’re three steps away from running it.</p>
+<p>Start api, collector and docker-ssh-agent</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo start tsuru-server-collector
+$ sudo start tsuru-server-api
+$ sudo start tsuru-ssh-agent
+</pre></div>
+</div>
+<p>You can see the logs in:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo tail -f /var/log/syslog
+</pre></div>
+</div>
+<div class="section" id="creating-docker-images">
+<h4>Creating Docker Images<a class="headerlink" href="#creating-docker-images" title="Permalink to this headline">¶</a></h4>
+<p>Now it’s time to import the Docker images for your platforms. You can build
+your own docker image, or you can use our images as following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add an alias for docker to make your life easier (add it to your .bash_profile)</span>
+$ <span class="nb">alias</span> <span class="nv">docker</span><span class="o">=</span><span class="s1">&#39;docker -H 127.0.0.1:4243&#39;</span>
+<span class="c1"># Build the wanted platform, here we are adding the static platform(webserver)</span>
+$ docker build -t tsuru/static https://raw.github.com/flaviamissi/basebuilder/master/static/Dockerfile
+<span class="c1"># Now you can see if your image is ready - you should see the tsuru/static as an repository</span>
+$ docker images
+<span class="c1"># If you want all the other platforms, just run the command bellow</span>
+$ <span class="k">for</span> image in nodejs php python ruby<span class="p">;</span> <span class="k">do</span> docker build -t tsuru/<span class="nv">$image</span> https://raw.github.com/flaviamissi/basebuilder/master/<span class="nv">$image</span>/Dockerfile<span class="p">;</span><span class="k">done</span>
+<span class="c1"># To see if everything went well - just take a look in the repository column</span>
+$ docker images
+<span class="c1"># Now create your apps!</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-tsuru">
+<h4>Using tsuru<a class="headerlink" href="#using-tsuru" title="Permalink to this headline">¶</a></h4>
+<p>Congratulations! At this point you should have a working tsuru server running
+on your machine, follow the <a class="reference internal" href="apps/client/usage.html"><span class="doc">tsuru client usage guide</span></a> to start build your apps.</p>
+</div>
+<div class="section" id="adding-services">
+<h4>Adding Services<a class="headerlink" href="#adding-services" title="Permalink to this headline">¶</a></h4>
+<p>Here you will find a complete step-by-step example of how to install a mysql
+service with tsuru: <a class="reference external" href="http://docs.tsuru.io/en/latest/services/mysql-example.html">http://docs.tsuru.io/en/latest/services/mysql-example.html</a></p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="docker-centos.html" class="btn btn-neutral float-right" title="Build your own PaaS with tsuru and Docker on Centos" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="contribute.html" class="btn btn-neutral" title="contribute" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.2.12
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.2.12',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

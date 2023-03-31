@@ -1,0 +1,617 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API workflow &mdash; tsuru 0.12.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Building your service" href="build.html" />
+    <link rel="prev" title="Services" href="index.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.12.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Services</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">API workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#authentication">Authentication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#content-types">Content-types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#listing-available-plans">Listing available plans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-new-instance">Creating a new instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binding-an-app-to-a-service-instance">Binding an app to a service instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unbind-an-app-from-a-service-instance">Unbind an app from a service instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#removing-an-instance">Removing an instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#checking-the-status-of-an-instance">Checking the status of an instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-info-about-an-instance">Additional info about an instance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="build.html">Building your service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsuru-services-env-var.html">TSURU_SERVICES environment variable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html">crane usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/index.html">Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Services</a> &raquo;</li>
+        
+      <li>API workflow</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/services/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api-workflow">
+<h1>API workflow<a class="headerlink" href="#api-workflow" title="Permalink to this headline">¶</a></h1>
+<p>tsuru sends requests to the service API to the following actions:</p>
+<ul class="simple">
+<li>create a new instance of the service (<code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">service-add</span></code>)</li>
+<li>bind an app with the service instance (<code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">service-bind</span></code>)</li>
+<li>unbind an app from the service instance (<code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">service-unbind</span></code>)</li>
+<li>destroy the service instance (<code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">service-remove</span></code>)</li>
+<li>check the status of the service instance (<code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">service-status</span></code>)</li>
+<li>display additional info about a service, including instances and available
+plans (<code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">service-info</span></code>)</li>
+</ul>
+<div class="section" id="authentication">
+<span id="service-api-flow-authentication"></span><h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
+<p>tsuru will authenticate with the service API using HTTP basic authentication.
+The user can be username or name of the service, and the password is defined in the
+<a class="reference internal" href="build.html#id1"><span class="std std-ref">service manifest</span></a>.</p>
+</div>
+<div class="section" id="content-types">
+<h2>Content-types<a class="headerlink" href="#content-types" title="Permalink to this headline">¶</a></h2>
+<p>tsuru uses <code class="docutils literal notranslate"><span class="pre">application/x-www-form-urlencoded</span></code> in requests and expect
+<code class="docutils literal notranslate"><span class="pre">application/json</span></code> in responses.</p>
+<p>Here is an example of a request from tsuru, to the service API:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">POST</span> <span class="o">/</span><span class="n">resources</span> <span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<span class="n">Host</span><span class="p">:</span> <span class="n">myserviceapi</span><span class="o">.</span><span class="n">com</span>
+<span class="n">User</span><span class="o">-</span><span class="n">Agent</span><span class="p">:</span> <span class="n">Go</span> <span class="mf">1.1</span> <span class="n">package</span> <span class="n">http</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Length</span><span class="p">:</span> <span class="mi">38</span>
+<span class="n">Accept</span><span class="p">:</span> <span class="n">application</span><span class="o">/</span><span class="n">json</span>
+<span class="n">Authorization</span><span class="p">:</span> <span class="n">Basic</span> <span class="n">dXNlcjpwYXNzd29yZA</span><span class="o">==</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="p">:</span> <span class="n">application</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">www</span><span class="o">-</span><span class="n">form</span><span class="o">-</span><span class="n">urlencoded</span>
+
+<span class="n">name</span><span class="o">=</span><span class="n">myinstance</span><span class="o">&amp;</span><span class="n">plan</span><span class="o">=</span><span class="n">small</span><span class="o">&amp;</span><span class="n">team</span><span class="o">=</span><span class="n">myteam</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="listing-available-plans">
+<h2>Listing available plans<a class="headerlink" href="#listing-available-plans" title="Permalink to this headline">¶</a></h2>
+<p>tsuru will list the available plans whenever the user issues the command
+<code class="docutils literal notranslate"><span class="pre">service-info</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru service-info mysql
+</pre></div>
+</div>
+<p>It will display all instances of the service that the user has access to, and
+also the list of plans, that tsuru gets from the service API by issuing a GET
+on <code class="docutils literal notranslate"><span class="pre">/resources/plans</span></code>. Example of request:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /resources/plans HTTP/1.1
+Host: myserviceapi.com
+User-Agent: Go <span class="m">1</span>.1 package http
+Accept: application/json
+Authorization: Basic <span class="nv">dXNlcjpwYXNzd29yZA</span><span class="o">==</span>
+Content-Type: application/x-www-form-urlencoded
+</pre></div>
+</div>
+<p>The API should return the following HTTP response codes with the respective
+response body:</p>
+<blockquote>
+<div><ul class="simple">
+<li>200: if the operation has succeeded. The response body should include the
+list of the plans, in JSON format. Each plan contains a “name” and a
+“description”. Example of response:</li>
+</ul>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>HTTP/1.1 <span class="m">200</span> OK
+Content-Type: application/json<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>UTF-8
+
+<span class="o">[{</span><span class="s2">&quot;name&quot;</span>:<span class="s2">&quot;small&quot;</span>,<span class="s2">&quot;description&quot;</span>:<span class="s2">&quot;plan for small instances&quot;</span><span class="o">}</span>,
+ <span class="o">{</span><span class="s2">&quot;name&quot;</span>:<span class="s2">&quot;medium&quot;</span>,<span class="s2">&quot;description&quot;</span>:<span class="s2">&quot;plan for medium instances&quot;</span><span class="o">}</span>,
+ <span class="o">{</span><span class="s2">&quot;name&quot;</span>:<span class="s2">&quot;huge&quot;</span>,<span class="s2">&quot;description&quot;</span>:<span class="s2">&quot;plan for huge instances&quot;</span><span class="o">}]</span>
+</pre></div>
+</div>
+<p>In case of failure, the service API should return the status 500, explaining
+what happened in the response body.</p>
+</div>
+<div class="section" id="creating-a-new-instance">
+<h2>Creating a new instance<a class="headerlink" href="#creating-a-new-instance" title="Permalink to this headline">¶</a></h2>
+<p>This process begins when a tsuru customer creates an instance of the service
+via command line tool:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru service-add mysql mysql_instance
+</pre></div>
+</div>
+<p>tsuru calls the service API to create a new instance via POST on <code class="docutils literal notranslate"><span class="pre">/resources</span></code>
+(please notice that tsuru does not include a trailing slash) with the name,
+plan and the team that owns the instance. Example of request:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>POST /resources HTTP/1.1
+Host: myserviceapi.com
+Content-Length: <span class="m">56</span>
+User-Agent: Go <span class="m">1</span>.1 package http
+Accept: application/json
+Authorization: Basic <span class="nv">dXNlcjpwYXNzd29yZA</span><span class="o">==</span>
+Content-Type: application/x-www-form-urlencoded
+
+<span class="nv">name</span><span class="o">=</span>mysql_instance<span class="p">&amp;</span><span class="nv">plan</span><span class="o">=</span>small<span class="p">&amp;</span><span class="nv">team</span><span class="o">=</span>myteam<span class="p">&amp;</span><span class="nv">user</span><span class="o">=</span>username
+</pre></div>
+</div>
+<p>The API should return the following HTTP response codes with the respective
+response body:</p>
+<blockquote>
+<div><ul class="simple">
+<li>201: when the instance is successfully created. There’s no need to
+include any body, as tsuru doesn’t expect to get any content back in case
+of success.</li>
+<li>500: in case of any failure in the operation. tsuru expects that the
+service API includes an explanation of the failure in the response body.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="binding-an-app-to-a-service-instance">
+<h2>Binding an app to a service instance<a class="headerlink" href="#binding-an-app-to-a-service-instance" title="Permalink to this headline">¶</a></h2>
+<p>This process begins when a tsuru customer binds an app to an instance of the
+service via command line tool:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru service-bind mysql_instance --app my_app
+</pre></div>
+</div>
+<p>Now, tsuru services has two bind endpoints: <code class="docutils literal notranslate"><span class="pre">/resources/&lt;service-instance-name&gt;/bind</span></code> and <code class="docutils literal notranslate"><span class="pre">/resources/&lt;service-instance-name&gt;/bind-app</span></code>.
+The first endpoint will be called every time an app adds an unit.
+This endpoint is a POST with app-host and unit-host, where app-host
+represents the host to which the app is accessible, and unit-host is the
+address of the unit. Example of request:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>POST /resources/myinstance/bind HTTP/1.1
+Host: myserviceapi.com
+User-Agent: Go <span class="m">1</span>.1 package http
+Content-Length: <span class="m">48</span>
+Accept: application/json
+Authorization: Basic <span class="nv">dXNlcjpwYXNzd29yZA</span><span class="o">==</span>
+Content-Type: application/x-www-form-urlencoded
+
+app-host<span class="o">=</span>myapp.cloud.tsuru.io<span class="p">&amp;</span>unit-host<span class="o">=</span><span class="m">10</span>.4.3.2
+</pre></div>
+</div>
+<p>The second endpoint <code class="docutils literal notranslate"><span class="pre">/resources/&lt;service-instance-name&gt;/bind-app</span></code> will be
+called once when an app is bound to a service.  This endpoint is a POST with
+app-host, where app-host represents the host to which the app is accessible.
+Example of request:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>POST /resources/myinstance/bind-app HTTP/1.1
+Host: myserviceapi.com
+User-Agent: Go <span class="m">1</span>.1 package http
+Content-Length: <span class="m">48</span>
+Accept: application/json
+Authorization: Basic <span class="nv">dXNlcjpwYXNzd29yZA</span><span class="o">==</span>
+Content-Type: application/x-www-form-urlencoded
+
+app-host<span class="o">=</span>myapp.cloud.tsuru.io
+</pre></div>
+</div>
+<p>The service API should return the following HTTP response code with the
+respective response body:</p>
+<blockquote>
+<div><ul class="simple">
+<li>201: if the app has been successfully bound to the instance. The response
+body must be a JSON containing the environment variables from this
+instance that should be exported in the app in order to connect to the
+instance. If the service does not export any environment variable, it can
+return <code class="docutils literal notranslate"><span class="pre">null</span></code> or <code class="docutils literal notranslate"><span class="pre">{}</span></code> in the response body. Example of response:</li>
+</ul>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>HTTP/1.1 <span class="m">201</span> CREATED
+Content-Type: application/json<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>UTF-8
+
+<span class="o">{</span><span class="s2">&quot;MYSQL_HOST&quot;</span>:<span class="s2">&quot;10.10.10.10&quot;</span>,<span class="s2">&quot;MYSQL_PORT&quot;</span>:3306,
+ <span class="s2">&quot;MYSQL_USER&quot;</span>:<span class="s2">&quot;ROOT&quot;</span>,<span class="s2">&quot;MYSQL_PASSWORD&quot;</span>:<span class="s2">&quot;s3cr3t&quot;</span>,
+ <span class="s2">&quot;MYSQL_DATABASE_NAME&quot;</span>:<span class="s2">&quot;myapp&quot;</span><span class="o">}</span>
+</pre></div>
+</div>
+<p>Status codes for errors in the process:</p>
+<blockquote>
+<div><ul class="simple">
+<li>404: if the service instance does not exist. There’s no need to include
+anything in the response body.</li>
+<li>412: if the service instance is still being provisioned, and not ready
+for binding yet. The service API may include an explanation of the
+failure in the response body.</li>
+<li>500: in case of any failure in the operation. tsuru expects that the
+service API includes an explanation of the failure in the response body.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="unbind-an-app-from-a-service-instance">
+<h2>Unbind an app from a service instance<a class="headerlink" href="#unbind-an-app-from-a-service-instance" title="Permalink to this headline">¶</a></h2>
+<p>This process begins when a tsuru customer unbinds an app from an instance of
+the service via command line:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru service-unbind mysql_instance --app my_app
+</pre></div>
+</div>
+<p>Now, tsuru services has two unbind endpoints: <code class="docutils literal notranslate"><span class="pre">/resources/&lt;service-instance-name&gt;/bind</span></code> and <code class="docutils literal notranslate"><span class="pre">/resources/&lt;service-instance-name&gt;/bind-app</span></code>.
+The first endpoint will be called every time an app removes an unit.
+This endpoint is a DELETE with app-host and unit-host. Example of request:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>DELETE /resources/myinstance/bind HTTP/1.1
+Host: myserviceapi.com
+User-Agent: Go <span class="m">1</span>.1 package http
+Accept: application/json
+Authorization: Basic <span class="nv">dXNlcjpwYXNzd29yZA</span><span class="o">==</span>
+Content-Type: application/x-www-form-urlencoded
+
+app-host<span class="o">=</span>myapp.cloud.tsuru.io<span class="p">&amp;</span>unit-host<span class="o">=</span><span class="m">10</span>.4.3.2
+</pre></div>
+</div>
+<p>The second endpoint <code class="docutils literal notranslate"><span class="pre">/resources/&lt;service-instance-name&gt;/bind-app</span></code> will be
+called once when the binding between a service and an application is removed.
+This endpoint is a DELETE with app-host. Example of request:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>DELETE /resources/myinstance/bind-app HTTP/1.1
+Host: myserviceapi.com
+User-Agent: Go <span class="m">1</span>.1 package http
+Accept: application/json
+Authorization: Basic <span class="nv">dXNlcjpwYXNzd29yZA</span><span class="o">==</span>
+Content-Type: application/x-www-form-urlencoded
+
+app-host<span class="o">=</span>myapp.cloud.tsuru.io
+</pre></div>
+</div>
+<p>The API should return the following HTTP response code with the respective
+response body:</p>
+<blockquote>
+<div><ul class="simple">
+<li>200: if the operation has succeed and the app is not bound to the service
+instance anymore. There’s no need to include anything in the response
+body.</li>
+<li>404: if the service instance does not exist. There’s no need to include
+anything in the response body.</li>
+<li>500: in case of any failure in the operation. tsuru expects that the
+service API includes an explanation of the failure in the response body.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="removing-an-instance">
+<h2>Removing an instance<a class="headerlink" href="#removing-an-instance" title="Permalink to this headline">¶</a></h2>
+<p>This process begins when a tsuru customer removes an instance of the service
+via command line:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru service-remove mysql_instance -y
+</pre></div>
+</div>
+<p>tsuru calls the service API to remove the instancevia DELETE on
+<code class="docutils literal notranslate"><span class="pre">/resources/&lt;service-name&gt;</span></code> (please notice that tsuru does not include a
+trailing slash). Example of request:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>DELETE /resources/myinstance HTTP/1.1
+Host: myserviceapi.com
+User-Agent: Go <span class="m">1</span>.1 package http
+Accept: application/json
+Authorization: Basic <span class="nv">dXNlcjpwYXNzd29yZA</span><span class="o">==</span>
+Content-Type: application/x-www-form-urlencoded
+</pre></div>
+</div>
+<p>The API should return the following HTTP response codes with the respective
+response body:</p>
+<blockquote>
+<div><ul class="simple">
+<li>200: if the service instance has been successfully removed. There’s no
+need to include anything in the response body.</li>
+<li>404: if the service instance does not exist. There’s no need to include
+anything in the response body.</li>
+<li>500: in case of any failure in the operation. tsuru expects that the
+service API includes an explanation of the failure in the response body.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="checking-the-status-of-an-instance">
+<h2>Checking the status of an instance<a class="headerlink" href="#checking-the-status-of-an-instance" title="Permalink to this headline">¶</a></h2>
+<p>This process begins when a tsuru customer wants to check the status of an
+instance via command line:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ tsuru service-status mysql_instance
+</pre></div>
+</div>
+<p>tsuru calls the service API to check the status of the instance via GET on
+<code class="docutils literal notranslate"><span class="pre">/resources/mysql_instance/status</span></code> (please notice that tsuru does not include
+a trailing slash). Example of request:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /resources/myinstance/status HTTP/1.1
+Host: myserviceapi.com
+User-Agent: Go <span class="m">1</span>.1 package http
+Accept: application/json
+Authorization: Basic <span class="nv">dXNlcjpwYXNzd29yZA</span><span class="o">==</span>
+Content-Type: application/x-www-form-urlencoded
+</pre></div>
+</div>
+<p>The API should return the following HTTP response code, with the respective
+response body:</p>
+<blockquote>
+<div><ul class="simple">
+<li>202: the instance is still being provisioned (pending). There’s no need
+to include anything in the response body.</li>
+<li>204: the instance is running and ready for connections (running).</li>
+<li>500: the instance is not running, nor ready for connections. tsuru
+expects an explanation of what happened in the response body.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="additional-info-about-an-instance">
+<h2>Additional info about an instance<a class="headerlink" href="#additional-info-about-an-instance" title="Permalink to this headline">¶</a></h2>
+<p>When the user run <code class="docutils literal notranslate"><span class="pre">tsuru</span> <span class="pre">service-info</span> <span class="pre">&lt;service&gt;</span></code>, tsuru will get informations
+from all instances. This is an optional endpoint in the service API. Some
+services does not provide any extra information for instances. Example of
+request:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>GET /resources/myinstance HTTP/1.1
+Host: myserviceapi.com
+User-Agent: Go <span class="m">1</span>.1 package http
+Accept: application/json
+Authorization: Basic <span class="nv">dXNlcjpwYXNzd29yZA</span><span class="o">==</span>
+Content-Type: application/x-www-form-urlencoded
+</pre></div>
+</div>
+<p>The API should return the following HTTP response codes:</p>
+<blockquote>
+<div><ul class="simple">
+<li>404: when the API doesn’t have extra info about the service instance.
+There’s no need to include anything in the response body.</li>
+<li>200: when there’s extra information of the service instance. The response
+body must be a JSON containing a list of items. Each item is a JSON
+object combosed by a label and a value. Example response:</li>
+</ul>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>HTTP/1.1 <span class="m">200</span> OK
+Content-Type: application/json<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>UTF-8
+
+<span class="o">[{</span><span class="s2">&quot;label&quot;</span>:<span class="s2">&quot;my label&quot;</span>,<span class="s2">&quot;value&quot;</span>:<span class="s2">&quot;my value&quot;</span><span class="o">}</span>,
+ <span class="o">{</span><span class="s2">&quot;label&quot;</span>:<span class="s2">&quot;myLabel2.0&quot;</span>,<span class="s2">&quot;value&quot;</span>:<span class="s2">&quot;my value 2.0&quot;</span><span class="o">}]</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="build.html" class="btn btn-neutral float-right" title="Building your service" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Services" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 0.12.4
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.12.4',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

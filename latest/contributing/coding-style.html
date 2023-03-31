@@ -1,0 +1,391 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Coding style &mdash; tsuru 1.12.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Building a development environment with Vagrant" href="vagrant.html" />
+    <link rel="prev" title="Contributing" href="index.html" /> 
+
+<link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tsuru
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.12.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../understanding/index.html">Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../managing/index.html">Managing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Plugins</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Contributing</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#fixing-typos-and-enhancing-the-documentation">Fixing typos and enhancing the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#adding-new-features">Adding new features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#submitting-changes">Submitting Changes</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#development-environment">Development environment</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Coding style</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#formatting">Formatting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#naming-standards">Naming standards</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#including-the-package-in-the-name-of-the-function">Including the package in the name of the function</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="vagrant.html">Building a development environment with Vagrant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compose.html">Building a development environment with Docker Compose</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#running-the-tests">Running the tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#release-process">Release Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#discussing">Discussing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental/index.html">Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tsuru</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Contributing</a> &raquo;</li>
+        
+      <li>Coding style</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/contributing/coding-style.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="coding-style">
+<h1>Coding style<a class="headerlink" href="#coding-style" title="Permalink to this headline">¶</a></h1>
+<p>Please follow these coding standards when writing code for inclusion in tsuru.</p>
+<div class="section" id="formatting">
+<h2>Formatting<a class="headerlink" href="#formatting" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Follow the <a class="reference external" href="http://golang.org/doc/effective_go.html#formatting">Go formatting style</a></li>
+</ul>
+</div>
+<div class="section" id="naming-standards">
+<h2>Naming standards<a class="headerlink" href="#naming-standards" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="new-something">
+<h3>New&lt;Something&gt;<a class="headerlink" href="#new-something" title="Permalink to this headline">¶</a></h3>
+<p>is used the constructor of <cite>Something</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NewApp</span><span class="p">(</span><span class="n">name</span> <span class="n">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="n">App</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-something">
+<h3>Add&lt;Something&gt;<a class="headerlink" href="#add-something" title="Permalink to this headline">¶</a></h3>
+<p>is a <cite>method</cite> of a type that has a collection of <cite>Something`s. Should receive an instance of `Something</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span><span class="n">App</span><span class="p">)</span> <span class="n">AddUnit</span><span class="p">(</span><span class="n">u</span> <span class="o">*</span><span class="n">Unit</span><span class="p">)</span> <span class="n">error</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add">
+<h3>Add<a class="headerlink" href="#add" title="Permalink to this headline">¶</a></h3>
+<p>is a method of a collection that adds one or more elements:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span><span class="n">AppList</span><span class="p">)</span> <span class="n">Add</span><span class="p">(</span><span class="n">apps</span> <span class="o">...*</span><span class="n">App</span><span class="p">)</span> <span class="n">error</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-something">
+<h3>Create&lt;Something&gt;<a class="headerlink" href="#create-something" title="Permalink to this headline">¶</a></h3>
+<p>is a function that saves an instance of <cite>Something</cite>. Unlike <code class="docutils literal notranslate"><span class="pre">NewSomething</span></code>,
+the create function would create a persistent version of <cite>Something</cite>. Storing it
+in the database, a remote API, the filesystem or wherever <cite>Something</cite> would be
+stored “forever”.</p>
+<p>Comes in two versions:</p>
+<ol class="arabic">
+<li><p class="first">One that receives the instance of <cite>Something</cite> and returns an error:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="n">CreateApp</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span><span class="n">App</span><span class="p">)</span> <span class="n">error</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Other that receives the required parameters and returns the an instance of
+<cite>Something</cite> and an error:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="n">CreateUser</span><span class="p">(</span><span class="n">email</span> <span class="n">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="n">User</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="delete-something">
+<h3>Delete&lt;Something&gt;<a class="headerlink" href="#delete-something" title="Permalink to this headline">¶</a></h3>
+<p>is a function that destroy an instance of <cite>Something</cite>. Destroying may involve
+processes like removing it from the database and some directory in the
+filesystem.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="n">DeleteApp</span><span class="p">(</span><span class="n">app</span> <span class="o">*</span><span class="n">App</span><span class="p">)</span> <span class="n">error</span>
+</pre></div>
+</div>
+<p>Would delete an application from the database, delete the repository, remove
+the entry in the router, and anything else that depends on the application.</p>
+<p>It’s also valid to write the function so it receives some other kind of values
+that is able to identify the instance of <cite>Something</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="n">DeleteApp</span><span class="p">(</span><span class="n">name</span> <span class="n">string</span><span class="p">)</span> <span class="n">error</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="remove-something">
+<h3>Remove&lt;Something&gt;<a class="headerlink" href="#remove-something" title="Permalink to this headline">¶</a></h3>
+<p>is the opposite of Add&lt;Something&gt;.</p>
+</div>
+</div>
+<div class="section" id="including-the-package-in-the-name-of-the-function">
+<h2>Including the package in the name of the function<a class="headerlink" href="#including-the-package-in-the-name-of-the-function" title="Permalink to this headline">¶</a></h2>
+<p>For functions, it’s also possible to omit <cite>Something</cite> when the name of the
+package represents <cite>Something</cite>. For example, if there’s a package named “app”,
+the function CreateApp could be just “Create”. The same applies to other
+functions. This way callers won’t need to write verbose code like
+<code class="docutils literal notranslate"><span class="pre">something.CreateSomething</span></code>, preferring <code class="docutils literal notranslate"><span class="pre">something.Create</span></code>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="vagrant.html" class="btn btn-neutral float-right" title="Building a development environment with Vagrant" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Contributing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, tsuru authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions</span>
+    v: 1.12.3
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dd><a href="/stable/">stable</a></dd>
+      <dd><a href="/latest/">latest</a></dd>
+      <dd><a href="/main/">main</a></dd>
+    </dl>
+    <dl>
+      <dt>Releases</dt>
+      <dd><a href="/1.12/">1.12</a></dd>
+      <dd><a href="/1.11/">1.11</a></dd>
+      <dd><a href="/1.10/">1.10</a></dd>
+      <dd><a href="/1.9/">1.9</a></dd>
+      <dd><a href="/1.8/">1.8</a></dd>
+      <dd><a href="/1.7/">1.7</a></dd>
+      <dd><a href="/1.6/">1.6</a></dd>
+      <dd><a href="/1.5/">1.5</a></dd>
+      <dd><a href="/1.4/">1.4</a></dd>
+      <dd><a href="/1.3/">1.3</a></dd>
+      <dd><a href="/1.2/">1.2</a></dd>
+      <dd><a href="/1.1/">1.1</a></dd>
+      <dd><a href="/1.0/">1.0</a></dd>
+      <dd><a href="/0.13/">0.13</a></dd>
+      <dd><a href="/0.12/">0.12</a></dd>
+      <dd><a href="/0.11/">0.11</a></dd>
+      <dd><a href="/0.10/">0.10</a></dd>
+      <dd><a href="/0.9/">0.9</a></dd>
+      <dd><a href="/0.8/">0.8</a></dd>
+      <dd><a href="/0.7/">0.7</a></dd>
+      <dd><a href="/0.6/">0.6</a></dd>
+      <dd><a href="/0.5/">0.5</a></dd>
+      <dd><a href="/0.4/">0.4</a></dd>
+      <dd><a href="/0.3/">0.3</a></dd>
+      <dd><a href="/0.2/">0.2</a></dd>
+      <dd><a href="/0.1/">0.1</a></dd>
+    </dl>
+    <hr />
+  </div>
+</div>
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.12.3',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
