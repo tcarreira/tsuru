@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Tsuru Team" /><link rel="canonical" href="https://docs.tsuru.github.com/1.13/user_guides/deploy_using_dockerfile/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Using Dockerfile - tsuru</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Using Dockerfile";
+        var mkdocs_page_input_path = "user_guides/deploy_using_dockerfile.md";
+        var mkdocs_page_url = "/1.13/user_guides/deploy_using_dockerfile/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> tsuru
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+              <ul>
+              </ul>
+              <p class="caption"><span class="caption-text">User guides</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Deploy</a>
+    <ul class="current">
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">Using Dockerfile</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#advanced-tweaks">Advanced tweaks</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#how-can-i-access-tsuru-env-vars-during-container-image-build">How can I access Tsuru env vars during container image build?</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#limitations">Limitations</a>
+    </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Admin guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Local Environment</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../admin/local_environment/make-local/">With Makefile</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../admin/local_environment/helm/">With Helm</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">References</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Configuration files</a>
+    <ul>
+                <li class="toctree-l2"><a class="" href="../../references/procfile.md">Procfile</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../references/tsuru.yaml/">tsuru.yaml</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="../../references/tsurud.yaml.md">tsurud.yaml</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">tsuru</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>User guides &raquo;</li>
+          <li>Deploy &raquo;</li>
+      <li>Using Dockerfile</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/tsuru/tsuru/edit/main/docs/docs/user_guides/deploy_using_dockerfile.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="deploy-using-dockerfile">Deploy using Dockerfile</h1>
+<p>Tsuru official's platforms don't support every language, framework, or runtime your tech stack may require.
+It doesn't intend to do so.
+If you have a setup where the official platforms don't meet your needs, you can deploy your app using its <a href="https://docs.docker.com/engine/reference/builder/">Dockerfile</a> (Containerfile).</p>
+<div class="admonition note">
+<p class="admonition-title">Comparison: container image x Dockerfile</p>
+<p>Developer's convenience is the key difference between deploying an app using a container image and Dockerfile.
+The former requires extra steps on the developer's side, such as building and publishing the container image, the latter doesn't.</p>
+</div>
+<p>This guide will walk you through the steps to deploy into an app using a simple Dockerfile.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>This guide assumes that you have:</p>
+<ol>
+<li>Tsuru client installed (version must be &gt;= 1.15);</li>
+<li>Set a Tsuru target (server version must be &gt;= 1.14);</li>
+<li>Logged into Tsuru;</li>
+<li>An app (henceforth referred as <code>hello-world-app</code>) where your user has permission to deploy on.</li>
+</ol>
+<h2 id="usage">Usage</h2>
+<p>In this example, we are building and deploying a simple application written in Go.
+You can checkout the complete code used here on <a href="https://github.com/tsuru/tsuru/main/tree/docs/samples/dockerfile_v1">samples/dockerfile_v1</a>.
+You might take a closer look at <code>Dockerfile</code> and <code>main.go</code> files, but there's no mytery on them.</p>
+<p>To deploy into application using its Dockerfile, you just need issue the below command:</p>
+<div class="highlight"><pre><span></span><code>tsuru<span class="w"> </span>app<span class="w"> </span>deploy<span class="w"> </span>-a<span class="w"> </span>hello-world<span class="w"> </span>--dockerfile<span class="w"> </span>./
+</code></pre></div>
+<p>The main difference among other types of deploys on Tsuru is the new command argument <code>--dockerfile</code>.
+The <code>--dockerfile</code> command argument allows you to pass a directory or a specific container file.</p>
+<ol>
+<li>
+<p>When you pass a directory, Tsuru client tries to find the container file following these names (order matters):</p>
+<ul>
+<li><code>Dockerfile.&lt;app name&gt;</code> (e.g. <code>Dockerfile.hello-world-app</code>)</li>
+<li><code>Containerfile.&lt;app name&gt;</code> (e.g. <code>Containerfile.hello-world-app</code>)</li>
+<li><code>Dockerfile.tsuru</code></li>
+<li><code>Containerfile.tsuru</code></li>
+<li><code>Dockerfile</code></li>
+<li><code>Containerfile</code></li>
+</ul>
+<p>Example:
+<div class="highlight"><pre><span></span><code>tsuru<span class="w"> </span>app<span class="w"> </span>deploy<span class="w"> </span>-a<span class="w"> </span>&lt;app<span class="w"> </span>name&gt;<span class="w"> </span>--dockerfile<span class="w"> </span>./path/to/dir/
+</code></pre></div></p>
+</li>
+<li>
+<p>When you pass a regular file, Tsuru consider it as the container file - regardless of its file name.</p>
+<p>Example:
+<div class="highlight"><pre><span></span><code>tsuru app deploy -a &lt;app name&gt; --dockerfile ./path/to/Dockerfile.custom
+</code></pre></div></p>
+</li>
+</ol>
+<p>In both cases, the build context (files passed to the builder where you can refer on <a href="https://docs.docker.com/engine/reference/builder/#copy">COPY</a>/<a href="https://docs.docker.com/engine/reference/builder/#add">ADD</a> directives) is the current working directory.
+Otherwise, you can select only the files you want by passing their namely.</p>
+<p>Example:
+<div class="highlight"><pre><span></span><code>tsuru app deploy -a &lt;app name&gt; --dockerfile ./path/to/Dockerfile file1.txt file2.txt
+</code></pre></div></p>
+<h2 id="advanced-tweaks">Advanced tweaks</h2>
+<h3 id="how-can-i-access-tsuru-env-vars-during-container-image-build">How can I access Tsuru env vars during container image build?</h3>
+<p>You're able to import the env vars configured on Tsuru app while running the deploy with Dockerfile.
+To do so, you just need append the following snippet in the Dockerfile.</p>
+<div class="highlight"><pre><span></span><code><span class="k">RUN</span><span class="w"> </span>--mount<span class="o">=</span><span class="nv">type</span><span class="o">=</span>secret,id<span class="o">=</span>tsuru-app-envvars,target<span class="o">=</span>/var/run/secrets/envs.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>.<span class="w"> </span>/var/run/secrets/envs.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>...<span class="w"> </span>following<span class="w"> </span>commands<span class="w"> </span><span class="k">in</span><span class="w"> </span>this<span class="w"> </span>multi-command<span class="w"> </span>line<span class="w"> </span>are<span class="w"> </span>able<span class="w"> </span>to<span class="w"> </span>see<span class="w"> </span>the<span class="w"> </span>env<span class="w"> </span>vars<span class="w"> </span>from<span class="w"> </span>Tsuru
+</code></pre></div>
+<p><strong>NOTE</strong>: That's a bit different than defining <code>ENV</code> directive, specially because they're not stored in the image layers.</p>
+<h2 id="limitations">Limitations</h2>
+<ol>
+<li>You cannot use distroless based images on your final container image - although on intermediary stages is fine.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></li>
+<li>There's no support for setting build arguments.</li>
+<li>There's no support to specify a particular platform - the only platform supported is <code>linux/amd64</code>.</li>
+</ol>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Tsuru requires a shell intepreter (e.g. <code>sh</code> or <code>bash</code>) to run hooks, app shell, etc.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../.." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../admin/local_environment/make-local/" class="btn btn-neutral float-right" title="With Makefile">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/tsuru/tsuru/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../.." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../admin/local_environment/make-local/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+      <script src="../../js/version-select.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

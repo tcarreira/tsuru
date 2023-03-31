@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Tsuru Team" /><link rel="canonical" href="https://docs.tsuru.github.com/1.13/admin/local_environment/make-local/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>With Makefile - tsuru</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "With Makefile";
+        var mkdocs_page_input_path = "admin/local_environment/make-local.md";
+        var mkdocs_page_url = "/1.13/admin/local_environment/make-local/";
+      </script>
+    
+    <script src="../../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> tsuru
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+              <ul>
+              </ul>
+              <p class="caption"><span class="caption-text">User guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Deploy</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../../user_guides/deploy_using_dockerfile/">Using Dockerfile</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Admin guides</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Local Environment</a>
+    <ul class="current">
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">With Makefile</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#git-clone">Git clone</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#jumpstarting-the-cluster-optional">Jumpstarting the cluster (optional)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#run-the-tsuru-api">Run the tsuru api</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#admin-configuration">Admin Configuration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#optional-steps">Optional Steps</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../helm/">With Helm</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">References</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Configuration files</a>
+    <ul>
+                <li class="toctree-l2"><a class="" href="../../../references/procfile.md">Procfile</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../references/tsuru.yaml/">tsuru.yaml</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="../../../references/tsurud.yaml.md">tsurud.yaml</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">tsuru</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Admin guides &raquo;</li>
+          <li>Local Environment &raquo;</li>
+      <li>With Makefile</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/tsuru/tsuru/edit/main/docs/docs/admin/local_environment/make-local.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="installing-tsuru-locally">Installing Tsuru locally</h1>
+<p>This guide will walk you through running the tsuru api locally and attaching it to your running kubernetes cluster</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ol>
+<li><a href="https://minikube.sigs.k8s.io/docs/start/">Minikube</a> (this can be optional if you already have a cluster running)</li>
+<li><a href="https://kubernetes.io/docs/tasks/tools/">kubectl</a></li>
+</ol>
+<h2 id="git-clone">Git clone</h2>
+<p>First things thirst, please clone tsuru repository and <em>cd</em> into it:</p>
+<p><code>git clone https://github.com/tsuru/tsuru.git &amp; cd tsuru</code></p>
+<h2 id="jumpstarting-the-cluster-optional">Jumpstarting the cluster (optional)</h2>
+<p>Tsuru has a Makefile recipe <code>make local</code> to locally run a minikube cluster on your machine, but feel free to bootstrap your cluster anyway you want.</p>
+<blockquote>
+<p>It's important to make sure the tsuru api has access to the services running inside the cluster and can talk to the Kubernetes api, this can be easily achieved by running
+the cluster using the <em>none</em> driver when running minikube</p>
+<p>If you just want to test things out locally we highly recommend the usage of <code>make local</code> for simplicity and support</p>
+</blockquote>
+<h2 id="run-the-tsuru-api">Run the tsuru api</h2>
+<ul>
+<li>
+<p>If you've ran the <code>make local</code> recipe and got no errors the api should already be up and running.</p>
+<blockquote>
+<p>If you decide to create the cluster on your behalf, you still have to build and run the api, there's also a recipe for that:
+<code>make local-api</code></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="admin-configuration">Admin Configuration</h2>
+<ul>
+<li>
+<p>Edit the <em>host</em> paramater inside <em>etc/tsuru-local.conf</em> and replace it with your own local IP</p>
+<blockquote>
+<p>To find out your local IP either run <code>ifconfig</code> or the newer <code>ip --addr</code> command</p>
+</blockquote>
+</li>
+<li>
+<p>Create the admin user on tsuru:</p>
+<p><code>tsurud root user create admin@admin.com</code></p>
+<blockquote>
+<p>You can replace <code>admin@admin.com</code> with any email you'd prefer</p>
+</blockquote>
+</li>
+<li>
+<p>Add the localhost to tsuru target and log in using your credentials created in step 1:</p>
+<p><code>tsuru target-add default https://localhost:8080 -s</code></p>
+<p><code>tsuru login</code></p>
+</li>
+<li>
+<p>Create a team:</p>
+<p><code>tsuru team create admin-team</code></p>
+</li>
+<li>
+<p>Create a pool:</p>
+<p><code>tsuru pool create kubepool --provisioner=kubernetes --default=true</code></p>
+</li>
+<li>
+<p>Add your running cluster to tsuru:</p>
+<p><code>tsuru cluster add minikube kubernetes --addr https://`minikube ip`:8443 --cacert $HOME/.minikube/ca.crt --clientcert $HOME/.minikube/profiles/minikube/apiserver.crt --clientkey $HOME/.minikube/profiles/minikube/apiserver.key --pool kubepool</code></p>
+</li>
+<li>
+<p>Check your node IP:</p>
+<p><code>tsuru node list -f tsuru.io/cluster=minikube</code></p>
+</li>
+<li>
+<p>Register your node IP as a member of kubepool:</p>
+<p><code>tsuru node update &lt;node ip&gt; pool=kubepool</code></p>
+</li>
+</ul>
+<h2 id="optional-steps">Optional Steps</h2>
+<ul>
+<li>
+<p>Add a platform:</p>
+<p><code>tsuru platform add go</code></p>
+</li>
+<li>
+<p>Create and Deploy tsuru-dashboard app:</p>
+<p><code>tsuru app create dashboard</code></p>
+<p><code>tsuru app deploy -a dashboard --image tsuru/dashboard</code></p>
+</li>
+<li>
+<p>Create an app to test:</p>
+<p><code>mkdir example-go</code></p>
+<p><code>cd example-go</code></p>
+<p><code>git clone https://github.com/tsuru/platforms.git</code></p>
+<p><code>cd platforms/examples/go</code></p>
+<p><code>tsuru app create example-go go</code></p>
+<p><code>tsuru app deploy -a example-go</code></p>
+</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../../user_guides/deploy_using_dockerfile/" class="btn btn-neutral float-left" title="Using Dockerfile"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../helm/" class="btn btn-neutral float-right" title="With Helm">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/tsuru/tsuru/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../../../user_guides/deploy_using_dockerfile/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../helm/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../../..';</script>
+    <script src="../../../js/theme_extra.js" defer></script>
+    <script src="../../../js/theme.js" defer></script>
+      <script src="../../../search/main.js" defer></script>
+      <script src="../../../js/version-select.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

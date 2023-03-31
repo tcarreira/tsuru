@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Tsuru Team" /><link rel="canonical" href="https://docs.tsuru.github.com/1.13/admin/local_environment/helm/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>With Helm - tsuru</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "With Helm";
+        var mkdocs_page_input_path = "admin/local_environment/helm.md";
+        var mkdocs_page_url = "/1.13/admin/local_environment/helm/";
+      </script>
+    
+    <script src="../../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> tsuru
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+              <ul>
+              </ul>
+              <p class="caption"><span class="caption-text">User guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Deploy</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../../user_guides/deploy_using_dockerfile/">Using Dockerfile</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Admin guides</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Local Environment</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../make-local/">With Makefile</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">With Helm</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#jumpstarting-the-cluster">Jumpstarting the cluster</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hardware-requirements">Hardware Requirements</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#installing-the-helm-chart">Installing the helm chart</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#admin-configuration">Admin Configuration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#optional-steps">Optional Steps</a>
+    </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">References</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Configuration files</a>
+    <ul>
+                <li class="toctree-l2"><a class="" href="../../../references/procfile.md">Procfile</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../references/tsuru.yaml/">tsuru.yaml</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="../../../references/tsurud.yaml.md">tsurud.yaml</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">tsuru</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Admin guides &raquo;</li>
+          <li>Local Environment &raquo;</li>
+      <li>With Helm</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/tsuru/tsuru/edit/main/docs/docs/admin/local_environment/helm.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="installing-tsuru-in-a-local-kubernetes-cluster-with-helm">Installing Tsuru in a local Kubernetes cluster with Helm</h1>
+<p>All steps in this guide were done in Kubernetes v1.20.0. While it might work for almost all Kubernetes versions, some versions may break something. Feel free to report us in that case.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ol>
+<li><a href="https://minikube.sigs.k8s.io/docs/start/">Minikube</a></li>
+<li><a href="https://kubernetes.io/docs/tasks/tools/">kubectl</a></li>
+<li><a href="https://helm.sh/docs/intro/install/">Helm</a></li>
+</ol>
+<h2 id="jumpstarting-the-cluster">Jumpstarting the cluster</h2>
+<p>Tsuru has a Makefile recipe (<code>make local</code>) to locally run a minikube cluster on your machine, but feel free to bootstrap your minikube cluster anyway you want.</p>
+<h2 id="hardware-requirements">Hardware Requirements</h2>
+<ul>
+<li>2 CPUs or more</li>
+<li>12GB of free memory</li>
+<li>20GB of free disk space</li>
+</ul>
+<h2 id="installing-the-helm-chart">Installing the helm chart</h2>
+<ul>
+<li>
+<p>Adding tsuru's helm chart</p>
+<ul>
+<li><code>helm repo add tsuru https://tsuru.github.io/charts</code>  </li>
+</ul>
+</li>
+<li>
+<p>Installing the chart</p>
+<ul>
+<li><code>helm install tsuru tsuru/tsuru-stack --create-namespace --namespace tsuru-system</code></li>
+</ul>
+</li>
+</ul>
+<p><strong><em>Congratulations you have tsuru installed and runnning on your cluster!</em></strong></p>
+<h2 id="admin-configuration">Admin Configuration</h2>
+<ol>
+<li>
+<p>Create the admin user on tsuru:</p>
+<p><code>kubectl exec -it -n tsuru-system deploy/tsuru-api -- tsurud root user create admin@admin.com</code></p>
+<blockquote>
+<p>You can replace <code>admin@admin.com</code> with any email you'd prefer</p>
+</blockquote>
+</li>
+<li>
+<p>Use Port-forward to access tsuru and ingress controller locally:</p>
+<p><code>kubectl port-forward --namespace tsuru-system svc/tsuru-api 8080:80 &amp;
+kubectl port-forward --namespace tsuru-system svc/tsuru-ingress-nginx-controller 8890:80 &amp;</code></p>
+<blockquote>
+<p>If you specified a port when you installed helm it will have to use the same port in tsuru-ingress-nginx-controller.</p>
+</blockquote>
+</li>
+<li>
+<p>Add the localhost to tsuru target and log in:</p>
+<p><code>tsuru target-add default https://localhost:8080 -s</code></p>
+<p><code>tsuru login</code></p>
+</li>
+<li>
+<p>Create a team:</p>
+<p><code>tsuru team create admin</code></p>
+</li>
+<li>
+<p>Add at least one platform:</p>
+<p><code>tsuru platform add go</code></p>
+<blockquote>
+<p>This is just an example, you could add python or other platforms i.e:</p>
+<p><code>tsuru platform add python</code></p>
+</blockquote>
+</li>
+</ol>
+<h2 id="optional-steps">Optional Steps</h2>
+<ul>
+<li>
+<p>Create and Deploy tsuru-dashboard app:</p>
+<p><code>tsuru app create dashboard</code></p>
+<p><code>tsuru app deploy -a dashboard --image tsuru/dashboard</code></p>
+</li>
+<li>
+<p>Create an app to test:</p>
+<p><code>mkdir example-go</code></p>
+<p><code>cd example-go</code></p>
+<p><code>git clone https://github.com/tsuru/platforms.git</code></p>
+<p><code>cd platforms/examples/go</code></p>
+<p><code>tsuru app create example-go go</code></p>
+<p><code>tsuru app deploy -a example-go</code></p>
+</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../make-local/" class="btn btn-neutral float-left" title="With Makefile"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../../references/tsuru.yaml/" class="btn btn-neutral float-right" title="tsuru.yaml">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/tsuru/tsuru/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../make-local/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../../references/tsuru.yaml/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../../..';</script>
+    <script src="../../../js/theme_extra.js" defer></script>
+    <script src="../../../js/theme.js" defer></script>
+      <script src="../../../search/main.js" defer></script>
+      <script src="../../../js/version-select.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
